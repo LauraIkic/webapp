@@ -52,6 +52,7 @@
         </div>
         -->
       </div>
+      <CovidInfobox />
       <div class="search">
         <input type="text" placeholder="Workshops und Events suchen" v-model="search">
       </div>
@@ -72,12 +73,12 @@
       <div v-if="workshops && workshops.length > 0" class="workshop-list">
         <transition-group name="list">
           <workshop-list-item
-            v-for="item in workshops"
-            :blok="item"
-            :key="item.id"
-            class="list-item"
-            :slim="false"
-            ></workshop-list-item>
+              v-for="item in workshops"
+              :blok="item"
+              :key="item.id"
+              class="list-item"
+              :slim="false"
+          ></workshop-list-item>
         </transition-group>
       </div>
       <div v-else class="workshop-list-none">
@@ -88,12 +89,13 @@
 </template>
 
 <script>
+import CovidInfobox from '~/components/CovidInfobox'
 import Checkbox from "~/components/Checkbox.vue";
 import moment from "moment";
 
 export default {
   components: {
-    Checkbox,
+    Checkbox, CovidInfobox
   },
   data () {
     return {
@@ -120,11 +122,11 @@ export default {
     update() {
       this.loading = true;
       let result = this.$store
-        .dispatch("findWorkshops", this.filters)
-        .then(data => {
-          this.loading = false;
-          this.workshops = data;
-        });
+          .dispatch("findWorkshops", this.filters)
+          .then(data => {
+            this.loading = false;
+            this.workshops = data;
+          });
     }
   },
   computed: {

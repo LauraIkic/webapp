@@ -4,7 +4,7 @@
     <div class="header">
       <div class="header-image" :style="{ 'background-image': 'url(' + item.content.image + ')' }"></div>
       <div class="header-title">
-        <h4>{{ item.content.title }}</h4>
+        <h4><vue-markdown>{{ item.content.title }}</vue-markdown></h4>
         <voting-button v-if="item.content.voting" is-on-detail="true" :uuid="item.uuid"></voting-button>
       </div>
     </div>
@@ -16,10 +16,13 @@
       </div>
       <div class="right-content">
         <div class="teaser">
-          {{ item.content.teaser }}
+          <vue-markdown>{{ item.content.teaser }}</vue-markdown>
+        </div>
+        <div class="video" v-if="item.content.video">
+          <iframe :src="item.content.video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div>
-          {{ item.content.text }}
+          <vue-markdown>{{ item.content.text }}</vue-markdown>
         </div>
 
       </div>
@@ -29,7 +32,7 @@
     </div>
     <div class="blogFeed-detail">
       <div v-if="item.content.contentBloks" v-for="i in item.content.contentBloks" class="right-content">
-        <span v-if="i.text" class="content-text">{{ i.text }}</span>
+        <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
         <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
       </div>
     </div>
@@ -80,9 +83,10 @@
 <script>
   import storyblokLivePreview from '@/mixins/storyblokLivePreview'
   import VotingButton from "../../../components/VotingButton";
+  import VueMarkdown from 'vue-markdown'
 
   export default {
-    components: {VotingButton},
+    components: { VotingButton, VueMarkdown },
     data() {
       return {
         // images: [],
@@ -101,7 +105,6 @@
     mixins: [storyblokLivePreview],
     asyncData(context) {
       return context.store.dispatch("loadNewsItem", context.route.params.slug).then(data => {
-        console.log(data.story)
         return {item: data.story};
       });
     },
@@ -118,7 +121,6 @@
         if (sources) {
           filter_query["source"] = {in: sources};
         }
-        console.log({filter_query});
         return {filter_query};
       },
     },
@@ -249,6 +251,8 @@
 
       .teaser {
         font-weight: bold;
+        font-size: 1.5rem;
+        margin: 0;
       }
 
       .link {
@@ -289,5 +293,12 @@
 
   .links {
     margin: 40px;
+  }
+  .video {
+    width: 40vw;
+    & * {
+      width: 100%;
+      height: 25vw;
+    }
   }
 </style>

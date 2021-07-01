@@ -6,39 +6,51 @@
     <div v-else>
       <div class="header-item">
         <div class="space">
-          <div class="headline">Werde GRAND GARAGE Mitglied</div>
-          <div class="subtitle" @click="login">
-            Bereits Mitglied? Zum Login.
+          <div class="headline">
+            <div>
+            <div class="back" @click="login">
+              <font-awesome-icon icon="angle-left" />
+            </div>
+              <span class="text">Werde GRAND GARAGE Mitglied</span>
+            </div>
+            <div class="close" @click="close">
+              <font-awesome-icon icon="times" />
+            </div>
           </div>
           <div class="info">
             Werde Teil einer lebendigen Community aus Kreativen, Makern und Start-ups!
             Ob Professional oder Starter – such' dir ganz einfach die für dich passende Mitgliedschaft aus und erhalte Zugang zur GRAND GARAGE.
           </div>
         </div>
-        <div class="close" @click="close">
-          <svg class="close-icon" viewBox="0 0 32 32">
-            <g>
-              <path d="M 5.5488281 3.8535156 A 2.0002 2.0002 0 0 0 4.15625 7.2890625 L 13.388672 16.519531 L 4.15625 25.751953 A 2.0002 2.0002 0 1 0 6.984375 28.580078 L 16.216797 19.347656 L 25.449219 28.580078 A 2.0002 2.0002 0 1 0 28.277344 25.751953 L 19.044922 16.519531 L 28.277344 7.2890625 A 2.0002 2.0002 0 0 0 26.824219 3.8554688 A 2.0002 2.0002 0 0 0 25.449219 4.4589844 L 16.216797 13.691406 L 6.984375 4.4589844 A 2.0002 2.0002 0 0 0 5.5488281 3.8535156 z " />
-            </g>
-          </svg>
-        </div>
       </div>
       <div class="form-item">
         <span class="label">Vorname</span>
-        <input type="text" v-model="firstName" placeholder="Vorname" @input="checkName" />
+        <input :class="{ red: this.invalidFields.includes('firstName')} "type="text" v-model="firstName" placeholder="Vorname" @input="checkName" />
       </div>
       <div class="form-item">
         <span class="label">Nachname</span>
-        <input type="text" v-model="lastName" placeholder="Nachname" @input="checkName" />
+        <input :class="{ red: this.invalidFields.includes('lastName')}" type="text" v-model="lastName" placeholder="Nachname" @input="checkName" />
       </div>
       <div class="form-item">
         <span class="label">E-Mail</span>
-        <input type="text" v-model="email" ref="email" placeholder="deine e-mail adresse" @input="checkMail" />
+        <input :class="{ red: this.invalidFields.includes('email') }" type="email" v-model="email" ref="email" placeholder="deine e-mail adresse" @input="checkMail" />
+      </div>
+      <div class="form-item">
+        <span class="label">Adresse</span>
+        <input :class="{ red: this.invalidFields.includes('address') }" type="text" v-model="address" ref="address" placeholder="Straße und Hausnummer" @input="checkAddress" />
+      </div>
+      <div class="form-item">
+        <span class="label">Stadt</span>
+        <input :class="{ red: this.invalidFields.includes('city') }" type="text" v-model="city" ref="city" placeholder="Stadt" @input="checkCity" />
+      </div>
+      <div class="form-item">
+        <span class="label">PLZ</span>
+        <input :class="{ red: this.invalidFields.includes('zip') }" type="text" v-model="zip" ref="zip" placeholder="Postleitzahl" @input="checkZip" />
       </div>
       <div class="form-item">
         <span class="label">Passwort</span>
         <div class="password-wrapper">
-          <input type="password" v-model="password" placeholder="" @input="checkPassword" />
+          <input :class="{ red: this.invalidFields.includes('password') }" type="password" v-model="password" placeholder="" @input="checkPassword" />
           <div v-if="!passwordValid" class="form-item password-status">
           </div>
         </div>
@@ -52,13 +64,13 @@
       </div>
       <div class="checkbox-item">
         <div class="checkbox-wrapper">
-          <input type="checkbox" id="agb" v-model="agb" />
+          <input :class="{ red: this.invalidFields.includes('agb') }" type="checkbox" id="agb" v-model="agb" />
         </div>
         <label for="agb">Ich habe die <nuxt-link target="_blank" to="/de/agb">Teilnahmebedingungen / AGB</nuxt-link> gelesen und bin damit einverstanden.</label>
       </div>
       <div class="checkbox-item">
         <div class="checkbox-wrapper">
-          <input type="checkbox" id="dsg" v-model="dsg" />
+          <input :class="{ red: this.invalidFields.includes('dsg') }" type="checkbox" id="dsg" v-model="dsg" />
         </div>
         <label for="dsg">Ich habe die <nuxt-link target="_blank" to="/de/datenschutzerklaerung">Datenschutzerklärung</nuxt-link> gelesen und bin damit einverstanden.</label>
       </div>
@@ -78,7 +90,7 @@
         </div>
       </div>
       <div class="form-item button-row">
-        <button :disabled="!formValid" @click="submit">Registrieren</button>
+        <button @click="submit">Registrieren</button>
       </div>
     </div>
   </div>
@@ -93,6 +105,9 @@ export default {
   data() {
     return {
       email: '',
+      address: '',
+      city: '',
+      zip: '',
       password: '',
       passwordRepeat: '',
       firstName: '',
@@ -103,6 +118,8 @@ export default {
       errorMessage: null,
       errorDescription: '',
       loading: false,
+      emailInvalid: false,
+      invalidFields: []
     }
   },
   computed: {
@@ -113,7 +130,7 @@ export default {
       return validator.isEmail(this.email);
     },
     formValid() {
-      return this.passwordValid && this.emailValid && this.agb && this.dsg;
+      return this.passwordValid && this.emailValid && this.agb && this.dsg && this.firstName && this.lastName && this.address && this.city && this.zip;
     },
     showEmailError() {
       return this.email !== '';
@@ -127,6 +144,37 @@ export default {
       this.$store.dispatch('setSidebar', null);
     },
     submit() {
+      if (!this.formValid) {
+        this.invalidFields.length = 0
+        if (!this.emailValid) {
+          this.invalidFields.push('email', true)
+        }
+        if (!this.firstName) {
+          this.invalidFields.push('firstName', true)
+        }
+        if (!this.lastName) {
+          this.invalidFields.push('lastName', true)
+        }
+        if (!this.address) {
+          this.invalidFields.push('address', true)
+        }
+        if (!this.city) {
+          this.invalidFields.push('city', true)
+        }
+        if (!this.zip) {
+          this.invalidFields.push('zip', true)
+        }
+        if (!this.password) {
+          this.invalidFields.push('password', true)
+        }
+        if (!this.agb) {
+          this.invalidFields.push('agb', true)
+        }
+        if (!this.dsg) {
+          this.invalidFields.push('dsg', true)
+        }
+        return
+      }
       this.loading = true;
       let data = {
         email: this.email,
@@ -134,6 +182,9 @@ export default {
         user_metadata: {
           firstName: this.firstName,
           lastName: this.lastName,
+          address: this.address,
+          city: this.city,
+          zip: this.zip
         }
       }
       this.$store.dispatch('registerUser', data).then((r) => {
@@ -174,6 +225,15 @@ export default {
     checkMail() {
       this.clearError();
     },
+    checkAddress() {
+      this.clearError();
+    },
+    checkCity() {
+      this.clearError();
+    },
+    checkZip() {
+      this.clearError();
+    },
     checkPassword() {
       this.clearError();
     },
@@ -183,7 +243,9 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/styles.scss";
-
+.red {
+  outline: 1px solid red !important;
+}
 .register-form {
   padding: 5vw;
   background-color: $color-bright-bg;
@@ -191,25 +253,29 @@ export default {
     display: flex;
     margin-bottom: 40px;
     & > div {
-      &.space {
-        flex: 1;
+      .back, .close {
+        display: inline-flex;
       }
-      &.close {
-        margin-left: 2em;
-        .close-icon {
-          cursor: pointer;
-          height: 1.1em;
-        }
+      .back:hover, .close:hover {
+        color: $color-orange;
+        cursor:pointer
       }
     }
     .headline {
+      & .text {
+        vertical-align: top;
+      }
+      & .back {
+        margin-right: 1em;
+      }
+      display: flex;
+      justify-content: space-between;
       font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 15px;
       font-family: $font-secondary;
     }
     .info {
-      margin: 20px 0;
       font-size: 0.9em;
       line-height: 1.3;
     }

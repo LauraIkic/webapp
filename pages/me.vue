@@ -3,18 +3,27 @@
       <div class="header">
         <h1 class="name">{{user.profile.firstName}} {{user.profile.lastName}}</h1>
         <code class="number">#{{user.profile.memberNumber}}</code>
-        <div class="spacer"></div>
-        <button @click="logout" class="logout-button">Logout</button>
       </div>
       <div class="tab-section">
         <div class="tab-section-menu">
-          <NuxtLink to="/me/">Mein Profil</NuxtLink>
-          <NuxtLink to="/me/packages">Packages</NuxtLink>
-          <!-- <NuxtLink to="/me/trainings">Unterweisungen</NuxtLink>-->
-          <NuxtLink to="/me/shop">Material bestellen</NuxtLink>
-          <NuxtLink to="/me/workshopBookings">Workshop-Buchungen</NuxtLink>
-          <!--<NuxtLink to="/me/invoices">Meine Rechnungen</NuxtLink>-->
-         <!-- <NuxtLink to="/me/log">Meine Aktivitäten</NuxtLink>-->
+          <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
+          <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
+<!--          <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span class="fat">Mitglied werden!</span></MenuLink>-->
+          <MenuLink to="/me/workshopBookings" icon="hammer">Meine Workshops</MenuLink>
+<!--          <MenuLink to="/me/trainings" icon="graduation-cap">Einschulungen</MenuLink>-->
+          <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
+          <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">Rechnungen</MenuLink>
+          <!-- <MenuLink to="/me/trainings">Unterweisungen</MenuLink>-->
+          <MenuLink to="/me/activities" icon="running">Aktivitäten</MenuLink>
+          <MenuLink to="/me/giftcards" icon="gift">Gutscheine</MenuLink>
+          <transition name="slide">
+            <div class="submenu" v-if="$route.name.startsWith('me-giftcards')">
+              <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">Gutschein kaufen</MenuLink>
+              <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen</MenuLink>
+            </div>
+          </transition>
+          <!--<MenuLink to="/me/invoices">Meine Rechnungen</MenuLink>-->
+         <!-- <MenuLink to="/me/log">Meine Aktivitäten</MenuLink>-->
         </div>
         <div class="tab-section-content">
           <NuxtChild :key="$route.params.slug"></NuxtChild>
@@ -24,19 +33,26 @@
 </template>
 
 <script>
+import MenuLink from '~/components/MenuLink'
 export default {
   middleware: 'authenticated',
+  components: { MenuLink },
   data () {
     return {
+      hasCompletedOnboarding: true
     }
   },
   created() {
+  },
+  async mounted () {
+    this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
   },
   methods: {
     getPackage(p) {
       let data = this.$store.getters.getPackageById(p.package);
       return { ...p, ...data };
     },
+
     getWorkshops(){
       // let data = this.$store.getters.getMemberCourseById(p);
     },
@@ -50,6 +66,9 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    isMember () {
+      return this.$store.state.user.packages.length > 0;
+    }
   }
 }
 </script>
@@ -101,6 +120,9 @@ export default {
       padding-top: 20px;
       width: 200px;
       flex: 1;
+      .submenu {
+        padding-left: 2.5em;
+      }
       a {
         color: #000;
         display: block;
@@ -121,6 +143,10 @@ export default {
         padding: 0 15px;
       }
     }
+  }
+  .fat {
+    color: $color-blue-alt;
+    font-weight: bolder;
   }
 }
 </style>
