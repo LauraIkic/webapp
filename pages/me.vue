@@ -9,11 +9,10 @@
           <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
           <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
           <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span class="fat">Mitglied werden!</span></MenuLink>
+          <MenuLink to="/me/trainings" icon="graduation-cap">Einschulungen</MenuLink>
           <MenuLink to="/me/workshopBookings" icon="hammer">Meine Workshops</MenuLink>
-<!--          <MenuLink to="/me/trainings" icon="graduation-cap">Einschulungen</MenuLink>-->
           <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
           <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">Rechnungen</MenuLink>
-          <!-- <MenuLink to="/me/trainings">Unterweisungen</MenuLink>-->
           <MenuLink to="/me/activities" icon="running">Aktivitäten</MenuLink>
           <MenuLink to="/me/giftcards" icon="gift">Gutscheine</MenuLink>
           <transition name="slide">
@@ -22,8 +21,6 @@
               <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen</MenuLink>
             </div>
           </transition>
-          <!--<MenuLink to="/me/invoices">Meine Rechnungen</MenuLink>-->
-         <!-- <MenuLink to="/me/log">Meine Aktivitäten</MenuLink>-->
         </div>
         <div class="tab-section-content">
           <NuxtChild :key="$route.params.slug"></NuxtChild>
@@ -42,32 +39,32 @@ export default {
       hasCompletedOnboarding: true
     }
   },
-  created() {
+  created () {
   },
   async mounted () {
     this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
   },
   methods: {
-    getPackage(p) {
-      let data = this.$store.getters.getPackageById(p.package);
-      return { ...p, ...data };
+    getPackage (p) {
+      const data = this.$store.getters.getPackageById(p.package)
+      return { ...p, ...data }
     },
 
-    getWorkshops(){
+    getWorkshops () {
       // let data = this.$store.getters.getMemberCourseById(p);
     },
-    logout() {
+    logout () {
       this.$store.dispatch('logout').then(() => {
-        this.$router.push('/');
-      });
-    },
+        this.$router.push('/')
+      })
+    }
   },
   computed: {
-    user() {
-      return this.$store.state.user;
+    user () {
+      return this.$store.state.user
     },
     isMember () {
-      return this.$store.state.user.packages.length > 0;
+      return this.$store.state.user.packages.length > 0
     }
   }
 }
