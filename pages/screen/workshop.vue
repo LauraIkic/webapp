@@ -1,18 +1,24 @@
 <template>
   <section class="workshop-overview">
     <div class="workshop-list-wrapper">
-      <div v-if="workshops && workshops.length > 0" class="workshop-list">
+      <div
+        v-if="workshops && workshops.length > 0"
+        class="workshop-list"
+      >
         <transition-group name="list">
           <workshop-list-item
             v-for="item in workshops"
-            :blok="item"
             :key="item.id"
+            :blok="item"
             class="list-item"
             :slim="true"
-            ></workshop-list-item>
+          />
         </transition-group>
       </div>
-      <div v-else class="workshop-list-none">
+      <div
+        v-else
+        class="workshop-list-none"
+      >
         <code>Keine Suchergebnisse</code>
       </div>
     </div>
@@ -20,13 +26,29 @@
 </template>
 
 <script>
-import Checkbox from "~/components/Checkbox.vue";
-import moment from "moment";
+import moment from 'moment'
 
 export default {
   layout: 'screen',
-  components: {
-    Checkbox,
+  async asyncData (context) {
+    // let tags = await context.store.dispatch("loadTags");
+    const filters = {
+      filter_query: {
+        component: {
+          in: 'workshop-date'
+        },
+        starttime: {
+          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+        }
+      }
+    }
+    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
+      if (data) {
+        return { workshops: data }
+      }
+      return { workshops: [] }
+    })
+    return { ...workshops }
   },
   data () {
     return {
@@ -36,67 +58,47 @@ export default {
       tags: []
     }
   },
-  created() {
+  computed: {
+    selectedCategories () {
+      return this.categories.filter((c) => {
+        return c.value
+      }).map((v) => {
+        return v.key
+      })
+    },
+    filters () {
+      const filterQuery = {
+        component: {
+          in: 'workshop-date'
+        },
+        starttime: {
+          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+        }
+      }
+      return {
+        filterQuery,
+        search_term: this.search
+      }
+    }
   },
   watch: {
-    search() {
-      this.update();
+    search () {
+      this.update()
     }
+  },
+  created () {
   },
   methods: {
-    update() {
-      this.loading = true;
-      let result = this.$store
-        .dispatch("findWorkshops", this.filters)
+    update () {
+      this.loading = true
+      this.$store
+        .dispatch('findWorkshops', this.filters)
         .then(data => {
-          this.loading = false;
-          this.workshops = data;
-        });
+          this.loading = false
+          this.workshops = data
+        })
     }
-  },
-  computed: {
-    selectedCategories() {
-      return this.categories.filter((c) => {
-        return c.value;
-      }).map((v) => {
-        return v.key;
-      });
-    },
-    filters() {
-      let filter_query = {
-        component: {
-          in: "workshop-date"
-        },
-        starttime: {
-          "gt-date": moment().subtract(24, "hours").format("YYYY-MM-DD HH:mm")
-        }
-      };
-      return {
-        filter_query,
-        search_term: this.search,
-      }
-    }
-  },
-  async asyncData (context) {
-    //let tags = await context.store.dispatch("loadTags");
-    let filters = {
-      filter_query: {
-        component: {
-          in: "workshop-date"
-        },
-        starttime: {
-          "gt-date": moment().subtract(24, "hours").format("YYYY-MM-DD HH:mm")
-        }
-      }
-    };
-    let workshops = await context.store.dispatch("findWorkshops", filters).then((data) => {
-      if (data) {
-        return { workshops: data };
-      }
-      return { workshops: [] };
-    });
-    return {...workshops};
-  },
+  }
 }
 </script>
 
@@ -129,7 +131,7 @@ export default {
             color: #FFF;
             &:hover {
               cursor: pointer;
-              color: 000;
+              color: #000;
               background-color: $color-yellow;
             }
           }

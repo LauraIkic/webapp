@@ -2,20 +2,18 @@
   <div>
     <div class="screen-container">
       <main id="main" role="main">
-      <nuxt/>
+        <nuxt/>
       </main>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>
 
 <style lang="scss">
 @import '../assets/scss/styles.scss';
-
 
 body {
   background-color: $color-bright-bg;
@@ -41,13 +39,16 @@ a {
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
   opacity: 0;
 }
 
 .page-enter-active, .page-leave-active {
   transition: all .30s ease-out;
 }
+
 .page-enter, .page-leave-active {
   opacity: 0;
   transform-origin: 50% 50%;
@@ -62,7 +63,6 @@ a {
   display: block;
 }
 
-
 h3 {
   margin-top: 1em;
   font-weight: bold;
@@ -74,6 +74,7 @@ h3 {
 
 .form {
   margin: 0 1em 2em;
+
   .form-item {
     display: grid;
     @include media-breakpoint-up(sm) {
@@ -88,8 +89,9 @@ h3 {
       font-weight: bold;
       text-transform: uppercase;
       font-size: .7em;
-      margin:  7px 10px 0 0;
+      margin: 7px 10px 0 0;
     }
+
     .input-text, .input-textarea {
       outline: none;
       border: 1px solid #fff;
@@ -101,10 +103,12 @@ h3 {
       @include media-breakpoint-down(xs) {
         margin: 1vh 0;
       }
+
       &:focus {
         border-color: $color-orange;
       }
     }
+
     .input-textarea {
       height: 10em;
       min-height: 30vh;
@@ -112,8 +116,10 @@ h3 {
       resize: vertical;
     }
   }
+
   .button-row {
     text-align: right;
+
     .input-button-primary {
       cursor: pointer;
       background-color: $color-orange;
@@ -123,13 +129,16 @@ h3 {
       padding: 7px 12px 8px;
       line-height: 1;
       outline: none;
+
       &:focus {
         background-color: lighten($color-orange, 10);
       }
     }
   }
+
   .body {
     flex: 3;
+
     textarea,
     input {
       width: 100%;

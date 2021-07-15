@@ -26,7 +26,6 @@ import TopHeader from '~/components/TopHeader.vue'
 import Modal from '~/components/Modal'
 import BottomFooter from '~/components/BottomFooter.vue'
 import Sidebar from '~/components/Sidebar.vue'
-import Breadcrumbs from '~/components/Breadcrumbs.vue'
 
 export default {
   data: () => ({
@@ -36,16 +35,15 @@ export default {
     TopHeader,
     BottomFooter,
     Sidebar,
-    Breadcrumbs,
     Modal
   },
   computed: {
-    isAuthenticated() {
-      return !!this.$store.state.auth;
+    isAuthenticated () {
+      return !!this.$store.state.auth
     }
   },
   mounted () {
-    const hasSeenPopup = sessionStorage.getItem('hasSeenPopup');
+    const hasSeenPopup = sessionStorage.getItem('hasSeenPopup')
     if (!hasSeenPopup) {
       this.modalVisible = true
     }
@@ -92,7 +90,6 @@ a {
   transform-origin: 50% 50%;
 }
 
-
 .layout-container {
   margin-top: 65px;
   overflow: hidden;
@@ -102,7 +99,6 @@ a {
   height: 26px;
   display: block;
 }
-
 
 h3 {
   margin-top: 1em;

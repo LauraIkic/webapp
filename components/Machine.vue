@@ -1,13 +1,20 @@
 <template>
-  <div v-editable="machine" class="machine-page" v-if="machine">
-    <machine-header :story="story"></machine-header>
+  <div
+      v-if="machine"
+      v-editable="machine"
+      class="machine-page"
+  >
+    <machine-header :story="story"/>
     <div class="machine-teaser">
       <div class="body">
         <div class="image">
-          <img :src="$resizeImage(machine.image, '700x0')" alt=""/>
+          <img
+              :src="$resizeImage(machine.image, '700x0')"
+              alt=""
+          >
         </div>
         <div class="description text">
-          <markdown :value="machine.details"></markdown>
+          <markdown :value="machine.details"/>
         </div>
       </div>
     </div>
@@ -18,13 +25,28 @@
           <markdown :value="machine.description"></markdown>
         </div>
         -->
-        <div class="machine-list" v-if="hasUser">
-          <div class="machine-item" v-for="m in machine.machine_status_items">
-            <machine-status v-if="!singleMachine" class="status" :id="m.fabmanId" :name="m.name"></machine-status>
-            <machine-calendar :id="m.fabmanId"></machine-calendar>
+        <div
+            v-if="hasUser"
+            class="machine-list"
+        >
+          <div
+              :key="m.id"
+              v-for="m in machine.machine_status_items"
+              class="machine-item"
+          >
+            <machine-status
+                v-if="!singleMachine"
+                :id="m.fabmanId"
+                class="status"
+                :name="m.name"
+            />
+            <machine-calendar :id="m.fabmanId"/>
           </div>
         </div>
-        <div v-else class="machine-list">
+        <div
+            v-else
+            class="machine-list"
+        >
           <div class="machine-list-warning">
             Du musst angemeldet sein um die Verfügbarkeit der Maschinen sehen zu können!
           </div>
@@ -32,16 +54,29 @@
       </div>
     </div>
     <div class="body">
-      <image-slideshow :blok="images"></image-slideshow>
+      <image-slideshow :blok="images"/>
     </div>
-    <div class="body" v-if="machine.links && machine.links.length > 0">
-      <h3 class="blue">Links</h3>
+    <div
+        v-if="machine.links && machine.links.length > 0"
+        class="body"
+    >
+      <h3 class="blue">
+        Links
+      </h3>
       <ul class="link-list">
-        <li class="link-item" v-for="(i, index) in machine.links" v-bind:key="index">
+        <li
+            v-for="(i, index) in machine.links"
+            :key="index"
+            class="link-item"
+        >
           <div class="title">
-            {{i.title}}
+            {{ i.title }}
           </div>
-          <a class="url" :href="i.url" target="_blank">{{i.url}}</a>
+          <a
+              class="url"
+              :href="i.url"
+              target="_blank"
+          >{{ i.url }}</a>
         </li>
       </ul>
     </div>
@@ -49,31 +84,31 @@
 </template>
 
 <script>
-import MachineStatus from '@/components/MachineStatus';
-import MachineCalendar from '@/components/MachineCalendar';
-import MachineHeader from '@/components/MachineHeader';
+import MachineStatus from '@/components/MachineStatus'
+import MachineCalendar from '@/components/MachineCalendar'
+import MachineHeader from '@/components/MachineHeader'
 
 export default {
   components: {
     MachineHeader,
     MachineStatus,
-    MachineCalendar,
+    MachineCalendar
   },
   props: ['story'],
   computed: {
-    machine() {
-      return this.story.content;
+    machine () {
+      return this.story.content
     },
-    tags() {
-      return this.story.tag_list;
+    tags () {
+      return this.story.tag_list
     },
-    hasUser() {
-      return !!this.$store.state.user;
+    hasUser () {
+      return !!this.$store.state.user
     },
-    singleMachine() {
-      return this.machine && this.machine.machine_status_items && this.machine.machine_status_items.length == 1;
+    singleMachine () {
+      return this.machine && this.machine.machine_status_items && this.machine.machine_status_items.length === 1
     },
-    images() {
+    images () {
       return {
         items: this.machine.images
       }
@@ -91,18 +126,22 @@ export default {
       color: $color-blue;
     }
   }
+
   .machine-teaser {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     .title {
       text-transform: uppercase;
     }
+
     .body {
       display: flex;
       @include media-breakpoint-down(md) {
         flex-direction: column;
       }
+
       .text {
         flex: 2;
         display: flex;
@@ -115,6 +154,7 @@ export default {
           line-height: 1.4;
         }
       }
+
       .image {
         padding: 0 3em;
         flex: 1;
@@ -123,6 +163,7 @@ export default {
           padding-left: 0;
         }
         padding-right: 0;
+
         img {
           margin: auto;
           display: block;
@@ -132,10 +173,12 @@ export default {
       }
     }
   }
+
   .body {
     font-family: $font-mono;
     margin: 0 4%;
     margin-bottom: 1em;
+
     .headline {
       text-transform: uppercase;
       font-family: $font-primary;
@@ -149,26 +192,32 @@ export default {
       line-height: 1.24;
       margin-bottom: 4vh;
     }
+
     .description {
       font-size: .9rem;
       line-height: 2.2;
       margin-bottom: 4vh;
     }
+
     .inner-body {
       display: flex;
+
       .description {
         flex: 2;
       }
+
       .machine-list {
         margin-top: 3em;
         flex: 1;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+
         .machine-item {
           max-width: 750px;
           flex: 1;
         }
+
         .machine-list-warning {
           max-width: 400px;
           padding: 10px;
@@ -176,6 +225,7 @@ export default {
         }
       }
     }
+
     .link-list {
       color: $color-blue;
       display: block;
@@ -183,6 +233,7 @@ export default {
       padding: 1em;
       padding-left: 0;
       max-width: 80em;
+
       .link-item {
         word-break: break-all;
         list-style-type: none;
@@ -190,14 +241,17 @@ export default {
         margin-bottom: 4vh;
         font-size: 1.1rem;
         line-height: 1.4;
+
         .title {
           font-weight: 700;
           text-transform: uppercase;
         }
+
         .url {
           color: $color-blue;
           font-size: 0.9rem;
           font-family: $font-mono;
+
           &:hover {
             text-decoration: underline;
           }

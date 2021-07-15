@@ -1,8 +1,9 @@
 <template>
   <div class="section">
-    <h2>Yeah! Der erste Schritt zur GRAND GARAGE Membership ist geschafft!</h2>
-    Jetzt musst du nur noch zum Frontdesk kommen um dein SEPA-Mandat zu unterzeichnen und deine Mitgliedschaft abzuschließen. Nimm hierzu bei einer ermäßigten Mitgliedschaft unbedingt deinen Ausweis mit.<br><br>
-    Absolviere außerdem jetzt gleich die digitale ASU (Allgemeine Sicherheits-Unterweisung) um sofort in der Werkstatt durchstarten zu können. Einfach auf den folgenden Button klicken und loslegen!<br><br>
+    <h2>Gratulation!</h2>
+    <img class="icon" src="~/assets/img/icons/envelope.svg" alt="">
+    Der erste Schritt zum GRAND GARAGE Membership ist geschafft!<br>
+    Um deine Mitgliedschaft abzuschließen kannst du hier die allgemeine Sicherheitsunterweisung abschließen.
   </div>
 </template>
 <script>
