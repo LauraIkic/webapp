@@ -25,7 +25,6 @@
     </div>
   </div>
 </template>
-<!-- TEST -->
 <script>
 export default {
   props: ['blok']
