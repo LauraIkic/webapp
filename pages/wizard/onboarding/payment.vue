@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div class="section onboarding-wizard">
     <h2>Wie möchtest du zahlen?</h2>
     <div class="options">
@@ -25,7 +25,7 @@
     <form class="form wizard">
       <div class="form-item">
         <span class="label">IBAN</span>
-        <input class="input-text" type="text" v-model="onboardingData.payment.iban" name="" id=""/>
+        <input class="input-text" type="text" v-model="onboardingData.payment.iban" name="" id=" "/>
         <div>
           <font-awesome-icon class="ibanIcon success" v-if="ibanIsValid" icon="check-circle" />
           <font-awesome-icon class="ibanIcon" v-else icon="times-circle" />
@@ -34,13 +34,14 @@
       <div class="form-item ibanFormItem">
         <span class="label">Name der Bank</span>
         <input class="input-text" type="text" v-model="onboardingData.payment.bank" name="" id=""/>
-        <span class="bankSpacer" />
+        <span class="bankSpacer"/>
       </div>
     </form>
 
     <div class="wizard-checkbox">
       <label>
-        <input type="checkbox" v-model="onboardingData.sepaAccepted">Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.</Checkbox>
+        <input type="checkbox" v-model="onboardingData.sepaAccepted">Meine Mitgliedsbeiträge und zusätzlich anfallende
+        Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.
       </label>
     </div>
 
@@ -48,8 +49,8 @@
 </template>
 
 <script>
-import IBAN from 'iban';
-import Checkbox from "~/components/Checkbox.vue";
+import IBAN from 'iban'
+import Checkbox from '~/components/Checkbox.vue'
 const FREQS = {
   monthly: 1,
   annually: 2
@@ -87,12 +88,12 @@ export default {
       this.onboardingData.ibanIsValid = isValid
       return isValid
     }
-  },
+  }
 }
 </script>
 
-<style lang="scss">
-@import '@/assets/scss/styles.scss';
+<style lang="scss" scoped>
+@import '/assets/scss/styles.scss';
 
 .onboarding-wizard {
   width: 100%;

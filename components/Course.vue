@@ -125,7 +125,6 @@ export default {
   height: 24em;
   position: relative;
   border: 1px solid black;
-
   .spinnerContainer {
     position: absolute;
     display: flex;
@@ -134,10 +133,10 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 2em;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0,0,0,0.5);
     z-index: 1;
   }
-}
+
   .body {
     // display: flex;
     .content {
@@ -260,6 +259,8 @@ export default {
     font-weight: bold;
     // background-color: #ff4400;
   }
+
+}
 
 .clickable {
   cursor: pointer;

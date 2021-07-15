@@ -27,40 +27,41 @@
 </template>
 
 <script>
-import storyblokLivePreview from "@/mixins/storyblokLivePreview";
+import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 
 export default {
-  data() {
+  data () {
     return {
       story: null
-    };
+    }
   },
   mixins: [storyblokLivePreview],
-  async asyncData(context) {
-    let team = await context.store
-      .dispatch("loadTeam")
+  async asyncData (context) {
+    const team = await context.store
+      .dispatch('loadTeam')
       .catch(e => {
         context.error({
           statusCode: e.response.status,
           message: e.response.statusText
-        });
+        })
       })
       .then(res => {
-        return { members: res.stories };
-      });
-    let page = await context.store.dispatch("loadPage", "/team").catch(e => {
+        return { members: res.stories }
+      })
+    const page = await context.store.dispatch('loadPage', '/team').catch(e => {
       context.error({
         statusCode: e.response.status,
         message: e.response.statusText
-      });
-    });
-    return { ...team, ...page };
+      })
+    })
+    return { ...team, ...page }
   }
-};
+}
 </script>
 
-<style lang="scss">
-@import "@/assets/scss/styles.scss";
+<style lang="scss" >
+@import '/assets/scss/styles.scss';
+
 .team-wrapper {
   padding-left: 15%;
   padding-top: 15%;

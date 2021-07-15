@@ -39,132 +39,132 @@
 </template>
 
 <script>
-    import moment from "moment";
-    import Checkbox from "~/components/Checkbox.vue";
-    import Loading from "~/components/Loading.vue";
+import moment from 'moment'
+import Checkbox from '~/components/Checkbox.vue'
+import Loading from '~/components/Loading.vue'
 
-    export default {
-        components: {
-            Checkbox,
-            Loading
-        },
-        props: ['item'],
-        data() {
-            return {
-                news: [],
-                root: null,
-                loading: false,
-                sources: [
-                    {name: "magazin3", key: "m3", selected: false},
-                    {name: "youtube", key: "yt", selected: false},
-                    {name: "facebook", key: "fb", selected: false},
-                    {name: "twitter", key: "tw", selected: false},
-                    {name: "instagram", key: "ig", selected: false}
-                ],
-                url: null,
-            };
-        },
-        created() {
-            this.$watch("sources", this.update, {deep: true});
-            for (let i = 0; i < this.items.length; i++) {
-                for (let j = 0; j < this.items[i].items.length; j++) {
-                    if (this.items[i].items[j].name == 'Header') {
-                        this.url = this.items[i].items[j].content.image;
-                    }
-                }
-            }
-
-        },
-        async asyncData(context) {
-            let filters = {
-                filter_query: {
-                    component: {
-                        in: "news-overview"
-                    }
-                }
-            };
-            /*root = context.store.dispatch("loadPage", "/news").then(data => {
+export default {
+  components: {
+    Checkbox,
+    Loading
+  },
+  props: ['item'],
+  data () {
+    return {
+      news: [],
+      root: null,
+      loading: false,
+      sources: [
+        { name: 'magazin3', key: 'm3', selected: false },
+        { name: 'youtube', key: 'yt', selected: false },
+        { name: 'facebook', key: 'fb', selected: false },
+        { name: 'twitter', key: 'tw', selected: false },
+        { name: 'instagram', key: 'ig', selected: false }
+      ],
+      url: null
+    }
+  },
+  created () {
+    this.$watch('sources', this.update, { deep: true })
+    for (let i = 0; i < this.items.length; i++) {
+      for (let j = 0; j < this.items[i].items.length; j++) {
+        if (this.items[i].items[j].name == 'Header') {
+          this.url = this.items[i].items[j].content.image
+        }
+      }
+    }
+  },
+  async asyncData (context) {
+    const filters = {
+      filter_query: {
+        component: {
+          in: 'news-overview'
+        }
+      }
+    }
+    /* root = context.store.dispatch("loadPage", "/news").then(data => {
                         return data.stories ;
                       }).catch(e => {
                         context.error({
                           statusCode: e.response.status,
                           message: e.response.statusText
                         });
-                      });*/
-            let news = await context.store.dispatch("findNews", filters).then(data => {
-                return data.stories;
-            });
-            let votes = await context.store.dispatch('getVotesByUuids', {uuids: news.map(o => o['uuid'])}).then(r => {
-                for (const [key, value] of Object.entries(r)) {
-                    news.forEach(newsEntry => {
-                        if (newsEntry.uuid == key) {
-                            newsEntry.count = value;
-                        }
-                    })
-                }
-            });
+                      }); */
+    const news = await context.store.dispatch('findNews', filters).then(data => {
+      return data.stories
+    })
+    const votes = await context.store.dispatch('getVotesByUuids', { uuids: news.map(o => o.uuid) }).then(r => {
+      for (const [key, value] of Object.entries(r)) {
+        news.forEach(newsEntry => {
+          if (newsEntry.uuid == key) {
+            newsEntry.count = value
+          }
+        })
+      }
+    })
 
-            return {news};
-        },
-        methods: {
-            update() {
-                this.loading = true;
-                let result = this.$store.dispatch("findNews", this.filters).then(data => {
-                    this.loading = false;
-                    this.news = data.stories;
-                }).catch((e) => {
-                    this.loading = false;
-                });
-            },
-        },
-        computed: {
-            items() {
-                let list = [];
-                let temp = [];
-                let currentMonth = null;
-                let m = null;
-                if (!this.news || !this.news.length || this.news.length == 0) {
-                    return [];
-                }
+    return { news }
+  },
+  methods: {
+    update () {
+      this.loading = true
+      const result = this.$store.dispatch('findNews', this.filters).then(data => {
+        this.loading = false
+        this.news = data.stories
+      }).catch((e) => {
+        this.loading = false
+      })
+    }
+  },
+  computed: {
+    items () {
+      const list = []
+      let temp = []
+      let currentMonth = null
+      let m = null
+      if (!this.news || !this.news.length || this.news.length == 0) {
+        return []
+      }
 
-                this.news.forEach((n) => {
-                    //n.count = this.votes[n.uuid];
-                    if (currentMonth != moment(n.content.datetime).month()) {
-                        if (currentMonth != null) {
-                            list.push({items: temp, label: m.locale('de-at').format('MMMM')});
-                            temp = [];
-                        }
-                        m = moment(n.content.datetime);
-                        currentMonth = m.month();
-                    }
-                    if (n.name == 'Header') {
-                        this.url = n.content.image;
-                        console.log(this.url);
-                    }
-                    temp.push({type: 'item', ...n});
-                });
-                list.push({items: temp, label: m.locale('de-at').format('MMMM')});
-                return list;
-            },
-            filters() {
-                const sources = this.sources
-                    .filter(i => i.selected)
-                    .map(i => i.key)
-                    .join(",");
-                const filter_query = {
-                    component: {in: "news-overview"}
-                };
-                if (sources) {
-                    filter_query["source"] = {in: sources};
-                }
-                return {filter_query};
-            }
+      this.news.forEach((n) => {
+        // n.count = this.votes[n.uuid];
+        if (currentMonth != moment(n.content.datetime).month()) {
+          if (currentMonth != null) {
+            list.push({ items: temp, label: m.locale('de-at').format('MMMM') })
+            temp = []
+          }
+          m = moment(n.content.datetime)
+          currentMonth = m.month()
         }
-    };
+        if (n.name == 'Header') {
+          this.url = n.content.image
+          console.log(this.url)
+        }
+        temp.push({ type: 'item', ...n })
+      })
+      list.push({ items: temp, label: m.locale('de-at').format('MMMM') })
+      return list
+    },
+    filters () {
+      const sources = this.sources
+        .filter(i => i.selected)
+        .map(i => i.key)
+        .join(',')
+      // eslint-disable-next-line camelcase
+      const filter_query = {
+        component: { in: 'news-overview' }
+      }
+      if (sources) {
+        filter_query.source = { in: sources }
+      }
+      return { filter_query }
+    }
+  }
+}
 </script>
 
-<style lang="scss">
-    @import "@/assets/scss/styles.scss";
+<style lang="scss" scoped>
+@import '/assets/scss/styles.scss';
 
     .blog-wrapper {
         padding-left: 15%;

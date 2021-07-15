@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Checkbox from "~/components/Checkbox.vue";
+import Checkbox from '~/components/Checkbox.vue';
 export default {
   middleware: 'authenticated',
   props: {
@@ -71,7 +71,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
+
 .form {
   margin-left: -6em;
 }

@@ -51,8 +51,10 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-@import "@/assets/scss/styles.scss";
+
+<style lang="scss" scoped>
+@import '/assets/scss/styles.scss';
+
 .modal {
   z-index: 1001;
   display: flex;
@@ -77,7 +79,7 @@ export default {
     padding: 3em;
     background: white;
     width: 40em;
-    height: 18m;
+    height: 18em;
     text-align: center;
     font-family: $font-mono;
     @include media-breakpoint-down(sm) {

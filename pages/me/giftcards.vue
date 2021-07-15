@@ -9,17 +9,20 @@
     <template v-if="!action">
       <selection class="items">
         <section class="display-item">
-          <div class="buy-button"
-               @click="$router.push('giftcards?action=buy')">
-            Gutschein kaufen
+          <div class="bottom">
+            <div class="buy-button"
+                 @click="$router.push('giftcards?action=buy')">
+              Gutschein kaufen
+            </div>
           </div>
         </section>
         <section class="display-item">
+          <div class="bottom">
           <div class="redeem-button"
                @click="$router.push('giftcards?action=redeem')">
             Gutschein einlösen
           </div>
-        </section>
+          </div></section>
       </selection>
     </template>
 
@@ -51,7 +54,7 @@
               </select>
             </div>
 
-            <div class="input">
+<!--            <div class="input">
               <span> Extras: </span>
               <select
                   v-model="selectedExtra"
@@ -67,12 +70,12 @@
                   Deluxe-Box - 25€
                 </option>
               </select>
-            </div>
+            </div>-->
 
             <div class="buttons">
               <button
                   class="input-button-primary"
-                  :disabled="!selectedProduct || !selectedExtra"
+                  :disabled="!selectedProduct"
                   @click="step++"
               >
                 Weiter...
@@ -414,6 +417,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .display-item {
@@ -423,18 +427,49 @@ export default {
   height: 24em;
   position: relative;
   border: 1px solid black;
+  color:white;
+
+  .bottom {
+    background: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    bottom: 0;
+    height: 7em;
+    width: 100%;
+  }
 
   .buy-button {
-    cursor: pointer;
-    background-color: #ff6f00;
-    color: #FFF;
-    border: 1px solid #ff8c33;
-    padding: 7px 12px 8px;
-    line-height: 1;
-    outline: none;
-    align-self: center;
-    margin-top: 20px;
+    width: 100%;
+    background: black;
+    color: white;
+    height: 5.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-family: $font-mono;
   }
+  .redeem-button {
+    width: 100%;
+    background: black;
+    color: white;
+    height: 5.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-family: $font-mono;
+  }
+}
+.display-item:hover .buy-button {
+  border-top: 1px solid white;
+  background: $color-orange;
+}
+.display-item:hover .redeem-button {
+  border-top: 1px solid white;
+  background: $color-orange;
 }
 
 .form-item {

@@ -15,7 +15,7 @@
       <div class="wizard-section-menu">
         <div class="steps">
           <div
-            v-for="s,i in steps"
+            v-for="s, i in steps"
             class="step"
             :class="{ 'icon': index > i, 'color': index >= i}"
           >
@@ -201,8 +201,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '@/assets/scss/styles.scss';
+<style lang="scss" scoped>
+@import '/assets/scss/styles.scss';
 
 .wizard {
   margin: 0 4%;

@@ -219,7 +219,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .header-wrapper {
   background-color: $color-bright-bg;
@@ -237,7 +237,7 @@ export default {
     flex-flow: row nowrap;
     justify-content: flex-end;
     align-items: center;
-    background-color: $color-blue-alt;
+    background-color: $color-primary;
     padding: 5px;
     color: #FFF;
     font-size: 0.85em;
