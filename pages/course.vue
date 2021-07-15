@@ -64,14 +64,14 @@
           <template v-if="i === activeQuestion && !overview">
             <div class="question-header">
               <img
-                  v-if="q.imagePath != 'https://connector.grandgarage.eu/storage/'"
+                  v-if="q.imagePath !== 'https://connector.grandgarage.eu/storage/'"
                   :src="q.imagePath"
                   alt=""
               >
               <div class="title">
                 <h3>{{ q.title }}</h3>
                 <p
-                    v-if="q.description != '_'"
+                    v-if="q.description !== '_'"
                     class="quiz-description"
                 >
                   {{ q.description }}
@@ -189,6 +189,7 @@
           </button>
         </div>
       </div>
+
     </div>
     <div
         v-if="done"
@@ -199,7 +200,7 @@
       </h2>
       <div class="separator"/>
       <div
-          v-if="score == 1"
+          v-if="score === 1"
           class="result"
       >
         <p>Gratuliere! Du hast den Test bestanden!</p>
@@ -350,6 +351,7 @@ export default {
         answers: this.answers
       }
       const endpoint = this.isPublic ? 'savePublicQuiz' : 'saveQuiz'
+
       this.$store.dispatch(endpoint, data).then((result) => {
         this.done = true
         this.score = result.score
@@ -379,6 +381,20 @@ export default {
     //   link.href = URL.createObjectURL(blob)
     //   link.click()
     // }
+  },
+  computed: {
+    memberCourse() {
+      return this.$store.getters.getMemberCourseById(this.id);
+    },
+    pdfUrl () {
+      if (this.quiz && this.quiz.pdf) {
+        return this.$store.getters.getStorageUrl + this.quiz.pdf
+      }
+    }
+  },
+  async created () {
+    this.id = this.$route.query.id
+    this.quiz = await this.$store.dispatch('getQuiz', this.id)
   }
 }
 </script>
@@ -394,24 +410,24 @@ export default {
   .container {
     display: flex;
     flex-direction: column;
+
   }
 
   .name {
     align-self: center;
-    background-color: $color-blue;
+    background-color: black;
     color: #fff;
     margin: 0;
     padding: 5px 10px;
     text-align: center;
     white-space: nowrap;
-    width: 25%;
     @include media-breakpoint-down(sm) {
       width: 75%;
     }
   }
 
   .separator {
-    border-bottom: 2px dashed #0050ff;
+    border-bottom: 2px dashed black;
     width: 100%;
     margin-top: -1em;
     z-index: -1;
@@ -473,12 +489,12 @@ export default {
         padding: 25px;
         margin: 10px;
         align-items: center;
+        min-height: 12em;
         @include media-breakpoint-up(sm) {
           width: 50%;
         }
 
         input[type="checkbox"] {
-
           padding-right: 70%;
         }
 

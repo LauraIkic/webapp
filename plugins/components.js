@@ -49,7 +49,7 @@ import SpotlightSlider from '~/components/SpotlightSlider.vue'
 import TextImage from '~/components/TextImage.vue'
 import Text from '~/components/Text.vue'
 
-import LinksSlideshow from "../components/LinksSlideshow";
+import LinksSlideshow from '../components/LinksSlideshow'
 
 import LoginForm from '~/components/LoginForm.vue'
 import RegisterForm from '~/components/RegisterForm.vue'
@@ -101,11 +101,11 @@ Vue.component('info-box', InfoBox)
 Vue.component('news-feed-item', NewsFeedItem)
 Vue.component('workshop-best-of', WorkshopBestOf)
 Vue.component('workshop-preview', WorkshopPreview)
+
 Vue.component('workshop-header', WorkshopHeader)
 Vue.component('workshop-info', WorkshopInfo)
 Vue.component('workshop-dates', WorkshopDates)
 Vue.component('workshop-list-item', WorkshopListItem)
-
 Vue.component('corporate-content', CorporateContent)
 
 Vue.component('event-list-item', EventListItem)
@@ -148,7 +148,6 @@ Vue.component('price-table-item', PriceTableItem)
 
 Vue.component('level-slider', LevelSlider)
 Vue.component('level-item', LevelItem)
-
 
 Vue.component('location-description', LocationDescription)
 

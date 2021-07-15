@@ -52,7 +52,7 @@
         </div>
         -->
       </div>
-      <CovidInfobox />
+<!--      <CovidInfobox />-->
       <div class="search">
         <input type="text" placeholder="Workshops und Events suchen" v-model="search">
       </div>
@@ -89,13 +89,9 @@
 </template>
 
 <script>
-import CovidInfobox from '~/components/CovidInfobox'
 import moment from 'moment'
 
 export default {
-  components: {
-    CovidInfobox
-  },
   data () {
     return {
       categories: [
@@ -120,9 +116,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store
-        .dispatch('findWorkshops', this.filters)
-        .then(data => {
+      this.$store.dispatch('findWorkshops', this.filters).then(data => {
           this.loading = false
           this.workshops = data
         })
@@ -175,7 +169,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
+@import '/assets/scss/styles.scss';
 
 .workshop-overview {
   .loading {
@@ -253,7 +247,7 @@ export default {
           color: #FFF;
           user-select: none;
           cursor: pointer;
-          input[type=checkbox] {
+         /* input[type=checkbox] {
             outline: none;
             -webkit-appearance: none;
             padding: 5px;
@@ -263,7 +257,7 @@ export default {
             top: 0;
             &:checked {
               background-color: #FFF;
-            }
+            }*/
           }
         }
       }
@@ -340,24 +334,30 @@ export default {
   .workshop-list-wrapper {
     margin: 0 4%;
     display: flex;
+
     .workshop-list {
       flex: 3;
+
       .list-item {
         margin-right: 10px;
       }
+
       .list-enter-active,
       .list-leave-active {
         transition: all 0.5s;
       }
-      .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+
+      .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
+      {
         opacity: 0;
         transform: translateX(30px);
       }
     }
+
     .workshop-list-none {
       flex: 3;
       text-align: center;
     }
   }
-}
+
 </style>
