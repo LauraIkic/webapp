@@ -1,10 +1,10 @@
 <template>
   <div style="overflow: hidden">
-    <Modal v-if="modalVisible" @close="modalVisible = false" title="Covid Info" icon="exclamation-triangle">
+<!--    <Modal v-if="modalVisible" @close="modalVisible = false" title="Covid Info" icon="exclamation-triangle">
       Momentan findet der Memberbetrieb nur eingeschränkt und
       unter Einhaltung der erforderlichen COVID-Schutzmaßnahmen statt.
       Klick <NuxtLink to="de/covid">hier</NuxtLink> um alle aktuellen Infos und Maßnahmen nachzulesen.<br>#staysafe
-    </Modal>
+    </Modal>-->
     <div class="login-spacer" v-if="isAuthenticated"></div>
     <div class="layout-container">
       <top-header/>
@@ -36,6 +36,7 @@ export default {
     BottomFooter,
     Sidebar,
     Modal
+
   },
   computed: {
     isAuthenticated () {

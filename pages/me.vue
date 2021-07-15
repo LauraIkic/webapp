@@ -4,9 +4,9 @@
       <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
       <code class="number">#{{ user.profile.memberNumber }}</code>
     </div>
-<!--    <div v-if="!hasCompletedSecurityCourses" class="alert alert-secondary" role="alert">-->
-<!--      <font-awesome-icon icon="info-circle"/> Offene Sicherheitsschulungen-->
-<!--    </div>-->
+    <!--    <div v-if="!hasCompletedSecurityCourses" class="alert alert-secondary" role="alert">-->
+    <!--      <font-awesome-icon icon="info-circle"/> Offene Sicherheitsschulungen-->
+    <!--    </div>-->
     <div class="tab-section">
       <div class="tab-section-menu">
         <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
@@ -21,10 +21,8 @@
         <MenuLink to="/me/giftcards" icon="gift">Gutscheine</MenuLink>
         <transition name="slide">
           <div class="submenu" v-if="$route.name.startsWith('me-giftcards')">
-            <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">Gutschein kaufen
-            </MenuLink>
-            <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen
-            </MenuLink>
+            <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">Gutschein kaufen</MenuLink>
+            <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen</MenuLink>
           </div>
         </transition>
       </div>

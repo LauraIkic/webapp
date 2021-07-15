@@ -189,6 +189,7 @@
           </button>
         </div>
       </div>
+
     </div>
     <div
         v-if="done"
@@ -350,6 +351,7 @@ export default {
         answers: this.answers
       }
       const endpoint = this.isPublic ? 'savePublicQuiz' : 'saveQuiz'
+
       this.$store.dispatch(endpoint, data).then((result) => {
         this.done = true
         this.score = result.score
@@ -379,6 +381,20 @@ export default {
     //   link.href = URL.createObjectURL(blob)
     //   link.click()
     // }
+  },
+  computed: {
+    memberCourse() {
+      return this.$store.getters.getMemberCourseById(this.id);
+    },
+    pdfUrl () {
+      if (this.quiz && this.quiz.pdf) {
+        return this.$store.getters.getStorageUrl + this.quiz.pdf
+      }
+    }
+  },
+  async created () {
+    this.id = this.$route.query.id
+    this.quiz = await this.$store.dispatch('getQuiz', this.id)
   }
 }
 </script>
@@ -394,24 +410,24 @@ export default {
   .container {
     display: flex;
     flex-direction: column;
+
   }
 
   .name {
     align-self: center;
-    background-color: $color-blue;
+    background-color: black;
     color: #fff;
     margin: 0;
     padding: 5px 10px;
     text-align: center;
     white-space: nowrap;
-    width: 25%;
     @include media-breakpoint-down(sm) {
       width: 75%;
     }
   }
 
   .separator {
-    border-bottom: 2px dashed #0050ff;
+    border-bottom: 2px dashed black;
     width: 100%;
     margin-top: -1em;
     z-index: -1;
@@ -473,12 +489,12 @@ export default {
         padding: 25px;
         margin: 10px;
         align-items: center;
+        min-height: 12em;
         @include media-breakpoint-up(sm) {
           width: 50%;
         }
 
         input[type="checkbox"] {
-
           padding-right: 70%;
         }
 

@@ -277,14 +277,14 @@ const createStore = () => {
         })
       },
       getBookings ({ state }, id) {
-        return axios.get(`${origin}/.netlify/functions/getBookings\?id\=${id}`).then((r) => {
+        return axios.get(`${origin}/.netlify/functions/getBookings?id=${id}`).then((r) => {
           return r.data
         }).catch((err) => {
           this.$sentry.captureException(err)
         })
       },
       checkStatus ({ state }, id) {
-        return axios.get(`${origin}/.netlify/functions/checkStatus\?id\=${id}`).then((r) => {
+        return axios.get(`${origin}/.netlify/functions/checkStatus?id=${id}`).then((r) => {
           return r.data
         }).catch((err) => {
           this.$sentry.captureException(err)
@@ -515,7 +515,7 @@ const createStore = () => {
         }).then((res) => {
           return res.data
         }).catch((res) => {
-          this.$sentry.captureException(err)
+          this.$sentry.captureException(res)
         })
       },
       loadMachineItemById ({ state }, id) {
@@ -625,10 +625,8 @@ const createStore = () => {
           const workshopdates = res.data.stories
           const workshops = {}
           for (const w of workshopdates) {
-            let wid
-            wid = w.content.workshop.uuid
-            if (wid in workshops) {
-            } else {
+            const wid = w.content.workshop.uuid
+            if (!(wid in workshops)) {
               workshops[wid] = Object.assign({ dates: [] }, w.content.workshop)
             }
             workshops[wid].dates.push(w)
