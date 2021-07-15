@@ -36,7 +36,6 @@ export default {
     BottomFooter,
     Sidebar,
     Modal
-
   },
   computed: {
     isAuthenticated () {

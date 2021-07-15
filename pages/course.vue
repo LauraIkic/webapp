@@ -64,14 +64,14 @@
           <template v-if="i === activeQuestion && !overview">
             <div class="question-header">
               <img
-                  v-if="q.imagePath != 'https://connector.grandgarage.eu/storage/'"
+                  v-if="q.imagePath !== 'https://connector.grandgarage.eu/storage/'"
                   :src="q.imagePath"
                   alt=""
               >
               <div class="title">
                 <h3>{{ q.title }}</h3>
                 <p
-                    v-if="q.description != '_'"
+                    v-if="q.description !== '_'"
                     class="quiz-description"
                 >
                   {{ q.description }}
@@ -200,7 +200,7 @@
       </h2>
       <div class="separator"/>
       <div
-          v-if="score == 1"
+          v-if="score === 1"
           class="result"
       >
         <p>Gratuliere! Du hast den Test bestanden!</p>

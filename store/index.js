@@ -215,7 +215,6 @@ const createStore = () => {
         return res
       },
       getInvoiceDocument ({ commit, dispatch, state }, id) {
-        let instance
         if (state.auth || getUserFromLocalStorage()) {
           // renew Token
           return new Promise((resolve, reject) => {
@@ -229,9 +228,9 @@ const createStore = () => {
                 const auth = {
                   accessToken: authResult.accessToken
                 }
-                setToken(authResult.accessToken)
-                commit('setAuth', auth)
-                instance = axios.create({
+                setToken(authResult.accessToken);
+                commit('setAuth', auth);
+                axios.create({
                   baseURL: connectorBaseUrl + '/member/invoice/' + id,
                   // headers: {'Authorization': `Bearer ${auth.accessToken}`, 'Content-Type' : 'application/pdf'}
                   headers: { Authorization: `Bearer ${auth.accessToken}` }

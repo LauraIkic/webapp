@@ -12,7 +12,7 @@
         <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
         <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
         <!-- <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span class="fat">Mitglied werden!</span></MenuLink> -->
-        <!-- <div v-if="!hasCompletedSecurityCourses" class="alert-secondary" style="color: white !important;"><MenuLink to="/me/trainings" icon="graduation-cap" style="color: white;"><font-awesome-icon :style="{ color: 'white' }" v-if="!hasCompletedSecurityCourses" icon="arrow-circle-right"/> Einschulungen</MenuLink></div> -->
+        <!-- <div v-if="!hasCompletedSecurityCourses" class="alert-secondary" style="color: white !important;"><MenuLink to="/me/trainings" icon="graduation-cap" style="color: white;"><font-awesome-icon :style="{ color: 'white' }" v-if="!hasCompletedSecurityCourses" icon="arrow-circle-right"/> Unterweisungen</MenuLink></div> -->
         <MenuLink to="/me/workshopBookings" icon="hammer">Meine Workshops</MenuLink>
         <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
         <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">Rechnungen

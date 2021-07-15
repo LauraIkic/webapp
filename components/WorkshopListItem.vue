@@ -1,27 +1,27 @@
 <template>
   <nuxt-link :to="'/' + blok.full_slug">
     <div
-      class="workshop-list-item"
-      :class="{ slim: slim }"
+        class="workshop-list-item"
+        :class="{ slim: slim }"
     >
       <div class="image">
         <img
-          :src="$resizeImage(content.image, '380x280')"
-          alt=""
+            :src="$resizeImage(content.image, '380x280')"
+            alt=""
         >
       </div>
       <div class="body">
         <div class="category">
-          <div v-if="content.category == 'training'">
+          <div v-if="content.category === 'training'">
             <span>Einschulung</span>
           </div>
-          <div v-if="content.category == 'event'">
+          <div v-if="content.category === 'event'">
             <span>Event</span>
           </div>
-          <div v-if="content.category == 'meetup'">
+          <div v-if="content.category === 'meetup'">
             <span>Meetup</span>
           </div>
-          <div v-if="content.category == 'workshop'">
+          <div v-if="content.category === 'workshop'">
             <span>Workshop</span>
           </div>
         </div>
@@ -29,8 +29,8 @@
           {{ content.title }}
         </div>
         <div
-          v-if="!slim"
-          class="teaser"
+            v-if="!slim"
+            class="teaser"
         >
           {{ content.teaser }}
         </div>
@@ -39,14 +39,14 @@
         </div>
         <div class="workshop-dates">
           <div
-            :key="d.id"
-            v-for="(d,i) in dates"
-            class="workshop-date"
-            :class="{ soldOut: d.content.sold_out }"
+              :key="d.id"
+              v-for="d,i in dates"
+              class="workshop-date"
+              :class="{ soldOut: d.content.sold_out }"
           >
             <div
-              v-if="!slim || i === 0"
-              class="info-row"
+                v-if="!slim || i === 0"
+                class="info-row"
             >
               <div class="info-block">
                 <div class="col info">
@@ -74,15 +74,15 @@
               </div>
               <div class="info-block">
                 <div
-                  v-if="d.content.members_only"
-                  class="col"
+                    v-if="d.content.members_only"
+                    class="col"
                 >
                   <icon name="user" />
                   <span>Members only!</span>
                 </div>
                 <div
-                  v-if="d.content.sold_out"
-                  class="col soldOut"
+                    v-if="d.content.sold_out"
+                    class="col soldOut"
                 >
                   <span>ausgebucht</span>
                 </div>
