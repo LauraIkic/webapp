@@ -6,3 +6,5 @@ npm-debug.log
 dist
 .idea
 .DS_Store
+/components/http-client.env.json
+/.eslintcache
