@@ -15,5 +15,7 @@ module.exports = {
     'vue'
   ],
   rules: {
+    'vue/no-mutating-props': 0,
+    'vue/no-side-effects-in-computed-properties': 1
   }
 }

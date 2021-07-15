@@ -25,12 +25,7 @@
 </template>
 
 <script>
-import Checkbox from '~/components/Checkbox.vue'
-
 export default {
-  components: {
-    Checkbox
-  },
   layout: 'screen',
   async asyncData (context) {
     const tags = await context.store.dispatch('loadTags')
@@ -71,7 +66,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      const result = this.$store.dispatch('findMachines', this.filters).then((data) => {
+      this.$store.dispatch('findMachines', this.filters).then((data) => {
         this.loading = false
         this.machines = data.stories
       })

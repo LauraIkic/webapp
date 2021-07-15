@@ -1,4 +1,3 @@
-
 <template>
   <div v-if="item">
     <div class="header">
@@ -31,10 +30,12 @@
       <image-slideshow :blok="images"></image-slideshow>
     </div>
     <div class="blogFeed-detail">
-      <div v-if="item.content.contentBloks" v-for="i in item.content.contentBloks" class="right-content">
-        <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
-        <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-      </div>
+        <div :key="i" v-for="i in item.content.contentBloks" class="right-content">
+          <span v-if="item.content.contentBloks">
+            <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
+            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
+          </span>
+        </div>
     </div>
     <div v-if="item.content.links && item.content.links.length != 0">
       <links-slideshow :blok="links"></links-slideshow>
@@ -69,10 +70,12 @@
       <image-slideshow :blok="images"></image-slideshow>
     </div>
     <div class="blogFeed-detail">
-      <div v-if="item.contentBloks" v-for="i in item.contentBloks" class="right-content">
-        <span v-if="i.text" class="content-text">{{ i.text }}</span>
-        <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-      </div>
+        <div :key="i" v-for="i in item.contentBloks" class="right-content">
+          <span v-if="item.contentBloks">
+            <span v-if="i.text" class="content-text">{{ i.text }}</span>
+            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
+          </span>
+        </div>
     </div>
     <div v-if="item.links && item.links.length != 0">
       <links-slideshow :blok="links"></links-slideshow>
@@ -81,70 +84,70 @@
 </template>
 
 <script>
-  import storyblokLivePreview from '@/mixins/storyblokLivePreview'
-  import VotingButton from "../../../components/VotingButton";
-  import VueMarkdown from 'vue-markdown'
+import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+import VotingButton from '../../../components/VotingButton'
+import VueMarkdown from 'vue-markdown'
 
-  export default {
-    components: { VotingButton, VueMarkdown },
-    data() {
+export default {
+  components: { VotingButton, VueMarkdown },
+  data () {
+    return {
+      // images: [],
+      reload: null,
+      loading: false,
+      sources: [
+        { name: 'magazin3', key: 'm3', selected: false },
+        { name: 'youtube', key: 'yt', selected: false },
+        { name: 'facebook', key: 'fb', selected: false },
+        { name: 'twitter', key: 'tw', selected: false },
+        { name: 'instagram', key: 'ig', selected: false }
+      ],
+      item: null
+    }
+  },
+  mixins: [storyblokLivePreview],
+  asyncData (context) {
+    return context.store.dispatch('loadNewsItem', context.route.params.slug).then(data => {
+      return { item: data.story }
+    })
+  },
+
+  methods: {
+    filters () {
+      const sources = this.sources
+        .filter(i => i.selected)
+        .map(i => i.key)
+        .join(',')
+      const filterQuery = {
+        component: { in: 'news-overview' }
+      }
+      if (sources) {
+        filterQuery.source = { in: sources }
+      }
+      return { filterQuery }
+    }
+  },
+  computed: {
+    route () {
+      return this.$route.fullPath
+    },
+    images () {
       return {
-        // images: [],
-        reload: null,
-        loading: false,
-        sources: [
-          {name: "magazin3", key: "m3", selected: false},
-          {name: "youtube", key: "yt", selected: false},
-          {name: "facebook", key: "fb", selected: false},
-          {name: "twitter", key: "tw", selected: false},
-          {name: "instagram", key: "ig", selected: false}
-        ],
-        item: null
+        items: this.item.content.images
       }
     },
-    mixins: [storyblokLivePreview],
-    asyncData(context) {
-      return context.store.dispatch("loadNewsItem", context.route.params.slug).then(data => {
-        return {item: data.story};
-      });
+    links () {
+      return {
+        items: this.item.content.links
+      }
     },
-
-    methods: {
-      filters() {
-        const sources = this.sources
-                .filter(i => i.selected)
-                .map(i => i.key)
-                .join(",");
-        const filter_query = {
-          component: {in: "news-overview"}
-        };
-        if (sources) {
-          filter_query["source"] = {in: sources};
-        }
-        return {filter_query};
-      },
-    },
-    computed: {
-      route() {
-        return this.$route.fullPath;
-      },
-      images() {
-        return {
-          items: this.item.content.images,
-        }
-      },
-      links() {
-        return {
-          items: this.item.content.links,
-        }
-      },
-      content() {
-        return {
-          content: this.item.content.contentBloks.text,
-        }
-      },
-    },
+    content () {
+      return {
+        content: this.item.content.contentBloks.text
+      }
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

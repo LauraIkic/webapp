@@ -19,7 +19,7 @@
 
       <div class="spacer" />
 
-      <div v-if="step == 0 && userMetadata != null">
+      <div v-if="step === 0 && userMetadata != null">
         <div>
           <div class="info-row payment">
             <div class="info-block">
@@ -288,6 +288,7 @@ export default {
       }
     },
     redirect: function (data) {
+      // eslint-disable-next-line no-undef
       const stripe = Stripe('pk_live_XCUCaJMt8kMEpedQdvmtMu4Z00rNP9VDun')
       stripe.redirectToCheckout({
         sessionId: data.session_id

@@ -1,10 +1,10 @@
 <template>
   <div
-    v-if="package"
+    v-if="packageItem"
     class="package-item"
   >
     <div class="body">
-      {{package.name}}
+      {{packageItem.name}}
     </div>
     <div class="footer">
       <span>Von: {{ fromDate }}</span>
@@ -19,7 +19,7 @@
 export default {
   props: ['userPackage'],
   computed: {
-    package () {
+    packageItem () {
       return this.$store.getters.getPackageById(this.userPackage.package)
     },
     fromDate () {

@@ -26,13 +26,9 @@
 </template>
 
 <script>
-import Checkbox from '~/components/Checkbox.vue'
 import moment from 'moment'
 
 export default {
-  components: {
-    Checkbox
-  },
   layout: 'screen',
   async asyncData (context) {
     // let tags = await context.store.dispatch("loadTags");
@@ -71,7 +67,7 @@ export default {
       })
     },
     filters () {
-      const filter_query = {
+      const filterQuery = {
         component: {
           in: 'workshop-date'
         },
@@ -80,7 +76,7 @@ export default {
         }
       }
       return {
-        filter_query,
+        filterQuery,
         search_term: this.search
       }
     }
@@ -95,7 +91,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      const result = this.$store
+      this.$store
         .dispatch('findWorkshops', this.filters)
         .then(data => {
           this.loading = false
@@ -135,7 +131,7 @@ export default {
             color: #FFF;
             &:hover {
               cursor: pointer;
-              color: 000;
+              color: #000;
               background-color: $color-yellow;
             }
           }

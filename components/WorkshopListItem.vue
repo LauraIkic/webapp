@@ -39,6 +39,7 @@
         </div>
         <div class="workshop-dates">
           <div
+              :key="d"
             v-for="d,i in dates"
             class="workshop-date"
             :class="{ soldOut: d.content.sold_out }"

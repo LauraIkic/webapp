@@ -184,13 +184,6 @@ export default {
         { name: 'instagram', key: 'ig', selected: false }
       ]
     }
-  },
-  computed: {
-    getStory () {
-    }
-  },
-  created () {
-
   }
 }
 </script>

@@ -90,12 +90,11 @@
 
 <script>
 import CovidInfobox from '~/components/CovidInfobox'
-import Checkbox from "~/components/Checkbox.vue";
-import moment from "moment";
+import moment from 'moment'
 
 export default {
   components: {
-    Checkbox, CovidInfobox
+    CovidInfobox
   },
   data () {
     return {
@@ -103,7 +102,7 @@ export default {
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshop', value: false },
         { key: 'training', name: 'Einschulung', value: false },
-        { key: 'meetup', name: 'Meetup', value: false },
+        { key: 'meetup', name: 'Meetup', value: false }
       ],
       loading: false,
       search: '',
@@ -111,67 +110,67 @@ export default {
       tags: []
     }
   },
-  created() {
+  created () {
   },
   watch: {
-    search() {
-      this.update();
+    search () {
+      this.update()
     }
   },
   methods: {
-    update() {
-      this.loading = true;
-      let result = this.$store
-          .dispatch("findWorkshops", this.filters)
-          .then(data => {
-            this.loading = false;
-            this.workshops = data;
-          });
+    update () {
+      this.loading = true
+      this.$store
+        .dispatch('findWorkshops', this.filters)
+        .then(data => {
+          this.loading = false
+          this.workshops = data
+        })
     }
   },
   computed: {
-    selectedCategories() {
+    selectedCategories () {
       return this.categories.filter((c) => {
-        return c.value;
+        return c.value
       }).map((v) => {
-        return v.key;
-      });
+        return v.key
+      })
     },
-    filters() {
-      let filter_query = {
+    filters () {
+      const filterQuery = {
         component: {
-          in: "workshop-date"
+          in: 'workshop-date'
         },
         starttime: {
-          "gt-date": moment().subtract(24, "hours").format("YYYY-MM-DD HH:mm")
+          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
         }
-      };
+      }
       return {
-        filter_query,
-        search_term: this.search,
+        filterQuery,
+        search_term: this.search
       }
     }
   },
   async asyncData (context) {
-    //let tags = await context.store.dispatch("loadTags");
-    let filters = {
+    // let tags = await context.store.dispatch("loadTags");
+    const filters = {
       filter_query: {
         component: {
-          in: "workshop-date"
+          in: 'workshop-date'
         },
         starttime: {
-          "gt-date": moment().subtract(24, "hours").format("YYYY-MM-DD HH:mm")
+          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
         }
       }
-    };
-    let workshops = await context.store.dispatch("findWorkshops", filters).then((data) => {
+    }
+    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
       if (data) {
-        return { workshops: data };
+        return { workshops: data }
       }
-      return { workshops: [] };
-    });
-    return {...workshops};
-  },
+      return { workshops: [] }
+    })
+    return { ...workshops }
+  }
 }
 </script>
 
@@ -204,7 +203,7 @@ export default {
             color: #FFF;
             &:hover {
               cursor: pointer;
-              color: 000;
+              color: #000;
               background-color: $color-yellow;
             }
           }

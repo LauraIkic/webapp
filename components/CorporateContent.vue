@@ -28,11 +28,6 @@
 <script>
 export default {
   props: ['blok'],
-  computed: {
-    created () {
-      console.log('creating corporate content')
-    }
-  },
   methods: {
   }
 }

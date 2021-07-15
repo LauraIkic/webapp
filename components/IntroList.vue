@@ -1,7 +1,7 @@
 <template>
   <div
-    v-editable="blok"
-    class="intro-list"
+      v-editable="blok"
+      class="intro-list"
   >
     <div class="content">
       <div class="primary-col">
@@ -10,53 +10,55 @@
             {{ blok.headline }}
           </h3>
         </div>
-        <div class="dashed-line-blue" />
+        <div class="dashed-line-blue"/>
         <div class="intro-items">
           <div
-            v-for="i in blok.items"
-            class="intro-item-title"
-            :class="(selected == i._uid ? 'is-selected' : '')"
-            @click="updateSelected(i)"
+              :key="i._uid"
+              v-for="i in blok.items"
+              class="intro-item-title"
+              :class="(selected === i._uid ? 'is-selected' : '')"
+              @click="updateSelected(i)"
           >
             <div class="text">
               {{ i.title }}
             </div>
-            <div class="arrow" />
+            <div class="arrow"/>
           </div>
         </div>
       </div>
       <div class="secondary-col">
         <div class="intro-text">
-          <transition name="fadefromleft">
-            <div
+          <div
               v-for="(i, k) in blok.items"
-              v-if="selected == i._uid"
               :key="k"
               class="intro-item-text"
-            >
-              {{ i.text }}
-            </div>
-          </transition>
+          >
+            <transition name="fadefromleft">
+              <span v-if="selected === i._uid">{{ i.text }}</span>
+            </transition>
+          </div>
         </div>
         <div
-          class="intro-bg-image"
-          :class="(selected ? 'has-content' : '')"
-          :style="'background-image: url('+$resizeImage(blok.image, '700x0')+')'"
-          :alt="blok.headline"
+            class="intro-bg-image"
+            :class="(selected ? 'has-content' : '')"
+            :style="'background-image: url('+$resizeImage(blok.image, '700x0')+')'"
+            :alt="blok.headline"
         />
         <svg
-          class="circle"
-          xmlns="http://www.w3.org/2000/svg"
-          width="16px"
-          height="16px"
-          viewBox="0 0 16 16"
-        ><circle
-          cx="8"
-          cy="8"
-          r="7"
-          fill="none"
-          stroke-width="1"
-        /></svg>
+            class="circle"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16px"
+            height="16px"
+            viewBox="0 0 16 16"
+        >
+          <circle
+              cx="8"
+              cy="8"
+              r="7"
+              fill="none"
+              stroke-width="1"
+          />
+        </svg>
       </div>
     </div>
   </div>
@@ -84,6 +86,7 @@ export default {
 
 <style lang="scss">
 @import '../assets/scss/styles.scss';
+
 .intro-list {
   background-image: url(~assets/img/intro-list-3d-object.svg);
   background-repeat: no-repeat;
@@ -94,11 +97,13 @@ export default {
     background-position: bottom left -6vw;
     margin-top: -87vh;
   }
+
   .content {
     display: flex;
     align-items: flex-start;
     position: relative;
     @include margin-page-wide();
+
     .primary-col, .secondary-col {
       flex-grow: 1;
       @include media-breakpoint-up(lg) {
@@ -108,10 +113,12 @@ export default {
         width: 100%;
       }
     }
+
     @include media-breakpoint-down(md) {
       margin: 0;
       flex-direction: column;
     }
+
     .primary-col {
       .headline {
         background: $color-blue-intro;
@@ -121,6 +128,7 @@ export default {
         justify-content: flex-end;
         padding: 5%;
         height: 50vh;
+
         .headline-text {
           text-transform: uppercase;
           margin: 0;
@@ -128,6 +136,7 @@ export default {
           line-height: 1.3;
           width: 42vw;
         }
+
         @include media-breakpoint-down(md) {
           height: inherit;
           min-height: 20vh;
@@ -139,6 +148,7 @@ export default {
         }
 
       }
+
       .intro-items {
         margin: 10vh 0 30vh 13vw;
         @include media-breakpoint-down(md) {
@@ -147,6 +157,7 @@ export default {
           overflow: hidden;
           position: relative;
         }
+
         .intro-item-title {
           display: flex;
           cursor: pointer;
@@ -161,6 +172,7 @@ export default {
               border-top: 0.12vw solid $color-blue-intro;
               margin: 0.8vw 10% 0 3%;
               width: 0%;
+
               &:before {
                 content: "";
                 top: 0;
@@ -174,12 +186,14 @@ export default {
             }
             &.is-selected {
               color: $color-blue-intro;
+
               .arrow {
                 display: block;
                 align-self: stretch;
                 position: relative;
                 width: 10px;
                 flex-grow: 1;
+
                 &:before {
                   border-top: 0.12vw solid $color-blue-intro;
                   border-right: 0.12vw solid $color-blue-intro;
@@ -198,9 +212,10 @@ export default {
               margin: 1.3em 10% 0 0;
               width: 2%;
               height: 0;
-//              transform: rotate(45deg);
+              //              transform: rotate(45deg);
               transform-origin: bottom left;
               pointer-events: none;
+
               &:before {
                 content: "";
                 top: 0;
@@ -214,6 +229,7 @@ export default {
             }
             &.is-selected {
               color: $color-blue-intro;
+
               .arrow {
                 transition: width .3s linear, height .2s linear .3s;
                 display: block;
@@ -234,6 +250,7 @@ export default {
           }
         }
       }
+
       .dashed-line-blue {
         background-image: url(~assets/img/dashed-bg-blue.svg);
         background-size: 100% auto;
@@ -253,6 +270,7 @@ export default {
         position: absolute;
       }
     }
+
     .secondary-col {
       position: relative;
       @include media-breakpoint-up(lg) {
@@ -265,6 +283,7 @@ export default {
         margin: 0;
         height: 40vh;
       }
+
       .intro-bg-image {
         position: relative;
         max-width: 100%;
@@ -275,10 +294,12 @@ export default {
         background-size: cover;
         width: 100%;
         height: 100%;
+
         &.has-content {
           opacity: .2;
         }
       }
+
       .intro-text {
         position: absolute;
         overflow: hidden;
@@ -289,6 +310,7 @@ export default {
         z-index: 3;
         display: flex;
         align-items: center;
+
         .intro-item-text {
           position: absolute;
           padding: 0 15%;
@@ -301,6 +323,7 @@ export default {
           font-weight: 700;
         }
       }
+
       .circle {
         position: absolute;
         stroke: $color-yellow;
@@ -312,9 +335,11 @@ export default {
       }
     }
   }
+
   .fadefromleft-enter-active, .fadefromleft-leave-active {
     transition: all .3s;
   }
+
   .fadefromleft-enter, .fadefromleft-leave-to {
     opacity: 0;
     transform: translateX(-50vw);

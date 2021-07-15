@@ -75,15 +75,17 @@
         <!--<div v-for="c in count">
                     <div v-for="i in m.items" class="info-row" v-if="count_[i] <= (range * 10)"> -->
         <div
+          :key="c"
           v-for="i, c in m.items"
-          v-if="c <= (range*10)"
           class="info-row"
         >
-          <div class="info-block left">
-            <div class="col log-info">
-              <span>{{ i.created_at | date }} - {{ i.created_at | time }}</span>
+          <span v-if="c <= (range*10)">
+            <div class="info-block left">
+              <div class="col log-info">
+                <span>{{ i.created_at | date }} - {{ i.created_at | time }}</span>
+              </div>
             </div>
-          </div>
+          </span>
           <div
             v-if="!empty"
             class="info-block"

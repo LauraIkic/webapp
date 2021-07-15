@@ -180,8 +180,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import validator from 'validator'
 
 export default {
   props: ['blok'],
@@ -210,6 +208,7 @@ export default {
       return this.password === this.passwordRepeat
     },
     emailValid () {
+      // eslint-disable-next-line no-undef
       return validator.isEmail(this.email)
     },
     formValid () {
