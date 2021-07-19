@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getQuery (to) {
-      if (to.hasOwnProperty('id')) {
+      if (Object.prototype.hasOwnProperty.call(to, 'id')) {
         this.highlightedId = to.id
       }
     },

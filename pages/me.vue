@@ -1,24 +1,22 @@
 <template>
-  <div
-    v-if="user !== null"
-    class="profile"
-  >
+  <div class="profile" v-if="user !== null">
     <div class="header">
-      <h1 class="name">
-        {{ user.profile.firstName }} {{ user.profile.lastName }}
-      </h1>
+      <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
       <code class="number">#{{ user.profile.memberNumber }}</code>
     </div>
+    <!--    <div v-if="!hasCompletedSecurityCourses" class="alert alert-secondary" role="alert">-->
+    <!--      <font-awesome-icon icon="info-circle"/> Offene Sicherheitsschulungen-->
+    <!--    </div>-->
     <div class="tab-section">
       <div class="tab-section-menu">
         <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
         <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
-<!--          <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span class="fat">Mitglied werden!</span></MenuLink>-->
+        <!-- <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span class="fat">Mitglied werden!</span></MenuLink> -->
+        <!-- <div v-if="!hasCompletedSecurityCourses" class="alert-secondary" style="color: white !important;"><MenuLink to="/me/trainings" icon="graduation-cap" style="color: white;"><font-awesome-icon :style="{ color: 'white' }" v-if="!hasCompletedSecurityCourses" icon="arrow-circle-right"/> Unterweisungen</MenuLink></div> -->
         <MenuLink to="/me/workshopBookings" icon="hammer">Meine Workshops</MenuLink>
-        <MenuLink to="/me/trainings" icon="graduation-cap">Einschulungen</MenuLink>
         <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
-        <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">Rechnungen</MenuLink>
-        <!-- <MenuLink to="/me/trainings">Unterweisungen</MenuLink>-->
+        <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">Rechnungen
+        </MenuLink>
         <MenuLink to="/me/activities" icon="running">Aktivitäten</MenuLink>
         <MenuLink to="/me/giftcards" icon="gift">Gutscheine</MenuLink>
         <transition name="slide">
@@ -27,8 +25,6 @@
             <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen</MenuLink>
           </div>
         </transition>
-        <!--<MenuLink to="/me/invoices">Meine Rechnungen</MenuLink>-->
-       <!-- <MenuLink to="/me/log">Meine Aktivitäten</MenuLink>-->
       </div>
       <div class="tab-section-content">
         <NuxtChild :key="$route.params.slug"></NuxtChild>
@@ -39,26 +35,21 @@
 
 <script>
 import MenuLink from '~/components/MenuLink'
+
 export default {
-  components: { MenuLink },
   middleware: 'authenticated',
+  components: { MenuLink },
   data () {
     return {
       hasCompletedOnboarding: true
-    }
-  },
-  computed: {
-    user () {
-      return this.$store.state.user
-    },
-    isMember () {
-      return this.$store.state.user.packages.length > 0
+      // hasCompletedSecurityCourses: true
     }
   },
   created () {
   },
   async mounted () {
     this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
+    // this.hasCompletedSecurityCourses = await this.$store.dispatch('hasCompletedSecurityCourses')
   },
   methods: {
     getPackage (p) {
@@ -74,6 +65,14 @@ export default {
         this.$router.push('/')
       })
     }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    },
+    isMember () {
+      return this.$store.state.user.packages.length > 0
+    }
   }
 }
 </script>
@@ -85,15 +84,20 @@ export default {
   min-height: 60vh;
   margin-left: 4%;
   margin-right: 4%;
+
   .header {
     margin: 2em 0;
+
     h1 {
       margin: 0;
     }
+
     display: flex;
+
     .spacer {
       flex: 1;
     }
+
     .logout-button {
       cursor: pointer;
       font-weight: bold;
@@ -104,13 +108,16 @@ export default {
       background-color: $color-orange;
     }
   }
+
   .name {
     display: inline-block;
   }
+
   .number {
     margin: 0 10px;
     color: #999;
   }
+
   .item-list {
     list-style-type: none;
     padding: 0;
@@ -121,20 +128,25 @@ export default {
     @include media-breakpoint-down(sm) {
       display: block;
     }
+
     .tab-section-menu {
       padding-top: 20px;
       width: 200px;
       flex: 1;
+
       .submenu {
         padding-left: 2.5em;
       }
+
       a {
         color: #000;
         display: block;
         padding: 12px;
+
         &:hover {
           background-color: darken($color-bright-bg, 5)
         }
+
         &.nuxt-link-exact-active {
           color: $color-orange;
         }
@@ -149,6 +161,7 @@ export default {
       }
     }
   }
+
   .fat {
     color: $color-blue-alt;
     font-weight: bolder;

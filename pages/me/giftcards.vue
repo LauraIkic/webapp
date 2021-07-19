@@ -18,59 +18,99 @@
         </section>
         <section class="display-item">
           <div class="bottom">
-          <div class="redeem-button"
-               @click="$router.push('giftcards?action=redeem')">
-            Gutschein einlösen
+            <div class="redeem-button"
+                 @click="$router.push('giftcards?action=redeem')">
+              Gutschein einlösen
+            </div>
           </div>
-          </div></section>
+        </section>
       </selection>
     </template>
 
     <transition name="fade">
       <template>
         <template v-if="action === 'buy'">
-          <div
-              v-if="step === 0"
-              class="giftcardForm"
-          >
-            <div class="input">
-              <span> Gutschein-Wert: </span>
-              <select
-                  v-model="selectedProduct"
-                  class="form-item"
-              >
-                <option value="719">
-                  10€
-                </option>
-                <option value="720">
-                  25€
-                </option>
-                <option value="721">
-                  50€
-                </option>
-                <option value="722">
-                  100€
-                </option>
-              </select>
-            </div>
+          <div v-if="step === 0" class="giftcardForm">
+            <section class="buy-gift-cards">
+              <div class="input">
+                <input type="radio" value="719" v-model="selectedProduct">
+                <span> Gutschein-Wert: </span>
+                <div class="bottom-gift-card">
+                  <option class="options" value="719">10€</option>
+                  <div class="image">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg"
+                         width="30">
+                  </div>
+                </div>
+              </div>
+              <div class="input">
+                <input type="radio" value="720" v-model="selectedProduct">
+                <span> Gutschein-Wert: </span>
+                <div class="bottom-gift-card">
+                  <option class="options" value="720">25€</option>
+                  <div class="image">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg"
+                         width="30">
+                  </div>
+                </div>
+              </div>
+              <div class="input">
+                <input type="radio" value="721" v-model="selectedProduct">
+                <span> Gutschein-Wert: </span>
+                <div class="bottom-gift-card">
+                  <option class="options" value="721">50€</option>
+                  <div class="image">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg"
+                         width="30">
+                  </div>
+                </div>
+              </div>
+              <div class="input">
+                <input type="radio" value="722" v-model="selectedProduct">
+                <span> Gutschein-Wert: </span>
+                <div class="bottom-gift-card">
+                  <option class="options" value="722">100€</option>
+                  <div class="image">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg"
+                         width="30">
+                  </div>
+                </div>
+              </div>
+              <!--              <select
+                                v-model="selectedProduct"
+                                class="form-item"
+                            >
+                              <option value="719">
+                                10€
+                              </option>
+                              <option value="720">
+                                25€
+                              </option>
+                              <option value="721">
+                                50€
+                              </option>
+                              <option value="722">
+                                100€
+                              </option></select>-->
+            </section>
 
-<!--            <div class="input">
-              <span> Extras: </span>
-              <select
-                  v-model="selectedExtra"
-                  class="form-item"
-              >
-                <option value="733">
-                  E-mail - Gratis
-                </option>
-                <option value="734">
-                  Versand-Standard - 3€
-                </option>
-                <option value="735">
-                  Deluxe-Box - 25€
-                </option>
-              </select>
-            </div>-->
+            <!--            <div class="input">
+                          <span> Extras: </span>
+                          <select
+                              v-model="selectedExtra"
+                              class="form-item"
+                          >
+                            <option value="733">
+                              E-mail - Gratis
+                            </option>
+                            <option value="734">
+                              Versand-Standard - 3€
+                            </option>
+                            <option value="735">
+                              Deluxe-Box - 25€
+                            </option>
+                          </select>
+                        </div>-->
 
             <div class="buttons">
               <button
@@ -78,112 +118,145 @@
                   :disabled="!selectedProduct"
                   @click="step++"
               >
-                Weiter...
+                Weiter
               </button>
             </div>
           </div>
 
           <div v-if="step === 1">
             <h4>Zahlungsmethode</h4>
-            <input
-                v-model="paymentMethod"
-                type="radio"
-                name="paymentMethod"
-                value="1"
-            >Kreditkarte<br>
-            <div v-if="invoiceContact.sepa_mandate_agreed">
-              <input
-                  v-model="paymentMethod"
-                  type="radio"
-                  name="paymentMethod"
-                  value="2"
-              >SEPA-Monatsrechnung<br>
+            <div class="payment-methods">
+              <div class="input">
+                <input
+                    v-model="paymentMethod"
+                    type="radio"
+                    name="paymentMethod"
+                    value="1"
+                >Kreditkarte
+                <div v-if="invoiceContact.sepa_mandate_agreed">
+                </div>
+              </div>
+              <div class="input">
+                <input
+                    v-model="paymentMethod"
+                    type="radio"
+                    name="paymentMethod"
+                    value="2"
+                >SEPA-Monatsrechnung
+              </div>
             </div>
-
             <div v-if="invoiceContact != null">
               <h4>Rechnungsadresse</h4>
-
-              <div class="form-item">
-                <span class="label">Vorname</span>
-                <input
-                    v-model="invoiceContact.firstname"
-                    class="input-text"
-                    type="text"
-                    name=""
+              <table>
+                <tr>
+                  <th>
+                    <span class="label">Vorname</span>
+                  </th>
+                  <th>
+                    <input
+                        v-model="invoiceContact.firstname"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                </tr>
+                <th>
+                  <span class="label">Nachname</span>
+                </th>
+                <th>
+                  <input
+                      v-model="invoiceContact.lastname"
+                      class="input-text"
+                      type="text"
+                      name=""
+                  >
+                </th>
+                <tr>
+                  <th>
+                    <span class="label">Telefon</span>
+                  </th>
+                  <th>
+                    <input
+                        v-model="invoiceContact.phone"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <span class="label">Adresse</span>
+                  </th>
+                  <th>
+                    <input
+                        v-model="invoiceContact.street"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <span class="label"/>
+                  </th>
+                  <th>
+                    <input
+                        v-model="invoiceContact.street_additional"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <span class="label">PLZ</span>
+                  </th>
+                  <th>
+                    <input
+                        v-model="invoiceContact.zip"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <span class="label">Stadt</span>
+                  </th>
+                  <th>
+                    <input
+                        v-model="invoiceContact.city"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                </tr>
+              </table>
+            </div><br>
+            <div class="bottom-buttons">
+              <div class="buttons">
+                <button
+                    class="input-button-back"
+                    @click="step--"
                 >
-              </div>
-              <div class="form-item">
-                <span class="label">Nachname</span>
-                <input
-                    v-model="invoiceContact.lastname"
-                    class="input-text"
-                    type="text"
-                    name=""
+                  Zurück
+                </button>
+                <button
+                    class="input-button-primary"
+                    :disabled="!paymentMethod"
+                    @click="step++"
                 >
+                  Bestellung prüfen
+                </button>
               </div>
-              <div class="form-item">
-                <span class="label">Telefon</span>
-                <input
-                    v-model="invoiceContact.phone"
-                    class="input-text"
-                    type="text"
-                    name=""
-                >
-              </div>
-              <div class="form-item">
-                <span class="label">Adresse</span>
-                <input
-                    v-model="invoiceContact.street"
-                    class="input-text"
-                    type="text"
-                    name=""
-                >
-              </div>
-              <div class="form-item">
-                <span class="label"/>
-                <input
-                    v-model="invoiceContact.street_additional"
-                    class="input-text"
-                    type="text"
-                    name=""
-                >
-              </div>
-              <div class="form-item">
-                <span class="label">PLZ</span>
-                <input
-                    v-model="invoiceContact.zip"
-                    class="input-text"
-                    type="text"
-                    name=""
-                >
-              </div>
-              <div class="form-item">
-                <span class="label">Stadt</span>
-                <input
-                    v-model="invoiceContact.city"
-                    class="input-text"
-                    type="text"
-                    name=""
-                >
-              </div>
-            </div>
-            <div class="buttons">
-              <button
-                  class="input-button-back"
-                  @click="step--"
-              >
-                Zurück
-              </button>
-              <button
-                  class="input-button-primary"
-                  :disabled="!paymentMethod"
-                  @click="step++"
-              >
-                Bestellung prüfen...
-              </button>
             </div>
           </div>
-
           <div v-if="step === 2">
             Bestätigung:
             <ul>
@@ -218,12 +291,22 @@
               v-if="step === 0"
               class="giftcardForm"
           >
-            <div class="input">
-              <span> Gutschein-Code: </span>
-              <input
-                  v-model="giftcardCode"
-                  class="form-item"
-              >
+            <div class="input-redeem-card">
+              <span class="span">
+                Gutschein</span>
+              <div class="redeem-card-bottom">
+                <div class=" code">
+                  <span class="code-span"> Code: </span>
+                  <input
+                      v-model="giftcardCode"
+                      class="form-item"
+                  >
+                </div>
+                <div class="image">
+                  <img src="~/assets/img/icons/gg-logo-icon.svg"
+                       width="40">
+                </div>
+              </div>
             </div>
             <div class="buttons">
               <button
@@ -412,22 +495,25 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
-.items{
+.items {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  @media (max-width: 600px) {
+
+  }
 }
 
 .display-item {
   background-repeat: no-repeat;
   background-size: cover;
-  width: 20em;
-  height: 24em;
+  width: 17em;
+  height: 19em;
   position: relative;
   border: 1px solid black;
-  color:white;
+  color: white;
 
   .bottom {
     background: white;
@@ -436,8 +522,21 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     bottom: 0;
-    height: 7em;
+    height: 5em;
     width: 100%;
+  }
+
+  .input-button-primary {
+    width: 100%;
+    background: black;
+    color: white;
+    height: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+    padding-left: 65vw;
+    padding-top: 3vh;
   }
 
   .buy-button {
@@ -451,6 +550,7 @@ export default {
     font-size: 1.5em;
     font-family: $font-mono;
   }
+
   .redeem-button {
     width: 100%;
     background: black;
@@ -463,43 +563,200 @@ export default {
     font-family: $font-mono;
   }
 }
+
 .display-item:hover .buy-button {
   border-top: 1px solid white;
   background: $color-orange;
 }
+
 .display-item:hover .redeem-button {
   border-top: 1px solid white;
   background: $color-orange;
 }
 
+/*.display-item:hover .buttons {
+  border-top: 1px solid white;
+  background: $color-orange;
+}*/
+
+/*
 .form-item {
   display: flex;
   flex-flow: row nowrap;
   width: 20em;
   justify-content: space-between;
   align-items: center;
+  cursor:pointer;
+  padding: 0.5vh 0.5vh;
+  background: #c0c0c6;
+  border-radius: 8px;
+}*/
+
+.buy-gift-cards {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-flow: wrap;
+  justify-content: space-between;
+
+  .bottom-gift-card {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    padding-left: 3vw;
+    padding-top: 0.5vh;
+  }
 }
 
-.giftcardForm {
+.input {
+  background-color: #fafafa;
+  margin: 1em 0;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 3vw;
+  border: 1px solid grey;
+  border-radius: 0.3em;
+}
+
+.image {
+  padding-top: 0.6vh;
+}
+
+.input-button-primary {
+  font-weight: 700;
+  line-height: 1em;
+  padding: 10px;
+  outline: 0;
+  color: #fff;
+  border: none;
+  background-color: $color-orange;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 0.2em;
+  border: 1px solid $color-secondary-border;
+}
+
+.input-button-payment {
+  font-weight: 700;
+  line-height: 1em;
+  padding: 10px;
+  outline: 0;
+  color: #fff;
+  border: none;
+  background-color: $color-orange;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 0.2em;
+  border: 1px solid $color-secondary-border;
+}
+
+.payment-methods {
+  position: relative;
+  display: flex;
+  flex-flow: wrap;
+}
+
+/*
+.input:hover{
+  background: $color-orange;
+  color: white;
+}
+*/
+
+.input-redeem-card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fafafa;
+  margin: 1em 0;
+  border: 1px solid grey;
+
+  padding-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 3vw;
+  border-radius: 0.3em;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 14vh;
+  width: 40vw;
+
+  .redeem-card-bottom {
+    display: flex;
+    flex-flow: row;
+    justify-content: inherit;
+
+    .form-item {
+      height: 2vh;
+      width: 8vw;
+    }
+  }
+}
+
+.span {
+  padding-top: 2vh;
+  padding-left: 1vw;
+  font-size: 2vh;
+}
+
+.code-span {
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+
+/*.selectedProduct{
+  background: $color-orange;
+}
+.flex-element{
+  padding-bottom: 1vh;
+}
+!*.giftcardForm {
   & .input {
     display: flex;
-    padding-bottom: 0.3em;
-    flex-flow: row nowrap;
-    align-items: center;
+    flex-flow: column;
 
     & :first-child {
       width: 7em;
     }
   }
-}
+}*!
 
 .buttons {
   & * {
     margin-right: 1em;
+      font-weight: 700;
+  line-height: 1em;
+  padding: 10px;
+  outline: 0;
+  color: #fff;
+  border: none;
+  background-color: $color-orange;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 0.2em;
+  border: 1px solid $color-secondary-border;
   }
 }
 
 h5 {
   font-size: 1rem;
+}*/
+
+.buttons {
+  & * {
+    margin-right: 1em;
+    font-weight: 700;
+    line-height: 1em;
+    padding: 10px;
+    outline: 0;
+    color: #fff;
+    border: none;
+    background-color: $color-orange;
+    cursor: pointer;
+    border-radius: 0.2em;
+    border: 1px solid $color-secondary-border;
+  }
+
 }
 </style>

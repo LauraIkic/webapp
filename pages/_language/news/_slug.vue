@@ -1,4 +1,3 @@
-
 <template>
   <div v-if="item">
     <div class="header">
@@ -31,11 +30,12 @@
       <image-slideshow :blok="images"></image-slideshow>
     </div>
     <div class="blogFeed-detail">
-      <div v-if="item.content.contentBloks" >
-        v-for="i in item.content.contentBloks" class="right-content">
-        <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
-        <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-      </div>
+        <div :key="i" v-for="i in item.content.contentBloks" class="right-content">
+          <span v-if="item.content.contentBloks">
+            <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
+            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
+          </span>
+        </div>
     </div>
     <div v-if="item.content.links && item.content.links.length != 0">
       <links-slideshow :blok="links"></links-slideshow>
@@ -70,11 +70,12 @@
       <image-slideshow :blok="images"></image-slideshow>
     </div>
     <div class="blogFeed-detail">
-      <div v-if="item.contentBloks" >
-        v-for="i in item.contentBloks" class="right-content">
-        <span v-if="i.text" class="content-text">{{ i.text }}</span>
-        <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-      </div>
+        <div :key="i" v-for="i in item.contentBloks" class="right-content">
+          <span v-if="item.contentBloks">
+            <span v-if="i.text" class="content-text">{{ i.text }}</span>
+            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
+          </span>
+        </div>
     </div>
     <div v-if="item.links && item.links.length != 0">
       <links-slideshow :blok="links"></links-slideshow>
@@ -117,14 +118,13 @@ export default {
         .filter(i => i.selected)
         .map(i => i.key)
         .join(',')
-      // eslint-disable-next-line camelcase
-      const filter_query = {
+      const filterQuery = {
         component: { in: 'news-overview' }
       }
       if (sources) {
-        filter_query.source = { in: sources }
+        filterQuery.source = { in: sources }
       }
-      return { filter_query }
+      return { filterQuery }
     }
   },
   computed: {
@@ -151,7 +151,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+  @import '@/assets/scss/styles.scss';
 
   .header {
     margin: 0 4%;

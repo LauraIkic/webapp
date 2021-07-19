@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <div class="section onboarding-wizard">
     <h2>Wie möchtest du zahlen?</h2>
     <div class="options">
@@ -34,14 +34,13 @@
       <div class="form-item ibanFormItem">
         <span class="label">Name der Bank</span>
         <input class="input-text" type="text" v-model="onboardingData.payment.bank" name="" id=""/>
-        <span class="bankSpacer"/>
+        <span class="bankSpacer" />
       </div>
     </form>
 
     <div class="wizard-checkbox">
       <label>
-        <input type="checkbox" v-model="onboardingData.sepaAccepted">Meine Mitgliedsbeiträge und zusätzlich anfallende
-        Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.
+        <Checkbox type="checkbox" v-model="onboardingData.sepaAccepted">Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.</Checkbox>
       </label>
     </div>
 
@@ -92,7 +91,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '/assets/scss/styles.scss';
 
 .onboarding-wizard {

@@ -388,6 +388,10 @@ const createStore = () => {
         const res = await connector.get('/member/hasCompletedOnboarding')
         return res.data
       },
+      /*      async hasCompletedSecurityCourses () {
+        const res = await connector.get('/member/hasCompletedSecurityCourses')
+        return res.data
+      }, */
       loginUser ({ commit }, context) {
         return new Promise((resolve, reject) => {
           webAuth.login({

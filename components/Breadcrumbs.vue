@@ -38,8 +38,8 @@ export default {
       return items
     },
     lastItem () {
-      const i = this.items.pop()
-      return i
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.items.pop()
     }
   },
   created () {},

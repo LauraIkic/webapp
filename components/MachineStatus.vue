@@ -13,7 +13,7 @@
       v-if="resource"
       class="resource"
     >
-      <div v-if="resource.state == 'active'">
+      <div v-if="resource.state === 'active'">
         <div v-if="resource.offline">
           offline
         </div>
@@ -25,7 +25,7 @@
         </div>
       </div>
       <div
-        v-else-if="resource.state == 'locked'"
+        v-else-if="resource.state === 'locked'"
         :title="resource.maintenanceNotes"
       >
         out of order
@@ -53,7 +53,7 @@ export default {
       if (!this.resource) {
         return '#FFF'
       }
-      if (this.resource.state == 'locked') {
+      if (this.resource.state === 'locked') {
         return '#ebe223'
       }
       if (this.resource.offline) {
@@ -62,9 +62,10 @@ export default {
       if (this.resource.inUse) {
         return '#ff6f00'
       }
-      if (this.resource.state == 'active') {
+      if (this.resource.state === 'active') {
         return '#0069aa'
       }
+      return '#FFF'
     },
     fontSize () {
       return this.resource && this.resource.inUse ? '0.9em' : '1em'

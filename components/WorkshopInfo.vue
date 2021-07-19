@@ -32,6 +32,11 @@
         :value="blok.info"
         class="info-text"
       />
+      <markdown
+          v-if="blok.requirements"
+          :value="blok.requirements"
+          class="info-text"
+      />
     </div>
     <div
       v-if="blok.images"

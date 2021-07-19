@@ -62,8 +62,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      // eslint-disable-next-line no-unused-vars
-      const result = this.$store.dispatch('findMachines', this.filters).then((data) => {
+      this.$store.dispatch('findMachines', this.filters).then((data) => {
         this.loading = false
         this.machines = data.stories
       })
@@ -112,8 +111,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+<style lang="scss">
+@import '@/assets/scss/styles.scss';
 
 .machine-overview {
   .loading {
