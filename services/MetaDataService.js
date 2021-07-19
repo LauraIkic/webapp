@@ -5,17 +5,13 @@ export default {
    * @param blok Workshop
    */
   getMetaTagsForWorkshop (blok) {
-    console.log(blok)
     let metaTitle = ''
     let metaDescription = ''
     if (!(blok.metadata.title === '')) {
-      console.log('title found')
       metaTitle = blok.metadata.title
     } else {
-      console.log('title not found')
       // subtitle should be available, since it is a required field in storyblok
       if (blok.subtitle !== '') {
-        console.log('title not found')
         metaTitle = 'GRAND GARAGE - ' + blok.subtitle
       } else {
         metaDescription = 'GRAND GARAGE'

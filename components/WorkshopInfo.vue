@@ -54,9 +54,6 @@ export default {
   props: ['blok', 'dates'],
   data () {
     return {
-      block: this.blok,
-      title: '',
-      description: ''
     }
   },
   computed: {
