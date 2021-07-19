@@ -22,7 +22,7 @@
       </div>
    </div>
     <div>
-      <input type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
+      <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
       <label for="checkbox">Ja, ich habe die <a href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
                                                 target="new">Werkstattordnung</a> gelesen und bin damit einverstanden.</label>
     </div>
@@ -30,16 +30,12 @@
 </template>
 
 <script>
-import Checkbox from "~/components/Checkbox.vue";
 const TYPES = {
   regular: 1,
   reduced: 2
 }
 export default {
   middleware: 'authenticated',
-  components: {
-    Checkbox
-  },
   props: {
     onboardingData: {
       type: Object,
@@ -49,16 +45,16 @@ export default {
   data () {
     return {
       TYPES,
-      loading: false,
+      loading: false
     }
   },
-  created() {
+  created () {
   },
   methods: {
   },
   computed: {
-    user() {
-      return this.$store.state.user;
+    user () {
+      return this.$store.state.user
     }
   }
 }

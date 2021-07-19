@@ -1,10 +1,10 @@
 <template>
   <div style="overflow: hidden">
-    <Modal v-if="modalVisible" @close="modalVisible = false" title="Covid Info" icon="exclamation-triangle">
+<!--    <Modal v-if="modalVisible" @close="modalVisible = false" title="Covid Info" icon="exclamation-triangle">
       Momentan findet der Memberbetrieb nur eingeschränkt und
       unter Einhaltung der erforderlichen COVID-Schutzmaßnahmen statt.
       Klick <NuxtLink to="de/covid">hier</NuxtLink> um alle aktuellen Infos und Maßnahmen nachzulesen.<br>#staysafe
-    </Modal>
+    </Modal>-->
     <div class="login-spacer" v-if="isAuthenticated"></div>
     <div class="layout-container">
       <top-header/>
@@ -23,10 +23,8 @@
 
 <script>
 import TopHeader from '~/components/TopHeader.vue'
-import Modal from '~/components/Modal'
 import BottomFooter from '~/components/BottomFooter.vue'
 import Sidebar from '~/components/Sidebar.vue'
-import Breadcrumbs from '~/components/Breadcrumbs.vue'
 
 export default {
   data: () => ({
@@ -35,17 +33,15 @@ export default {
   components: {
     TopHeader,
     BottomFooter,
-    Sidebar,
-    Breadcrumbs,
-    Modal
+    Sidebar
   },
   computed: {
-    isAuthenticated() {
-      return !!this.$store.state.auth;
+    isAuthenticated () {
+      return !!this.$store.state.auth
     }
   },
   mounted () {
-    const hasSeenPopup = sessionStorage.getItem('hasSeenPopup');
+    const hasSeenPopup = sessionStorage.getItem('hasSeenPopup')
     if (!hasSeenPopup) {
       this.modalVisible = true
     }
@@ -92,7 +88,6 @@ a {
   transform-origin: 50% 50%;
 }
 
-
 .layout-container {
   margin-top: 65px;
   overflow: hidden;
@@ -102,7 +97,6 @@ a {
   height: 26px;
   display: block;
 }
-
 
 h3 {
   margin-top: 1em;

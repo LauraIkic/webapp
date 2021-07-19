@@ -36,78 +36,78 @@
 </template>
 
 <script>
-import Checkbox from "~/components/Checkbox.vue";
+import Checkbox from '~/components/Checkbox.vue'
 
 export default {
   components: {
-    Checkbox,
+    Checkbox
   },
   data () {
     return {
       loading: false,
       search: '',
-      tagsCollapsed: true,
+      tagsCollapsed: true
     }
   },
-  created() {
+  created () {
     this.$watch('tags', (newVal, oldVal) => {
-      this.update();
-    }, { deep: true });
+      this.update()
+    }, { deep: true })
   },
   watch: {
-    search() {
-      this.update();
+    search () {
+      this.update()
     }
   },
   methods: {
-    update() {
-      this.loading = true;
-      let result = this.$store.dispatch("findMachines", this.filters).then((data) => {
-        this.loading = false;
-        this.machines = data.stories;
-      });
+    update () {
+      this.loading = true
+      this.$store.dispatch('findMachines', this.filters).then((data) => {
+        this.loading = false
+        this.machines = data.stories
+      })
     },
-    toggleTags() {
-      this.tagsCollapsed = !this.tagsCollapsed;
+    toggleTags () {
+      this.tagsCollapsed = !this.tagsCollapsed
     }
   },
   computed: {
-    filters() {
+    filters () {
       return {
         filter_query: {
-          'component': {
-            'in': 'machine'
+          component: {
+            in: 'machine'
           }
         },
         search_term: this.search,
         with_tag: this.filterTags.join(',')
       }
     },
-    filterTags() {
+    filterTags () {
       return this.tags.filter((t) => {
-        return t.value;
+        return t.value
       }).map((t) => {
-        return t.name;
-      });
+        return t.name
+      })
     }
   },
   async asyncData (context) {
-    let tags = await context.store.dispatch("loadTags");
-    let filters = {
+    const tags = await context.store.dispatch('loadTags')
+    const filters = {
       filter_query: {
-        'component': {
-          'in': 'machine'
+        component: {
+          in: 'machine'
         }
       }
-    };
-    let machines = await context.store.dispatch("findMachines", filters).then((data) => {
+    }
+    const machines = await context.store.dispatch('findMachines', filters).then((data) => {
       if (data.stories) {
-        return { machines: data.stories };
+        return { machines: data.stories }
       }
-      return { machines: [] };
-    });
-    return {tags, ...machines};
-  },
+      return { machines: [] }
+    })
+    return { tags, ...machines }
+  }
 }
 </script>
 

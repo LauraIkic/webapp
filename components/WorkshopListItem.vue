@@ -1,54 +1,89 @@
 <template>
   <nuxt-link :to="'/' + blok.full_slug">
-    <div class="workshop-list-item" :class="{ slim: slim }">
+    <div
+        class="workshop-list-item"
+        :class="{ slim: slim }"
+    >
       <div class="image">
-        <img :src="$resizeImage(content.image, '380x280')" alt=""/>
+        <img
+            :src="$resizeImage(content.image, '380x280')"
+            alt=""
+        >
       </div>
       <div class="body">
         <div class="category">
-          <div v-if="content.category == 'training'">
+          <div v-if="content.category === 'training'">
             <span>Einschulung</span>
           </div>
-          <div v-if="content.category == 'event'">
+          <div v-if="content.category === 'event'">
             <span>Event</span>
           </div>
-          <div v-if="content.category == 'meetup'">
+          <div v-if="content.category === 'meetup'">
             <span>Meetup</span>
           </div>
-          <div v-if="content.category == 'workshop'">
+          <div v-if="content.category === 'workshop'">
             <span>Workshop</span>
           </div>
         </div>
         <div class="title">
-          {{content.title}}
+          {{ content.title }}
         </div>
-        <div class="teaser" v-if="!slim">
-          {{content.teaser}}
+        <div
+            v-if="!slim"
+            class="teaser"
+        >
+          {{ content.teaser }}
         </div>
         <div class="trainer">
-          {{content.trainer}}
+          {{ content.trainer }}
         </div>
         <div class="workshop-dates">
-          <div class="workshop-date" v-for="d,i in dates" :class="{ soldOut: d.content.sold_out }">
-            <div class="info-row" v-if="!slim || i == 0">
+          <div
+              :key="d.id"
+              v-for="d,i in dates"
+              class="workshop-date"
+              :class="{ soldOut: d.content.sold_out }"
+          >
+            <div
+                v-if="!slim || i === 0"
+                class="info-row"
+            >
               <div class="info-block">
                 <div class="col info">
                   <icon name="calendar" />
-                  {{d.content.starttime | date}}
+                  {{ d.content.starttime | date }}
+                  <div v-if="d.content.starttime2">
+                    <br>
+                    <icon name="calendar" />
+                    {{ d.content.starttime2 | date }}
+                  </div>
                 </div>
                 <div class="col info">
                   <icon name="clock" />
-                  <span>{{d.content.starttime | time}}</span>
-                  <span v-if="d.content.endtime"> bis {{d.content.endtime | time}}</span>
+                  <span>{{ d.content.starttime | time }}</span>
+                  <span v-if="d.content.endtime"> bis {{ d.content.endtime | time }}</span>
                   <span>Uhr</span>
+                  <div v-if="d.content.starttime2">
+                    <br>
+                    <icon name="clock" />
+                    <span>{{ d.content.starttime2 | time }}</span>
+                    <span v-if="d.content.endtime2"> bis {{ d.content.endtime2 | time }}</span>
+                    <span>Uhr</span>
+                  </div>
                 </div>
               </div>
               <div class="info-block">
-                <div class="col" v-if="d.content.members_only">
+                <div
+                    v-if="d.content.members_only"
+                    class="col"
+                >
                   <icon name="user" />
                   <span>Members only!</span>
                 </div>
-                <div class="col soldOut" v-if="d.content.sold_out">
+                <div
+                    v-if="d.content.sold_out"
+                    class="col soldOut"
+                >
                   <span>ausgebucht</span>
                 </div>
               </div>
@@ -73,24 +108,24 @@
 export default {
   props: ['blok', 'slim'],
   computed: {
-    dates() {
-      return this.blok.dates;
+    dates () {
+      return this.blok.dates
     },
-    content() {
-      return this.blok.content;
+    content () {
+      return this.blok.content
     },
-    linktext() {
-      return "Mehr Infos";
+    linktext () {
+      return 'Mehr Infos'
     }
   },
-  mounted() {
+  mounted () {
     // console.log(this.blok.uuid);
-  },
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 .workshop-list-item {
   color: #000;
   display: flex;
@@ -121,6 +156,11 @@ export default {
       display: block;
     }
   }
+  br {
+    display: block;
+    margin: 4px;
+  }
+
   .body {
     position: relative;
     flex: 2;
@@ -212,6 +252,10 @@ export default {
 .workshop-dates {
   margin-top: 20px;
   .workshop-date {
+    &:nth-child(even) {
+      background-color: rgba(242, 243, 238,0.9);
+    }
+    margin: 5px;
     &.soldOut {
       color: #666;
       fill: #666;
@@ -221,6 +265,7 @@ export default {
         }
       }
     }
+
     .info-row {
       @include media-breakpoint-down(md) {
         flex-direction: column;
@@ -243,6 +288,7 @@ export default {
           text-transform: uppercase;
         }
       }
+
       svg {
         height: 1em;
         width: 1em;

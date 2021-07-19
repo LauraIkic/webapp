@@ -13,16 +13,15 @@ export default {
   },
   mixins: [storyblokLivePreview],
   computed: {
-    machine() {
-      return this.story.content;
+    machine () {
+      return this.story.content
     }
   },
   asyncData (context) {
-    return context.store.dispatch("loadMachineItem", context.params.slug);
+    return context.store.dispatch('loadMachineItem', context.params.slug)
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .workshop {

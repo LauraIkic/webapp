@@ -9,7 +9,7 @@ export default {
     return { story: { content: {} } }
   },
   asyncData (context) {
-    return context.store.dispatch("loadPage", "/");
+    return context.store.dispatch('loadPage', '/')
   }
 }
 </script>

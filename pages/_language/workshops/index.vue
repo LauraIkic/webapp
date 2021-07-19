@@ -52,7 +52,7 @@
         </div>
         -->
       </div>
-      <CovidInfobox />
+      <!--      <CovidInfobox />-->
       <div class="search">
         <input type="text" placeholder="Workshops und Events suchen" v-model="search">
       </div>
@@ -89,21 +89,16 @@
 </template>
 
 <script>
-import CovidInfobox from '~/components/CovidInfobox'
-import Checkbox from "~/components/Checkbox.vue";
-import moment from "moment";
+import moment from 'moment'
 
 export default {
-  components: {
-    Checkbox, CovidInfobox
-  },
   data () {
     return {
       categories: [
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshop', value: false },
         { key: 'training', name: 'Einschulung', value: false },
-        { key: 'meetup', name: 'Meetup', value: false },
+        { key: 'meetup', name: 'Meetup', value: false }
       ],
       loading: false,
       search: '',
@@ -111,72 +106,70 @@ export default {
       tags: []
     }
   },
-  created() {
+  created () {
   },
   watch: {
-    search() {
-      this.update();
+    search () {
+      this.update()
     }
   },
   methods: {
-    update() {
-      this.loading = true;
-      let result = this.$store
-          .dispatch("findWorkshops", this.filters)
-          .then(data => {
-            this.loading = false;
-            this.workshops = data;
-          });
+    update () {
+      this.loading = true
+      this.$store.dispatch('findWorkshops', this.filters).then(data => {
+        this.loading = false
+        this.workshops = data
+      })
     }
   },
   computed: {
-    selectedCategories() {
+    selectedCategories () {
       return this.categories.filter((c) => {
-        return c.value;
+        return c.value
       }).map((v) => {
-        return v.key;
-      });
+        return v.key
+      })
     },
-    filters() {
-      let filter_query = {
+    filters () {
+      const filterQuery = {
         component: {
-          in: "workshop-date"
+          in: 'workshop-date'
         },
         starttime: {
-          "gt-date": moment().subtract(24, "hours").format("YYYY-MM-DD HH:mm")
+          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
         }
-      };
+      }
       return {
-        filter_query,
-        search_term: this.search,
+        filterQuery,
+        search_term: this.search
       }
     }
   },
   async asyncData (context) {
-    //let tags = await context.store.dispatch("loadTags");
-    let filters = {
+    // let tags = await context.store.dispatch("loadTags");
+    const filters = {
       filter_query: {
         component: {
-          in: "workshop-date"
+          in: 'workshop-date'
         },
         starttime: {
-          "gt-date": moment().subtract(24, "hours").format("YYYY-MM-DD HH:mm")
+          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
         }
       }
-    };
-    let workshops = await context.store.dispatch("findWorkshops", filters).then((data) => {
+    }
+    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
       if (data) {
-        return { workshops: data };
+        return { workshops: data }
       }
-      return { workshops: [] };
-    });
-    return {...workshops};
-  },
+      return { workshops: [] }
+    })
+    return { ...workshops }
+  }
 }
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
+@import '/assets/scss/styles.scss';
 
 .workshop-overview {
   .loading {
@@ -204,7 +197,7 @@ export default {
             color: #FFF;
             &:hover {
               cursor: pointer;
-              color: 000;
+              color: #000;
               background-color: $color-yellow;
             }
           }
@@ -254,111 +247,117 @@ export default {
           color: #FFF;
           user-select: none;
           cursor: pointer;
-          input[type=checkbox] {
-            outline: none;
-            -webkit-appearance: none;
-            padding: 5px;
-            border: 1px solid #FFF;
-            border-radius: 3px;
-            position: relative;
-            top: 0;
-            &:checked {
-              background-color: #FFF;
-            }
-          }
-        }
-      }
-      @include media-breakpoint-down(sm) {
-        overflow: hidden;
-        position: relative;
-        max-height: 1000px;
-        transition: all .3s linear;
-        padding-bottom: 30px;
-        .expander {
-          cursor: pointer;
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-          height: 20px;
-          transition: all .3s linear;
-          &:after {
-            transition: all .3s linear;
-            content: "";
-            position: absolute;
-            bottom: 18px;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            bottom: 8px;
-            border-bottom: 2px solid #fff;
-            border-right: 2px solid #fff;
-            margin-left: -13px;
-            transform: rotate(225deg);
-            transform-origin: center center;
-          }
-        }
-        &.collapsed {
-          max-height: 17vh;
-          .expander {
-            height: 70px;
-            background: linear-gradient(rgba(0,0,0,0), $color-orange 80%);
-            &:after {
-              transform: rotate(45deg);
-              bottom: 18px;
-            }
-          }
+          /* input[type=checkbox] {
+             outline: none;
+             -webkit-appearance: none;
+             padding: 5px;
+             border: 1px solid #FFF;
+             border-radius: 3px;
+             position: relative;
+             top: 0;
+             &:checked {
+               background-color: #FFF;
+             }*/
         }
       }
     }
-
-    .search {
-      display: flex;
-      margin: 0 4%;
-      padding-top: 1rem;
-      padding-bottom: 4rem;
-      input[type="text"] {
-        flex: 1;
-        display: block;
+    @include media-breakpoint-down(sm) {
+      overflow: hidden;
+      position: relative;
+      max-height: 1000px;
+      transition: all .3s linear;
+      padding-bottom: 30px;
+      .expander {
+        cursor: pointer;
+        position: absolute;
+        bottom: 0;
         width: 100%;
-        padding: 10px;
-        outline: none;
-        font-family: $font-secondary;
-        font-size: 1.1rem;
-        border: none;
+        height: 20px;
+        transition: all .3s linear;
+        &:after {
+          transition: all .3s linear;
+          content: "";
+          position: absolute;
+          bottom: 18px;
+          left: 50%;
+          width: 10px;
+          height: 10px;
+          bottom: 8px;
+          border-bottom: 2px solid #fff;
+          border-right: 2px solid #fff;
+          margin-left: -13px;
+          transform: rotate(225deg);
+          transform-origin: center center;
+        }
       }
-      input[type="button"] {
-        font-size: 1.1rem;
-        margin-left: 10px;
-        text-transform: uppercase;
-        background-color: transparent;
-        border: none;
-        font-weight: bold;
-        color: $color-orange;
-        outline: none;
+      &.collapsed {
+        max-height: 17vh;
+        .expander {
+          height: 70px;
+          background: linear-gradient(rgba(0,0,0,0), $color-orange 80%);
+          &:after {
+            transform: rotate(45deg);
+            bottom: 18px;
+          }
+        }
       }
     }
   }
-  .workshop-list-wrapper {
-    margin: 0 4%;
+
+  .search {
     display: flex;
-    .workshop-list {
-      flex: 3;
-      .list-item {
-        margin-right: 10px;
-      }
-      .list-enter-active,
-      .list-leave-active {
-        transition: all 0.5s;
-      }
-      .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-        opacity: 0;
-        transform: translateX(30px);
-      }
+    margin: 0 4%;
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+    input[type="text"] {
+      flex: 1;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      outline: none;
+      font-family: $font-secondary;
+      font-size: 1.1rem;
+      border: none;
     }
-    .workshop-list-none {
-      flex: 3;
-      text-align: center;
+    input[type="button"] {
+      font-size: 1.1rem;
+      margin-left: 10px;
+      text-transform: uppercase;
+      background-color: transparent;
+      border: none;
+      font-weight: bold;
+      color: $color-orange;
+      outline: none;
     }
   }
 }
+.workshop-list-wrapper {
+  margin: 0 4%;
+  display: flex;
+
+  .workshop-list {
+    flex: 3;
+
+    .list-item {
+      margin-right: 10px;
+    }
+
+    .list-enter-active,
+    .list-leave-active {
+      transition: all 0.5s;
+    }
+
+    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
+    {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+  }
+
+  .workshop-list-none {
+    flex: 3;
+    text-align: center;
+  }
+}
+
 </style>

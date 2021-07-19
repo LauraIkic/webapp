@@ -1,22 +1,26 @@
 <template>
-  <div v-editable="blok" class="mainstage">
-    <div class="placeholder">
-    </div>
+  <div
+    v-editable="blok"
+    class="mainstage"
+  >
+    <div class="placeholder" />
     <div v-swiper:swiper="swiperOption">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"
-          :key="s._uid" v-for="s in blok.slides"
+        <div
+          v-for="s in blok.slides"
+          :key="s._uid"
+          class="swiper-slide"
           :style="{ 'background-image': 'url(' + $resizeImage(s.image, '1600x0') + ')' }"
-          >
+        >
           <sb-link :link="s.link">
             <div class="wrapper">
-              <span class="title" v-if="s.title">{{s.title}}</span>
+              <span lang="de-AT" class="title" v-if="s.title">{{s.title}}</span>
               <span class="teaser" v-if="s.teaser">{{s.teaser}}</span>
             </div>
           </sb-link>
         </div>
       </div>
-      <div class="swiper-pagination"></div>
+      <div class="swiper-pagination" />
     </div>
   </div>
 </template>
@@ -24,7 +28,7 @@
 <script>
 export default {
   props: ['blok'],
-  data() {
+  data () {
     return {
       swiperOption: {
         loop: true,
@@ -96,6 +100,8 @@ export default {
           }
         }
         .title {
+          word-break: break-word !important;
+          hyphens: auto;
           font-size: 8vw;
           z-index: 9;
           @include media-breakpoint-down(sm) {

@@ -1,15 +1,25 @@
 <template>
-  <div v-editable="blok" class="corporate-content">
+  <div
+    v-editable="blok"
+    class="corporate-content"
+  >
     <div class="header">
-      <div class="headline">{{blok.headline}}</div>
-      <div class="subline">{{blok.subline}}</div>
+      <div class="headline">
+        {{ blok.headline }}
+      </div>
+      <div class="subline">
+        {{ blok.subline }}
+      </div>
     </div>
     <div class="texter">
       <div class="text">
-        <markdown :value="blok.text"></markdown>
+        <markdown :value="blok.text" />
       </div>
       <div class="img">
-        <img :src="blok.image" alt=""/>
+        <img
+          :src="blok.image"
+          alt=""
+        >
       </div>
     </div>
   </div>
@@ -19,11 +29,6 @@
 export default {
   props: ['blok'],
   methods: {
-  },
-  computed: {
-    created() {
-      console.log('creating corporate content');
-    }
   }
 }
 </script>
