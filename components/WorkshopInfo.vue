@@ -32,6 +32,11 @@
         :value="blok.info"
         class="info-text"
       />
+      <markdown
+          v-if="blok.requirements"
+          :value="blok.requirements"
+          class="info-text"
+      />
     </div>
     <div
       v-if="blok.images"
@@ -43,10 +48,15 @@
 </template>
 
 <script>
+import MetaDataService from '../services/MetaDataService.js'
+
 export default {
   props: ['blok', 'dates'],
   data () {
     return {
+      block: this.blok,
+      title: '',
+      description: ''
     }
   },
   computed: {
@@ -58,12 +68,15 @@ export default {
         items: this.blok.images
       }
     }
+  },
+  head () {
+    return MetaDataService.getMetaTagsForWorkshop(this.blok)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .workshop-info {
   color: #000;
