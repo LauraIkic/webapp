@@ -9,7 +9,7 @@
           <div class="top">
             <div class="name">{{ activity.product.external_name }}</div>
 <!--            <div class="count">{{ activity.product_count }}x</div>-->
-            <div class="cost">{{ Math.round(activity.cost_brutto) }}EUR</div>
+            <div class="cost">{{ Number.parseFloat(activity.cost_brutto).toFixed(2) }}EUR</div>
             <div class="info" v-if="activity.invoice_id">
               <template>
                 <span class="link">Rechnung #{{ activity.invoice_human_readable_id }}</span>
