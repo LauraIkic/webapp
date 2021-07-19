@@ -1,9 +1,17 @@
-$color-orange: #ff6f00;
-$color-blue: #0050FF;
-$color-blue-intro: #005EFF;
-$color-yellow: #ebe223;
-$color-blue-alt: #0069aa;
-$color-red: #e30513;
+$color-primary: #72A4B2;
+$color-secondary: #E69140;
+$color-success: #93B369;
+
+$color-primary-border: #679eac;
+$color-secondary-border: #e08931;
+$color-success-border: #80a547;
+
+$color-orange: #E69140;
+$color-blue: #72A4B2;
+$color-blue-intro: #72A4B2;
+$color-yellow: #FFDE8A;
+$color-blue-alt: #72A4B2;
+$color-red: #8F0E00;
 
 
 $color-bright-bg: #f2f3ee;
@@ -153,4 +161,35 @@ $grid-breakpoints: (
 .badToast {
   background-color: $color-red !important;
   font-weight: bold;
+}
+
+// Alerts
+.alert {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+.alert-primary {
+  color: white;
+  background-color: $color-primary;
+  border-color: $color-primary-border;
+}
+.alert-secondary {
+  color: white;
+  background-color: $color-secondary;
+  border-color: $color-secondary-border;
+}
+.alert-success {
+  color: white;
+  background-color: $color-success;
+  border-color: $color-success-border;
+}
+.fade.show {
+  opacity: 1;
+}
+.fade {
+  opacity: 0;
+  transition: opacity .15s linear;
 }

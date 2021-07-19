@@ -68,7 +68,9 @@ module.exports = {
         'faTimes',
         'faKey',
         'faCircleNotch',
-        'faSignOutAlt'
+        'faSignOutAlt',
+        'faInfoCircle',
+        'faArrowCircleRight'
       ]
     }
   },
