@@ -15,13 +15,13 @@ We're also looking for web developers to join our international remote IT team. 
 ## Dev Setup
 
 **Install Dependencies**
-`npm install`
+`yarn`
 
 **Run local dev Server**
-`npm run dev`
+`yarn run dev`
 
 **Run local dev server with local api**
-`npm run dev-local`
+`yarn run dev-local`
 
 
 ## Prepare for Deployment

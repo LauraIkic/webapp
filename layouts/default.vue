@@ -23,10 +23,8 @@
 
 <script>
 import TopHeader from '~/components/TopHeader.vue'
-import Modal from '~/components/Modal'
 import BottomFooter from '~/components/BottomFooter.vue'
 import Sidebar from '~/components/Sidebar.vue'
-import Breadcrumbs from '~/components/Breadcrumbs.vue'
 
 export default {
   data: () => ({
@@ -35,12 +33,7 @@ export default {
   components: {
     TopHeader,
     BottomFooter,
-    Sidebar,
-    // eslint-disable-next-line vue/no-unused-components
-    Breadcrumbs,
-    // eslint-disable-next-line vue/no-unused-components
-    Modal
-
+    Sidebar
   },
   computed: {
     isAuthenticated () {

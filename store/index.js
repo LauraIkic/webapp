@@ -228,8 +228,8 @@ const createStore = () => {
                 const auth = {
                   accessToken: authResult.accessToken
                 }
-                setToken(authResult.accessToken)
-                commit('setAuth', auth)
+                setToken(authResult.accessToken);
+                commit('setAuth', auth);
                 axios.create({
                   baseURL: connectorBaseUrl + '/member/invoice/' + id,
                   // headers: {'Authorization': `Bearer ${auth.accessToken}`, 'Content-Type' : 'application/pdf'}
@@ -386,6 +386,10 @@ const createStore = () => {
       },
       async hasCompletedOnboarding () {
         const res = await connector.get('/member/hasCompletedOnboarding')
+        return res.data
+      },
+      async hasCompletedSecurityCourses () {
+        const res = await connector.get('/member/hasCompletedSecurityCourses')
         return res.data
       },
       loginUser ({ commit }, context) {

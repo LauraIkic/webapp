@@ -9,7 +9,7 @@
       class="header-title"
     >
       <div class="tags">
-        <span v-for="(tag, index) in tags">
+        <span :key="tag.id" v-for="(tag, index) in tags">
           {{ tag }}<span v-if="index+1 < tags.length">, </span>
         </span>
       </div>
@@ -44,7 +44,7 @@ export default {
       return !!this.$store.state.user
     },
     singleMachine () {
-      return this.machine && this.machine.machine_status_items && this.machine.machine_status_items.length == 1
+      return this.machine && this.machine.machine_status_items && this.machine.machine_status_items.length === 1
     },
     hasBridge () {
       return this.machine.machine_status_items[0].hasBridge

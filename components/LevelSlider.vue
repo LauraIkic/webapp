@@ -41,7 +41,7 @@ export default {
   methods: {
     setLevel (val) {
       const number = this.blok.levels.length - 2 - val
-      if (number == -1) {
+      if (number === -1) {
         return
       }
       this.activeLevel = val

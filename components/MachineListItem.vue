@@ -16,7 +16,7 @@
             {{ content.title }}
           </div>
           <div class="tags">
-            <span v-for="(tag, index) in tags">
+            <span :key="tag.id" v-for="(tag, index) in tags">
               {{ tag }}<span v-if="index+1 < tags.length">, </span>
             </span>
           </div>
@@ -41,7 +41,7 @@
           {{ content.title }}
         </div>
         <div class="tags">
-          <span v-for="(tag, index) in tags">
+          <span :key="tag.id" v-for="(tag, index) in tags">
             {{ tag }}<span v-if="index+1 < tags.length">, </span>
           </span>
         </div>

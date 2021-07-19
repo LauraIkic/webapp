@@ -1,28 +1,28 @@
-
 <template>
   <div
-    v-editable="blok"
-    class="link-slideshow"
+      v-editable="blok"
+      class="link-slideshow"
   >
     <div v-swiper:swiper="swiperOption">
       <div class="swiper-wrapper">
         <div
-          v-for="(i, c) in link_background"
-          class="swiper-slide"
+            :key="i.id"
+            v-for="(i, c) in link_background"
+            class="swiper-slide"
         >
           <!--<a :href="window+'/'+s.link.cached_url" target="_blank">{{s.link}}</a>-->
           <a
-            class="link-slideshow-link"
-            :href="window+'/'+blok.items[c].link.cached_url"
-            target="_blank"
+              class="link-slideshow-link"
+              :href="window+'/'+blok.items[c].link.cached_url"
+              target="_blank"
           >
             <div
-              class="link-slideshow-item"
-              :style="{ 'background-image': 'url(' + i + ')'}"
+                class="link-slideshow-item"
+                :style="{ 'background-image': 'url(' + i + ')'}"
             >
               <img
-                src="~/assets/img/icons/arrow-right-solid.svg"
-                class="decorator"
+                  src="~/assets/img/icons/arrow-right-solid.svg"
+                  class="decorator"
               >
 
             </div>
@@ -32,8 +32,8 @@
           </a>
         </div>
       </div>
-      <div class="swiper-button-next" />
-      <div class="swiper-button-prev" />
+      <div class="swiper-button-next"/>
+      <div class="swiper-button-prev"/>
     </div>
   </div>
 </template>
@@ -115,7 +115,7 @@ export default {
         this.slug.push((string.substring(string.indexOf('/') + 1)).toUpperCase())
         console.log(this.slug)
         this.uuid = this.blok.items[0].link.id
-        if (this.type == 'machines') {
+        if (this.type === 'machines') {
           this.$store.dispatch('loadMachineItem', string.substring(string.indexOf('/') + 1)).then((data) => {
             console.log(data.story)
             string = data.story.content.image
@@ -127,7 +127,7 @@ export default {
             console.log(err)
           })
         }
-        if (this.type == 'workshops') {
+        if (this.type === 'workshops') {
           console.log(string.substring(string.indexOf('/') + 1))
           this.$store.dispatch('loadWorkshopItem', string.substring(string.indexOf('/') + 1)).then((data) => {
             console.log(data.workshop)
@@ -164,60 +164,67 @@ export default {
 </script>
 
 <style lang="scss">
-    @import '@/assets/scss/styles.scss';
+@import '@/assets/scss/styles.scss';
 
-    .link-slideshow {
-        color: $color-blue;
-        margin: 40px;
+.link-slideshow {
+  color: $color-blue;
+  margin: 40px;
 
-        .swiper-container {
-            height: 50vh;
+  .swiper-container {
+    height: 50vh;
 
-            .swiper-slide {
-                display: block;
-                background-size: contain;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-            padding-bottom: 60px;
-        }
-        .swiper-button-prev,
-        .swiper-button-next {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: $color-yellow;
-            background-size: 12px;
-
-        }
-        .swiper-button-next.link {
-            background-color: $color-bright-bg;
-            height: 25px;
-            left: 10px;
-            top: 30px;
-            width: 25px;
-        }
+    .swiper-slide {
+      display: block;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    .link-slideshow-item {
-        height: 100%;
-        width: 100%;
-        background-size: cover;
-        }
 
-    .link-name {
-        margin-top: 20px;
-    }
-    .link-icon {
-        height: 10%;
-        width: 10%;
-    }
-    .link-slideshow-link {
-        width: 100%;
-        .decorator {
-            margin-bottom: -7px;
-            margin-left: 10px;
-            margin-top: 10px;
-            width: 20px;
-        }
-    }
+    padding-bottom: 60px;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $color-yellow;
+    background-size: 12px;
+
+  }
+
+  .swiper-button-next.link {
+    background-color: $color-bright-bg;
+    height: 25px;
+    left: 10px;
+    top: 30px;
+    width: 25px;
+  }
+}
+
+.link-slideshow-item {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.link-name {
+  margin-top: 20px;
+}
+
+.link-icon {
+  height: 10%;
+  width: 10%;
+}
+
+.link-slideshow-link {
+  width: 100%;
+
+  .decorator {
+    margin-bottom: -7px;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 20px;
+  }
+}
 </style>

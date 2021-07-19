@@ -237,7 +237,7 @@ export default {
     flex-flow: row nowrap;
     justify-content: flex-end;
     align-items: center;
-    background-color: $color-blue-alt;
+    background-color: $color-blue;
     padding: 5px;
     color: #FFF;
     font-size: 0.85em;
