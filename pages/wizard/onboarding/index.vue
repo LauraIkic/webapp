@@ -7,9 +7,13 @@
       <br>
       Du bist außerdem Teil einer lebendigen und kreativen Community!
       <br><br>
-      Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem du eine Ermäßigung auf alle Workshops,
+      Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem eine Ermäßigung auf alle Workshops,
       <br>
       sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu erwerben.
+      <br><br>
+      Solltest du noch Fragen zu deiner Mitgliedschaft haben,
+      <br>
+      melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!
       <br><br>
       #MAKERSGONNAMAKE
     </p>
@@ -31,11 +35,6 @@
           href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
           target="new">Werkstattordnung</a> gelesen und bin damit einverstanden.</label>
     </div>
-    <p class="text">
-      Solltest du noch Fragen zu deiner Mitgliedschaft haben,
-      <br>
-      melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!
-    </p>
   </div>
 </template>
 

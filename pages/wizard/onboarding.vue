@@ -67,9 +67,9 @@
             <button
                 v-if="activeStep === 'confirmation'"
                 class="input-button-primary"
-                @click="$router.push('/course/1')"
+                @click="$router.push('/me/trainings')"
             >
-              Allgemeine Sicherheits-Unterweisung starten
+              <font-awesome-icon icon="arrow-circle-right"/> Sicherheits-Unterweisung starten
             </button>
             <button
                 v-else-if="index > 0"
@@ -315,12 +315,6 @@ export default {
         }
       }
     }
-  }
-
-  .input-button-primary:disabled {
-    cursor: default;
-    background-color: grey;
-    border: 1px solid darkgrey;
   }
 }
 </style>

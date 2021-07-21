@@ -43,11 +43,11 @@ $margin-page-narrow: 0 176px 268px; // for text, content etc
 // inspiration for breakpoint values: https://gs.statcounter.com/screen-resolution-stats/all/austria/2018
 
 $grid-breakpoints: (
-  'xs': 360px,
-  'sm': 576px,
-  'md': 800px,
-  'lg': 992px,
-  'xl': 1366px
+        'xs': 360px,
+        'sm': 576px,
+        'md': 800px,
+        'lg': 992px,
+        'xl': 1366px
 ) !default;
 
 // Name of the next breakpoint, or null for the last breakpoint.
@@ -55,16 +55,19 @@ $grid-breakpoints: (
   $n: index($breakpoint-names, $name);
   @return if($n != null and $n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
 }
+
 // Minimum breakpoint width. Null for the smallest (first) breakpoint.
 @function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
   $min: map-get($breakpoints, $name);
   @return if($min != 0, $min, null);
 }
+
 // Maximum breakpoint width. Null for the largest (last) breakpoint.
 @function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
   $next: breakpoint-next($name, $breakpoints);
   @return if($next, breakpoint-min($next, $breakpoints) - .02, null);
 }
+
 // Returns a blank string if smallest breakpoint, otherwise returns the name with a dash in front.
 @function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
   @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
@@ -141,19 +144,55 @@ $grid-breakpoints: (
 
 // layout margins
 @mixin margin-page-wide() {
-    margin-left: 4%;
-    margin-right: 4%;
+  margin-left: 4%;
+  margin-right: 4%;
 }
 
 @mixin margin-page-middle() {
-    margin-left: 8%;
-    margin-right: 7%;
-}
-@mixin margin-page-narrow() {
-    margin-left: 12%;
-    margin-right: 9%;
+  margin-left: 8%;
+  margin-right: 7%;
 }
 
+@mixin margin-page-narrow() {
+  margin-left: 12%;
+  margin-right: 9%;
+}
+
+// Buttons
+.input-button-primary:hover {
+  background-color: black !important;
+  border: 1px solid black !important;
+  color: white !important;
+}
+
+.input-button-primary {
+  cursor: pointer;
+  background-color: #ff6f00;
+  color: #FFF;
+  border: 1px solid #ff8c33;
+  padding: 7px 12px 8px;
+  line-height: 1;
+  outline: none;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.input-button-primary:disabled {
+  cursor: default;
+  background-color: grey;
+  border: 1px solid darkgrey;
+}
+
+.input-button-back {
+  @extend .input-button-primary;
+}
+
+.input-button-payment {
+  @extend .input-button-primary;
+  font-weight: bold;
+}
+
+// Headlines
 h3 {
   font-size: 1.3rem;
   margin: 0;
@@ -164,6 +203,7 @@ h3 {
 .goodToast {
   background-color: $color-blue-alt !important;
 }
+
 .badToast {
   background-color: $color-red !important;
   font-weight: bold;
@@ -177,24 +217,29 @@ h3 {
   border: 1px solid transparent;
   border-radius: .25rem;
 }
+
 .alert-primary {
   color: white;
   background-color: $color-primary;
   border-color: $color-primary-border;
 }
+
 .alert-secondary {
   color: white;
   background-color: $color-secondary;
   border-color: $color-secondary-border;
 }
+
 .alert-success {
   color: white;
   background-color: $color-success;
   border-color: $color-success-border;
 }
+
 .fade.show {
   opacity: 1;
 }
+
 .fade {
   opacity: 0;
   transition: opacity .15s linear;

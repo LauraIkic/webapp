@@ -76,7 +76,7 @@
           type="submit"
           class="input-button-primary"
         >
-          Speichern
+          <font-awesome-icon icon="save"/> Speichern
         </button>
       </div>
     </form>

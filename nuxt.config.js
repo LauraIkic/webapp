@@ -70,7 +70,8 @@ module.exports = {
         'faCircleNotch',
         'faSignOutAlt',
         'faInfoCircle',
-        'faArrowCircleRight'
+        'faArrowCircleRight',
+        'faSave'
       ]
     }
   },
