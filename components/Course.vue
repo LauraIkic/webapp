@@ -195,49 +195,6 @@ export default {
   height: 8.4em;
   width: 100%;
 }
-
-.input-button-primary {
-  cursor: pointer;
-  background-color: #ff6f00;
-  color: #FFF;
-  border: 1px solid #ff8c33;
-  padding: 7px 12px 8px;
-  line-height: 1;
-  outline: none;
-  align-self: center;
-  margin-top: 20px;
-  /*@include media-breakpoint-up(sm) {
-    position: absolute;
-    left: 48%;
-    right: 45%;
-  }
-  @include media-breakpoint-down(sm) {
-    position: absolute;
-    left: 38%;
-    right: 33%;
-  }*/
-}
-
-.input-button-primary:disabled {
-  cursor: default;
-  background-color: grey;
-  border: 1px solid darkgrey;
-}
-
-.input-button-primary:hover {
-  color: black;
-}
-
-.input-button-back {
-  @extend .input-button-primary;
-}
-
-.input-button-payment {
-  @extend .input-button-primary;
-  font-weight: bold;
-  // background-color: #ff4400;
-}
-
 .clickable {
   cursor: pointer;
 }

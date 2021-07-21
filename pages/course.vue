@@ -644,10 +644,6 @@ export default {
   }
 }
 
-.input-button-primary:hover {
-  font-weight: bold;
-}
-
 .quiz-description {
   text-align: center;
   margin-bottom: 20px;

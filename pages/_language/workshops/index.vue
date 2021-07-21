@@ -97,7 +97,7 @@ export default {
       categories: [
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshop', value: false },
-        { key: 'training', name: 'Einschulung', value: false },
+        { key: 'training', name: 'Unterweisungen', value: false },
         { key: 'meetup', name: 'Meetup', value: false }
       ],
       loading: false,

@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <div>
-      <h2>Einschulungen</h2>
+      <h2>Unterweisungen</h2>
       <loading-spinner v-if="!courses" color="#333"/>
       <div v-if="courses" class="courseContainer">
           <Course
