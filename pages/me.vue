@@ -4,7 +4,7 @@
       <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
       <code class="number">#{{ user.profile.memberNumber }}</code>
     </div>
-    <div v-if="!hasCompletedSecurityCourses" class="alert alert-secondary" role="alert">
+    <div v-if="hasCompletedOnboarding && !hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
       <font-awesome-icon icon="info-circle"/>
       Offene Sicherheitsschulungen
     </div>
@@ -14,8 +14,8 @@
         <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
         <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
             class="fat">Mitglied werden!</span></MenuLink>
-          <MenuLink to="/me/trainings" icon="graduation-cap" style="color: white !important;">
-            <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedSecurityCourses" icon="info-circle"/> Unterweisungen
+          <MenuLink v-if="hasCompletedOnboarding" to="/me/trainings" icon="graduation-cap" style="color: white !important;">
+            <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> Unterweisungen
           </MenuLink>
         <MenuLink to="/me/workshopBookings" icon="hammer">Meine Workshops</MenuLink>
         <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
@@ -48,14 +48,14 @@ export default {
   data () {
     return {
       hasCompletedOnboarding: true,
-      hasCompletedSecurityCourses: true
+      hasCompletedRequiredCourses: true
     }
   },
   created () {
   },
   async mounted () {
     this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
-    this.hasCompletedSecurityCourses = await this.$store.dispatch('hasCompletedSecurityCourses')
+    this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses')
   },
   methods: {
     getPackage (p) {
