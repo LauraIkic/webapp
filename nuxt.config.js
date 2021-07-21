@@ -1,6 +1,6 @@
 const axios = require('axios')
 const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
-const googleId = 'G-GN0DVTR09N'
+const googleId = 'UA-202640934-1'
 
 module.exports = {
   /*
