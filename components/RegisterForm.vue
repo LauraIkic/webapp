@@ -180,6 +180,7 @@
 </template>
 
 <script>
+import validator from 'validator'
 
 export default {
   props: ['blok'],
@@ -208,7 +209,6 @@ export default {
       return this.password === this.passwordRepeat
     },
     emailValid () {
-      // eslint-disable-next-line no-undef
       return validator.isEmail(this.email)
     },
     formValid () {
@@ -324,7 +324,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
+@import "/assets/scss/styles.scss";
 .red {
   outline: 1px solid red !important;
 }
