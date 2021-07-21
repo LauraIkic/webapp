@@ -1,31 +1,41 @@
 <template>
   <div class="section onboarding-wizard">
     <h2>Willkommen in der GRAND GARAGE!</h2>
+    <h3>Was erwartet dich?</h3>
     <p class="text">
-      Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!
+      Als Mitglied in unserem Makerspace steht dir nicht nur die Nutzung sämtlicher Maschinen offen.
       <br>
-      Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen und unsere MakerSpaceShips für Transporte auszuleihen.
+      Du bist außerdem Teil einer lebendigen und kreativen Community!
       <br><br>
-      Solltest du noch Fragen zu deiner Mitgliedschaft haben, melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht! Schön, dass du da bist!
+      Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem du eine Ermäßigung auf alle Workshops,
+      <br>
+      sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu erwerben.
       <br><br>
-      #MAKERSGONNAMAKE</p>
+      #MAKERSGONNAMAKE
+    </p>
     <div class="options">
       <div :class="['option', { selected: onboardingData.paymentType === TYPES.regular }]"
            @click="onboardingData.paymentType = TYPES.regular">
         <span class="name">regulär 40EUR/m</span>
       </div>
       <div :class="['option', { selected: onboardingData.paymentType === TYPES.reduced }]"
-          @click="onboardingData.paymentType = TYPES.reduced">
+           @click="onboardingData.paymentType = TYPES.reduced">
         <span class="name">ermäßigt 15EUR/m</span>
         <span class="description">4you card, SchülerInnen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass</span>
         <span class="description">Bitte entsprechenden Ausweis beim ersten Besuch mitnehmen!</span>
       </div>
-   </div>
+    </div>
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
-      <label for="checkbox">Ja, ich habe die <a href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
-                                                target="new">Werkstattordnung</a> gelesen und bin damit einverstanden.</label>
+      <label for="checkbox">Ja, ich habe die <a
+          href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
+          target="new">Werkstattordnung</a> gelesen und bin damit einverstanden.</label>
     </div>
+    <p class="text">
+      Solltest du noch Fragen zu deiner Mitgliedschaft haben,
+      <br>
+      melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!
+    </p>
   </div>
 </template>
 
@@ -50,8 +60,7 @@ export default {
   },
   created () {
   },
-  methods: {
-  },
+  methods: {},
   computed: {
     user () {
       return this.$store.state.user
@@ -68,6 +77,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .options {
     padding: 20px 0;
     display: flex;
@@ -89,20 +99,25 @@ export default {
         border: 2px solid $color-orange;
       }
     }
+
     .description {
-      color:grey;
+      color: grey;
     }
   }
+
   .name {
     font-weight: bolder;
     margin-bottom: 1em;
   }
+
   .text {
     text-align: center;
   }
+
   .selected {
     border: 2px solid $color-orange !important;
   }
+
   .spacer {
     flex: 1;
   }

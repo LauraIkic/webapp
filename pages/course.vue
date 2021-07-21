@@ -382,16 +382,6 @@ export default {
     //   link.click()
     // }
   },
-  computed: {
-    memberCourse() {
-      return this.$store.getters.getMemberCourseById(this.id);
-    },
-    pdfUrl () {
-      if (this.quiz && this.quiz.pdf) {
-        return this.$store.getters.getStorageUrl + this.quiz.pdf
-      }
-    }
-  },
   async created () {
     this.id = this.$route.query.id
     this.quiz = await this.$store.dispatch('getQuiz', this.id)

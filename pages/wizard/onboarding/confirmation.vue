@@ -1,9 +1,11 @@
 <template>
   <div class="section">
+    <img width="80px" src="~/assets/img/icons/fireworks.svg" class="decorator">
     <h2>Gratulation!</h2>
-    <img class="icon" src="~/assets/img/icons/envelope.svg" alt="">
-    Der erste Schritt zum GRAND GARAGE Membership ist geschafft!<br>
-    Um deine Mitgliedschaft abzuschließen kannst du hier die allgemeine Sicherheitsunterweisung abschließen.
+    <p class="text">
+      Der erste Schritt zum GRAND GARAGE Membership ist geschafft!<br>
+      Um deine Mitgliedschaft abzuschließen kannst du hier die allgemeine Sicherheitsunterweisung abschließen.
+    </p>
   </div>
 </template>
 <script>
