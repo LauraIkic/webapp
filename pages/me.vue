@@ -13,7 +13,7 @@
         <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
         <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
         <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
-            class="fat">Mitglied werden!</span></MenuLink>
+            class="fat">Jetzt Mitglied werden!</span></MenuLink>
           <MenuLink v-if="hasCompletedOnboarding" to="/me/trainings" icon="graduation-cap" style="color: white !important;">
             <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> Unterweisungen
           </MenuLink>
