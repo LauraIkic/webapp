@@ -10,7 +10,6 @@
             {{ blok.headline }}
           </h3>
         </div>
-        <div class="dashed-line-blue"/>
         <div class="intro-items">
           <div
               :key="i._uid"
@@ -249,25 +248,6 @@ export default {
 
           }
         }
-      }
-
-      .dashed-line-blue {
-        background-image: url(~assets/img/dashed-bg-blue.svg);
-        background-size: 100% auto;
-        background-position: 0 -10px;
-        background-repeat: repeat-y;
-        background-size: 1.8vw;
-        @include media-breakpoint-up(lg) {
-          height: 3000px;
-          left: 10%;
-        }
-        @include media-breakpoint-down(md) {
-          background-size: 12px;
-          height: 3000px;
-          left: 6%;
-        }
-        width: 4%;
-        position: absolute;
       }
     }
 
