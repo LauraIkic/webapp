@@ -6,25 +6,33 @@
       <br>
       Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen und unsere MakerSpaceShips für Transporte auszuleihen.
       <br><br>
-      Solltest du noch Fragen zu deiner Mitgliedschaft haben, melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht! Schön, dass du da bist!
+      Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem eine Ermäßigung auf alle Workshops,
+      <br>
+      sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu erwerben.
       <br><br>
-      #MAKERSGONNAMAKE</p>
+      Solltest du noch Fragen zu deiner Mitgliedschaft haben,
+      <br>
+      melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!
+      <br><br>
+      #MAKERSGONNAMAKE
+    </p>
     <div class="options">
       <div :class="['option', { selected: onboardingData.paymentType === TYPES.regular }]"
            @click="onboardingData.paymentType = TYPES.regular">
         <span class="name">regulär 40EUR/m</span>
       </div>
       <div :class="['option', { selected: onboardingData.paymentType === TYPES.reduced }]"
-          @click="onboardingData.paymentType = TYPES.reduced">
+           @click="onboardingData.paymentType = TYPES.reduced">
         <span class="name">ermäßigt 15EUR/m</span>
         <span class="description">4you card, SchülerInnen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass</span>
         <span class="description">Bitte entsprechenden Ausweis beim ersten Besuch mitnehmen!</span>
       </div>
-   </div>
+    </div>
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
-      <label for="checkbox">Ja, ich habe die <a href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
-                                                target="new">Werkstattordnung</a> gelesen und bin damit einverstanden.</label>
+      <label for="checkbox">Ja, ich habe die <a
+          href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
+          target="new">Werkstattordnung</a> gelesen und bin damit einverstanden.</label>
     </div>
   </div>
 </template>
@@ -50,8 +58,7 @@ export default {
   },
   created () {
   },
-  methods: {
-  },
+  methods: {},
   computed: {
     user () {
       return this.$store.state.user
@@ -60,14 +67,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+<style lang="scss">
+@import '@/assets/scss/styles.scss';
 
 .onboarding-wizard {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .options {
     padding: 20px 0;
     display: flex;
@@ -89,20 +97,25 @@ export default {
         border: 2px solid $color-orange;
       }
     }
+
     .description {
-      color:grey;
+      color: grey;
     }
   }
+
   .name {
     font-weight: bolder;
     margin-bottom: 1em;
   }
+
   .text {
     text-align: center;
   }
+
   .selected {
     border: 2px solid $color-orange !important;
   }
+
   .spacer {
     flex: 1;
   }

@@ -1,6 +1,5 @@
 <template>
   <div v-editable="blok" class="workshop-best-of">
-    <div class="dashed-line-black" />
     <section class="header">
       <h2 class="headline">
         {{ blok.headline }}
@@ -35,18 +34,6 @@ export default {
 .workshop-best-of {
   background-color: $color-bright-bg;
   position: relative;
-
-  .dashed-line-black {
-    background-image: url(~assets/img/dashed-bg-black.svg);
-    background-size: 100% auto;
-    background-repeat: repeat-y;
-    background-position: 0 20px;
-    background-size: 1.8vw;
-    height: 3000px;
-    width: 2%;
-    position: absolute;
-    right: 5%;
-  }
   .header {
     padding-bottom: 100px;
     display: flex;

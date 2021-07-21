@@ -1,13 +1,14 @@
 <template>
   <div class="section">
     <div>
-      <h2>Einschulungen</h2>
-      <div class="courseContainer">
-        <Course
-          v-for="course of courses"
-          :key="course.id"
-          :course="course"
-        />
+      <h2>Unterweisungen</h2>
+      <loading-spinner v-if="!courses" color="#333"/>
+      <div v-if="courses" class="courseContainer">
+          <Course
+              v-for="course of courses"
+              :key="course.id"
+              :course="course"
+          />
       </div>
     </div>
   </div>
@@ -15,6 +16,7 @@
 
 <script>
 import Course from '@/components/Course'
+
 export default {
   components: {
     Course
@@ -36,36 +38,41 @@ export default {
   },
   created () {
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 
 <style lang="scss">
 @import '@/assets/scss/styles.scss';
+
 .section {
   display: flex;
   flex-direction: column;
 }
+
 .courseContainer {
   display: flex;
   flex-wrap: wrap;
 }
+
 .link-with-arrow {
   .link-text {
     a {
       text-transform: uppercase;
       color: $color-blue;
     }
+
     margin: 1em 0 .5em;
     display: flex;
     align-items: center;
     min-width: 200px;
+
     .link-arrow {
       border-top: $color-blue 1px solid;
       width: 1em;
       position: relative;
       margin-right: .3em;
+
       &:before {
         position: absolute;
         right: 0;

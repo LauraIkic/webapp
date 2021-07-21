@@ -1,15 +1,11 @@
 <template>
   <div
-    v-if="course && memberCourse"
-    ref="trainingItem"
-    :class="['training-item', { clickable: !memberCourse.is_valid }]"
-    @click="takeQuiz"
-  >
-    <div
-      v-if="isLoading"
-      class="spinnerContainer"
-    >
-      <loading-spinner color="white" />
+      v-if="course && memberCourse"
+      ref="trainingItem"
+      :class="['training-item', { clickable: !memberCourse.is_valid }]"
+      @click="takeQuiz">
+    <div v-if="isLoading" class="spinnerContainer">
+      <loading-spinner color="white"/>
     </div>
     <div class="body">
       <div class="content">
@@ -17,51 +13,25 @@
           <span class="course-heading"><b>{{ course.name }}</b></span>
         </div>
         <div class="bottom">
-          <div
-            v-if="!memberCourse"
-            class="course-info"
-          >
-            <button
-              class="input-button-primary"
-              @click="startCourse"
-            >
+          <div v-if="!memberCourse" class="course-info">
+            <button class="input-button-primary" @click="startCourse">
               Kurs starten
             </button>
           </div>
-          <!--<div v-else class="info">-->
-<!--          <div class="course-info"><span>gestartet am: {{ createdDate }}</span></div>-->
-          <div class="status" v-if="!( memberCourse.is_valid)"><!--<span>Praxistest: {{!!memberCourse.manual_activation}}</span>-->
+          <div class="status" v-if="!( memberCourse.is_valid)">
             <div class="left">
-              <font-awesome-icon
-                v-if="memberCourse.is_valid"
-                class="green"
-                icon="check-circle"
-              />
-              <font-awesome-icon
-                v-else
-                class="grey"
-                icon="times-circle"
-              />
+              <font-awesome-icon v-if="memberCourse.is_valid" class="green" icon="check-circle"/>
+              <font-awesome-icon v-else class="grey" icon="times-circle"/>
               <span>Online-Quiz</span>
             </div>
-<!--            <div class="right">
-              <font-awesome-icon class="green" v-if="memberCourse.manual_activation" icon="check-circle" />
-              <font-awesome-icon class="grey" v-else icon="times-circle" />
-              <span>Praxistest</span>
-            </div>-->
-          </div>
-          <div v-if="memberCourse.is_valid" class="success">
-<!--            <div v-if="memberCourse.manual_activation" class="success">-->
-              <font-awesome-icon icon="check-circle" />
+            <div v-if="memberCourse.is_valid" class="success">
+              <font-awesome-icon icon="check-circle"/>
               <div>Abgeschlossen</div>
             </div>
-<!--            <div v-else>Als nächstes musst du nur noch-->
-<!--              den Kurs von einem Host oder am Frontdesk freischalten lassen.-->
-<!--            </div>-->
-<!--          </div>-->
-          <div v-else>
-            <div class="startButton">
-              <div>Quiz starten</div>
+            <div v-else>
+              <div class="startButton">
+                <div>Quiz starten</div>
+              </div>
             </div>
           </div>
         </div>
@@ -91,8 +61,9 @@ export default {
       const quiz = await this.$store.dispatch('getQuiz', this.course.id)
       for (const question of quiz.quiz_questions) {
         if (question.imagePath.toLowerCase().endsWith('jpeg') || question.imagePath.toLowerCase().endsWith('png')) {
-          this.$refs.trainingItem.style.backgroundImage = `url(${question.imagePath})`
-
+          if (this.$refs.trainingItem) {
+            this.$refs.trainingItem.style.backgroundImage = `url(${question.imagePath})`
+          }
           return
         }
       }
@@ -125,6 +96,7 @@ export default {
   height: 24em;
   position: relative;
   border: 1px solid black;
+
   .spinnerContainer {
     position: absolute;
     display: flex;
@@ -133,7 +105,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 2em;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
   }
 
@@ -158,54 +130,56 @@ export default {
       }
     }
 
-    .bottomText {
-      width: 100%;
-      background: black;
-      color: white;
-      height: 5.7rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5em;
-      font-family: $font-mono;
-    }
-
-    .startButton {
-      @extend .bottomText;
-    }
-
-    .course-info {
-      @extend .bottomText;
-      background: white;
-      color: black;
-      padding: 1em;
-      font-size: 1rem;
-      border-top: 1px solid black;
-    }
-
-    .course-heading {
-      background: white;
-      font-size: 1.5em;
-      font-family: $font-mono;
-    }
-
-    .success {
-      @extend .bottomText;
-      color: darkgreen;
-      background: white;
-      height: 100%;
-      margin-top: 2em;
-      & :first-child {
-        font-size: 1.7em;
-        margin-right: -0.3em;
-        margin-right: 0.3em;
-      }
-    }
+  .bottomText {
+    width: 100%;
+    background: black;
+    color: white;
+    height: 5.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-family: $font-mono;
   }
-  .top {
+
+  .startButton {
+    @extend .bottomText;
+  }
+
+  .course-info {
+    @extend .bottomText;
+    background: white;
+    color: black;
     padding: 1em;
-    line-height: 1.8em;
+    font-size: 1rem;
+    border-top: 1px solid black;
   }
+
+  .course-heading {
+    background: white;
+    font-size: 1.5em;
+    font-family: $font-mono;
+  }
+
+  .success {
+    @extend .bottomText;
+    color: darkgreen;
+    background: white;
+    height: 100%;
+    margin-top: 2em;
+
+    & :first-child {
+      font-size: 1.7em;
+      margin-right: -0.3em;
+      margin-right: 0.3em;
+    }
+  }
+}
+
+.top {
+  padding: 1em;
+  line-height: 1.8em;
+}
 
   .bottom {
     background: white;

@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import MetaDataService from '../services/MetaDataService.js'
+
 export default {
   props: ['blok', 'dates'],
   data () {
@@ -63,12 +65,15 @@ export default {
         items: this.blok.images
       }
     }
+  },
+  head () {
+    return MetaDataService.getMetaTagsForWorkshop(this.blok)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .workshop-info {
   color: #000;

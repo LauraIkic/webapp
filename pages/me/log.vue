@@ -2,10 +2,9 @@
   <div>
     <h2>Meine Aktivitäten</h2>
     <div class="resources">
-      <span
-        v-if="machines.length < 1"
-        class="resource-header"
-      >Hier kannst du bald eine Übersicht zur Nutzung der Maschinen einsehen</span>
+      <span v-if="machines.length < 1" class="resource-header">
+        Hier kannst du bald eine Übersicht zur Nutzung der Maschinen einsehen
+      </span>
 
       <!--      <div class="info-row">
                     <div class="info-block">
@@ -41,8 +40,9 @@
         <h2>Meine Maschinen Nutzung</h2>-->
 
       <div
-        v-for="m, z in machines"
-        class="resource-info"
+          :key="m"
+          v-for="m, z in machines"
+          class="resource-info"
       >
         <div class="info-row">
           <span class="resource-header">{{ m.name }}</span>
@@ -54,8 +54,8 @@
             </div>
           </div>
           <div
-            v-if="!empty"
-            class="info-block"
+              v-if="!empty"
+              class="info-block"
           >
             <div class="col log-info">
               <span class="heading">Nutzung</span>
@@ -75,9 +75,9 @@
         <!--<div v-for="c in count">
                     <div v-for="i in m.items" class="info-row" v-if="count_[i] <= (range * 10)"> -->
         <div
-          :key="c"
-          v-for="i, c in m.items"
-          class="info-row"
+            :key="c"
+            v-for="i, c in m.items"
+            class="info-row"
         >
           <span v-if="c <= (range*10)">
             <div class="info-block left">
@@ -87,8 +87,8 @@
             </div>
           </span>
           <div
-            v-if="!empty"
-            class="info-block"
+              v-if="!empty"
+              class="info-block"
           >
             <div class="col log-info">
               <span>{{ i.active_seconds }} Sekunden</span>
@@ -96,7 +96,8 @@
           </div>
           <div class="info-block  right">
             <div class="col log-info">
-              <span>{{ i.all_seconds >= 120 || i.all_seconds < 60 ? (Math.round(i.all_seconds/60)) + ' Minuten' : (Math.round(i.all_seconds/60)) + ' Minute' }}</span>
+              <span>{{ i.all_seconds >= 120 || 60 > i.all_seconds ? (Math.round(i.all_seconds / 60)) + ' Minuten' : (Math.round(i.all_seconds / 60)) + ' Minute'
+                }}</span>
               <!--<span>{{ i.all_seconds < 60 ? 'Sekunde' : 'Sekunden'}}</span>-->
             </div>
             <!--<div class="col info">
@@ -116,9 +117,9 @@
         </div>
         <!--</div>-->
         <button
-          v-if="m.items.length >= 10"
-          class="more"
-          @click="more(z)"
+            v-if="m.items.length >= 10"
+            class="more"
+            @click="more(z)"
         >
           mehr
         </button>
@@ -132,6 +133,7 @@ export default {
   name: 'Log',
   middleware: 'authenticated',
   props: {
+    // eslint-disable-next-line vue/require-prop-type-constructor
     time: 0
   },
   data () {
@@ -150,8 +152,7 @@ export default {
       range: 1
     }
   },
-  computed: {
-  },
+  computed: {},
   created () {
     this.getLogs()
     this.getActivity()
@@ -172,9 +173,7 @@ export default {
             this.resource_name = machineType[i] // array mit namen
             this.resource_names.push(machineType[i])
             machineName = machineType[i]
-            this.machines.push(
-              { name: machineName, items: data.data[machineName] }
-            )
+            this.machines.push({ name: machineName, items: data.data[machineName] })
           }
         }
         for (let j = 0; j < this.machines.length; j++) {
@@ -216,7 +215,7 @@ export default {
       for (let i = 0; i < this.machines.length; i++) {
         // console.log(this.machines);
         for (let j = 0; j < this.machines[i].items.length; j++) {
-          if (this.machines[i].items[j].active_seconds == this.machines[i].items[j].all_seconds) {
+          if (this.machines[i].items[j].active_seconds === this.machines[i].items[j].all_seconds) {
             this.empty = true
           }
         }
@@ -228,7 +227,11 @@ export default {
         console.log('activity: ')
         console.log(data.data)
         for (let i = 0; i < data.data.length; i++) {
-          this.activity_item = { date: data.data[i].service_date, cost: data.data[i].cost_brutto, item: data.data[i].product.internal_name }
+          this.activity_item = {
+            date: data.data[i].service_date,
+            cost: data.data[i].cost_brutto,
+            item: data.data[i].product.internal_name
+          }
           this.activities.push(this.activity_item)
         }
         console.log(this.activities)
@@ -244,136 +247,155 @@ export default {
       console.log(this.range)
     },
     getCount (i) {
-      this.count
+      return this.count
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/scss/styles.scss';
-    .resources {
-        // display: flex;
-        margin-top: 20px;
-        width: 100%;
-        @include media-breakpoint-down(sm) {
-            display: block;
-        }
-        .resource-info {
-            background-color: #FFF;
-            border: 1px solid $color-orange;
-            border-radius: 5px;
-            margin: 10px 10px;
-            padding: 40px 30px;
-            position: relative;
-            width: 45%;
-            @include media-breakpoint-up(sm) {
-                float: left;
-            }
-            @include media-breakpoint-down(sm) {
-                margin: 10px 0px;
-                width: 100%;
-            }
-            .info-row {
-                font-family: $font-mono;
-                font-size: 0.9rem;
-                font-weight: bold;
-                margin: -8px;
-                display: flex;
-                line-height: 1.6;
-                .info-block {
-                    flex-direction: row;
-                    display: flex;
-                    .log-info {
-                        margin-top: 10px;
-                        width: 75%;
-                        .heading{
-                            font-weight: 500;
-                        }
-                    }
-                    .col {
-                        padding: 8px;
-                    }
-                }
-                .info-block.left{
-                    flex: 2;
-                }
-                .info-block.right {
-                    flex: 1;
-                }
+@import '@/assets/scss/styles.scss';
 
-            }
-            .more {
-                background-color: #ff6f00;
-                border: 1px solid #ff8c33;
-                color: #FFF;
-                cursor: pointer;
-                left: 45%;
-                line-height: 1;
-                outline: none;
-                padding: 7px 12px 8px;
-                position: absolute;
-                right: 50%;
-                margin-top: 5px;
-                @include media-breakpoint-down(sm) {
-                    left: 40%;
-                }
-            }
-        }
-        span.resource-header{
-            color: #ff6f00;
-            font-size: large;
-            font-weight: 700;
+.resources {
+  // display: flex;
+  margin-top: 20px;
+  width: 100%;
+  @include media-breakpoint-down(sm) {
+    display: block;
+  }
 
-        }
+  .resource-info {
+    background-color: #FFF;
+    border: 1px solid $color-orange;
+    border-radius: 5px;
+    margin: 10px 10px;
+    padding: 40px 30px;
+    position: relative;
+    width: 45%;
+    @include media-breakpoint-up(sm) {
+      float: left;
+    }
+    @include media-breakpoint-down(sm) {
+      margin: 10px 0px;
+      width: 100%;
     }
 
-    .activities {
-        width: 100%;
-        margin-top: 20px;
-        .resource-info {
-            margin-top: 4px;
-            padding: 10px;
-            background-color: #FFF;
-            .info-row {
-                @include media-breakpoint-down(md) {
-                    flex-direction: column;
-                }
-                line-height: 1.6;
-                font-family: $font-mono;
-                font-size: 0.9rem;
-                font-weight: bold;
-                margin: -8px;
-                display: flex;
-                .info-block {
-                    flex: 1;
-                    flex-direction: row;
-                    display: flex;
-                    .log-info {
-                        margin-top: 10px;
-                        width: 75%;
-                        .heading{
-                            font-weight: 500;
-                        }
-                    }
-                    .col {
-                        padding: 8px;
-                    }
-                }
-                .info-block.left{
-                    flex: 2;
-                }
-                .info-block.right {
-                    flex: 1;
-                }
-            }
+    .info-row {
+      font-family: $font-mono;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin: -8px;
+      display: flex;
+      line-height: 1.6;
+
+      .info-block {
+        flex-direction: row;
+        display: flex;
+
+        .log-info {
+          margin-top: 10px;
+          width: 75%;
+
+          .heading {
+            font-weight: 500;
+          }
         }
 
-        span.activity-header{
-            color: #ff6f00;
-            font-size: large;
-            font-weight: 700;
+        .col {
+          padding: 8px;
         }
+      }
+
+      .info-block.left {
+        flex: 2;
+      }
+
+      .info-block.right {
+        flex: 1;
+      }
+
     }
+
+    .more {
+      background-color: #ff6f00;
+      border: 1px solid #ff8c33;
+      color: #FFF;
+      cursor: pointer;
+      left: 45%;
+      line-height: 1;
+      outline: none;
+      padding: 7px 12px 8px;
+      position: absolute;
+      right: 50%;
+      margin-top: 5px;
+      @include media-breakpoint-down(sm) {
+        left: 40%;
+      }
+    }
+  }
+
+  span.resource-header {
+    color: #ff6f00;
+    font-size: large;
+    font-weight: 700;
+
+  }
+}
+
+.activities {
+  width: 100%;
+  margin-top: 20px;
+
+  .resource-info {
+    margin-top: 4px;
+    padding: 10px;
+    background-color: #FFF;
+
+    .info-row {
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
+      line-height: 1.6;
+      font-family: $font-mono;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin: -8px;
+      display: flex;
+
+      .info-block {
+        flex: 1;
+        flex-direction: row;
+        display: flex;
+
+        .log-info {
+          margin-top: 10px;
+          width: 75%;
+
+          .heading {
+            font-weight: 500;
+          }
+        }
+
+        .col {
+          padding: 8px;
+        }
+      }
+
+      .info-block.left {
+        flex: 2;
+      }
+
+      .info-block.right {
+        flex: 1;
+      }
+    }
+  }
+
+  span.activity-header {
+    color: #ff6f00;
+    font-size: large;
+    font-weight: 700;
+  }
+}
 
 </style>

@@ -25,7 +25,7 @@
             </div>
             <!--            <div class="count">{{ activity.product_count }}x</div>-->
             <div class="cost">
-              {{ Math.round(activity.cost_brutto) }}EUR
+              {{ parseFloat(activity.cost_brutto).toFixed(2) }}EUR
             </div>
             <div
               v-if="activity.invoice_id"

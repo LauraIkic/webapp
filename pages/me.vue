@@ -4,15 +4,19 @@
       <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
       <code class="number">#{{ user.profile.memberNumber }}</code>
     </div>
-    <!--    <div v-if="!hasCompletedSecurityCourses" class="alert alert-secondary" role="alert">-->
-    <!--      <font-awesome-icon icon="info-circle"/> Offene Sicherheitsschulungen-->
-    <!--    </div>-->
+    <div v-if="hasCompletedOnboarding && !hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
+      <font-awesome-icon icon="info-circle"/>
+      Offene Sicherheitsschulungen
+    </div>
     <div class="tab-section">
       <div class="tab-section-menu">
         <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
         <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
-        <!-- <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span class="fat">Mitglied werden!</span></MenuLink> -->
-        <!-- <div v-if="!hasCompletedSecurityCourses" class="alert-secondary" style="color: white !important;"><MenuLink to="/me/trainings" icon="graduation-cap" style="color: white;"><font-awesome-icon :style="{ color: 'white' }" v-if="!hasCompletedSecurityCourses" icon="arrow-circle-right"/> Unterweisungen</MenuLink></div> -->
+        <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
+            class="fat">Jetzt Mitglied werden!</span></MenuLink>
+          <MenuLink v-if="hasCompletedOnboarding" to="/me/trainings" icon="graduation-cap" style="color: white !important;">
+            <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> Unterweisungen
+          </MenuLink>
         <MenuLink to="/me/workshopBookings" icon="hammer">Meine Workshops</MenuLink>
         <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
         <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">Rechnungen
@@ -21,8 +25,10 @@
         <MenuLink to="/me/giftcards" icon="gift">Gutscheine</MenuLink>
         <transition name="slide">
           <div class="submenu" v-if="$route.name.startsWith('me-giftcards')">
-            <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">Gutschein kaufen</MenuLink>
-            <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen</MenuLink>
+            <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">Gutschein kaufen
+            </MenuLink>
+            <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen
+            </MenuLink>
           </div>
         </transition>
       </div>
@@ -41,15 +47,15 @@ export default {
   components: { MenuLink },
   data () {
     return {
-      hasCompletedOnboarding: true
-      // hasCompletedSecurityCourses: true
+      hasCompletedOnboarding: true,
+      hasCompletedRequiredCourses: true
     }
   },
   created () {
   },
   async mounted () {
     this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
-    // this.hasCompletedSecurityCourses = await this.$store.dispatch('hasCompletedSecurityCourses')
+    this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses')
   },
   methods: {
     getPackage (p) {

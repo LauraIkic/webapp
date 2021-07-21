@@ -23,7 +23,6 @@
 
 <script>
 import TopHeader from '~/components/TopHeader.vue'
-import Modal from '~/components/Modal'
 import BottomFooter from '~/components/BottomFooter.vue'
 import Sidebar from '~/components/Sidebar.vue'
 
@@ -34,8 +33,7 @@ export default {
   components: {
     TopHeader,
     BottomFooter,
-    Sidebar,
-    Modal
+    Sidebar
   },
   computed: {
     isAuthenticated () {

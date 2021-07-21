@@ -21,7 +21,8 @@
         </p>
       </div>
     </div>
-    <p><b>Tipp:</b> Bei jährlicher Zahlung bekommst du 2 Monate geschenkt.</p>
+    <small style="text-align: center"> <font-awesome-icon icon="info-circle"/> Tipp: Bei jährlicher Zahlung bekommst du 2 Monate geschenkt.</small>
+    <br>
     <form class="form wizard">
       <div class="form-item">
         <span class="label">IBAN</span>
