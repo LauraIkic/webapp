@@ -1,15 +1,11 @@
 <template>
   <div
-    v-if="course && memberCourse"
-    ref="trainingItem"
-    :class="['training-item', { clickable: !memberCourse.is_valid }]"
-    @click="takeQuiz"
-  >
-    <div
-      v-if="isLoading"
-      class="spinnerContainer"
-    >
-      <loading-spinner color="white" />
+      v-if="course && memberCourse"
+      ref="trainingItem"
+      :class="['training-item', { clickable: !memberCourse.is_valid }]"
+      @click="takeQuiz">
+    <div v-if="isLoading" class="spinnerContainer">
+      <loading-spinner color="white"/>
     </div>
     <div class="body">
       <div class="content">
@@ -17,51 +13,25 @@
           <span class="course-heading"><b>{{ course.name }}</b></span>
         </div>
         <div class="bottom">
-          <div
-            v-if="!memberCourse"
-            class="course-info"
-          >
-            <button
-              class="input-button-primary"
-              @click="startCourse"
-            >
+          <div v-if="!memberCourse" class="course-info">
+            <button class="input-button-primary" @click="startCourse">
               Kurs starten
             </button>
           </div>
-          <!--<div v-else class="info">-->
-<!--          <div class="course-info"><span>gestartet am: {{ createdDate }}</span></div>-->
-          <div class="status" v-if="!( memberCourse.is_valid)"><!--<span>Praxistest: {{!!memberCourse.manual_activation}}</span>-->
+          <div class="status" v-if="!( memberCourse.is_valid)">
             <div class="left">
-              <font-awesome-icon
-                v-if="memberCourse.is_valid"
-                class="green"
-                icon="check-circle"
-              />
-              <font-awesome-icon
-                v-else
-                class="grey"
-                icon="times-circle"
-              />
+              <font-awesome-icon v-if="memberCourse.is_valid" class="green" icon="check-circle"/>
+              <font-awesome-icon v-else class="grey" icon="times-circle"/>
               <span>Online-Quiz</span>
             </div>
-<!--            <div class="right">
-              <font-awesome-icon class="green" v-if="memberCourse.manual_activation" icon="check-circle" />
-              <font-awesome-icon class="grey" v-else icon="times-circle" />
-              <span>Praxistest</span>
-            </div>-->
-          </div>
-          <div v-if="memberCourse.is_valid" class="success">
-<!--            <div v-if="memberCourse.manual_activation" class="success">-->
-              <font-awesome-icon icon="check-circle" />
+            <div v-if="memberCourse.is_valid" class="success">
+              <font-awesome-icon icon="check-circle"/>
               <div>Abgeschlossen</div>
             </div>
-<!--            <div v-else>Als nächstes musst du nur noch-->
-<!--              den Kurs von einem Host oder am Frontdesk freischalten lassen.-->
-<!--            </div>-->
-<!--          </div>-->
-          <div v-else>
-            <div class="startButton">
-              <div>Quiz starten</div>
+            <div v-else>
+              <div class="startButton">
+                <div>Quiz starten</div>
+              </div>
             </div>
           </div>
         </div>
@@ -91,8 +61,9 @@ export default {
       const quiz = await this.$store.dispatch('getQuiz', this.course.id)
       for (const question of quiz.quiz_questions) {
         if (question.imagePath.toLowerCase().endsWith('jpeg') || question.imagePath.toLowerCase().endsWith('png')) {
-          this.$refs.trainingItem.style.backgroundImage = `url(${question.imagePath})`
-
+          if (this.$refs.trainingItem) {
+            this.$refs.trainingItem.style.backgroundImage = `url(${question.imagePath})`
+          }
           return
         }
       }
@@ -138,128 +109,134 @@ export default {
     z-index: 1;
   }
 }
-  .body {
-    // display: flex;
-    .content {
-      flex: 1;
-      text-align: center;
-    }
-    .status {
-      display: flex;
-      flex-flow: row nowrap;
-      font-family: $font-mono;
-      border-top: 1px solid black;
-      padding: 1em;
-      justify-content: center;
-      & .green {
-        color: darkgreen;
-      }
-      & .grey {
-        color: grey;
-      }
-    }
 
-    .bottomText {
-      width: 100%;
-      background: black;
-      color: white;
-      height: 5.7rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5em;
-      font-family: $font-mono;
-    }
-
-    .startButton {
-      @extend .bottomText;
-    }
-
-    .course-info {
-      @extend .bottomText;
-      background: white;
-      color: black;
-      padding: 1em;
-      font-size: 1rem;
-      border-top: 1px solid black;
-    }
-
-    .course-heading {
-      background: white;
-      font-size: 1.5em;
-      font-family: $font-mono;
-    }
-
-    .success {
-      @extend .bottomText;
-      color: darkgreen;
-      background: white;
-      height: 100%;
-      margin-top: 2em;
-      & :first-child {
-        font-size: 1.7em;
-        margin-right: -0.3em;
-        margin-right: 0.3em;
-      }
-    }
-  }
-  .top {
-    padding: 1em;
-    line-height: 1.8em;
+.body {
+  // display: flex;
+  .content {
+    flex: 1;
+    text-align: center;
   }
 
-  .bottom {
-    background: white;
-    position: absolute;
+  .status {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    bottom: 0;
-    height: 8.4em;
-    width: 100%;
-  }
+    flex-flow: row nowrap;
+    font-family: $font-mono;
+    border-top: 1px solid black;
+    padding: 1em;
+    justify-content: center;
 
-  .input-button-primary {
-    cursor: pointer;
-    background-color: #ff6f00;
-    color: #FFF;
-    border: 1px solid #ff8c33;
-    padding: 7px 12px 8px;
-    line-height: 1;
-    outline: none;
-    align-self: center;
-    margin-top: 20px;
-    /*@include media-breakpoint-up(sm) {
-      position: absolute;
-      left: 48%;
-      right: 45%;
+    & .green {
+      color: darkgreen;
     }
-    @include media-breakpoint-down(sm) {
-      position: absolute;
-      left: 38%;
-      right: 33%;
-    }*/
+
+    & .grey {
+      color: grey;
+    }
   }
 
-  .input-button-primary:disabled {
-    cursor: default;
-    background-color: grey;
-    border: 1px solid darkgrey;
+  .bottomText {
+    width: 100%;
+    background: black;
+    color: white;
+    height: 5.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-family: $font-mono;
   }
 
-  .input-button-primary:hover {
+  .startButton {
+    @extend .bottomText;
+  }
+
+  .course-info {
+    @extend .bottomText;
+    background: white;
     color: black;
+    padding: 1em;
+    font-size: 1rem;
+    border-top: 1px solid black;
   }
 
-  .input-button-back {
-    @extend .input-button-primary;
+  .course-heading {
+    background: white;
+    font-size: 1.5em;
+    font-family: $font-mono;
   }
 
-  .input-button-payment {
-    @extend .input-button-primary;
-    font-weight: bold;
-    // background-color: #ff4400;
+  .success {
+    @extend .bottomText;
+    color: darkgreen;
+    background: white;
+    height: 100%;
+    margin-top: 2em;
+
+    & :first-child {
+      font-size: 1.7em;
+      margin-right: -0.3em;
+      margin-right: 0.3em;
+    }
   }
+}
+
+.top {
+  padding: 1em;
+  line-height: 1.8em;
+}
+
+.bottom {
+  background: white;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  bottom: 0;
+  height: 8.4em;
+  width: 100%;
+}
+
+.input-button-primary {
+  cursor: pointer;
+  background-color: #ff6f00;
+  color: #FFF;
+  border: 1px solid #ff8c33;
+  padding: 7px 12px 8px;
+  line-height: 1;
+  outline: none;
+  align-self: center;
+  margin-top: 20px;
+  /*@include media-breakpoint-up(sm) {
+    position: absolute;
+    left: 48%;
+    right: 45%;
+  }
+  @include media-breakpoint-down(sm) {
+    position: absolute;
+    left: 38%;
+    right: 33%;
+  }*/
+}
+
+.input-button-primary:disabled {
+  cursor: default;
+  background-color: grey;
+  border: 1px solid darkgrey;
+}
+
+.input-button-primary:hover {
+  color: black;
+}
+
+.input-button-back {
+  @extend .input-button-primary;
+}
+
+.input-button-payment {
+  @extend .input-button-primary;
+  font-weight: bold;
+  // background-color: #ff4400;
+}
 
 .clickable {
   cursor: pointer;
