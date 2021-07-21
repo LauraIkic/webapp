@@ -1,18 +1,17 @@
 <template href="http://www.w3.org/1999/html">
   <div>
-    <h2 v-if="action">
+    <h2 v-if="action" class="headline">
       Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
     </h2>
-    <h2 v-else>
+    <h2 v-else class="headline">
       Gutscheine
     </h2>
-<!--
     <template v-if="!action">
       <selection class="items">
         <section class="display-item">
           <div class="bottom">
             <div class="buy-button"
-                 @click="$router.push('giftcards?action=buy')">
+                 @click="$router.push('test?action=buy')">
               Gutschein kaufen
             </div>
           </div>
@@ -23,7 +22,7 @@
         <section class="display-item">
           <div class="bottom">
             <div class="redeem-button"
-                 @click="$router.push('giftcards?action=redeem')">
+                 @click="$router.push('test?action=redeem')">
               Gutschein einlösen
             </div>
           </div>
@@ -31,11 +30,6 @@
         <br>
       </selection>
     </template>
--->
-<template v-if="!action">
-<Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link> /
-<Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link><br><br>
-</template>
 
     <transition name="fade">
       <template>
@@ -47,9 +41,10 @@
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="719">10€</option>
+                  <div class="image-spacer"></div>
                   <div class="image">
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
@@ -59,8 +54,9 @@
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
                   <div class="image">
+                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
@@ -70,8 +66,9 @@
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
                   <div class="image">
+                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
@@ -81,8 +78,9 @@
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
                   <div class="image">
+                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
@@ -118,7 +116,7 @@
           </div>
 
           <div v-if="step === 1">
-            <h4>Zahlungsmethode</h4>
+            <h2 class="headline">Zahlungsmethode</h2>
             <div class="payment-methods">
               <div class="input" @click="paymentMethod='1'">
                 <input
@@ -127,8 +125,8 @@
                     name="paymentMethod"
                     value="1"
                 >Kreditkarte
-                <div v-if="invoiceContact.sepa_mandate_agreed">
-                </div>
+                <!--                <div v-if="invoiceContact.sepa_mandate_agreed">
+                                </div>-->
               </div>
               <div class="spacer"></div>
               <div class="input" @click="paymentMethod='2'">
@@ -140,124 +138,127 @@
                 >SEPA-Monatsrechnung
               </div>
             </div>
-            <div v-if="invoiceContact != null">
-              <h4>Rechnungsadresse</h4>
+            <!--            <div v-if="invoiceContact != null">-->
+            <h4 class="headline">Rechnungsadresse</h4><br>
+            <div class ="user-contact">
               <table>
                 <tr>
                   <th>
                     <span class="label">Vorname</span>
                   </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.firstname"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
+                  <!--                <th>
+                                    <input
+                                        v-model="invoiceContact.firstname"
+                                        class="input-text"
+                                        type="text"
+                                        name=""
+                                    >
+                                  </th>-->
                 </tr>
                 <th>
                   <span class="label">Nachname</span>
                 </th>
-                <th>
-                  <input
-                      v-model="invoiceContact.lastname"
-                      class="input-text"
-                      type="text"
-                      name=""
-                  >
-                </th>
+                <!--              <th>
+                                <input
+                                    v-model="invoiceContact.lastname"
+                                    class="input-text"
+                                    type="text"
+                                    name=""
+                                >
+                              </th>-->
                 <tr>
                   <th>
                     <span class="label">Telefon</span>
                   </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.phone"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
+                  <!--                <th>
+                                    <input
+                                        v-model="invoiceContact.phone"
+                                        class="input-text"
+                                        type="text"
+                                        name=""
+                                    >
+                                  </th>-->
                 </tr>
                 <tr>
                   <th>
                     <span class="label">Adresse</span>
                   </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.street"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
+                  <!--                <th>
+                                    <input
+                                        v-model="invoiceContact.street"
+                                        class="input-text"
+                                        type="text"
+                                        name=""
+                                    >
+                                  </th>-->
                 </tr>
                 <tr>
                   <th>
                     <span class="label"/>
                   </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.street_additional"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
+                  <!--                <th>
+                                    <input
+                                        v-model="invoiceContact.street_additional"
+                                        class="input-text"
+                                        type="text"
+                                        name=""
+                                    >
+                                  </th>-->
                 </tr>
                 <tr>
                   <th>
                     <span class="label">PLZ</span>
                   </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.zip"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
+                  <!--                <th>
+                                    <input
+                                        v-model="invoiceContact.zip"
+                                        class="input-text"
+                                        type="text"
+                                        name=""
+                                    >
+                                  </th>-->
                 </tr>
                 <tr>
                   <th>
                     <span class="label">Stadt</span>
                   </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.city"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
+                  <!--                <th>
+                                    <input
+                                        v-model="invoiceContact.city"
+                                        class="input-text"
+                                        type="text"
+                                        name=""
+                                    >
+                                  </th>-->
                 </tr>
               </table>
-            </div><br><br>
-            <div class="bottom-buttons">
-              <div class="buttons">
-                <button
-                    class="input-button-back"
-                    @click="step--"
-                >
-                  Zurück
-                </button>
-                <button
-                    class="input-button-primary"
-                    :disabled="!paymentMethod"
-                    @click="step++"
-                >
-                  Bestellung prüfen
-                </button>
-              </div>
+            </div><div class="bottom-buttons">
+            <div class="buttons">
+              <button
+                  class="input-button-back"
+                  @click="step--"
+              >
+                Zurück
+              </button>
+              <button
+                  class="input-button-primary"
+                  :disabled="!paymentMethod"
+                  @click="step++"
+              >
+                Bestellung prüfen
+              </button>
             </div>
           </div>
+          </div>
+          <br><br>
+          <!--          </div>-->
           <div v-if="step === 2">
             Bestätigung:
             <ul>
               <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>
-              <li>Extra: {{ getExtra(selectedExtra) }}</li>
+<!--              <li>Extra: {{ getExtra(selectedExtra) }}</li>-->
             </ul>
+
             <div class="buttons">
               <button
                   class="input-button-back"
@@ -285,20 +286,22 @@
               v-if="step === 0"
               class="giftcardForm"
           >
-            <div class="input-redeem-card">
+            <div class="card">
+              <div class="input-redeem-card">
               <span class="span">
                 Gutschein</span>
-              <div class="redeem-card-bottom">
-                <div class=" code">
-                  <span class="code-span"> Code: </span>
-                  <input
-                      v-model="giftcardCode"
-                      class="form-item"
-                  >
-                </div>
-                <div class="image">
-                  <img src="~/assets/img/icons/gg-logo-icon.svg"
-                       width="40">
+                <div class="redeem-card-bottom">
+                  <div class=" code">
+                    <span class="code-span"> Code: </span>
+                    <input
+                        v-model="giftcardCode"
+                        class="form-item"
+                    >
+                  </div>
+                  <div class="image">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg"
+                         width="50">
+                  </div>
                 </div>
               </div>
             </div>
@@ -327,7 +330,6 @@ import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 
 export default {
   mixins: [storyblokLivePreview],
-  middleware: 'authenticated',
   asyncData (context) {
     const path = '/members/shop'
     return context.store.dispatch('loadPage', path).catch((e) => {
@@ -355,21 +357,11 @@ export default {
     }
   },
   computed: {
-    user () {
-      return this.$store.state.user
-    }
   },
   watch: {
     '$route.query' (to) {
       this.getQuery(to)
     }
-  },
-  mounted () {
-    this.$store.dispatch('getUserMetadata').then((data) => {
-      this.invoiceContact = data.data.invoice_contact
-      this.sepaActive = data.data.sepa_active
-    })
-    this.getQuery(this.$route.query)
   },
   methods: {
     getQuery (to) {
@@ -489,12 +481,17 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
+.headline {
+  padding-left: 21vw;
+  margin-top: 2em;
+}
+
 .items {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-
+  padding-left: 20vw;
   @media (max-width: 600px) {
 
   }
@@ -503,6 +500,12 @@ export default {
 .spacer {
   background-size: cover;
   width: 2em;
+  position: relative;
+}
+
+.image-spacer {
+  background-size: cover;
+  width: 1em;
   position: relative;
 }
 
@@ -573,30 +576,14 @@ export default {
   background: $color-orange;
 }
 
-/*.display-item:hover .buttons {
-  border-top: 1px solid white;
-  background: $color-orange;
-}*/
-
-/*
-.form-item {
-  display: flex;
-  flex-flow: row nowrap;
-  width: 20em;
-  justify-content: space-between;
-  align-items: center;
-  cursor:pointer;
-  padding: 0.5vh 0.5vh;
-  background: #c0c0c6;
-  border-radius: 8px;
-}*/
-
 .buy-gift-cards {
   position: relative;
   display: flex;
   align-items: center;
   flex-flow: wrap;
   justify-content: space-between;
+  padding-left: 11vw;
+  padding-right: 11vw;
 
   .bottom-gift-card {
     display: flex;
@@ -605,17 +592,23 @@ export default {
     padding-left: 3vw;
     padding-top: 0.5vh;
   }
+
+  .headline {
+    padding-left: 15vw;
+    margin-top: 2em;
+  }
 }
 
 .input {
   background-color: white;
   margin: 1em 0;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-  padding-left: 1vw;
-  padding-right: 3vw;
+  padding-top: 1.5vh;
+  padding-bottom: 2vh;
+  padding-left: 1.5vw;
+  padding-right: 4.5vw;
   border: 1px solid grey;
   border-radius: 0.3em;
+  font-size: 24px;
 }
 
 .image {
@@ -654,14 +647,18 @@ export default {
   position: relative;
   display: flex;
   flex-flow: wrap;
+  justify-content: center;
 }
 
-/*
-.input:hover{
-  background: $color-orange;
-  color: white;
+.user-contact{
+  position: relative;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
 }
-*/
+.card {
+  padding-left: 20vw;
+}
 
 .input-redeem-card {
   position: relative;
@@ -673,12 +670,12 @@ export default {
 
   padding-bottom: 1vh;
   padding-left: 1vw;
-  padding-right: 3vw;
+  padding-right: 1.5vw;
   border-radius: 0.3em;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  height: 14vh;
+  height: 18vh;
   width: 40vw;
 
   .redeem-card-bottom {
@@ -696,7 +693,7 @@ export default {
 .span {
   padding-top: 2vh;
   padding-left: 1vw;
-  font-size: 2vh;
+  font-size: 2.5vh;
 }
 
 .code-span {
@@ -704,46 +701,12 @@ export default {
   padding-right: 1vw;
 }
 
-/*.selectedProduct{
-  background: $color-orange;
-}
-.flex-element{
-  padding-bottom: 1vh;
-}
-!*.giftcardForm {
-  & .input {
-    display: flex;
-    flex-flow: column;
-
-    & :first-child {
-      width: 7em;
-    }
-  }
-}*!
-
 .buttons {
-  & * {
-    margin-right: 1em;
-      font-weight: 700;
-  line-height: 1em;
-  padding: 10px;
-  outline: 0;
-  color: #fff;
-  border: none;
-  background-color: $color-orange;
-  margin: 0;
-  cursor: pointer;
-  border-radius: 0.2em;
-  border: 1px solid $color-secondary-border;
-  }
-}
+  transform: translateX(+50%);
+  margin-top: 4em;
 
-h5 {
-  font-size: 1rem;
-}*/
-
-.buttons {
   & * {
+    font-size: 19px;
     margin-right: 1em;
     font-weight: 700;
     line-height: 1em;
