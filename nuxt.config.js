@@ -41,9 +41,6 @@ module.exports = {
   buildModules: [
     ['storyblok-nuxt', { accessToken: storyblokToken, cacheProvider: 'memory' }],
     '@nuxtjs/proxy',
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-106370674-4'
-    }],
     ['@nuxtjs/fontawesome'],
     ['@nuxtjs/google-analytics']
   ],
