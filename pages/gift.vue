@@ -9,7 +9,9 @@
     <template v-if="!action">
       <selection class="items">
         <section class="display-item">
-          <div class="large-image"> <img src="../assets/img/buy-giftcard.png" height="340px" width="304"/></div>
+          <div class="top">
+            <div class="buy-image"></div>
+          </div>
           <div class="bottom">
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=buy')">
@@ -20,7 +22,9 @@
         <div class="spacer"></div>
         <br>
         <section class="display-item">
-          <div class="large-image"><img src="../assets/img/redeem-giftcard.png" height="340px" width="304"/></div>
+          <div class="top">
+          <div class="redeem-image"></div>
+          </div>
           <div class="bottom">
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=redeem')">
@@ -54,8 +58,8 @@
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
+                  <div class="image-spacer"></div>
                   <div class="image">
-                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
                          width="40">
                   </div>
@@ -66,8 +70,8 @@
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
+                  <div class="image-spacer"></div>
                   <div class="image">
-                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
                          width="40">
                   </div>
@@ -78,8 +82,8 @@
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
+                  <div class="image-spacer"></div>
                   <div class="image">
-                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
                          width="40">
                   </div>
@@ -285,9 +289,11 @@
                   </div>
                 </div>
               </div>
-              <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!<br></div>
+              <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div><br>
               <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich auf unserer
-                Webseite registrieren!<br></div>
+                Webseite registrieren!
+              </div>
+              <br>
             </div>
             <div class="buttons">
               <button
@@ -501,7 +507,7 @@ export default {
 
 .image-spacer {
   background-size: cover;
-  width: 1em;
+  width: 3em;
   position: relative;
 }
 
@@ -511,50 +517,69 @@ export default {
     width: 0em;
   }
 }
-
 .display-item {
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 17em;
   height: 19em;
   position: relative;
   border: 1px solid black;
-  background: #FFFFFF;
-
+  .top{
+    height: 14em;
+    .buy-image{
+      background-image: url(~assets/img/buy-giftcard.png);
+      height: 19em;
+    }
+    .redeem-image{
+      background-image: url(~assets/img/redeem-giftcard.png);
+      height: 19em;
+    }
+  }
   .bottom {
-    background: white;
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     bottom: 0;
     height: 5em;
     width: 100%;
   }
-
   @include media-breakpoint-down(md) {
-    background-size: cover;
+    justify-content: flex-end;
+    border-radius: 0.2em;
+    background: #FFFFFF;
     width: 80vw;
     height: 12vh;
-    position: relative;
-    border: 1px solid black;
-
+    .top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 12vh;
+    width: 30%;
+  }
+    .top{
+      align-self: end;
+      width: 30%;
+      height: 100%;
+      .buy-image{
+        background-image: url(~assets/img/buy-giftcard-small.png);
+        width: 22vw;
+        height: 11vh;
+      }
+      .redeem-image{
+        background-image: url(~assets/img/buy-giftcard-small.png);
+        width: 22vw;
+        height: 11vh;
+      }
+    }
     .bottom {
       background: white;
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      bottom: 0;
       width: 70%;
       height: 100%;
     }
   }
-  .large-image{
-    height: 0px;
-    width: 0px;
-  }
 }
 
 .buy-redeem-button {
+  cursor:pointer;
   width: 100%;
   background: black;
   color: white;
@@ -566,9 +591,10 @@ export default {
   font-family: $font-mono;
   @include media-breakpoint-down(md) {
     border-radius: 0.2em;
+    border: 1px solid white;
     padding: 10px;
     font-size: 1.3em;
-    height: 5.8em;
+    height: inherit;
   }
 }
 
@@ -606,12 +632,13 @@ export default {
   padding-top: 1.5vh;
   padding-bottom: 2vh;
   padding-left: 1.5vw;
-  padding-right: 4.5vw;
+  padding-right: 3vw;
   border: 1px solid grey;
   border-radius: 0.3em;
   font-size: 24px;
+  width: 30vw;
   @include media-breakpoint-down(sm) {
-    padding-right: 20vw;
+    width: 80vw;
   }
 }
 
@@ -733,13 +760,13 @@ export default {
 
   & * {
     font-size: 19px;
-    margin-right: 1em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
     font-weight: 700;
     line-height: 1em;
     padding: 10px;
     outline: 0;
     color: #fff;
-    border: none;
     background-color: $color-orange;
     cursor: pointer;
     border-radius: 0.2em;
