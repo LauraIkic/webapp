@@ -165,24 +165,10 @@ const createStore = () => {
         }
       },
       bookWorkshop ({ state }, data) {
-        return connector.post('/member/checkoutWorkshopDate', data).then((r) => {
-          if (r.data.success) {
-            return r.data
-          }
-        })/* .catch((err) => {
-          this.$sentry.captureException(err);
-          console.log(err.response.data.msg);
-        }) */
+        return connector.post('/member/checkoutWorkshopDate', data)
       },
       checkout ({ state }, data) {
-        return connector.post('/member/checkout', data).then((r) => {
-          if (r.data.success) {
-            return r.data
-          }
-        })/* .catch((err) => {
-          this.$sentry.captureException(err);
-          console.log(err.response.data.msg);
-        }) */
+        return connector.post('/member/checkout', data)
       },
       async getCredits ({ state }) {
         const res = await connector.get('/member/getCredits')

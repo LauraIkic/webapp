@@ -6,44 +6,46 @@
     <h2 v-else>
       Gutscheine
     </h2>
-<!--
+    <!--
+        <template v-if="!action">
+          <selection class="items">
+            <section class="display-item">
+              <div class="bottom">
+                <div class="buy-button"
+                     @click="$router.push('giftcards?action=buy')">
+                  Gutschein kaufen
+                </div>
+              </div>
+            </section>
+            <br>
+            <div class="spacer"></div>
+            <br>
+            <section class="display-item">
+              <div class="bottom">
+                <div class="redeem-button"
+                     @click="$router.push('giftcards?action=redeem')">
+                  Gutschein einlösen
+                </div>
+              </div>
+            </section>
+            <br>
+          </selection>
+        </template>
+    -->
     <template v-if="!action">
-      <selection class="items">
-        <section class="display-item">
-          <div class="bottom">
-            <div class="buy-button"
-                 @click="$router.push('giftcards?action=buy')">
-              Gutschein kaufen
-            </div>
-          </div>
-        </section>
-        <br>
-        <div class="spacer"></div>
-        <br>
-        <section class="display-item">
-          <div class="bottom">
-            <div class="redeem-button"
-                 @click="$router.push('giftcards?action=redeem')">
-              Gutschein einlösen
-            </div>
-          </div>
-        </section>
-        <br>
-      </selection>
+      <Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link>
+      /
+      <Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link>
+      <br><br>
     </template>
--->
-<template v-if="!action">
-<Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link> /
-<Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link><br><br>
-</template>
 
     <transition name="fade">
       <template>
         <template v-if="action === 'buy'">
           <div v-if="step === 0" class="giftcardForm">
             <section class="buy-gift-cards">
-              <div class="input" @click="selectedProduct='719'">
-                <input type="radio" value="719" v-model="selectedProduct">
+              <div class="input" @click="selectedProductId='719'">
+                <input type="radio" value="719" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="719">10€</option>
@@ -53,8 +55,8 @@
                   </div>
                 </div>
               </div>
-              <div class="input" @click="selectedProduct='720'">
-                <input type="radio" value="720" v-model="selectedProduct">
+              <div class="input" @click="selectedProductId='720'">
+                <input type="radio" value="720" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
@@ -64,8 +66,8 @@
                   </div>
                 </div>
               </div>
-              <div class="input" @click="selectedProduct='721'">
-                <input type="radio" value="721" v-model="selectedProduct">
+              <div class="input" @click="selectedProductId='721'">
+                <input type="radio" value="721" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
@@ -75,8 +77,8 @@
                   </div>
                 </div>
               </div>
-              <div class="input" @click="selectedProduct='722'">
-                <input type="radio" value="722" v-model="selectedProduct">
+              <div class="input" @click="selectedProductId='722'">
+                <input type="radio" value="722" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
@@ -109,7 +111,7 @@
             <div class="buttons">
               <button
                   class="input-button-primary"
-                  :disabled="!selectedProduct"
+                  :disabled="!selectedProductId"
                   @click="step++"
               >
                 Weiter
@@ -233,7 +235,8 @@
                   </th>
                 </tr>
               </table>
-            </div><br><br>
+            </div>
+            <br><br>
             <div class="bottom-buttons">
               <div class="buttons">
                 <button
@@ -255,7 +258,7 @@
           <div v-if="step === 2 && invoiceContact !== null">
             Bestätigung:
             <ul>
-              <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>
+              <li>Gutschein {{ getGiftCardValue(selectedProductId) }}€</li>
               <li>Extra: {{ getExtra(selectedExtra) }}</li>
             </ul>
             <div class="buttons">
@@ -342,7 +345,7 @@ export default {
       step: 0,
       action: null,
       origin: null,
-      selectedProduct: null,
+      selectedProductId: null,
       selectedExtra: null,
       giftcardCode: null,
       paymentMethod: 0,
@@ -421,37 +424,43 @@ export default {
       this.loading = true
       const data = {
         payment_method: parseInt(this.paymentMethod),
-        productCounts: [
+        product_counts: [
           {
-            product_id: this.selectedProduct,
-            count: 1
-          },
-          {
-            product_id: this.selectedExtra,
+            product_id: this.product_id,
             count: 1
           }
         ],
         invoice_contact: this.invoiceContact
       }
 
-      this.$store.dispatch('checkout', data).then((data) => {
-        if (data.success) {
-          this.loading = false
-          switch (parseInt(this.paymentMethod)) {
-            case 1:
-              this.redirectToStripe(data.session_id)
-              break
-            case 2:
-              this.step++
-              break
+      this.$store.dispatch('checkout', data)
+        .then((response) => {
+          if (response.status >= 200 && response.status <= 300) {
+            switch (parseInt(this.paymentMethod)) {
+              case 1:
+                this.redirectToStripe(response.session_id)
+                break
+              case 2:
+                this.step++
+                break
+            }
+          } else {
+            console.log(response)
+            this.$sentry.captureException(new Error(response))
+            this.$toast.show('Ein Fehler ist aufgetreten', {
+              theme: 'bubble'
+            })
           }
-        } else {
-          this.$sentry.captureException(new Error(data))
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.data.msg)
           this.$toast.show('Ein Fehler ist aufgetreten', {
             theme: 'bubble'
           })
-        }
-      })
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     redirectToStripe: function (sessionId) {
       // eslint-disable-next-line no-undef
@@ -704,7 +713,7 @@ export default {
   padding-right: 1vw;
 }
 
-/*.selectedProduct{
+/*.selectedProductId{
   background: $color-orange;
 }
 .flex-element{
