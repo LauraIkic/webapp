@@ -1,11 +1,10 @@
 <template>
   <div class="section onboarding-wizard">
     <h2>Willkommen in der GRAND GARAGE!</h2>
-    <h3>Was erwartet dich?</h3>
     <p class="text">
-      Als Mitglied in unserem Makerspace steht dir nicht nur die Nutzung sämtlicher Maschinen offen.
+      Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!
       <br>
-      Du bist außerdem Teil einer lebendigen und kreativen Community!
+      Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen und unsere MakerSpaceShips für Transporte auszuleihen.
       <br><br>
       Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem eine Ermäßigung auf alle Workshops,
       <br>

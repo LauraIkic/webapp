@@ -26,7 +26,7 @@
     <form class="form wizard">
       <div class="form-item">
         <span class="label">IBAN</span>
-        <input class="input-text" type="text" v-model="onboardingData.payment.iban" name="" id=""/>
+        <input class="input-text" type="text" v-model="onboardingData.payment.iban" name="" id=" "/>
         <div>
           <font-awesome-icon class="ibanIcon success" v-if="ibanIsValid" icon="check-circle" />
           <font-awesome-icon class="ibanIcon" v-else icon="times-circle" />
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .onboarding-wizard {
   width: 100%;

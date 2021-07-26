@@ -19,8 +19,10 @@
     </div>
   </div>
 </template>
+
 <style lang="scss" scoped>
-@import "@/assets/scss/styles.scss";
+@import '/assets/scss/styles.scss';
+
 .covidInfobox {
   display: flex;
   justify-content: center;

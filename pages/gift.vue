@@ -1,29 +1,29 @@
 <template href="http://www.w3.org/1999/html">
   <div>
-    <h2 v-if="action">
+    <h2 v-if="action" class="headline">
       Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
     </h2>
-    <h2 v-else>
+    <h2 v-else class="headline">
       Gutscheine
     </h2>
-<!--
     <template v-if="!action">
       <selection class="items">
         <section class="display-item">
+          <div class="large-image"> <img src="../assets/img/buy-giftcard.png" height="340px" width="304"/></div>
           <div class="bottom">
-            <div class="buy-button"
-                 @click="$router.push('giftcards?action=buy')">
+            <div class="buy-redeem-button"
+                 @click="$router.push('gift?action=buy')">
               Gutschein kaufen
             </div>
           </div>
         </section>
-        <br>
         <div class="spacer"></div>
         <br>
         <section class="display-item">
+          <div class="large-image"><img src="../assets/img/redeem-giftcard.png" height="340px" width="304"/></div>
           <div class="bottom">
-            <div class="redeem-button"
-                 @click="$router.push('giftcards?action=redeem')">
+            <div class="buy-redeem-button"
+                 @click="$router.push('gift?action=redeem')">
               Gutschein einlösen
             </div>
           </div>
@@ -31,11 +31,6 @@
         <br>
       </selection>
     </template>
--->
-<template v-if="!action">
-<Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link> /
-<Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link><br><br>
-</template>
 
     <transition name="fade">
       <template>
@@ -47,9 +42,10 @@
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="719">10€</option>
+                  <div class="image-spacer"></div>
                   <div class="image">
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
@@ -59,8 +55,9 @@
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
                   <div class="image">
+                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
@@ -70,8 +67,9 @@
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
                   <div class="image">
+                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
@@ -81,31 +79,13 @@
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
                   <div class="image">
+                    <div class="image-spacer"></div>
                     <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="30">
+                         width="40">
                   </div>
                 </div>
               </div>
             </section>
-
-            <!--            <div class="input">
-                          <span> Extras: </span>
-                          <select
-                              v-model="selectedExtra"
-                              class="form-item"
-                          >
-                            <option value="733">
-                              E-mail - Gratis
-                            </option>
-                            <option value="734">
-                              Versand-Standard - 3€
-                            </option>
-                            <option value="735">
-                              Deluxe-Box - 25€
-                            </option>
-                          </select>
-                        </div>-->
-
             <div class="buttons">
               <button
                   class="input-button-primary"
@@ -116,10 +96,9 @@
               </button>
             </div>
           </div>
-
           <div v-if="step === 1">
-            <h4>Zahlungsmethode</h4>
-            <div class="payment-methods">
+            <h2 class="headline">Zahlungsmethode</h2>
+            <div class="logged-out-payment">
               <div class="input" @click="paymentMethod='1'">
                 <input
                     v-model="paymentMethod"
@@ -127,10 +106,12 @@
                     name="paymentMethod"
                     value="1"
                 >Kreditkarte
-                <div v-if="invoiceContact.sepa_mandate_agreed">
-                </div>
               </div>
+            </div>
+            <div v-if="user !== null" class="logged-in-payment">
               <div class="spacer"></div>
+              <!--              <div v-if="invoiceContact.sepa_mandate_agreed">
+                            </div>-->
               <div class="input" @click="paymentMethod='2'">
                 <input
                     v-model="paymentMethod"
@@ -139,128 +120,129 @@
                     value="2"
                 >SEPA-Monatsrechnung
               </div>
-            </div>
-            <div v-if="invoiceContact != null">
+              <br>
               <h4>Rechnungsadresse</h4>
-              <table>
-                <tr>
+              <div class="user-contact">
+                <table>
+                  <tr>
+                    <th>
+                      <span class="label">Vorname</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.firstName"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
                   <th>
-                    <span class="label">Vorname</span>
+                    <span class="label">Nachname</span>
                   </th>
                   <th>
                     <input
-                        v-model="invoiceContact.firstname"
+                        v-model="user.profile.lastName"
                         class="input-text"
                         type="text"
                         name=""
                     >
                   </th>
-                </tr>
-                <th>
-                  <span class="label">Nachname</span>
-                </th>
-                <th>
-                  <input
-                      v-model="invoiceContact.lastname"
-                      class="input-text"
-                      type="text"
-                      name=""
-                  >
-                </th>
-                <tr>
-                  <th>
-                    <span class="label">Telefon</span>
-                  </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.phone"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label">Adresse</span>
-                  </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.street"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label"/>
-                  </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.street_additional"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label">PLZ</span>
-                  </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.zip"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label">Stadt</span>
-                  </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.city"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
-                </tr>
-              </table>
-            </div><br><br>
-            <div class="bottom-buttons">
-              <div class="buttons">
-                <button
-                    class="input-button-back"
-                    @click="step--"
-                >
-                  Zurück
-                </button>
-                <button
-                    class="input-button-primary"
-                    :disabled="!paymentMethod"
-                    @click="step++"
-                >
-                  Bestellung prüfen
-                </button>
+                  <tr>
+                    <th>
+                      <span class="label">E-mail</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.emailAddress"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">Adresse</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.address"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label"/>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.address2"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">PLZ</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.zip"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">Stadt</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.city"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                </table>
               </div>
             </div>
-          </div>
-          <div v-if="step === 2 && invoiceContact !== null">
-            Bestätigung:
-            <ul>
-              <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>
-              <li>Extra: {{ getExtra(selectedExtra) }}</li>
-            </ul>
             <div class="buttons">
               <button
-                  class="input-button-back"
+                  class="input-button-primary"
+                  @click="step--"
+              >
+                Zurück
+              </button>
+              <button
+                  class="input-button-primary"
+                  :disabled="!paymentMethod"
+                  @click="step++"
+              >
+                Bestellung prüfen
+              </button>
+            </div>
+          </div>
+          <!--          </div>-->
+          <div v-if="step === 2">
+            <div class="headline">
+              <h2> Bestätigung:</h2>
+              <ul>
+                <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>
+              </ul>
+            </div>
+            <div class="buttons">
+              <button
+                  class="input-button-payment"
                   @click="step--"
               >
                 Zurück
@@ -285,27 +267,32 @@
               v-if="step === 0"
               class="giftcardForm"
           >
-            <div class="input-redeem-card">
+            <div class="card">
+              <div class="input-redeem-card">
               <span class="span">
                 Gutschein</span>
-              <div class="redeem-card-bottom">
-                <div class=" code">
-                  <span class="code-span"> Code: </span>
-                  <input
-                      v-model="giftcardCode"
-                      class="form-item"
-                  >
-                </div>
-                <div class="image">
-                  <img src="~/assets/img/icons/gg-logo-icon.svg"
-                       width="40">
+                <div class="redeem-card-bottom">
+                  <div class=" code">
+                    <span class="code-span"> Code: </span>
+                    <input
+                        v-model="giftcardCode"
+                        class="form-item"
+                    >
+                  </div>
+                  <div class="image">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg"
+                         width="50">
+                  </div>
                 </div>
               </div>
+              <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!<br></div>
+              <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich auf unserer
+                Webseite registrieren!<br></div>
             </div>
             <div class="buttons">
               <button
                   class="input-button-payment"
-                  :disabled="!giftcardCode"
+                  :disabled="!giftcardCode && user == null"
                   @click="redeem"
               >
                 Einlösen
@@ -327,7 +314,6 @@ import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 
 export default {
   mixins: [storyblokLivePreview],
-  middleware: 'authenticated',
   asyncData (context) {
     const path = '/members/shop'
     return context.store.dispatch('loadPage', path).catch((e) => {
@@ -365,11 +351,18 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('getUserMetadata').then((data) => {
-      this.invoiceContact = data.data.invoice_contact
-      this.sepaActive = data.data.sepa_active
+    this.$store.dispatch('getUser').then((data) => {
+      this.profile = data.profile
+      // eslint-disable-next-line no-undef
     })
     this.getQuery(this.$route.query)
+    if (this.user != null) {
+      this.$store.dispatch('getUserMetadata').then((data) => {
+        this.invoiceContact = data.data.invoice_contact
+        this.sepaActive = data.data.sepa_active
+      })
+      this.getQuery(this.$route.query)
+    }
   },
   methods: {
     getQuery (to) {
@@ -489,21 +482,34 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
+.headline {
+  padding-left: 21vw;
+  margin-top: 2em;
+}
+
 .items {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-
-  @media (max-width: 600px) {
-
+  justify-content: center;
+  @media (max-width: 700px) {
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
-.spacer {
+.image-spacer {
   background-size: cover;
-  width: 2em;
+  width: 1em;
   position: relative;
+}
+
+.spacer {
+  width: 2em;
+  @include media-breakpoint-down(md) {
+    width: 0em;
+  }
 }
 
 .display-item {
@@ -512,7 +518,7 @@ export default {
   height: 19em;
   position: relative;
   border: 1px solid black;
-  color: white;
+  background: #FFFFFF;
 
   .bottom {
     background: white;
@@ -525,71 +531,51 @@ export default {
     width: 100%;
   }
 
-  .input-button-primary {
-    width: 100%;
-    background: black;
-    color: white;
-    height: 5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.4em;
-    padding-left: 65vw;
-    padding-top: 3vh;
-  }
+  @include media-breakpoint-down(md) {
+    background-size: cover;
+    width: 80vw;
+    height: 12vh;
+    position: relative;
+    border: 1px solid black;
 
-  .buy-button {
-    width: 100%;
-    background: black;
-    color: white;
-    height: 5.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    font-family: $font-mono;
+    .bottom {
+      background: white;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      bottom: 0;
+      width: 70%;
+      height: 100%;
+    }
   }
-
-  .redeem-button {
-    width: 100%;
-    background: black;
-    color: white;
-    height: 5.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    font-family: $font-mono;
+  .large-image{
+    height: 0px;
+    width: 0px;
   }
 }
 
-.display-item:hover .buy-button {
-  border-top: 1px solid white;
-  background: $color-orange;
-}
-
-.display-item:hover .redeem-button {
-  border-top: 1px solid white;
-  background: $color-orange;
-}
-
-/*.display-item:hover .buttons {
-  border-top: 1px solid white;
-  background: $color-orange;
-}*/
-
-/*
-.form-item {
+.buy-redeem-button {
+  width: 100%;
+  background: black;
+  color: white;
+  height: 5.7rem;
   display: flex;
-  flex-flow: row nowrap;
-  width: 20em;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  cursor:pointer;
-  padding: 0.5vh 0.5vh;
-  background: #c0c0c6;
-  border-radius: 8px;
-}*/
+  font-size: 1.5em;
+  font-family: $font-mono;
+  @include media-breakpoint-down(md) {
+    border-radius: 0.2em;
+    padding: 10px;
+    font-size: 1.3em;
+    height: 5.8em;
+  }
+}
+
+.display-item:hover .buy-redeem-button {
+  border-top: 1px solid white;
+  background: $color-orange;
+}
 
 .buy-gift-cards {
   position: relative;
@@ -597,6 +583,8 @@ export default {
   align-items: center;
   flex-flow: wrap;
   justify-content: space-between;
+  padding-left: 11vw;
+  padding-right: 11vw;
 
   .bottom-gift-card {
     display: flex;
@@ -605,35 +593,30 @@ export default {
     padding-left: 3vw;
     padding-top: 0.5vh;
   }
+
+  .headline {
+    padding-left: 15vw;
+    margin-top: 2em;
+  }
 }
 
 .input {
   background-color: white;
   margin: 1em 0;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-  padding-left: 1vw;
-  padding-right: 3vw;
+  padding-top: 1.5vh;
+  padding-bottom: 2vh;
+  padding-left: 1.5vw;
+  padding-right: 4.5vw;
   border: 1px solid grey;
   border-radius: 0.3em;
+  font-size: 24px;
+  @include media-breakpoint-down(sm) {
+    padding-right: 20vw;
+  }
 }
 
 .image {
   padding-top: 0.6vh;
-}
-
-.input-button-primary {
-  font-weight: 700;
-  line-height: 1em;
-  padding: 10px;
-  outline: 0;
-  color: #fff;
-  border: none;
-  background-color: $color-orange;
-  margin: 0;
-  cursor: pointer;
-  border-radius: 0.2em;
-  border: 1px solid $color-secondary-border;
 }
 
 .input-button-payment {
@@ -642,7 +625,6 @@ export default {
   padding: 10px;
   outline: 0;
   color: #fff;
-  border: none;
   background-color: $color-orange;
   margin: 0;
   cursor: pointer;
@@ -650,18 +632,44 @@ export default {
   border: 1px solid $color-secondary-border;
 }
 
-.payment-methods {
-  position: relative;
-  display: flex;
-  flex-flow: wrap;
+.logged-out-payment {
+  padding-left: 10vw;
+  padding-right: 40vw;
+
+  .input {
+    padding-top: 1vh;
+    padding-bottom: 1.2vh;
+    padding-left: 1vw;
+    padding-right: 3vw;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-right: 10vw;
+  }
 }
 
-/*
-.input:hover{
-  background: $color-orange;
-  color: white;
+.logged-in-payment {
+  padding-left: 10vw;
+  padding-right: 40vw;
+
+  .input {
+    padding-top: 1vh;
+    padding-bottom: 1.2vh;
+    padding-left: 1vw;
+    padding-right: 3vw;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-right: 10vw;
+  }
 }
-*/
+
+.card {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .input-redeem-card {
   position: relative;
@@ -673,12 +681,12 @@ export default {
 
   padding-bottom: 1vh;
   padding-left: 1vw;
-  padding-right: 3vw;
+  padding-right: 1.5vw;
   border-radius: 0.3em;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  height: 14vh;
+  height: 22vh;
   width: 40vw;
 
   .redeem-card-bottom {
@@ -689,14 +697,26 @@ export default {
     .form-item {
       height: 2vh;
       width: 8vw;
+      @include media-breakpoint-down(sm) {
+        width: 20vw;
+        height: 3vh;
+      }
     }
+  }
+
+  @include media-breakpoint-down(md) {
+    width: 70vw;
+  }
+  @include media-breakpoint-down(sm) {
+    width: 80vw;
+    height: 16vh;
   }
 }
 
 .span {
   padding-top: 2vh;
   padding-left: 1vw;
-  font-size: 2vh;
+  font-size: 2.5vh;
 }
 
 .code-span {
@@ -704,46 +724,15 @@ export default {
   padding-right: 1vw;
 }
 
-/*.selectedProduct{
-  background: $color-orange;
-}
-.flex-element{
-  padding-bottom: 1vh;
-}
-!*.giftcardForm {
-  & .input {
-    display: flex;
-    flex-flow: column;
-
-    & :first-child {
-      width: 7em;
-    }
-  }
-}*!
-
 .buttons {
-  & * {
-    margin-right: 1em;
-      font-weight: 700;
-  line-height: 1em;
-  padding: 10px;
-  outline: 0;
-  color: #fff;
-  border: none;
-  background-color: $color-orange;
-  margin: 0;
-  cursor: pointer;
-  border-radius: 0.2em;
-  border: 1px solid $color-secondary-border;
-  }
-}
+  display: flex;
+  flex-flow: row;
+  align-content: center;
+  margin-top: 4em;
+  justify-content: center;
 
-h5 {
-  font-size: 1rem;
-}*/
-
-.buttons {
   & * {
+    font-size: 19px;
     margin-right: 1em;
     font-weight: 700;
     line-height: 1em;
