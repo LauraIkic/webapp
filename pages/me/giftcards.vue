@@ -252,7 +252,7 @@
               </div>
             </div>
           </div>
-          <div v-if="step === 2">
+          <div v-if="step === 2 && invoiceContact !== null">
             Bestätigung:
             <ul>
               <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>

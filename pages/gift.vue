@@ -9,20 +9,21 @@
     <template v-if="!action">
       <selection class="items">
         <section class="display-item">
+          <div class="large-image"> <img src="../assets/img/buy-giftcard.png" height="340px" width="304"/></div>
           <div class="bottom">
-            <div class="buy-button"
-                 @click="$router.push('test?action=buy')">
+            <div class="buy-redeem-button"
+                 @click="$router.push('gift?action=buy')">
               Gutschein kaufen
             </div>
           </div>
         </section>
-        <br>
         <div class="spacer"></div>
         <br>
         <section class="display-item">
+          <div class="large-image"><img src="../assets/img/redeem-giftcard.png" height="340px" width="304"/></div>
           <div class="bottom">
-            <div class="redeem-button"
-                 @click="$router.push('test?action=redeem')">
+            <div class="buy-redeem-button"
+                 @click="$router.push('gift?action=redeem')">
               Gutschein einlösen
             </div>
           </div>
@@ -85,25 +86,6 @@
                 </div>
               </div>
             </section>
-
-            <!--            <div class="input">
-                          <span> Extras: </span>
-                          <select
-                              v-model="selectedExtra"
-                              class="form-item"
-                          >
-                            <option value="733">
-                              E-mail - Gratis
-                            </option>
-                            <option value="734">
-                              Versand-Standard - 3€
-                            </option>
-                            <option value="735">
-                              Deluxe-Box - 25€
-                            </option>
-                          </select>
-                        </div>-->
-
             <div class="buttons">
               <button
                   class="input-button-primary"
@@ -114,10 +96,9 @@
               </button>
             </div>
           </div>
-
           <div v-if="step === 1">
             <h2 class="headline">Zahlungsmethode</h2>
-            <div class="payment-methods">
+            <div class="logged-out-payment">
               <div class="input" @click="paymentMethod='1'">
                 <input
                     v-model="paymentMethod"
@@ -125,10 +106,12 @@
                     name="paymentMethod"
                     value="1"
                 >Kreditkarte
-                <!--                <div v-if="invoiceContact.sepa_mandate_agreed">
-                                </div>-->
               </div>
+            </div>
+            <div v-if="user !== null" class="logged-in-payment">
               <div class="spacer"></div>
+              <!--              <div v-if="invoiceContact.sepa_mandate_agreed">
+                            </div>-->
               <div class="input" @click="paymentMethod='2'">
                 <input
                     v-model="paymentMethod"
@@ -137,105 +120,105 @@
                     value="2"
                 >SEPA-Monatsrechnung
               </div>
+              <br>
+              <h4>Rechnungsadresse</h4>
+              <div class="user-contact">
+                <table>
+                  <tr>
+                    <th>
+                      <span class="label">Vorname</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.firstName"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <th>
+                    <span class="label">Nachname</span>
+                  </th>
+                  <th>
+                    <input
+                        v-model="user.profile.lastName"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                  <tr>
+                    <th>
+                      <span class="label">E-mail</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.emailAddress"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">Adresse</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.address"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label"/>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.address2"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">PLZ</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.zip"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">Stadt</span>
+                    </th>
+                    <th>
+                      <input
+                          v-model="user.profile.city"
+                          class="input-text"
+                          type="text"
+                          name=""
+                      >
+                    </th>
+                  </tr>
+                </table>
+              </div>
             </div>
-            <!--            <div v-if="invoiceContact != null">-->
-            <h4 class="headline">Rechnungsadresse</h4><br>
-            <div class ="user-contact">
-              <table>
-                <tr>
-                  <th>
-                    <span class="label">Vorname</span>
-                  </th>
-                  <!--                <th>
-                                    <input
-                                        v-model="invoiceContact.firstname"
-                                        class="input-text"
-                                        type="text"
-                                        name=""
-                                    >
-                                  </th>-->
-                </tr>
-                <th>
-                  <span class="label">Nachname</span>
-                </th>
-                <!--              <th>
-                                <input
-                                    v-model="invoiceContact.lastname"
-                                    class="input-text"
-                                    type="text"
-                                    name=""
-                                >
-                              </th>-->
-                <tr>
-                  <th>
-                    <span class="label">Telefon</span>
-                  </th>
-                  <!--                <th>
-                                    <input
-                                        v-model="invoiceContact.phone"
-                                        class="input-text"
-                                        type="text"
-                                        name=""
-                                    >
-                                  </th>-->
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label">Adresse</span>
-                  </th>
-                  <!--                <th>
-                                    <input
-                                        v-model="invoiceContact.street"
-                                        class="input-text"
-                                        type="text"
-                                        name=""
-                                    >
-                                  </th>-->
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label"/>
-                  </th>
-                  <!--                <th>
-                                    <input
-                                        v-model="invoiceContact.street_additional"
-                                        class="input-text"
-                                        type="text"
-                                        name=""
-                                    >
-                                  </th>-->
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label">PLZ</span>
-                  </th>
-                  <!--                <th>
-                                    <input
-                                        v-model="invoiceContact.zip"
-                                        class="input-text"
-                                        type="text"
-                                        name=""
-                                    >
-                                  </th>-->
-                </tr>
-                <tr>
-                  <th>
-                    <span class="label">Stadt</span>
-                  </th>
-                  <!--                <th>
-                                    <input
-                                        v-model="invoiceContact.city"
-                                        class="input-text"
-                                        type="text"
-                                        name=""
-                                    >
-                                  </th>-->
-                </tr>
-              </table>
-            </div><div class="bottom-buttons">
             <div class="buttons">
               <button
-                  class="input-button-back"
+                  class="input-button-primary"
                   @click="step--"
               >
                 Zurück
@@ -249,19 +232,17 @@
               </button>
             </div>
           </div>
-          </div>
-          <br><br>
           <!--          </div>-->
           <div v-if="step === 2">
-            Bestätigung:
-            <ul>
-              <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>
-<!--              <li>Extra: {{ getExtra(selectedExtra) }}</li>-->
-            </ul>
-
+            <div class="headline">
+              <h2> Bestätigung:</h2>
+              <ul>
+                <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>
+              </ul>
+            </div>
             <div class="buttons">
               <button
-                  class="input-button-back"
+                  class="input-button-payment"
                   @click="step--"
               >
                 Zurück
@@ -304,11 +285,14 @@
                   </div>
                 </div>
               </div>
+              <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!<br></div>
+              <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich auf unserer
+                Webseite registrieren!<br></div>
             </div>
             <div class="buttons">
               <button
                   class="input-button-payment"
-                  :disabled="!giftcardCode"
+                  :disabled="!giftcardCode && user == null"
                   @click="redeem"
               >
                 Einlösen
@@ -357,10 +341,27 @@ export default {
     }
   },
   computed: {
+    user () {
+      return this.$store.state.user
+    }
   },
   watch: {
     '$route.query' (to) {
       this.getQuery(to)
+    }
+  },
+  mounted () {
+    this.$store.dispatch('getUser').then((data) => {
+      this.profile = data.profile
+      // eslint-disable-next-line no-undef
+    })
+    this.getQuery(this.$route.query)
+    if (this.user != null) {
+      this.$store.dispatch('getUserMetadata').then((data) => {
+        this.invoiceContact = data.data.invoice_contact
+        this.sepaActive = data.data.sepa_active
+      })
+      this.getQuery(this.$route.query)
     }
   },
   methods: {
@@ -491,16 +492,11 @@ export default {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  padding-left: 20vw;
-  @media (max-width: 600px) {
-
+  justify-content: center;
+  @media (max-width: 700px) {
+    flex-direction: column;
+    justify-content: space-between;
   }
-}
-
-.spacer {
-  background-size: cover;
-  width: 2em;
-  position: relative;
 }
 
 .image-spacer {
@@ -509,13 +505,20 @@ export default {
   position: relative;
 }
 
+.spacer {
+  width: 2em;
+  @include media-breakpoint-down(md) {
+    width: 0em;
+  }
+}
+
 .display-item {
   background-size: cover;
   width: 17em;
   height: 19em;
   position: relative;
   border: 1px solid black;
-  color: white;
+  background: #FFFFFF;
 
   .bottom {
     background: white;
@@ -528,50 +531,48 @@ export default {
     width: 100%;
   }
 
-  .input-button-primary {
-    width: 100%;
-    background: black;
-    color: white;
-    height: 5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.4em;
-    padding-left: 65vw;
-    padding-top: 3vh;
-  }
+  @include media-breakpoint-down(md) {
+    background-size: cover;
+    width: 80vw;
+    height: 12vh;
+    position: relative;
+    border: 1px solid black;
 
-  .buy-button {
-    width: 100%;
-    background: black;
-    color: white;
-    height: 5.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    font-family: $font-mono;
+    .bottom {
+      background: white;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      bottom: 0;
+      width: 70%;
+      height: 100%;
+    }
   }
-
-  .redeem-button {
-    width: 100%;
-    background: black;
-    color: white;
-    height: 5.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    font-family: $font-mono;
+  .large-image{
+    height: 0px;
+    width: 0px;
   }
 }
 
-.display-item:hover .buy-button {
-  border-top: 1px solid white;
-  background: $color-orange;
+.buy-redeem-button {
+  width: 100%;
+  background: black;
+  color: white;
+  height: 5.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  font-family: $font-mono;
+  @include media-breakpoint-down(md) {
+    border-radius: 0.2em;
+    padding: 10px;
+    font-size: 1.3em;
+    height: 5.8em;
+  }
 }
 
-.display-item:hover .redeem-button {
+.display-item:hover .buy-redeem-button {
   border-top: 1px solid white;
   background: $color-orange;
 }
@@ -609,24 +610,13 @@ export default {
   border: 1px solid grey;
   border-radius: 0.3em;
   font-size: 24px;
+  @include media-breakpoint-down(sm) {
+    padding-right: 20vw;
+  }
 }
 
 .image {
   padding-top: 0.6vh;
-}
-
-.input-button-primary {
-  font-weight: 700;
-  line-height: 1em;
-  padding: 10px;
-  outline: 0;
-  color: #fff;
-  border: none;
-  background-color: $color-orange;
-  margin: 0;
-  cursor: pointer;
-  border-radius: 0.2em;
-  border: 1px solid $color-secondary-border;
 }
 
 .input-button-payment {
@@ -635,7 +625,6 @@ export default {
   padding: 10px;
   outline: 0;
   color: #fff;
-  border: none;
   background-color: $color-orange;
   margin: 0;
   cursor: pointer;
@@ -643,21 +632,43 @@ export default {
   border: 1px solid $color-secondary-border;
 }
 
-.payment-methods {
-  position: relative;
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
+.logged-out-payment {
+  padding-left: 10vw;
+  padding-right: 40vw;
+
+  .input {
+    padding-top: 1vh;
+    padding-bottom: 1.2vh;
+    padding-left: 1vw;
+    padding-right: 3vw;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-right: 10vw;
+  }
 }
 
-.user-contact{
-  position: relative;
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
+.logged-in-payment {
+  padding-left: 10vw;
+  padding-right: 40vw;
+
+  .input {
+    padding-top: 1vh;
+    padding-bottom: 1.2vh;
+    padding-left: 1vw;
+    padding-right: 3vw;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-right: 10vw;
+  }
 }
+
 .card {
-  padding-left: 20vw;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .input-redeem-card {
@@ -675,7 +686,7 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  height: 18vh;
+  height: 22vh;
   width: 40vw;
 
   .redeem-card-bottom {
@@ -686,7 +697,19 @@ export default {
     .form-item {
       height: 2vh;
       width: 8vw;
+      @include media-breakpoint-down(sm) {
+        width: 20vw;
+        height: 3vh;
+      }
     }
+  }
+
+  @include media-breakpoint-down(md) {
+    width: 70vw;
+  }
+  @include media-breakpoint-down(sm) {
+    width: 80vw;
+    height: 16vh;
   }
 }
 
@@ -702,8 +725,11 @@ export default {
 }
 
 .buttons {
-  transform: translateX(+50%);
+  display: flex;
+  flex-flow: row;
+  align-content: center;
   margin-top: 4em;
+  justify-content: center;
 
   & * {
     font-size: 19px;

@@ -204,7 +204,6 @@
           class="result"
       >
         <p>Gratuliere! Du hast den Test bestanden!</p>
-        <p>Als nächstes musst du nur noch den Kurs von einem Host oder am Frontdesk freischalten lassen.</p>
         <button
             class="input-button-primary"
             @click="$router.push('/me/trainings')"
@@ -381,16 +380,6 @@ export default {
     //   link.href = URL.createObjectURL(blob)
     //   link.click()
     // }
-  },
-  computed: {
-    memberCourse() {
-      return this.$store.getters.getMemberCourseById(this.id);
-    },
-    pdfUrl () {
-      if (this.quiz && this.quiz.pdf) {
-        return this.$store.getters.getStorageUrl + this.quiz.pdf
-      }
-    }
   },
   async created () {
     this.id = this.$route.query.id

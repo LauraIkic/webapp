@@ -13,25 +13,22 @@
           <span class="course-heading"><b>{{ course.name }}</b></span>
         </div>
         <div class="bottom">
-          <div v-if="!memberCourse" class="course-info">
+          <div class="status" v-if="!(this.memberCourse.is_valid)">
+          <div class="left">
+            <font-awesome-icon v-if="this.memberCourse.is_valid" class="green" icon="check-circle"/>
+          </div>
+        </div>
+<!--          <div v-if="!this.memberCourse" class="course-info">
             <button class="input-button-primary" @click="startCourse">
               Kurs starten
             </button>
-          </div>
-          <div class="status" v-if="!( memberCourse.is_valid)">
-            <div class="left">
-              <font-awesome-icon v-if="memberCourse.is_valid" class="green" icon="check-circle"/>
-              <font-awesome-icon v-else class="grey" icon="times-circle"/>
-              <span>Online-Quiz</span>
-            </div>
-            <div v-if="memberCourse.is_valid" class="success">
-              <font-awesome-icon icon="check-circle"/>
-              <div>Abgeschlossen</div>
-            </div>
-            <div v-else>
-              <div class="startButton">
-                <div>Quiz starten</div>
-              </div>
+          </div>--><div v-if="this.memberCourse.is_valid" class="success">
+          <font-awesome-icon icon="check-circle"/>
+          <div>Abgeschlossen</div>
+        </div>
+          <div v-else>
+            <div class="startButton">
+              <div>Quiz starten</div>
             </div>
           </div>
         </div>
@@ -119,22 +116,21 @@ export default {
       display: flex;
       flex-flow: row nowrap;
       font-family: $font-mono;
-      border-top: 1px solid black;
+      /*border-top: 1px solid black;*/
       padding: 1em;
       justify-content: center;
-      & .green {
-        color: darkgreen;
-      }
       & .grey {
         color: grey;
       }
     }
-
+    .green {
+      color: darkgreen;
+    }
   .bottomText {
     width: 100%;
     background: black;
     color: white;
-    height: 5.7rem;
+    height: 7.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
