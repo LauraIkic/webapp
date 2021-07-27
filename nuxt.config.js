@@ -11,7 +11,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Wir sind die GRAND GARAGE. Ein Makerspace in der Tabakfabrik Linz. Mitglieder können in unserer offenen Werkstatt auf über 90 professionelle Maschinen und digitale Technologien zugreifen. Von der Schweißwerkstatt über CNC-Fräsen bis hin zu 3D-Druckern, Industrierobotern und Lasercuttern ist alles in unserer Werkstatt vorhanden und wartet nur noch darauf, von dir genutzt zu werden.' }
+      { hid: 'description', name: 'description', content: 'Ein Makerspace in der Tabakfabrik Linz. Von der Schweißwerkstatt über CNC-Fräsen bis hin zu 3D-Druckern ist alles in unserer Werkstatt vorhanden.' }
     ],
     script: [
       { hid: 'stripe', src: 'https://js.stripe.com/v3/', defer: true }

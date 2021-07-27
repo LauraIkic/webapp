@@ -48,7 +48,8 @@
 </template>
 
 <script>
-import MetaDataService from '../services/MetaDataService.js'
+
+import { getMetaTagsForWorkshop } from '../services/MetaDataService'
 
 export default {
   props: ['blok', 'dates'],
@@ -67,7 +68,7 @@ export default {
     }
   },
   head () {
-    return MetaDataService.getMetaTagsForWorkshop(this.blok)
+    return getMetaTagsForWorkshop(this.blok)
   }
 }
 </script>
