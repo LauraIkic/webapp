@@ -259,7 +259,6 @@
             Bestätigung:
             <ul>
               <li>Gutschein {{ getGiftCardValue(selectedProductId) }}€</li>
-              <li>Extra: {{ getExtra(selectedExtra) }}</li>
             </ul>
             <div class="buttons">
               <button
@@ -346,7 +345,6 @@ export default {
       action: null,
       origin: null,
       selectedProductId: null,
-      selectedExtra: null,
       giftcardCode: null,
       paymentMethod: 0,
       error: '',

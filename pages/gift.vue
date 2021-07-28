@@ -114,8 +114,6 @@
             </div>
             <div v-if="user !== null" class="logged-in-payment">
               <div class="spacer"></div>
-              <!--              <div v-if="invoiceContact.sepa_mandate_agreed">
-                            </div>-->
               <div class="input" @click="paymentMethod='2'">
                 <input
                     v-model="paymentMethod"
@@ -335,7 +333,6 @@ export default {
       action: null,
       origin: null,
       selectedProductId: null,
-      selectedExtra: null,
       giftcardCode: null,
       paymentMethod: 0,
       error: '',
