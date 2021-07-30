@@ -385,7 +385,7 @@ export default {
 }
 
 /* Mobile */
-@include media-breakpoint-down(sm) {
+@media screen and (max-width: 1334px) {
   .top-header {
     .top-header-inner {
       display: flex;
