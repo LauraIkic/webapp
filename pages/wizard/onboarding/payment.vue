@@ -40,9 +40,8 @@
     </form>
 
     <div class="wizard-checkbox">
-      <label>
-        <Checkbox type="checkbox" v-model="onboardingData.sepaAccepted">Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.</Checkbox>
-      </label>
+      <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
+      <label for="checkbox">Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.</label>
     </div>
 
   </div>
@@ -50,16 +49,12 @@
 
 <script>
 import IBAN from 'iban'
-import Checkbox from '~/components/Checkbox.vue'
 const FREQS = {
   monthly: 1,
   annually: 2
 }
 export default {
   middleware: 'authenticated',
-  components: {
-    Checkbox
-  },
   props: {
     onboardingData: {
       type: Object,
@@ -70,7 +65,8 @@ export default {
     return {
       loading: false,
       FREQS,
-      selected: null
+      selected: null,
+      mutableOnBoarding: null
     }
   },
   computed: {
