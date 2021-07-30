@@ -18,7 +18,7 @@
           v-for="s in blok.items"
           :key="s._uid"
           class="swiper-slide"
-          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '700x0') + ')' }"
+          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '400x400') + ')' }"
         />
       </div>
       <div
@@ -94,7 +94,7 @@ export default {
     letter-spacing: 1.4px;
   }
   .swiper-container {
-    height: 40vw;
+    height: 30vw;
     .swiper-slide {
       display: block;
       background-size: contain;

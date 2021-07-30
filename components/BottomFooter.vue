@@ -158,7 +158,10 @@ export default {
         .join('&')
     },
     shuffle (arra1) {
-      let ctr = arra1.length
+      let ctr = null
+      if (arra1.length != null) {
+        ctr = arra1.length
+      }
       let temp
       let index
 

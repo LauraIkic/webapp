@@ -503,7 +503,7 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  @media (max-width: 700px) {
+  @media screen and (max-width: 799px) {
     flex-direction: column;
     justify-content: space-between;
   }
@@ -517,9 +517,7 @@ export default {
 
 .spacer {
   width: 2em;
-  @include media-breakpoint-down(md) {
-    width: 0em;
-  }
+  height: 2vh;
 }
 .display-item {
   display: flex;
@@ -533,51 +531,47 @@ export default {
     height: 14em;
     .buy-image{
       background-image: url(~assets/img/buy-giftcard.png);
-      height: 19em;
+      height: 14em;
     }
     .redeem-image{
       background-image: url(~assets/img/redeem-giftcard.png);
-      height: 19em;
+      height: 14em;
     }
   }
   .bottom {
-    position: absolute;
-    bottom: 0;
     height: 5em;
     width: 100%;
   }
-  @include media-breakpoint-down(md) {
-    justify-content: flex-end;
-    border-radius: 0.2em;
-    background: #FFFFFF;
-    width: 80vw;
-    height: 12vh;
+
+  @media screen and (max-width: 799px) {
+    background: white;
+    border-radius: 0.8em;
+    width: 75vw;
+    height: 18vh;
     .top {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 12vh;
-    width: 30%;
-  }
-    .top{
       align-self: end;
-      width: 30%;
       height: 100%;
-      .buy-image{
-        background-image: url(~assets/img/buy-giftcard-small.png);
-        width: 22vw;
-        height: 11vh;
+      width: 60%;
+      .buy-image {
+        background-image: url(~assets/img/buy-giftcard-mobile.png);
+        height: 17.7vh;
+        border-radius: 0.8em;
       }
-      .redeem-image{
-        background-image: url(~assets/img/buy-giftcard-small.png);
-        width: 22vw;
-        height: 11vh;
+
+      .redeem-image {
+        background: none;
+        height: 17.7vh;
+        border-radius: 0.8em;
       }
     }
+
     .bottom {
-      background: white;
-      width: 70%;
+      background: none;
+      position: absolute;
+      width: 40%;
       height: 100%;
+      padding-top: 8vh;
+      padding-left: 5vw;
     }
   }
 }
@@ -593,12 +587,13 @@ export default {
   align-items: center;
   font-size: 1.5em;
   font-family: $font-mono;
-  @include media-breakpoint-down(md) {
-    border-radius: 0.2em;
-    border: 1px solid white;
+  @media screen and (max-width: 799px)  {
+    height: 3rem;
+    border-radius: 0.8em;
     padding: 10px;
-    font-size: 1.3em;
-    height: inherit;
+    font-size: 1em;
+    background: $color-orange;
+    font-family: "IBM Plex Sans Condensed", sans-serif;
   }
 }
 
@@ -692,6 +687,10 @@ export default {
 
   @include media-breakpoint-down(md) {
     padding-right: 10vw;
+  }
+  .spacer{
+    width: 0em;
+    height: 0vh;
   }
 }
 
