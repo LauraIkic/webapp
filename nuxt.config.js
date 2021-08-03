@@ -68,7 +68,8 @@ module.exports = {
         'faSignOutAlt',
         'faInfoCircle',
         'faArrowCircleRight',
-        'faSave'
+        'faSave',
+        'faPlus'
       ]
     }
   },

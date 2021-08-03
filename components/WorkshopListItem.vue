@@ -39,8 +39,7 @@
         </div>
         <div class="workshop-dates">
           <div
-              :key="d.id"
-              v-for="d,i in dates"
+              v-for="(d) in dates" :key="d.id"
               class="workshop-date"
               :class="{ soldOut: d.content.sold_out }"
           >
@@ -54,7 +53,7 @@
                   {{ d.content.starttime | date }}
                   <div v-if="d.content.starttime2">
                     <br>
-                    <icon name="calendar" />
+                    <font-awesome-icon class="grey" icon="plus"/>
                     {{ d.content.starttime2 | date }}
                   </div>
                 </div>

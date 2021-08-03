@@ -2,21 +2,21 @@
   <div class="section onboarding-wizard">
     <h2>Wie möchtest du zahlen?</h2>
     <div class="options">
-      <div :class="['option', { selected: onboardingData.paymentFrequency === FREQS.monthly }]"
-        @click="onboardingData.paymentFrequency = FREQS.monthly">
+      <div :class="['option', { selected: mutableOnBoarding.paymentFrequency === FREQS.monthly }]"
+        @click="mutableOnBoarding.paymentFrequency = FREQS.monthly">
         <b>monatliche Zahlung</b>
         <p>
-          <template v-if="onboardingData.paymentType === 1">40</template>
-          <template v-if="onboardingData.paymentType === 2">15</template>
+          <template v-if="mutableOnBoarding.paymentType === 1">40</template>
+          <template v-if="mutableOnBoarding.paymentType === 2">15</template>
           EUR / Monat
         </p>
       </div>
-      <div :class="['option', { selected: onboardingData.paymentFrequency === FREQS.annually }]"
-        @click="onboardingData.paymentFrequency = FREQS.annually">
+      <div :class="['option', { selected: mutableOnBoarding.paymentFrequency === FREQS.annually }]"
+        @click="mutableOnBoarding.paymentFrequency = FREQS.annually">
         <b>jährliche Zahlung</b>
         <p>
-          <template v-if="onboardingData.paymentType === 1">400</template>
-          <template v-if="onboardingData.paymentType === 2">150</template>
+          <template v-if="mutableOnBoarding.paymentType === 1">400</template>
+          <template v-if="mutableOnBoarding.paymentType === 2">150</template>
           EUR / Jahr
         </p>
       </div>
@@ -26,7 +26,7 @@
     <form class="form wizard">
       <div class="form-item">
         <span class="label">IBAN</span>
-        <input class="input-text" type="text" v-model="onboardingData.payment.iban" name="" id=" "/>
+        <input class="input-text" type="text" v-model="mutableOnBoarding.payment.iban" name="" id=" "/>
         <div>
           <font-awesome-icon class="ibanIcon success" v-if="ibanIsValid" icon="check-circle" />
           <font-awesome-icon class="ibanIcon" v-else icon="times-circle" />
@@ -34,15 +34,14 @@
       </div>
       <div class="form-item ibanFormItem">
         <span class="label">Name der Bank</span>
-        <input class="input-text" type="text" v-model="onboardingData.payment.bank" name="" id=""/>
+        <input class="input-text" type="text" v-model="mutableOnBoarding.payment.bank" name="" id=""/>
         <span class="bankSpacer" />
       </div>
     </form>
 
     <div class="wizard-checkbox">
-      <label>
-        <Checkbox type="checkbox" v-model="onboardingData.sepaAccepted">Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.</Checkbox>
-      </label>
+      <input id="checkbox" type="checkbox" name="checkbox" v-model="mutableOnBoarding.sepaAccepted">
+      <label for="checkbox">Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.</label>
     </div>
 
   </div>
@@ -50,16 +49,12 @@
 
 <script>
 import IBAN from 'iban'
-import Checkbox from '~/components/Checkbox.vue'
 const FREQS = {
   monthly: 1,
   annually: 2
 }
 export default {
   middleware: 'authenticated',
-  components: {
-    Checkbox
-  },
   props: {
     onboardingData: {
       type: Object,
@@ -70,12 +65,13 @@ export default {
     return {
       loading: false,
       FREQS,
-      selected: null
+      selected: null,
+      mutableOnBoarding: this.onboardingData
     }
   },
   computed: {
     ibanIsValid () {
-      return this.validate(this.onboardingData.payment.iban)
+      return this.validate(this.mutableOnBoarding.payment.iban)
     }
   },
   methods: {
@@ -85,7 +81,7 @@ export default {
       }
       iban = iban.replace(/\s/g, '') // Remove spaces
       const isValid = IBAN.isValid(iban)
-      this.onboardingData.ibanIsValid = isValid
+      this.mutableOnBoarding.ibanIsValid = isValid
       return isValid
     }
   }
