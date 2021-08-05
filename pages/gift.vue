@@ -1,11 +1,18 @@
 <template href="http://www.w3.org/1999/html">
   <div>
-    <h2 v-if="action" class="headline">
-      Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
-    </h2>
-    <h2 v-else class="headline">
-      Gutscheine
-    </h2>
+    <span class="flex-center" style="margin-top: 2em;">
+      <h2 v-if="action" class="headline">
+        Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+      </h2>
+      <h2 v-else class="headline">
+        Gutscheine
+      </h2>
+      <loading-spinner
+        v-if="loading"
+        color="#333"
+        style="margin-left: 0.5em;"
+      />
+    </span>
     <template v-if="!action">
       <selection class="items">
         <section class="display-item">
@@ -23,7 +30,7 @@
         <br>
         <section class="display-item">
           <div class="top">
-          <div class="redeem-image"></div>
+            <div class="redeem-image"></div>
           </div>
           <div class="bottom">
             <div class="buy-redeem-button"
@@ -41,7 +48,7 @@
         <template v-if="action === 'buy'">
           <div v-if="step === 0" class="giftcardForm">
             <section class="buy-gift-cards">
-              <div class="input" @click="selectedProductId='719'">
+              <div class="input gg-card" @click="selectedProductId='719'">
                 <input type="radio" value="719" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
@@ -53,7 +60,7 @@
                   </div>
                 </div>
               </div>
-              <div class="input" @click="selectedProductId='720'">
+              <div class="input gg-card" @click="selectedProductId='720'">
                 <input type="radio" value="720" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
@@ -65,7 +72,7 @@
                   </div>
                 </div>
               </div>
-              <div class="input" @click="selectedProductId='721'">
+              <div class="input gg-card" @click="selectedProductId='721'">
                 <input type="radio" value="721" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
@@ -77,7 +84,7 @@
                   </div>
                 </div>
               </div>
-              <div class="input" @click="selectedProductId='722'">
+              <div class="input gg-card" @click="selectedProductId='722'">
                 <input type="radio" value="722" v-model="selectedProductId">
                 <span> Gutschein-Wert: </span>
                 <div class="bottom-gift-card">
@@ -92,9 +99,9 @@
             </section>
             <div class="buttons">
               <button
-                  class="input-button-primary"
-                  :disabled="!selectedProductId"
-                  @click="step++"
+                class="input-button-primary"
+                :disabled="!selectedProductId"
+                @click="step++"
               >
                 Weiter
               </button>
@@ -103,23 +110,23 @@
           <div v-if="step === 1">
             <h2 class="headline">Zahlungsmethode</h2>
             <div class="logged-out-payment">
-              <div class="input" @click="paymentMethod='1'">
+              <div class="input gg-card" @click="paymentMethod='1'">
                 <input
-                    v-model="paymentMethod"
-                    type="radio"
-                    name="paymentMethod"
-                    value="1"
+                  v-model="paymentMethod"
+                  type="radio"
+                  name="paymentMethod"
+                  value="1"
                 >Kreditkarte
               </div>
             </div>
             <div v-if="user !== null" class="logged-in-payment">
               <div class="spacer"></div>
-              <div class="input" @click="paymentMethod='2'">
+              <div class="input gg-card" @click="paymentMethod='2'">
                 <input
-                    v-model="paymentMethod"
-                    type="radio"
-                    name="paymentMethod"
-                    value="2"
+                  v-model="paymentMethod"
+                  type="radio"
+                  name="paymentMethod"
+                  value="2"
                 >SEPA-Monatsrechnung
               </div>
               <br>
@@ -132,10 +139,10 @@
                     </th>
                     <th>
                       <input
-                          v-model="user.profile.firstName"
-                          class="input-text"
-                          type="text"
-                          name=""
+                        v-model="user.profile.firstName"
+                        class="input-text"
+                        type="text"
+                        name=""
                       >
                     </th>
                   </tr>
@@ -144,10 +151,10 @@
                   </th>
                   <th>
                     <input
-                        v-model="user.profile.lastName"
-                        class="input-text"
-                        type="text"
-                        name=""
+                      v-model="user.profile.lastName"
+                      class="input-text"
+                      type="text"
+                      name=""
                     >
                   </th>
                   <tr>
@@ -156,10 +163,10 @@
                     </th>
                     <th>
                       <input
-                          v-model="user.profile.emailAddress"
-                          class="input-text"
-                          type="text"
-                          name=""
+                        v-model="user.profile.emailAddress"
+                        class="input-text"
+                        type="text"
+                        name=""
                       >
                     </th>
                   </tr>
@@ -169,10 +176,10 @@
                     </th>
                     <th>
                       <input
-                          v-model="user.profile.address"
-                          class="input-text"
-                          type="text"
-                          name=""
+                        v-model="user.profile.address"
+                        class="input-text"
+                        type="text"
+                        name=""
                       >
                     </th>
                   </tr>
@@ -182,10 +189,10 @@
                     </th>
                     <th>
                       <input
-                          v-model="user.profile.address2"
-                          class="input-text"
-                          type="text"
-                          name=""
+                        v-model="user.profile.address2"
+                        class="input-text"
+                        type="text"
+                        name=""
                       >
                     </th>
                   </tr>
@@ -195,10 +202,10 @@
                     </th>
                     <th>
                       <input
-                          v-model="user.profile.zip"
-                          class="input-text"
-                          type="text"
-                          name=""
+                        v-model="user.profile.zip"
+                        class="input-text"
+                        type="text"
+                        name=""
                       >
                     </th>
                   </tr>
@@ -208,10 +215,10 @@
                     </th>
                     <th>
                       <input
-                          v-model="user.profile.city"
-                          class="input-text"
-                          type="text"
-                          name=""
+                        v-model="user.profile.city"
+                        class="input-text"
+                        type="text"
+                        name=""
                       >
                     </th>
                   </tr>
@@ -220,15 +227,15 @@
             </div>
             <div class="buttons">
               <button
-                  class="input-button-primary"
-                  @click="step--"
+                class="input-button-primary"
+                @click="step--"
               >
                 Zurück
               </button>
               <button
-                  class="input-button-primary"
-                  :disabled="!paymentMethod"
-                  @click="step++"
+                class="input-button-primary"
+                :disabled="!paymentMethod"
+                @click="step++"
               >
                 Bestellung prüfen
               </button>
@@ -244,15 +251,15 @@
             </div>
             <div class="buttons">
               <button
-                  class="input-button-payment"
-                  @click="step--"
+                class="input-button-payment"
+                @click="step--"
               >
                 Zurück
               </button>
               <button
-                  class="input-button-payment"
-                  :disabled="!paymentMethod || loading"
-                  @click="checkout()"
+                class="input-button-payment"
+                :disabled="!paymentMethod || loading"
+                @click="redirectToPayrexxCheckout()"
               >
                 Kostenpflichtig bestellen
               </button>
@@ -266,8 +273,8 @@
 
         <template v-if="action === 'redeem'">
           <div
-              v-if="step === 0"
-              class="giftcardForm"
+            v-if="step === 0"
+            class="giftcardForm"
           >
             <div class="card">
               <div class="input-redeem-card">
@@ -277,8 +284,8 @@
                   <div class=" code">
                     <span class="code-span"> Code: </span>
                     <input
-                        v-model="giftcardCode"
-                        class="form-item"
+                      v-model="giftCardCode"
+                      class="form-item"
                     >
                   </div>
                   <div class="image">
@@ -287,7 +294,8 @@
                   </div>
                 </div>
               </div>
-              <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div><br>
+              <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
+              <br>
               <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich auf unserer
                 Webseite registrieren!
               </div>
@@ -295,9 +303,9 @@
             </div>
             <div class="buttons">
               <button
-                  class="input-button-payment"
-                  :disabled="!giftcardCode && user == null"
-                  @click="redeem"
+                class="input-button-payment"
+                :disabled="!giftCardCode && user == null"
+                @click="redeem"
               >
                 Einlösen
               </button>
@@ -306,10 +314,6 @@
         </template>
       </template>
     </transition>
-    <loading-spinner
-        v-if="loading"
-        color="#333"
-    />
   </div>
 </template>
 
@@ -333,7 +337,7 @@ export default {
       action: null,
       origin: null,
       selectedProductId: null,
-      giftcardCode: null,
+      giftCardCode: null,
       paymentMethod: 0,
       error: '',
       shippingAddressEnabled: 0,
@@ -385,14 +389,14 @@ export default {
     async redeem () {
       this.loading = true
       const response = await this.$store.dispatch('redeemGiftCard', {
-        uuid: this.giftcardCode
+        uuid: this.giftCardCode
       })
       if (!response.success) {
         if (response.already_redeemed) {
           this.$toast.show('Dieser Gutschein ist bereits eingelöst worden!', {
             className: 'badToast'
           })
-          this.giftcardCode = ''
+          this.giftCardCode = ''
           this.loading = false
           return
         }
@@ -414,40 +418,26 @@ export default {
       })
       this.$router.push('credits')
     },
-    checkout () {
+    redirectToPayrexxCheckout () {
       this.loading = true
       const data = {
         payment_method: parseInt(this.paymentMethod),
-        product_counts: [
-          {
-            product_id: this.product_id,
-            count: 1
-          }
-        ],
-        invoice_contact: this.invoiceContact
+        product_id: this.selectedProductId,
+        count: 1
       }
 
-      this.$store.dispatch('checkout', data)
+      this.$store.dispatch('startTransaction', data)
         .then((response) => {
-          if (response.status >= 200 && response.status <= 300) {
-            switch (parseInt(this.paymentMethod)) {
-              case 1:
-                this.redirectToStripe(response.session_id)
-                break
-              case 2:
-                this.step++
-                break
-            }
+          if (response.data.redirect_link) {
+            // Redirect to payrexx screen
+            window.location.href = response.data.redirect_link
           } else {
-            console.log(response)
-            this.$sentry.captureException(new Error(response))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
-            })
+            console.log('response', response.data)
           }
         })
         .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
+          console.log('error', error.data)
+          this.$sentry.captureException(new Error(error))
           this.$toast.show('Ein Fehler ist aufgetreten', {
             theme: 'bubble'
           })
@@ -455,23 +445,6 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-    redirectToStripe: function (sessionId) {
-      // eslint-disable-next-line no-undef
-      const stripe = Stripe('pk_live_XCUCaJMt8kMEpedQdvmtMu4Z00rNP9VDun')
-      stripe.redirectToCheckout({
-        sessionId: sessionId
-      })
-    },
-    getExtra (id) {
-      switch (id) {
-        case '733':
-          return 'Digital per E-Mail'
-        case '734':
-          return 'Versand'
-        case '735':
-          return 'Abholung Deluxe-Box'
-      }
     },
     getGiftCardValue (id) {
       switch (id) {
@@ -492,9 +465,13 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
 .headline {
   padding-left: 21vw;
-  margin-top: 2em;
 }
 
 .items {
@@ -519,6 +496,7 @@ export default {
   width: 2em;
   height: 2vh;
 }
+
 .display-item {
   display: flex;
   flex-direction: column;
@@ -527,17 +505,21 @@ export default {
   height: 19em;
   position: relative;
   border: 1px solid black;
-  .top{
+
+  .top {
     height: 14em;
-    .buy-image{
+
+    .buy-image {
       background-image: url(~assets/img/buy-giftcard.png);
       height: 14em;
     }
-    .redeem-image{
+
+    .redeem-image {
       background-image: url(~assets/img/redeem-giftcard.png);
       height: 14em;
     }
   }
+
   .bottom {
     height: 5em;
     width: 100%;
@@ -552,6 +534,7 @@ export default {
       align-self: end;
       height: 100%;
       width: 60%;
+
       .buy-image {
         background-image: url(~assets/img/buy-giftcard-mobile.png);
         height: 17.7vh;
@@ -577,7 +560,7 @@ export default {
 }
 
 .buy-redeem-button {
-  cursor:pointer;
+  cursor: pointer;
   width: 100%;
   background: black;
   color: white;
@@ -587,7 +570,7 @@ export default {
   align-items: center;
   font-size: 1.5em;
   font-family: $font-mono;
-  @media screen and (max-width: 799px)  {
+  @media screen and (max-width: 799px) {
     height: 3rem;
     border-radius: 0.8em;
     padding: 10px;
@@ -688,7 +671,8 @@ export default {
   @include media-breakpoint-down(md) {
     padding-right: 10vw;
   }
-  .spacer{
+
+  .spacer {
     width: 0em;
     height: 0vh;
   }

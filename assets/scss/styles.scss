@@ -142,6 +142,34 @@ $grid-breakpoints: (
   }
 }
 
+// main navigation
+.main-nav-item:hover {
+  color: #E69140 !important;
+}
+
+.login-button button:hover {
+  background-color: black !important;
+}
+
+.dropdown .child a:hover {
+  color: #E69140 !important;
+}
+
+// cards
+.gg-card {
+  cursor: pointer;
+}
+
+.gg-card:hover {
+  background-color: black;
+  color: white;
+  opacity: 0.8;
+}
+
+.gg-card img:hover {
+  fill: white !important;
+}
+
 // layout margins
 @mixin margin-page-wide() {
   margin-left: 4%;

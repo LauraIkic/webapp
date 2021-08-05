@@ -1,6 +1,10 @@
 <template>
   <div class="section">
-     Kauf fehlgeschlagen oder abgebrochen. Unsere Kontaktdaten findest du&nbsp;<nuxt-link to="/de/kontakt">hier</nuxt-link>.
+    <h2>Kauf fehlgeschlagen</h2>
+    <p class="text">
+      Der Kauf wurde abgebrochen oder ist fehlgeschlagen. <br>
+      Bei Problemen kontaktiere uns&nbsp;<nuxt-link to="/de/kontakt">hier</nuxt-link>.
+    </p>
   </div>
 </template>
 
@@ -25,7 +29,9 @@ export default {
 <style lang="scss">
   .section{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-top: 5%;
+    text-align: center;
   }
 </style>

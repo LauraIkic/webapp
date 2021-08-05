@@ -44,6 +44,9 @@ const createStore = () => {
       getStorageUrl () {
         return baseUrl + '/storage/'
       },
+      getBaseUrl () {
+        return baseUrl
+      },
       getCourses: (state) => () => {
         return state.courses
       },
@@ -178,8 +181,12 @@ const createStore = () => {
         const res = await connector.get('/member/getCreditsLog')
         return res.data
       },
+      startTransaction ({ state }, data) {
+        // Returns payrexx checkout link
+        return axios.post(connectorBaseUrl + '/payrexx/checkout', data)
+      },
       async redeemGiftCard ({ state }, data) {
-        const res = await connector.post('/member/redeemGiftCard', data)
+        const res = await connector.post('/gift-cards/redeem', data)
         return res.data
       },
       async getInvoices ({ state }) {
