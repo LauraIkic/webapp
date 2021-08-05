@@ -79,6 +79,8 @@ import Icon from '~/components/Icon.vue'
 
 import PriceTable from '~/components/PriceTable.vue'
 import PriceTableItem from '~/components/PriceTableItem.vue'
+import MachinePreview from '~/components/MachinePreview'
+import MakerPreview from '../components/MakerPreview'
 
 Vue.component('page', Page)
 Vue.component('general-header', GeneralHeader)
@@ -101,6 +103,8 @@ Vue.component('info-box', InfoBox)
 Vue.component('news-feed-item', NewsFeedItem)
 Vue.component('workshop-best-of', WorkshopBestOf)
 Vue.component('workshop-preview', WorkshopPreview)
+Vue.component('machine-preview', MachinePreview)
+Vue.component('maker-preview', MakerPreview)
 
 Vue.component('workshop-header', WorkshopHeader)
 Vue.component('workshop-info', WorkshopInfo)

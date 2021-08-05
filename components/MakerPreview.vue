@@ -1,26 +1,25 @@
 <template>
   <div v-if="story">
     <div class="preview-wrapper">
-      <div class="workshop-preview">
-        <nuxt-link
-          class="story"
-          :to="story.full_slug"
+      <div class="maker-preview">
+        <nuxt-link class="link"
+            :to="story.slug"
         >
-          <div
-            class="banner"
-            :style="{ 'background-image': 'url(' + $resizeImage(workshop.image, '700x0') + ')' }"
-          />
-          <div class="title">
-            {{ workshop.title }}
-          </div>
-          <div
-            v-if="workshop.subtitle"
-            class="subtitle"
-          >
-            {{ workshop.subtitle }}
-          </div>
-          <div class="teaser">
-            {{ workshop.teaser }}
+          <div class="display-maker">
+            <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(maker.image, '200x0') + ')' }"/>
+            <div class="spacer"></div>
+            <div class="maker-information">
+              <div class="name">
+                {{ maker.name }}
+              </div>
+              <br>
+              <div class="description">
+                {{ maker.short_description }}
+              </div>
+              <br>   <br>
+              <div>In der Grand Garage seit:</div>
+              <br>
+            </div>
           </div>
         </nuxt-link>
       </div>
@@ -37,7 +36,7 @@ export default {
     }
   },
   computed: {
-    workshop () {
+    maker () {
       return this.story.content
     }
   },
@@ -60,15 +59,34 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
+.display-maker {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-content: space-between;
+  .banner{
+    width:80vw;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .spacer{
+    width:10vw;
+  }
+  @include media-breakpoint-down(md){
+    flex-flow: column;
+  }
+}
+.link{
+  color:black;
+}
 .preview-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
 
-  .workshop-preview {
+  .maker-preview {
     padding: 20px;
-    width: 600px;
-
+    width: 80%;
     .loading {
     }
 
@@ -79,18 +97,18 @@ export default {
       cursor: pointer;
       text-decoration: none;
       color: #000;
-
       &:hover {
         background-color: lighten($color-bright-bg, 3);
       }
 
       .banner {
-        height: 200px;
+        height: inherit;
+        width: 60%;
         background-size: cover;
         background-position: center;
       }
 
-      .title {
+      .name {
         margin: 1em 0 0.2em 0;
         font-weight: normal;
         font-size: 1.5rem;
@@ -98,7 +116,6 @@ export default {
       }
 
       .subtitle {
-        color: $color-orange;
         margin-bottom: 0.5em;
         font-weight: normal;
         font-size: 1rem;

@@ -1,26 +1,16 @@
 <template>
   <div v-if="story">
     <div class="preview-wrapper">
-      <div class="workshop-preview">
-        <nuxt-link
-          class="story"
-          :to="story.full_slug"
-        >
-          <div
-            class="banner"
-            :style="{ 'background-image': 'url(' + $resizeImage(workshop.image, '700x0') + ')' }"
-          />
-          <div class="title">
-            {{ workshop.title }}
-          </div>
-          <div
-            v-if="workshop.subtitle"
-            class="subtitle"
-          >
-            {{ workshop.subtitle }}
-          </div>
-          <div class="teaser">
-            {{ workshop.teaser }}
+      <div class="machine-preview">
+        <nuxt-link class="story" :to="story.full_slug">
+          <div class="display-machine">
+            <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(machine.image, '700x0') + ')' }"/>
+            <div class="title">
+              {{ machine.title }}
+            </div>
+            <div v-if="machine.subtitle" class="subtitle">
+              {{ machine.subtitle }}
+            </div>
           </div>
         </nuxt-link>
       </div>
@@ -37,7 +27,7 @@ export default {
     }
   },
   computed: {
-    workshop () {
+    machine () {
       return this.story.content
     }
   },
@@ -59,15 +49,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
-.preview-wrapper {
+.preview-wrapper{
+  height: inherit;
+}
+.display-machines {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 
-  .workshop-preview {
+  .machine-preview {
     padding: 20px;
-    width: 600px;
+    width: 300px;
+    height: 25vh;
 
     .loading {
     }

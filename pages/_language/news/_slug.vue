@@ -1,4 +1,5 @@
 <template>
+  <div class="body">
   <div v-if="item">
     <div class="header">
       <div class="header-image" :style="{ 'background-image': 'url(' + item.content.image + ')' }"></div>
@@ -9,101 +10,111 @@
         <voting-button v-if="item.content.voting" is-on-detail="true" :uuid="item.uuid"></voting-button>
       </div>
     </div>
-    <div class="blogFeed-detail">
-      <div class="left-content">
-        <div class="social-media-link">
-          <a v-if="item.content.link.url != ''" :href="item.content.link.url" class="info-block"><img
-              v-if="item.content.source.length != 0" class="source-img" :src="`/icons/${item.content.source}.png`"
-              width="200px"></a><br>
-          <span class="info-block">{{ item.content.datetime | date }}</span>
+      <div class="blogFeed-detail">
+        <div class="left-content">
+          <div class="social-media-link">
+            <a v-if="item.content.link.url != ''" :href="item.content.link.url" class="info-block"><img
+                v-if="item.content.source.length != 0" class="source-img" :src="`/icons/${item.content.source}.png`"></a>
+            <span class="info-block">{{ item.content.datetime | date }}</span>
+          </div>
+        </div>
+        <div class="right-content">
+          <div class="teaser">
+            {{ item.content.text }}
+          </div><br>
+          <div v-if="item.content.materials">
+            <div>Verwendete Materialien:</div>
+            <vue-markdown>{{ item.content.materials }}</vue-markdown>
+          </div>
+          <div class="spacer"></div>
+          <div class="video" v-if="item.content.video">
+            <iframe :src="item.content.video" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+          </div>
         </div>
       </div>
-      <div class="right-content">
-        <div class="teaser">
-          <vue-markdown>{{ item.content.text }}</vue-markdown>
-          <br>
-        </div>
-        <div>
-          <div>Verwendete Maschinen:</div>
-          <vue-markdown>{{ item.content.teaser }}</vue-markdown>
-        </div>
-        <div class="spacer"></div>
-        <div class="video" v-if="item.content.video">
-          <iframe :src="item.content.video" title="YouTube video player" frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
+      <div class="image-container" v-if="item.content.images && item.content.images.length != 0">
+        <div class="name">Arbeitsschritte:</div>
+        <div class="images">
+          <image-slideshow :blok="images"></image-slideshow>
         </div>
       </div>
-    </div>
-    <div class="image-container" v-if="item.content.images && item.content.images.length != 0">
-      <div class="name">... Arbeitsschritte: </div>
-      <div class="images">
-        <image-slideshow :blok="images"></image-slideshow>
+      <div class="machine" v-if="machine">
+        <div class="name"> Die Maschinen für das Projekt</div>
+        <div class="display-machines">
+          <machine-preview
+              v-for="m in machine"
+              :id="m"
+              :key="m"
+              class="col"
+          />
+        </div>
       </div>
-    </div>
-    <div class="machine">
-    <div class="name" > Die Maschinen für das Projekt +{{item.content.machine[0]}}</div>
-    <div class="display-machines" v-if="item.content.machines != null">
-      <div v-for="machine in item.content.machines" :blok="machine" :key="machine.id" >
-        <div>{{machine}}</div>
+      <!--        <div class="blogFeed-detail">
+                <div :key="i" v-for="i in item.content.contentBloks" class="right-content">
+                    <span v-if="item.content.contentBloks">
+                      <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
+                      <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
+                    </span>
+                </div>
+              </div>-->
+      <div class="maker" v-if="person">
+        <div class="name">Der Mensch hinter dem Projekt</div>
+        <div class="display-makers">
+          <maker-preview
+              v-for="p in person"
+              :id="p"
+              :key="p"
+              class="col"
+          />
+        </div>
       </div>
+      <!--        <div v-if="item.content.links && item.content.links.length != 0">
+                <links-slideshow :blok="links"></links-slideshow>
+              </div>-->
     </div>
-    </div>
-<!--    <div class="blogFeed-detail">
-      <div :key="i" v-for="i in item.content.contentBloks" class="right-content">
-          <span v-if="item.content.contentBloks">
-            <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
-            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-          </span>
-      </div>
-    </div>-->
-    <div class="maker" v-if="item.content.person">
-      <div class="name">Die Mensch hinter dem Projekt</div>
-    </div>
-    <div v-if="item.content.links && item.content.links.length != 0">
-      <links-slideshow :blok="links"></links-slideshow>
-    </div>
-  </div>
-  <div v-else>
-    <div class="header">
-      <div class="header-image" :style="{ 'background-image': 'url(' + item.image + ')' }"></div>
-      <div class="header-title">
-        <h4>{{ item.title }}</h4>
-        <voting-button v-if="item.content.voting" is-on-detail="true" :uuid="item.uuid"></voting-button>
+    <!--      <div v-else>
+            <div class="header">
+              <div class="header-image" :style="{ 'background-image': 'url(' + item.image + ')' }"></div>
+              <div class="header-title">
+                <h4>{{ item.title }}</h4>
+                <voting-button v-if="item.content.voting" is-on-detail="true" :uuid="item.uuid"></voting-button>
 
-      </div>
-    </div>
-    <div class="blogFeed-detail">
-      <div class="left-content">
-        <span class="info-block">{{ item.datetime | date }}</span>
-        {{ item }}
-        <!--<a v-if="item.link.url && item.link.url != ''" :href="item.link.url" class="info-block"><img v-if="item.source.length != 0" class="source-img" :src="`/icons/${item.source}.png`"></a>-->
-      </div>
-      <div class="right-content">
-        <div class="teaser">
-          {{ item.teaser }}
-        </div>
-        <div>
-          {{ item.text }}
-        </div>
+              </div>
+            </div>
+            <div class="blogFeed-detail">
+              <div class="left-content">
+                <span class="info-block">{{ item.datetime | date }}</span>
+                {{ item }}
+                &lt;!&ndash;<a v-if="item.link.url && item.link.url != ''" :href="item.link.url" class="info-block"><img v-if="item.source.length != 0" class="source-img" :src="`/icons/${item.source}.png`"></a>&ndash;&gt;
+              </div>
+              <div class="right-content">
+                <div class="teaser">
+                  {{ item.teaser }}
+                </div>
+                <div>
+                  {{ item.text }}
+                </div>
 
-      </div>
+              </div>
+            </div>
+            <div class="images" v-if="item.images && item.images.length != 0">
+              <image-slideshow :blok="images"></image-slideshow>
+            </div>
+            <div class="blogFeed-detail">
+              <div :key="i" v-for="i in item.contentBloks" class="right-content">
+                  <span v-if="item.contentBloks">
+                    <span v-if="i.text" class="content-text">{{ i.text }}</span>
+                    <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
+                  </span>
+              </div>
+            </div>
+            <div v-if="item.links && item.links.length != 0">
+              <links-slideshow :blok="links"></links-slideshow>
+            </div>
+      </div>-->
     </div>
-    <div class="images" v-if="item.images && item.images.length != 0">
-      <image-slideshow :blok="images"></image-slideshow>
-    </div>
-    <div class="blogFeed-detail">
-      <div :key="i" v-for="i in item.contentBloks" class="right-content">
-          <span v-if="item.contentBloks">
-            <span v-if="i.text" class="content-text">{{ i.text }}</span>
-            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-          </span>
-      </div>
-    </div>
-    <div v-if="item.links && item.links.length != 0">
-      <links-slideshow :blok="links"></links-slideshow>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -113,6 +124,16 @@ import VueMarkdown from 'vue-markdown'
 
 export default {
   components: { VotingButton, VueMarkdown },
+  props: ['blok'],
+  mixins: [storyblokLivePreview],
+  created () {
+    this.$store.app.$storyapi.get(`cdn/stories/${this.id}`, {
+      find_by: 'uuid'
+    }).then((res) => {
+      this.story = res.data.story
+    }).catch((e) => {
+    })
+  },
   data () {
     return {
       // images: [],
@@ -128,27 +149,10 @@ export default {
       item: null
     }
   },
-  mixins: [storyblokLivePreview],
   asyncData (context) {
     return context.store.dispatch('loadNewsItem', context.route.params.slug).then(data => {
       return { item: data.story }
     })
-  },
-
-  methods: {
-    filters () {
-      const sources = this.sources
-        .filter(i => i.selected)
-        .map(i => i.key)
-        .join(',')
-      const filterQuery = {
-        component: { in: 'news-overview' }
-      }
-      if (sources) {
-        filterQuery.source = { in: sources }
-      }
-      return { filterQuery }
-    }
   },
   computed: {
     route () {
@@ -168,31 +172,28 @@ export default {
       return {
         content: this.item.content.contentBloks.text
       }
+    },
+    machine () {
+      return this.item.content.machine
+    },
+    person () {
+      return this.item.content.person
     }
-  },
-  async asyncDataMachines (context) {
-    const tags = await context.store.dispatch('loadTags')
-    const filters = {
-      filter_query: {
-        component: {
-          in: 'machine'
-        }
-      }
-    }
-    const machines = await context.store.dispatch('findMachines', filters).then((data) => {
-      if (data.stories) {
-        return { machines: data.stories }
-      }
-      return { machines: [] }
-    })
-    return { tags, ...machines }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
-
+@import '/assets/scss/styles.scss';
+.body{
+  max-width: 1264px;
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-flow: column;
+}
 .header {
   height: calc(35vh - 64px);
   position: relative;
@@ -201,11 +202,7 @@ export default {
 .header-image {
   height: 100%;
   background-size: cover;
-  background-position: 50%;
-  @include media-breakpoint-down(sm) {
-    height: 65%;
-    background-position: 0;
-  }
+  background-position: inherit;
 }
 
 .header-title {
@@ -214,25 +211,30 @@ export default {
   background-color: #fff;
   min-width: 50%;
   padding-left: 3vw;
-  padding-right:7vw;
+  padding-right: 7vw;
   @include media-breakpoint-up(sm) {
     position: absolute;
   }
   @include media-breakpoint-down(sm) {
-    padding: 25px 10px;
+    padding: 1px 10px;
+
   }
 
   h4 {
     margin: 0;
-    font-size: 4rem;
+    font-size: 3rem;
     font-family: Chakra Petch;
     font-weight: 700;
     @include media-breakpoint-down(sm) {
-      font-size: 2rem;
+        font-size: 1.6rem;
     }
   }
 }
-
+.info-block{
+  @include media-breakpoint-down(sm) {
+    align-self: baseline;
+  }
+}
 .blogFeed-detail {
   margin-top: 40px;
   color: #000;
@@ -243,6 +245,10 @@ export default {
   background: #f2f3ee;;
   font-size: 1.5rem;
   margin-bottom: 7%;
+  @include media-breakpoint-down(md) {
+    flex-flow: column;
+    font-size: 1.1rem;
+  }
   /*  @include margin-page-wide();
     @include media-breakpoint-up(md) {
       margin: 0 100px;
@@ -257,12 +263,17 @@ export default {
   flex-flow: column;
   justify-content: center;
   width: 15vw;
-  margin-left: 10vw;
+  @include media-breakpoint-down(md){
+    flex-flow: row;
+    width: auto;
+    justify-content: space-around;
+  }
 }
 
 .left-content {
+  margin-left: 2vw;
   & * {
-    margin-top: 20px;
+    margin-top: 0.5vh;
     color: $color-secondary-border;
   }
 
@@ -270,32 +281,36 @@ export default {
     margin-bottom: 20px;
   }
 }
+
 .name {
   font-size: 2.5rem;
   font-weight: bold;
   padding-top: 3vh;
-  padding-left: 8vw;
+  padding-left: 4vw;
   font-family: Chakra Petch;
+  margin-top: 5vh;
+  margin-bottom: 3vh;
+  @include media-breakpoint-down(sm) {
+  font-size: 1.3rem;
+  }
 }
-.image-slideshow{
-  padding-left: 10vw;
-  padding-right: 10vw;
+
+.image-slideshow {
+  padding-left: 5vw;
+  padding-right: 5vw;
+  @include media-breakpoint-down(sm){
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
 }
-.swiper-container{
-  height: 30vw;
-}
-.swiper-slide{
-     width: 25vw;
-     height: 20vw;
-   }
 .right-content {
   flex-direction: column;
   position: relative;
   display: flex;
-  align-items: flex-start;
-  width: 50vw;
-  margin-left: 13%;
-
+  width: inherit;
+  @include media-breakpoint-down(sm){
+    width: 80vw;
+  }
   img {
     @include media-breakpoint-down(sm) {
       width: 100%;
@@ -326,7 +341,6 @@ export default {
     margin: 2% 0 0 5%;
     text-transform: uppercase;
     @include media-breakpoint-up(md) {
-      margin-left: 25%;
     }
     color: #fff;
     padding: .7em .8em;
@@ -343,11 +357,8 @@ export default {
 
 .img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  width:20vw;
   @include media-breakpoint-down(sm) {
-    margin-left: 20px;
-    margin-right: 20px;
   }
 }
 
@@ -356,21 +367,31 @@ export default {
 }
 
 .images {
-  margin: 40px;
   margin-bottom: 0;
   background: #FFFFFF;
+  @include media-breakpoint-down(sm) {
+    margin: 4px;
+  }
 }
 
 .links {
   margin: 40px;
 }
+.display-machines{
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
 
-.video {
-  width: inherit;
-
-  & * {
-    width: 100%;
-    height: 30vw;
+  @include media-breakpoint-down(md){
+    flex-flow: column;
   }
 }
+.video {
+  width: inherit;
+  & * {
+    width: 100%;
+    height:35vh;
+  }
+  }
 </style>

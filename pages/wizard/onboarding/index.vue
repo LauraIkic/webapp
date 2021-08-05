@@ -67,8 +67,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '@/assets/scss/styles.scss';
+<style lang="scss" scoped>
+@import '/assets/scss/styles.scss';
 
 .onboarding-wizard {
   height: 100%;
