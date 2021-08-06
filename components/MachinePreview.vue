@@ -2,7 +2,7 @@
   <div v-if="story">
     <div class="preview-wrapper">
       <div class="machine-preview">
-        <nuxt-link class="story" :to="story.full_slug">
+        <nuxt-link class="story" :to="machinelink">
           <div class="display-machine">
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(machine.image, '700x0') + ')' }"/>
             <div class="title">
@@ -29,6 +29,9 @@ export default {
   computed: {
     machine () {
       return this.story.content
+    },
+    machinelink () {
+      return '/de/machines/' + this.story.slug
     }
   },
   created () {
@@ -61,6 +64,9 @@ export default {
     padding: 20px;
     width: 300px;
     height: 25vh;
+    @include media-breakpoint-down(xs) {
+      height:auto;
+    }
 
     .loading {
     }

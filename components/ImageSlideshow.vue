@@ -100,11 +100,14 @@ export default {
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
+      @include media-breakpoint-down(md){
+        width:200px !important;
+        height: 180px !important;
+      }
     }
     padding-bottom: 60px;
-    @include media-breakpoint-down(sm){
-      height:60vw;
-      padding-bottom: 20px;
+    @include media-breakpoint-down(md){
+      height: 25vh;
     }
   }
   .swiper-button-prev,

@@ -1,27 +1,29 @@
 <template>
   <div class="body">
-  <div v-if="item">
-    <div class="header">
-      <div class="header-image" :style="{ 'background-image': 'url(' + item.content.image + ')' }"></div>
-      <div class="header-title">
-        <h4>
-          <vue-markdown>{{ item.content.title }}</vue-markdown>
-        </h4>
-        <voting-button v-if="item.content.voting" is-on-detail="true" :uuid="item.uuid"></voting-button>
+    <div v-if="item">
+      <div class="header">
+        <div class="header-image" :style="{ 'background-image': 'url(' + item.content.image + ')' }"></div>
+        <div class="header-title">
+          <h4>
+            <vue-markdown>{{ item.content.title }}</vue-markdown>
+          </h4>
+          <voting-button v-if="item.content.voting" is-on-detail="true" :uuid="item.uuid"></voting-button>
+        </div>
       </div>
-    </div>
       <div class="blogFeed-detail">
         <div class="left-content">
           <div class="social-media-link">
             <a v-if="item.content.link.url != ''" :href="item.content.link.url" class="info-block"><img
-                v-if="item.content.source.length != 0" class="source-img" :src="`/icons/${item.content.source}.png`"></a>
+                v-if="item.content.source.length != 0" class="source-img"
+                :src="`/icons/${item.content.source}.png`"></a>
             <span class="info-block">{{ item.content.datetime | date }}</span>
           </div>
         </div>
         <div class="right-content">
           <div class="teaser">
             {{ item.content.text }}
-          </div><br>
+          </div>
+          <br>
           <div v-if="item.content.materials">
             <div>Verwendete Materialien:</div>
             <vue-markdown>{{ item.content.materials }}</vue-markdown>
@@ -51,14 +53,14 @@
           />
         </div>
       </div>
-      <!--        <div class="blogFeed-detail">
-                <div :key="i" v-for="i in item.content.contentBloks" class="right-content">
-                    <span v-if="item.content.contentBloks">
-                      <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
-                      <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-                    </span>
-                </div>
-              </div>-->
+      <!--              <div class="blogFeed-detail">
+                      <div :key="i" v-for="i in item.content.contentBloks" class="right-content">
+                          <span v-if="item.content.contentBloks">
+                            <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
+                            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
+                          </span>
+                      </div>
+                    </div>-->
       <div class="maker" v-if="person">
         <div class="name">Der Mensch hinter dem Projekt</div>
         <div class="display-makers">
@@ -114,7 +116,7 @@
               <links-slideshow :blok="links"></links-slideshow>
             </div>
       </div>-->
-    </div>
+  </div>
 </template>
 
 <script>
@@ -185,7 +187,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-.body{
+
+.body {
   max-width: 1264px;
   width: 100%;
   background: none;
@@ -194,6 +197,7 @@ export default {
   margin: 0 auto;
   flex-flow: column;
 }
+
 .header {
   height: calc(35vh - 64px);
   position: relative;
@@ -226,15 +230,17 @@ export default {
     font-family: Chakra Petch;
     font-weight: 700;
     @include media-breakpoint-down(sm) {
-        font-size: 1.6rem;
+      font-size: 1.6rem;
     }
   }
 }
-.info-block{
+
+.info-block {
   @include media-breakpoint-down(sm) {
     align-self: baseline;
   }
 }
+
 .blogFeed-detail {
   margin-top: 40px;
   color: #000;
@@ -248,6 +254,10 @@ export default {
   @include media-breakpoint-down(md) {
     flex-flow: column;
     font-size: 1.1rem;
+    margin-left: 10%;
+  }
+  @include media-breakpoint-down(xs) {
+    margin-top: 25%;
   }
   /*  @include margin-page-wide();
     @include media-breakpoint-up(md) {
@@ -263,22 +273,30 @@ export default {
   flex-flow: column;
   justify-content: center;
   width: 15vw;
-  @include media-breakpoint-down(md){
+  @include media-breakpoint-down(md) {
     flex-flow: row;
     width: auto;
-    justify-content: space-around;
+    justify-content: flex-start;
   }
 }
 
 .left-content {
   margin-left: 2vw;
+
   & * {
     margin-top: 0.5vh;
     color: $color-secondary-border;
   }
 
+  @include media-breakpoint-up(md) {
+    width: 15vw;
+  }
   @include media-breakpoint-down(sm) {
     margin-bottom: 20px;
+    .source-img {
+      width: 70%;
+      height: 70%;
+    }
   }
 }
 
@@ -289,28 +307,29 @@ export default {
   padding-left: 4vw;
   font-family: Chakra Petch;
   margin-top: 5vh;
-  margin-bottom: 3vh;
   @include media-breakpoint-down(sm) {
-  font-size: 1.3rem;
+    font-size: 1.9rem;
   }
 }
 
 .image-slideshow {
   padding-left: 5vw;
   padding-right: 5vw;
-  @include media-breakpoint-down(sm){
-    padding-left: 5vw;
-    padding-right: 5vw;
+  margin-top: 3vh;
+  @include media-breakpoint-down(sm) {
+    padding: 5vw;
   }
 }
+
 .right-content {
   flex-direction: column;
   position: relative;
   display: flex;
   width: inherit;
-  @include media-breakpoint-down(sm){
+  @include media-breakpoint-down(sm) {
     width: 80vw;
   }
+
   img {
     @include media-breakpoint-down(sm) {
       width: 100%;
@@ -357,7 +376,7 @@ export default {
 
 .img {
   display: block;
-  width:20vw;
+  width: 20vw;
   @include media-breakpoint-down(sm) {
   }
 }
@@ -377,21 +396,37 @@ export default {
 .links {
   margin: 40px;
 }
-.display-machines{
+
+.display-machines {
   display: flex;
   flex-flow: row;
   justify-content: center;
   align-items: center;
-
-  @include media-breakpoint-down(md){
+  margin-top: 2vh;
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 15vh;
+  }
+  @include media-breakpoint-down(xs) {
     flex-flow: column;
   }
 }
+
+.display-makers {
+  margin-top: 2vh;
+}
+
 .video {
   width: inherit;
+
   & * {
     width: 100%;
-    height:35vh;
+    height: 35vh;
+    @include media-breakpoint-down(sm) {
+      height: 35vh;
+    }
+    @include media-breakpoint-down(xs) {
+      height: 25vh;
+    }
   }
-  }
+}
 </style>

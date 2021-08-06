@@ -2,11 +2,9 @@
   <div v-if="story">
     <div class="preview-wrapper">
       <div class="maker-preview">
-        <nuxt-link class="link"
-            :to="story.slug"
-        >
+        <nuxt-link class="story" :to="makerlink">
           <div class="display-maker">
-            <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(maker.image, '200x0') + ')' }"/>
+            <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(maker.image, '250x250') + ')' }"/>
             <div class="spacer"></div>
             <div class="maker-information">
               <div class="name">
@@ -20,8 +18,7 @@
               <div>In der Grand Garage seit:</div>
               <br>
             </div>
-          </div>
-        </nuxt-link>
+          </div></nuxt-link>
       </div>
     </div>
   </div>
@@ -38,6 +35,9 @@ export default {
   computed: {
     maker () {
       return this.story.content
+    },
+    makerlink () {
+      return '/de/team/' + this.story.slug
     }
   },
   created () {
@@ -64,16 +64,35 @@ export default {
   flex-flow: row;
   justify-content: space-between;
   align-content: space-between;
+  font-size: 1.3rem;
   .banner{
-    width:80vw;
+    width: 90vw;
     background-position: center;
     background-repeat: no-repeat;
   }
   .spacer{
     width:10vw;
   }
-  @include media-breakpoint-down(md){
+  .name{
+    text-transform: uppercase;
+    margin-top:3%;
+  }
+  @include media-breakpoint-down(sm) {
+    .maker-information{
+      width: 100%;
+    }
+  }
+  @include media-breakpoint-down(xs){
     flex-flow: column;
+    margin-top:7%;
+    margin-left:3%;
+    .banner{
+      width:auto;
+      height:30vh;
+    }
+    .spacer{
+      height:4vh;
+    }
   }
 }
 .link{
@@ -83,10 +102,11 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-
+  @include media-breakpoint-down(sm) {
+   width: 90%;
+  }
   .maker-preview {
-    padding: 20px;
-    width: 80%;
+    width: 100%;
     .loading {
     }
 
@@ -99,13 +119,6 @@ export default {
       color: #000;
       &:hover {
         background-color: lighten($color-bright-bg, 3);
-      }
-
-      .banner {
-        height: inherit;
-        width: 60%;
-        background-size: cover;
-        background-position: center;
       }
 
       .name {
