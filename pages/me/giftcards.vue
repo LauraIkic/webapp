@@ -13,32 +13,6 @@
         style="margin-left: 0.5em;"
       />
     </span>
-    <!--
-        <template v-if="!action">
-          <selection class="items">
-            <section class="display-item">
-              <div class="bottom">
-                <div class="buy-button"
-                     @click="$router.push('giftcards?action=buy')">
-                  Gutschein kaufen
-                </div>
-              </div>
-            </section>
-            <br>
-            <div class="spacer"></div>
-            <br>
-            <section class="display-item">
-              <div class="bottom">
-                <div class="redeem-button"
-                     @click="$router.push('giftcards?action=redeem')">
-                  Gutschein einlösen
-                </div>
-              </div>
-            </section>
-            <br>
-          </selection>
-        </template>
-    -->
     <template v-if="!action">
       <Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link>
       /
@@ -118,7 +92,7 @@
             <div class="buttons">
               <button
                 class="input-button-primary"
-                :disabled="!selectedProductId"
+                :disabled="!selectedProductId || !invoiceContact"
                 @click="step++"
               >
                 Weiter
@@ -368,10 +342,21 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('getUserMetadata').then((data) => {
-      this.invoiceContact = data.data.invoice_contact
-      this.sepaActive = data.data.sepa_active
-    })
+    this.loading = true
+    this.$store.dispatch('getUserMetadata')
+      .then((data) => {
+        this.invoiceContact = data.data.invoice_contact
+        this.sepaActive = data.data.sepa_active
+      })
+      .catch((error) => {
+        console.log(error.response.status, error.response.data.msg)
+        this.$toast.show('Ein Fehler ist aufgetreten', {
+          theme: 'bubble'
+        })
+      })
+      .finally(() => {
+        this.loading = false
+      })
     this.getQuery(this.$route.query)
   },
   methods: {
@@ -390,46 +375,48 @@ export default {
     },
     async redeem () {
       this.loading = true
-      const response = await this.$store.dispatch('redeemGiftCard', {
-        uuid: this.giftcardCode
-      })
-      if (!response.success) {
-        if (response.already_redeemed) {
-          this.$toast.show('Dieser Gutschein ist bereits eingelöst worden!', {
-            className: 'badToast'
+      await this.$store.dispatch('redeemGiftCard', { uuid: this.giftcardCode })
+        .then((response) => {
+          console.log('success', response)
+          this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
+            className: 'goodToast'
           })
+          if (this.origin) {
+            this.$router.push(`buyWorkshop?uuid=${this.origin}`)
+          }
+          this.$router.push('credits')
+        })
+        .catch((error) => {
+          console.log('error', error.response)
           this.giftcardCode = ''
+          switch (error.response.status) {
+            case 405:
+              this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
+                className: 'badToast'
+              })
+              break
+            case 404:
+              this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
+                className: 'badToast'
+              })
+              break
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                className: 'badToast'
+              })
+              break
+          }
+        })
+        .finally(() => {
           this.loading = false
-          return
-        }
-        if (response.invalid_code) {
-          this.$toast.show('Kein Gutschein mit diesem Code gefunden.', {
-            className: 'badToast'
-          })
-          this.loading = false
-          return
-        }
-      }
-      if (this.origin) {
-        this.$router.push(`buyWorkshop?uuid=${this.origin}`)
-        return
-      }
-      this.loading = false
-      this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
-        className: 'goodToast'
-      })
-      this.$router.push('credits')
+        })
     },
     checkout () {
       this.loading = true
       const data = {
         payment_method: parseInt(this.paymentMethod),
-        product_counts: [
-          {
-            product_id: this.selectedProductId,
-            count: 1
-          }
-        ],
+        product_id: this.selectedProductId,
+        count: 1,
         invoice_contact: this.invoiceContact
       }
 
@@ -453,7 +440,11 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
+          if (error.response) {
+            console.log(error.response.status, error.response.data.msg)
+          } else {
+            console.log('error', error)
+          }
           this.$toast.show('Ein Fehler ist aufgetreten', {
             theme: 'bubble'
           })

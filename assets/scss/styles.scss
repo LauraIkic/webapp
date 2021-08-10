@@ -166,8 +166,8 @@ $grid-breakpoints: (
   opacity: 0.8;
 }
 
-.gg-card img:hover {
-  fill: white !important;
+.gg-card:hover img:not(:hover) {
+  filter: invert(1);
 }
 
 // layout margins

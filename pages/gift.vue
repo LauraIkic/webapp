@@ -388,35 +388,41 @@ export default {
     },
     async redeem () {
       this.loading = true
-      const response = await this.$store.dispatch('redeemGiftCard', {
-        uuid: this.giftCardCode
-      })
-      if (!response.success) {
-        if (response.already_redeemed) {
-          this.$toast.show('Dieser Gutschein ist bereits eingelöst worden!', {
-            className: 'badToast'
+      await this.$store.dispatch('redeemGiftCard', { uuid: this.giftcardCode })
+        .then((response) => {
+          console.log('success', response)
+          this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
+            className: 'goodToast'
           })
-          this.giftCardCode = ''
+          if (this.origin) {
+            this.$router.push(`buyWorkshop?uuid=${this.origin}`)
+          }
+          this.$router.push('credits')
+        })
+        .catch((error) => {
+          console.log('error', error.response)
+          this.giftcardCode = ''
+          switch (error.response.status) {
+            case 405:
+              this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
+                className: 'badToast'
+              })
+              break
+            case 404:
+              this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
+                className: 'badToast'
+              })
+              break
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                className: 'badToast'
+              })
+              break
+          }
+        })
+        .finally(() => {
           this.loading = false
-          return
-        }
-        if (response.invalid_code) {
-          this.$toast.show('Kein Gutschein mit diesem Code gefunden.', {
-            className: 'badToast'
-          })
-          this.loading = false
-          return
-        }
-      }
-      if (this.origin) {
-        this.$router.push(`buyWorkshop?uuid=${this.origin}`)
-        return
-      }
-      this.loading = false
-      this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
-        className: 'goodToast'
-      })
-      this.$router.push('credits')
+        })
     },
     redirectToPayrexxCheckout () {
       this.loading = true
@@ -436,7 +442,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log('error', error.data)
+          console.log('error', error)
           this.$sentry.captureException(new Error(error))
           this.$toast.show('Ein Fehler ist aufgetreten', {
             theme: 'bubble'
