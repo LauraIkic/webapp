@@ -1,7 +1,7 @@
 <template>
   <div v-if="story">
     <div class="preview-wrapper">
-      <div class="maker-preview">
+      <div v-if="maker" class="maker-preview">
         <nuxt-link class="story" :to="makerlink">
           <div class="display-maker">
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(maker.image, '250x250') + ')' }"/>
@@ -11,14 +11,41 @@
                 {{ maker.name }}
               </div>
               <br>
-              <div class="description">
+              <div class="description" v-if="maker.short_description">
                 {{ maker.short_description }}
               </div>
-              <br>   <br>
+              <div v-else class=noDesciption></div>
+              <br>
+              <br>
               <div>In der Grand Garage seit:</div>
               <br>
             </div>
-          </div></nuxt-link>
+          </div>
+        </nuxt-link>
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <div class="preview-wrapper">
+      <div v-if="member" class="maker-preview">
+          <div class="display-maker">
+            <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(member.image, '250x250') + ')' }"/>
+            <div class="spacer"></div>
+            <div class="maker-information">
+              <div class="name">
+                {{ member.title}}
+              </div>
+              <br>
+              <div class="description" v-if="member.text">
+                {{ member.text}}
+              </div>
+              <div v-else class=noDesciption></div>
+              <br>
+              <br>
+              <div>In der Grand Garage seit:</div>
+              <br>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -35,6 +62,9 @@ export default {
   computed: {
     maker () {
       return this.story.content
+    },
+    member () {
+      return this.id
     },
     makerlink () {
       return '/de/team/' + this.story.slug
@@ -59,54 +89,67 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
+.noDescription {
+  height: 20vh;
+}
+
 .display-maker {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
   align-content: space-between;
   font-size: 1.3rem;
-  .banner{
-    width: 90vw;
+
+  .banner {
+    width: 30%;
     background-position: center;
     background-repeat: no-repeat;
+    height: 20vh;
   }
-  .spacer{
-    width:10vw;
-  }
-  .name{
+
+  .name {
     text-transform: uppercase;
-    margin-top:3%;
+    margin-top: 3%;
   }
+
+  .maker-information {
+    width: 70%;
+  }
+
   @include media-breakpoint-down(sm) {
-    .maker-information{
+    .maker-information {
       width: 100%;
     }
   }
-  @include media-breakpoint-down(xs){
+  @include media-breakpoint-down(xs) {
     flex-flow: column;
-    margin-top:7%;
-    margin-left:3%;
-    .banner{
-      width:auto;
-      height:30vh;
+    margin-top: 7%;
+    margin-left: 3%;
+    .banner {
+      width: auto;
+      height: 30vh;
     }
-    .spacer{
-      height:4vh;
+    .spacer {
+      height: 4vh;
     }
   }
 }
-.link{
-  color:black;
+
+.link {
+  color: black;
 }
+
 .preview-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
   @include media-breakpoint-down(sm) {
-   width: 90%;
+    width: 90vw;
   }
+
   .maker-preview {
     width: 100%;
+
     .loading {
     }
 
@@ -117,6 +160,7 @@ export default {
       cursor: pointer;
       text-decoration: none;
       color: #000;
+
       &:hover {
         background-color: lighten($color-bright-bg, 3);
       }

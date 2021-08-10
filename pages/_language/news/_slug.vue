@@ -37,19 +37,25 @@
         </div>
       </div>
       <div class="image-container" v-if="item.content.images && item.content.images.length != 0">
-        <div class="name">Arbeitsschritte:</div>
+        <div class="name" v-if="item.content.images && item.content.images.length != 0">Arbeitsschritte:</div>
         <div class="images">
           <image-slideshow :blok="images"></image-slideshow>
         </div>
       </div>
-      <div class="machine" v-if="machine">
+      <div class="teaser">
+        <div :key="i" v-for="i in item.content.contentBloks" >
+                          <span v-if="item.content.contentBloks">
+                            <span v-if="i.text" class="teaser"><vue-markdown>{{ i.text }}</vue-markdown></span>
+                          </span>
+        </div>
+      </div>
+      <div class="machine" v-if="machine.length != 0">
         <div class="name"> Die Maschinen für das Projekt</div>
         <div class="display-machines">
           <machine-preview
               v-for="m in machine"
               :id="m"
               :key="m"
-              class="col"
           />
         </div>
       </div>
@@ -61,14 +67,18 @@
                           </span>
                       </div>
                     </div>-->
-      <div class="maker" v-if="person">
+      <div class="maker" v-if="person.length != 0 || member != null">
         <div class="name">Der Mensch hinter dem Projekt</div>
         <div class="display-makers">
           <maker-preview
               v-for="p in person"
               :id="p"
               :key="p"
-              class="col"
+          />
+          <maker-preview
+              v-for="p in member"
+              :id="p"
+              :key="p"
           />
         </div>
       </div>
@@ -104,13 +114,7 @@
             <div class="images" v-if="item.images && item.images.length != 0">
               <image-slideshow :blok="images"></image-slideshow>
             </div>
-            <div class="blogFeed-detail">
-              <div :key="i" v-for="i in item.contentBloks" class="right-content">
-                  <span v-if="item.contentBloks">
-                    <span v-if="i.text" class="content-text">{{ i.text }}</span>
-                    <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-                  </span>
-              </div>
+
             </div>
             <div v-if="item.links && item.links.length != 0">
               <links-slideshow :blok="links"></links-slideshow>
@@ -180,6 +184,9 @@ export default {
     },
     person () {
       return this.item.content.person
+    },
+    member () {
+      return this.item.content.member
     }
   }
 }
@@ -187,7 +194,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
+.teaser{
+  font-weight: normal;
+  font-family: $font-primary;
+  line-height: 1.8;
+  font-size: 1.5rem;
+  @include media-breakpoint-down(sm) {
+    line-height: 1.4;
+    font-size: 1rem;
+    margin: 0 0 20px 5%
+  }
+}
 .body {
   max-width: 1264px;
   width: 100%;
@@ -206,7 +223,7 @@ export default {
 .header-image {
   height: 100%;
   background-size: cover;
-  background-position: inherit;
+  background-position: center;
 }
 
 .header-title {
@@ -310,6 +327,9 @@ export default {
   @include media-breakpoint-down(sm) {
     font-size: 1.9rem;
   }
+  @include media-breakpoint-down(xs) {
+    font-size: 1.4rem;
+  }
 }
 
 .image-slideshow {
@@ -336,23 +356,8 @@ export default {
     }
   }
 
-  .teaser, .info-text {
-    font-weight: normal;
-    font-family: $font-primary;
-    line-height: 1.8;
-    @include media-breakpoint-down(sm) {
-      line-height: 1.4;
-      font-size: 1rem;
-      margin: 0 0 20px 5%
-    }
-  }
-
   .spacer {
     height: 4vh;
-  }
-
-  .teaser {
-    margin: 0;
   }
 
   .link {
@@ -406,13 +411,19 @@ export default {
   @include media-breakpoint-down(sm) {
     margin-bottom: 15vh;
   }
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     flex-flow: column;
+    margin-bottom: 1vh;
   }
 }
 
 .display-makers {
   margin-top: 2vh;
+  @include media-breakpoint-down(sm) {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+  }
 }
 
 .video {
