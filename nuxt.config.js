@@ -2,6 +2,14 @@ const axios = require('axios')
 const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
 const googleId = 'UA-202640934-1'
 
+export default {
+  robots: [
+    {
+      UserAgent: 'Googlebot',
+      Disallow: '/lukas-thauerboeck'
+    }
+  ]
+}
 module.exports = {
   /*
    ** Headers of the page
