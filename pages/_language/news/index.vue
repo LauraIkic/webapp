@@ -14,7 +14,7 @@
                 <h1 class="title">{{ month.label }}</h1>
               </div>
               <div class="separator"/>
-              <div v-if="month.items && month.items.length === 1">
+              <div v-if="month.items && month.items.length === 1" class="items">
                   <div class="item" v-for="(item, ii) in month.items" :key="ii">
                     <span v-if="item.name !== 'Header'">
                       <news-feed-item :news="item" :key="item.id" type="horizontal" v-if="item.name !== 'Header'"/>
