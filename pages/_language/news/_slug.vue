@@ -67,8 +67,7 @@
                           </span>
                       </div>
                     </div>-->
-      <div class="maker" v-if="person != null && person.length != 0">
-        <div class="maker" v-if="member != null && member.length != 0">
+      <div class="maker" v-if="(person != null && person.length !=0) || (member != null && member.length !=0)">
         <div class="name">Der Mensch hinter dem Projekt</div>
         <div class="display-makers">
           <maker-preview
@@ -122,7 +121,6 @@
               <links-slideshow :blok="links"></links-slideshow>
             </div>
       </div>-->
-  </div>
 </template>
 
 <script>
@@ -188,7 +186,10 @@ export default {
       return this.item.content.person
     },
     member () {
-      return this.item.content.member
+      if (this.item.content.member != null) {
+        return this.item.content.member
+      }
+      return null
     }
   }
 }
