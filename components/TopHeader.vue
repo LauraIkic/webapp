@@ -219,7 +219,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .header-wrapper {
   background-color: $color-bright-bg;

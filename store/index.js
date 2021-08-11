@@ -63,6 +63,15 @@ const createStore = () => {
         return state.fabman.resources.find(r => r.id === id)
       }
     },
+    filters: {
+      truncate: function (text, length, suffix) {
+        if (text.length > length) {
+          return text.substring(0, length) + suffix
+        } else {
+          return text
+        }
+      }
+    },
     mutations: {
       setAuth (state, auth) {
         state.auth = auth
@@ -165,24 +174,10 @@ const createStore = () => {
         }
       },
       bookWorkshop ({ state }, data) {
-        return connector.post('/member/checkoutWorkshopDate', data).then((r) => {
-          if (r.data.success) {
-            return r.data
-          }
-        })/* .catch((err) => {
-          this.$sentry.captureException(err);
-          console.log(err.response.data.msg);
-        }) */
+        return connector.post('/member/checkoutWorkshopDate', data)
       },
       checkout ({ state }, data) {
-        return connector.post('/member/checkout', data).then((r) => {
-          if (r.data.success) {
-            return r.data
-          }
-        })/* .catch((err) => {
-          this.$sentry.captureException(err);
-          console.log(err.response.data.msg);
-        }) */
+        return connector.post('/member/checkout', data)
       },
       async getCredits ({ state }) {
         const res = await connector.get('/member/getCredits')

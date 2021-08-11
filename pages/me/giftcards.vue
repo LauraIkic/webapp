@@ -6,28 +6,28 @@
     <h2 v-else>
       Gutscheine
     </h2>
-<!--
+    <!--
+        <template v-if="!action">
+          <selection class="items">
+            <section class="display-item">
+              <div class="buy-button"
+                   @click="$router.push('giftcards?action=buy')">
+                Gutschein kaufen
+              </div>
+            </section>
+            <section class="display-item">
+              <div class="redeem-button"
+                   @click="$router.push('giftcards?action=redeem')">
+                Gutschein einlösen
+              </div>
+            </section>
+          </selection>
+        </template>
+    -->
     <template v-if="!action">
-      <selection class="items">
-        <section class="display-item">
-          <div class="buy-button"
-               @click="$router.push('giftcards?action=buy')">
-            Gutschein kaufen
-          </div>
-        </section>
-        <section class="display-item">
-          <div class="redeem-button"
-               @click="$router.push('giftcards?action=redeem')">
-            Gutschein einlösen
-          </div>
-        </section>
-      </selection>
+      <Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link> /
+      <Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link><br><br>
     </template>
--->
-<template v-if="!action">
-<Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link> /
-<Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link><br><br>
-</template>
 
     <transition name="fade">
       <template>

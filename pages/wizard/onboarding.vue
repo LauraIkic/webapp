@@ -203,7 +203,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .wizard {
   margin: 0 4%;
@@ -315,6 +315,12 @@ export default {
         }
       }
     }
+  }
+
+  .input-button-primary:disabled {
+    cursor: default;
+    background-color: grey;
+    border: 1px solid darkgrey;
   }
 }
 </style>

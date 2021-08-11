@@ -59,8 +59,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "@/assets/scss/styles.scss";
+<style lang="scss" >
+@import '/assets/scss/styles.scss';
+
 .team-wrapper {
   padding-left: 15%;
   padding-top: 15%;

@@ -18,7 +18,7 @@
           v-for="s in blok.items"
           :key="s._uid"
           class="swiper-slide"
-          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '700x0') + ')' }"
+          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
         />
       </div>
       <div
@@ -94,14 +94,21 @@ export default {
     letter-spacing: 1.4px;
   }
   .swiper-container {
-    height: 40vw;
+    height: 25em;
     .swiper-slide {
       display: block;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
+      @include media-breakpoint-down(md){
+        width:200px !important;
+        height: 180px !important;
+      }
     }
     padding-bottom: 60px;
+    @include media-breakpoint-down(md){
+      height: 25vh;
+    }
   }
   .swiper-button-prev,
   .swiper-button-next {

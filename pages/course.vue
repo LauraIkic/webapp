@@ -204,7 +204,6 @@
           class="result"
       >
         <p>Gratuliere! Du hast den Test bestanden!</p>
-        <p>Als nächstes musst du nur noch den Kurs von einem Host oder am Frontdesk freischalten lassen.</p>
         <button
             class="input-button-primary"
             @click="$router.push('/me/trainings')"
@@ -642,6 +641,10 @@ export default {
   @include media-breakpoint-down(sm) {
     float: right;
   }
+}
+
+.input-button-primary:hover {
+  font-weight: bold;
 }
 
 .quiz-description {
