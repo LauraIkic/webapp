@@ -7,17 +7,14 @@
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(maker.image, '250x250') + ')' }"/>
             <div class="spacer"></div>
             <div class="maker-information">
+              <br>
               <div class="name">
                 {{ maker.name }}
               </div>
               <br>
               <div class="description" v-if="maker.short_description">
-                {{ maker.short_description }}
+                <span>{{ maker.short_description| truncate(200, '...') }}</span>
               </div>
-              <div v-else class=noDesciption></div>
-              <br>
-              <br>
-              <div>In der Grand Garage seit:</div>
               <br>
             </div>
           </div>
@@ -32,17 +29,14 @@
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(member.image, '250x250') + ')' }"/>
             <div class="spacer"></div>
             <div class="maker-information">
+              <br>
               <div class="name">
                 {{ member.title}}
               </div>
               <br>
               <div class="description" v-if="member.text">
-                {{ member.text}}
+                <span>{{ member.text| truncate(200, '...') }}</span>
               </div>
-              <div v-else class=noDesciption></div>
-              <br>
-              <br>
-              <div>In der Grand Garage seit:</div>
               <br>
             </div>
           </div>
@@ -53,6 +47,15 @@
 
 <script>
 export default {
+  filters: {
+    truncate: function (text, length, suffix) {
+      if (text.length > length) {
+        return text.substring(0, length) + suffix
+      } else {
+        return text
+      }
+    }
+  },
   props: ['id'],
   data () {
     return {
@@ -89,8 +92,12 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
-.noDescription {
-  height: 20vh;
+.description {
+  overflow: hidden;
+  text-overflow: '...';
+  @include media-breakpoint-up(sm) {
+    height: 12vh;
+  }
 }
 
 .display-maker {
@@ -99,8 +106,9 @@ export default {
   justify-content: space-between;
   align-content: space-between;
   font-size: 1.3rem;
-
   .banner {
+    display:flex;
+    justify-content: center;
     width: 30%;
     background-position: center;
     background-repeat: no-repeat;
@@ -117,8 +125,18 @@ export default {
   }
 
   @include media-breakpoint-down(sm) {
+    width: 90%;
+    margin-left: 3%;
+    .banner{
+      width: 40%;
+      height: 20vh;
+      align-self: center;
+    }
     .maker-information {
       width: 100%;
+    }
+    .spacer{
+      width: 3%;
     }
   }
   @include media-breakpoint-down(xs) {
@@ -126,11 +144,8 @@ export default {
     margin-top: 7%;
     margin-left: 3%;
     .banner {
-      width: auto;
+      width: 60vw;
       height: 30vh;
-    }
-    .spacer {
-      height: 4vh;
     }
   }
 }
@@ -143,9 +158,6 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  @include media-breakpoint-down(sm) {
-    width: 90vw;
-  }
 
   .maker-preview {
     width: 100%;

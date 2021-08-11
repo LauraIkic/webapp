@@ -43,13 +43,13 @@
         </div>
       </div>
       <div class="teaser">
-        <div :key="i" v-for="i in item.content.contentBloks" >
+        <div :key="i" v-for="i in item.content.contentBloks">
                           <span v-if="item.content.contentBloks">
                             <span v-if="i.text" class="teaser"><vue-markdown>{{ i.text }}</vue-markdown></span>
                           </span>
         </div>
       </div>
-      <div class="machine" v-if="machine.length != 0">
+      <div class="machine" v-if="machine != null && machine.length != 0">
         <div class="name"> Die Maschinen für das Projekt</div>
         <div class="display-machines">
           <machine-preview
@@ -67,7 +67,8 @@
                           </span>
                       </div>
                     </div>-->
-      <div class="maker" v-if="person.length != 0 || member != null">
+      <div class="maker" v-if="person != null && person.length != 0">
+        <div class="maker" v-if="member != null && member.length != 0">
         <div class="name">Der Mensch hinter dem Projekt</div>
         <div class="display-makers">
           <maker-preview
@@ -85,6 +86,7 @@
       <!--        <div v-if="item.content.links && item.content.links.length != 0">
                 <links-slideshow :blok="links"></links-slideshow>
               </div>-->
+    </div><div class="foot-spacer"></div>
     </div>
     <!--      <div v-else>
             <div class="header">
@@ -194,17 +196,28 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-.teaser{
+.foot-spacer{
+  height: 15vh;
+  width: 3vw;
+}
+.teaser {
   font-weight: normal;
   font-family: $font-primary;
   line-height: 1.8;
   font-size: 1.5rem;
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     line-height: 1.4;
+    font-size: 1.2rem;
+    margin: 0 0 20px 5%;
+    margin-right: 4%;
+  }
+  @include media-breakpoint-down(xs) {
+    margin-left: 6%;
+
     font-size: 1rem;
-    margin: 0 0 20px 5%
   }
 }
+
 .body {
   max-width: 1264px;
   width: 100%;
@@ -270,11 +283,11 @@ export default {
   margin-bottom: 7%;
   @include media-breakpoint-down(md) {
     flex-flow: column;
-    font-size: 1.1rem;
     margin-left: 10%;
   }
   @include media-breakpoint-down(xs) {
     margin-top: 25%;
+    font-size: 18px;
   }
   /*  @include margin-page-wide();
     @include media-breakpoint-up(md) {
@@ -336,7 +349,7 @@ export default {
   padding-left: 5vw;
   padding-right: 5vw;
   margin-top: 3vh;
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(xs) {
     padding: 5vw;
   }
 }
@@ -411,7 +424,7 @@ export default {
   @include media-breakpoint-down(sm) {
     margin-bottom: 15vh;
   }
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(xs) {
     flex-flow: column;
     margin-bottom: 1vh;
   }
@@ -419,9 +432,10 @@ export default {
 
 .display-makers {
   margin-top: 2vh;
+  display: flex;
+  flex-flow: column;
   @include media-breakpoint-down(sm) {
     display: flex;
-    flex-flow: row;
     justify-content: center;
   }
 }
@@ -431,7 +445,7 @@ export default {
 
   & * {
     width: 100%;
-    height: 35vh;
+    height: 20em;
     @include media-breakpoint-down(sm) {
       height: 35vh;
     }

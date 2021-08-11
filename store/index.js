@@ -63,6 +63,15 @@ const createStore = () => {
         return state.fabman.resources.find(r => r.id === id)
       }
     },
+    filters: {
+      truncate: function (text, length, suffix) {
+        if (text.length > length) {
+          return text.substring(0, length) + suffix
+        } else {
+          return text
+        }
+      }
+    },
     mutations: {
       setAuth (state, auth) {
         state.auth = auth
