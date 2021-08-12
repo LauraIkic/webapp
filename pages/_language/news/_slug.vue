@@ -422,6 +422,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 2vh;
+  margin-bottom: 20vh;
   @include media-breakpoint-down(sm) {
     margin-bottom: 15vh;
   }
