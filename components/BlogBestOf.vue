@@ -8,7 +8,7 @@
       </a>
     </div>
     <div class="blogItems">
-      <BlogItem :blog="news" v-for="news of newsToDisplay" :key="news.id"/>
+      <BlogItem :blog="news" v-for="news of newsToDisplay" :key="news.id" class="item"/>
     </div>
   </div>
 </template>
@@ -48,7 +48,9 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .blog-best-of {
-  background-color: black;
+  @media (min-width: 1460px){
+    background-color: black;
+  }
   margin: 0 -10px;
   padding: 30px;
   color: #FFF;
@@ -56,16 +58,17 @@ export default {
   position: relative;
 
   .headline {
+    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-left: 3vw;
+    padding-left: 4vw;
   }
 
   .headline-title {
     font-size: 3rem;
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(xs) {
       font-size: 1.2rem;
     }
     font-family: $font-secondary;
@@ -79,11 +82,12 @@ export default {
     display: flex;
     @media (max-width: 1460px) {
       flex-direction: column;
+      padding: 0 0em;
     }
+    background-color: black;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 5em;
-
   }
 }
 .arrow {
