@@ -95,9 +95,6 @@ export default {
 .description {
   overflow: hidden;
   text-overflow: '...';
-  @include media-breakpoint-up(sm) {
-    height: 12vh;
-  }
 }
 
 .display-maker {
