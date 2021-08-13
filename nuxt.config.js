@@ -3,6 +3,12 @@ const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
 const googleId = 'UA-202640934-1'
 
 module.exports = {
+  robots: [
+    {
+      UserAgent: '*',
+      Disallow: '/lukas-thauerboeck'
+    }
+  ],
   /*
    ** Headers of the page
    */
@@ -76,7 +82,8 @@ module.exports = {
   modules: [
     '@nuxtjs/sentry',
     '@nuxtjs/toast',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    ['@nuxtjs/robots']
   ],
   sentry: {
     config: {} // Additional config
