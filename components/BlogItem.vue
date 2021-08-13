@@ -1,16 +1,17 @@
 <template>
   <div class="blog-item-display">
-    <Nuxt-link :to="{ path: 'de/news/'+blog.slug}"
-               class="link"
-    >
-      <section class="header">
-        <div class="image" :style="{ 'background-image': 'url(' + $resizeImage(blog.content.image, '400x250') + ')' }"/>
+    <section class="header">
+      <Nuxt-link
+          :to="{ path: 'de/news/'+blog.slug}"
+          class="link"
+      >
         <div class="title-head">
-        <code class="title">{{ blog.content.title }}</code>
-        <p class="date" v-if="blog.content.datetime">{{ blog.content.datetime | date }}</p>
-      </div>
-      </section>
-    </Nuxt-link>
+          <code class="title">{{ blog.content.title }}</code>
+          <p class="date" v-if="blog.content.datetime">{{ blog.content.datetime | date }}</p>
+        </div>
+        <img class="image" :src="blog.content.image">
+      </Nuxt-link>
+    </section>
   </div>
 </template>
 
@@ -29,26 +30,12 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .link {
-  color: white !important;
+  color: white;
 }
 
 .header {
-  display:flex;
-  margin-left: 8%;
-  margin-right: 6%;
-  flex-flow: column;
-  .title-head{
-    align-self: flex-start;
-  }
   @media (max-width: 1460px) {
-    width: auto;
-    flex-flow:row;
-    padding: 10px;
-    margin-bottom: 2vh;
-    background-color: #a9a9a95e;
-    .title-head{
-      padding-left:4vw;
-    }
+    padding-bottom: 5vh;
   }
 }
 
@@ -65,12 +52,11 @@ export default {
 }
 
 .image {
-  height: calc(37vh - 70px);
-  background-position: center;
-  background-repeat: no-repeat;
+  width: 25vw;
+  height: 20vw;
   @media (max-width: 1460px) {
-    height: calc(30vh - 70px);
-    width:60%;
+    width: 50vw;
+    height: 40vw;
   }
 }
 </style>
