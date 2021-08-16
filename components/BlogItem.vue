@@ -5,10 +5,13 @@
     >
       <section class="header">
         <div class="image" :style="{ 'background-image': 'url(' + $resizeImage(blog.content.image, '400x250') + ')' }"/>
+        <div class="background-square"></div>
+        <observer @on-change="onChange" class="test-lazy">
         <div class="title-head">
           <code class="title">{{ blog.content.title }}</code>
           <p class="date" v-if="blog.content.datetime">{{ blog.content.datetime | date }}</p>
         </div>
+        </observer>
       </section>
     </Nuxt-link>
   </div>
@@ -37,6 +40,8 @@ export default {
   margin-left: 8%;
   margin-right: 6%;
   flex-flow: column;
+  border-bottom: .1em solid #FFFFFF87;
+  border-right: .1em solid #FFFFFF87;
   .title-head{
     align-self: flex-start;
   }
@@ -48,6 +53,16 @@ export default {
     background-color: #a9a9a95e;
     .title-head{
       padding-left:4vw;
+      padding-top: 2vh;
+    }
+  }
+  @include media-breakpoint-down(xs) {
+    flex-flow: column;
+    margin-left: 6%;
+    margin-right: 14%;
+    .title-head{
+      display:flex;
+      align-self:center;
     }
   }
 }
@@ -56,7 +71,14 @@ export default {
   font-family: $font-secondary;
   font-size: 1.3rem;
 }
-
+.title-head{
+  @include media-breakpoint-down(xs) {
+   display:flex;
+    flex-flow: column;
+    align-items: center;
+    padding-left:0vw;
+  }
+}
 .title {
   font-size: 1.8rem;
   font-family: $font-secondary;
@@ -70,7 +92,11 @@ export default {
   background-repeat: no-repeat;
   @media (max-width: 1460px) {
     height: calc(30vh - 70px);
-    width:60%;
+    width: 44%;
+  }
+  @include media-breakpoint-down(xs) {
+    width:100%;
+    height: calc(37vh - 70px);
   }
 }
 </style>

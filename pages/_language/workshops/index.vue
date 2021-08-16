@@ -308,7 +308,9 @@ export default {
     display: flex;
     margin: 0 4%;
     padding-top: 1rem;
-    padding-bottom: 4rem;
+    @include media-breakpoint-down(xs) {
+      padding-bottom: 0rem;
+    }
     input[type="text"] {
       flex: 1;
       display: block;

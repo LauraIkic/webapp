@@ -15,7 +15,13 @@
 
 <script>
 import BlogItem from './BlogItem'
-
+import Vue from 'vue'
+// eslint-disable-next-line no-unused-vars
+const vm = new Vue({
+  data: {
+    a: 1
+  }
+})
 export default {
   components: {
     BlogItem
@@ -69,7 +75,7 @@ export default {
   .headline-title {
     font-size: 3rem;
     @include media-breakpoint-down(xs) {
-      font-size: 1.2rem;
+      font-size: 2.2rem;
     }
     font-family: $font-secondary;
     line-height: 1.4;
