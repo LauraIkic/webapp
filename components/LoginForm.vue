@@ -6,7 +6,7 @@
     <div class="header-item">
       <div class="form-item space">
         <div class="headline">
-          Login zur GRAND GARAGE Community
+          {{ $t('toGGCommunityLogin') }}
         </div>
       </div>
       <div
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="form-item">
-      <span class="label">Email</span>
+      <span class="label">  {{ $t('email') }}</span>
       <input
         v-model="email"
         class="input"
@@ -27,7 +27,7 @@
       >
     </div>
     <div class="form-item">
-      <span class="label">Password</span>
+      <span class="label">  {{ $t('password') }}</span>
       <input
         v-model="password"
         class="input"
@@ -57,7 +57,7 @@
         class="icon"
         icon="user-friends"
       />
-      <span>Registrierung</span>
+      <span>  {{ $t('registration') }}</span>
     </div>
     <div
       class="subtitle"
@@ -67,7 +67,7 @@
         class="icon"
         icon="key"
       />
-      <span>Passwort zurücksetzen</span>
+      <span>{{ $t('resetPassword') }}</span>
     </div>
   </div>
 </template>

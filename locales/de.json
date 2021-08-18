@@ -1,3 +1,50 @@
 {
-  "mes": "Hallo"
+  "message": "Hallo",
+
+  "innovationFactory": "Innovationswerkstatt für Menschen, Wissen und Technologie",
+  "stayInTouch": "Immer am Ball bleiben",
+  "signUp":"Zum Newsletter anmelden",
+
+  "grandGarage": " GRAND GARAGE",
+
+  "completed": "Abgeschlossen",
+  "startQuiz": "Quiz starten",
+
+  "covidInfoTitle": "COVID-19 INFO ZU DEN WORKSHOPS",
+
+
+
+  "here": "hier",
+
+  "downloads": "Downloads",
+
+  "loading": " Loading...",
+  "thankYouForFeedback": "Danke für dein Feedback!",
+  "back": "Zurück",
+
+  "name": "Name",
+  "yourName": "Dein Name",
+  "e-mailAddress": "E-Mail Adresse",
+  "yourE-mailAddress":"Deine E-Mail Adresse",
+  "message": "Nachricht",
+  "send": "Abschicken",
+
+  "apply": "Bewerben",
+
+  "level": "Ebene",
+
+  "toGGCommunityLogin": "Login zur GRAND GARAGE Community",
+  "email": "Email",
+  "password": "Passwort",
+  "registration": "Registrierung",
+  "resetPassword": "Passwort zurücksetzen",
+
+  "machineViewRestriction":" Du musst angemeldet sein um die Verfügbarkeit der Maschinen sehen zu können!",
+
+  "offline": "Offline",
+  "inUse": "In Verwendung",
+  "available": "Verfügbar",
+  "outOfOrder": "Außer Betrieb",
+
+  "toBlog": "Zum Blog"
 }

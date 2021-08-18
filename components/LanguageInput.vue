@@ -10,7 +10,7 @@
          </option>
        </select>
        <a :href="$i18n.locale" @click="$router.push(localeLocation({ name: 'index', params: { foo: '1' } }))">Change</a>
-       <p>{{ $t('message.hello', { msg: 'hello' }) }}</p>
+       <h1 class="title">{{ $t('message') }}</h1>
      </div>
    </div>
 </template>

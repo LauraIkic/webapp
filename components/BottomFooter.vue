@@ -11,7 +11,7 @@
       </div>
       <div class="pre-footer-bottom">
         <div class="col text">
-          Innovationswerkstatt für Menschen, Wissen und Technologie
+          {{ $t('innovationFactory') }}
         </div>
         <div class="col logos">
           <marquee :duration="Number(50)">
@@ -40,7 +40,7 @@
                 target="_blank"
                 novalidate
               >
-                <h4>Immer am Ball bleiben</h4>
+                <h4>  {{ $t('stayInTouch') }}</h4>
                 <div class="newsletter-subscribe">
                   <input
                     id="mce-EMAIL"
@@ -62,7 +62,7 @@
                     >
                   </div>
                   <button type="submit">
-                    Zum Newsletter anmelden
+                    {{ $t('signUp') }}
                   </button>
                 </div>
               </form>

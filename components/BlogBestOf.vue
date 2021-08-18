@@ -4,7 +4,7 @@
       <h1 class="headline-title">BLOG</h1>
       <a class="link" href="https://grandgarage.eu/de/news/">
         <div class="arrow"></div>
-        Zum Blog
+        {{ $t('toBlog') }}
       </a>
     </div>
     <div class="blogItems">

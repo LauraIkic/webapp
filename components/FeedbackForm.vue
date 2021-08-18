@@ -8,7 +8,7 @@
         v-if="loading"
         class="msg"
       >
-        Loading...
+        {{ $t('loading') }}
       </div>
       <div
         v-else-if="sent"
@@ -20,14 +20,14 @@
         >
           <div class="form-item">
             <span />
-            <p>Danke für dein Feedback!</p>
+            <p>{{ $t('thankYouForYourFeedback') }}</p>
           </div>
           <div class="button-row">
             <button
               type="submit "
               class="input-button-primary"
             >
-              Zurück
+              {{ $t('back') }}
             </button>
           </div>
         </form>
@@ -44,7 +44,7 @@
         <label class="hidden"><input name="bot-field"></label>
         <div data-netlify-recaptcha="true" />
         <label class="form-item">
-          <span class="label">Name</span>
+          <span class="label">{{ $t('name') }}</span>
           <div
             v-if="!user"
             class="body"
@@ -68,7 +68,7 @@
           v-if="!user"
           class="form-item"
         >
-          <span class="label">E-Mail Adresse</span>
+          <span class="label">{{ $t('e-mailAddress') }}</span>
           <div class="body">
             <input
               v-model="form.email"
@@ -80,7 +80,7 @@
           </div>
         </label>
         <label class="form-item">
-          <span class="label">Nachricht</span>
+          <span class="label">{{ $t('message') }}</span>
           <div class="body">
             <textarea
               v-model="form.msg"
@@ -94,7 +94,7 @@
             type="submit"
             class="input-button-primary"
           >
-            Abschicken
+            {{ $t('send') }}
           </button>
         </div>
       </form>

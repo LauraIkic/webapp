@@ -19,6 +19,8 @@ module.exports = {
       }
     ],
     defaultLocale: 'de',
+    lazy: true,
+    langDir: '~/locales/',
     vueI18n: {
       fallbackLocale: 'de',
       message: {
