@@ -291,14 +291,14 @@
                 <div class="redeem-card-bottom">
                   <div class=" code">
                     <span class="code-span"> Code: </span>
-                    <input v-model="giftCardCode" class="form-item" disabled>
+                    <input v-model="giftCardCode" class="form-item" disabled> <font-awesome-icon icon="info-circle"/>
                   </div>
                   <div class="image">
                     <img src="~/assets/img/icons/gg-logo-icon.svg" width="50">
                   </div>
                 </div>
               </div>
-              <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
+              <div v-if="user==null"><font-awesome-icon icon="info-circle"/> Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
               <br>
               <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich
                 auf unserer Webseite registrieren!
