@@ -15,13 +15,6 @@
 
 <script>
 import BlogItem from './BlogItem'
-import Vue from 'vue'
-// eslint-disable-next-line no-unused-vars
-const vm = new Vue({
-  data: {
-    a: 1
-  }
-})
 export default {
   components: {
     BlogItem

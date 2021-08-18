@@ -4,13 +4,18 @@
     <div v-if="this.$route.path ==='/'" class="BlogBestOf">
       <BlogBestOf />
     </div>
+    <LanguageInput/>
   </div>
 </template>
 
 <script>
+import LanguageInput from './LanguageInput'
 import BlogBestOf from './BlogBestOf'
 export default {
-  components: { BlogBestOf },
+  components: {
+    BlogBestOf,
+    LanguageInput
+  },
   props: ['blok']
 }
 </script>

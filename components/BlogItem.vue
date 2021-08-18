@@ -6,12 +6,10 @@
       <section class="header">
         <div class="image" :style="{ 'background-image': 'url(' + $resizeImage(blog.content.image, '400x250') + ')' }"/>
         <div class="background-square"></div>
-        <observer @on-change="onChange" class="test-lazy">
         <div class="title-head">
           <code class="title">{{ blog.content.title }}</code>
           <p class="date" v-if="blog.content.datetime">{{ blog.content.datetime | date }}</p>
         </div>
-        </observer>
       </section>
     </Nuxt-link>
   </div>
