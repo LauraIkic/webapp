@@ -88,7 +88,7 @@
                   type="radio"
                   name="paymentMethod"
                   value="1">
-                Kreditkarte
+                Kreditkarte / PayPal
                 <div v-if="invoiceContact.sepa_mandate_agreed"></div>
               </div>
               <div class="spacer"></div>
