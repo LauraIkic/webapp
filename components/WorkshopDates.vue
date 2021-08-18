@@ -34,7 +34,7 @@
         </div>
         <div class="info-block">
           <div
-            v-if="d.content.members_only"
+            v-if="d.content.members_only && !d.content.without_registration "
             class="col"
           >
             <icon name="user" />
@@ -45,20 +45,20 @@
           </div>-->
 
           <div
-            v-if="metadata != null && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '')"
+            v-if="metadata != null && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col"
           >
             <span>Preis: {{ metadata[d.uuid].price }}EUR</span>
           </div>
 
           <div
-            v-if="metadata == null && logged_in != false && hideRegister != true"
+            v-if="metadata == null && logged_in != false && hideRegister != true && !d.content.without_registration"
             class="col"
           >
             <loading-spinner color="black" />
           </div>
           <div
-            v-if="metadata == null && logged_in == false && hideRegister != true"
+            v-if="metadata == null && logged_in == false && hideRegister != true && !d.content.without_registration"
             class="col"
           >
             Für die Buchung eines Workshops musst du registriert und eingeloggt sein. Danke!
@@ -66,14 +66,14 @@
           <div class="spacer" />
 
           <div
-            v-if="metadata != null &&metadata[d.uuid].occupancy >= 100 || d.content.sold_out"
+            v-if="metadata != null &&metadata[d.uuid].occupancy >= 100 || d.content.sold_out && !d.content.without_registration"
             class="col soldOut"
           >
             <span>ausgebucht</span>
           </div>
           <div
-            v-if="metadata != null &&metadata[d.uuid].occupancy < 100 && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '')"
-            class="col occupanc y"
+            v-if="metadata != null &&metadata[d.uuid].occupancy < 100 && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
+            class="col occupancy"
           >
             <span>aktuelle Auslastung: {{ Math.round(metadata[d.uuid].occupancy) }}%</span>
           </div>
@@ -84,7 +84,7 @@
           </div>
           -->
           <div
-            v-if="hideRegister != true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '')"
+            v-if="hideRegister != true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col register"
           >
             <NuxtLink v-if="metadata"
@@ -106,7 +106,7 @@
               :href="d.content.link.cached_url"
               class="link"
               target="_blank"
-            >Zur Anmeldung</a>
+            >Zum Veranstalter</a>
           </div>
         </div>
       </div>

@@ -129,6 +129,7 @@ export default {
   color: #000;
   display: flex;
   margin-bottom: 25px;
+  justify-content: center;
   &.slim {
     margin-bottom: 0;
     .image {
@@ -140,15 +141,19 @@ export default {
   }
   @include media-breakpoint-down(sm) {
     flex-direction: column;
+    margin-right: 4%;
   }
   .image {
     @include media-breakpoint-down(sm) {
       overflow: hidden;
-      margin: 0 -4%;
+      margin-left: 2%;
     }
     img {
       @include media-breakpoint-down(sm) {
-        margin: -5vh 0;
+        margin: -2vh 0;
+      }
+      @include media-breakpoint-down(xs) {
+        width: 100%;
       }
       max-height: calc(40vh - 65px);
       max-width: 100%;
@@ -186,6 +191,11 @@ export default {
       font-family: $font-secondary;
       font-size: 2rem;
       margin-bottom: .4rem;
+      @include media-breakpoint-down(sm) {
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-top:4px;
+      }
     }
     .category {
       position: relative;
@@ -255,6 +265,10 @@ export default {
       background-color: rgba(242, 243, 238,0.9);
     }
     margin: 5px;
+    @include media-breakpoint-down(xs) {
+      border: .11em solid #f2f3ee;
+      padding:7px;
+    }
     &.soldOut {
       color: #666;
       fill: #666;
