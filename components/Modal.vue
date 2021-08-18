@@ -7,7 +7,7 @@
       <div class="container">
         <div class="top">
           <div class="title">
-            COVID-19 INFO
+            {{ $t( "covid-19-information" ) }}
           </div>
         </div>
         <div class="content">
@@ -18,7 +18,7 @@
             class="button-primary"
             @click="close"
           >
-            Verstanden
+            {{ $t( "understood" ) }}
           </button>
         </div>
       </div>

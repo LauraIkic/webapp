@@ -45,7 +45,58 @@
   "available": "Available",
   "outOfOrder": "Out of order",
 
+  "paymentInterval":"Payment interval:",
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+  "registerNow": "Register now",
+  "joinNow": "Join now",
 
+  "discounted": " Discounted",
+  "p.m.": "p.m.",
+  "regular": "Regular",
+  "p.a": "p.a",
+
+  "covid-19-information": "COVID-19 INFO",
+  "understood": "I understand",
+
+  "pleaseEnterEmail": "Please enter your e-mail address.",
+
+  "checkEmails": "Next step: Check your emails!",
+  "ifEmailRegistered": "If this email-address has been registered on our homepage you will receive an email that contains a link, with which you can reset your password.",
+  "close": "Close",
+
+  "becomeACommunityPart": "Become part of a vibrant community!",
+  "firstStepsInTheGG": "Welcome to your first steps in the GRAND GARAGE.   We are an open workshop, a makerspace, a FABLab and much more. Register now and get access to the GRAND GARAGE and our services.",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "address": "Address",
+  "city": "City",
+  "zipCode": "ZIP-code",
+  "reenterPassword": "Reenter password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "iHaveReadThe":"I have read the",
+  "andAcceptTheTermsAndConditions":"and accept the terms and conditions.",
+  "conditionsOfParticipation": "Conditions of participation",
+  "dataPrivacyPolicy": "Data privacy policy",
+  "register": "Register",
+
+  "sentConfirmationLink": "We have sent you an email with a confirmation link.",
+  "onceAccountConfirmed": "Once you have confirmed your account, you can get started.",
+
+
+  "theFuture": "The future",
+  "belongs": "belongs",
+  "toUsAll": "to us all",
+
+  "allCourses": "All courses",
+
+  "membersOnly": "Members only!",
+
+  "instructions": "Instructions",
+  "event": "Event",
+  "meetup": "Meetup",
+  "workshops": "Workshops",
+  "soldOut": "soldOut",
 
   "toBlog": "To Blog"
 }

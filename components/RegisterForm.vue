@@ -11,7 +11,7 @@
             <div class="back" @click="login">
               <font-awesome-icon icon="angle-left" />
             </div>
-              <span class="text">Werde Teil einer lebendigen Community!</span>
+              <span class="text">{{ $t('becomeACommunityPart') }}</span>
             </div>
             <div
               class="close"
@@ -21,13 +21,11 @@
             </div>
           </div>
           <div class="info">
-            Herzlich Willkommen auf deinen ersten Schritten in der GRAND GARAGE.
-            Wir sind eine offene Werkstatt, ein Makerspace, ein FABLab und noch vieles mehr. Registriere dich jetzt und erhalte Zugang zur GRAND GARAGE und unseren Services.
-          </div>
+            {{ $t('firstStepsInTheGG') }} </div>
         </div>
       </div>
       <div class="form-item">
-        <span class="label">Vorname</span>
+        <span class="label">{{ $t('firstName') }} </span>
         <input
           v-model="firstName"
           :class="{ red: invalidFields.includes('firstName')} "
@@ -37,7 +35,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">Nachname</span>
+        <span class="label">{{ $t('lastName') }} </span>
         <input
           v-model="lastName"
           :class="{ red: invalidFields.includes('lastName')}"
@@ -47,7 +45,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">E-Mail</span>
+        <span class="label">{{ $t('email') }} </span>
         <input
           ref="email"
           v-model="email"
@@ -58,7 +56,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">Adresse</span>
+        <span class="label">{{ $t('address') }}</span>
         <input
           ref="address"
           v-model="address"
@@ -69,7 +67,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">Stadt</span>
+        <span class="label">{{ $t('city') }}</span>
         <input
           ref="city"
           v-model="city"
@@ -80,7 +78,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">PLZ</span>
+        <span class="label">{{ $t('zipCode') }}</span>
         <input
           ref="zip"
           v-model="zip"
@@ -91,7 +89,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">Passwort</span>
+        <span class="label">{{ $t('password') }}</span>
         <div class="password-wrapper">
           <input
             v-model="password"
@@ -107,7 +105,7 @@
         </div>
       </div>
       <div class="form-item">
-        <span class="label">Passwort (wiederholen)</span>
+        <span class="label">{{ $t('reenterPassword') }}</span>
         <input
           v-model="passwordRepeat"
           type="password"
@@ -117,7 +115,7 @@
           <span
             v-if="!passwordValid"
             class="bad"
-          >Passwörter stimmen nicht überein</span>
+          >{{ $t('passwordsDoNotMatch') }}</span>
         </div>
       </div>
       <div class="checkbox-item">
@@ -129,10 +127,10 @@
             type="checkbox"
           >
         </div>
-        <label for="agb">Ich habe die <nuxt-link
+        <label for="agb">{{ $t('iHaveReadThe') }}<nuxt-link
           target="_blank"
           to="/de/agb"
-        >Teilnahmebedingungen / AGB</nuxt-link> gelesen und bin damit einverstanden.</label>
+        >{{ $t('conditionsOfParticipation') }} </nuxt-link> {{ $t('andAcceptTheTermsAndConditions') }}</label>
       </div>
       <div class="checkbox-item">
         <div class="checkbox-wrapper">
@@ -143,10 +141,10 @@
             type="checkbox"
           >
         </div>
-        <label for="dsg">Ich habe die <nuxt-link
+        <label for="dsg">{{ $t('iHaveReadThe') }}<nuxt-link
           target="_blank"
           to="/de/datenschutzerklaerung"
-        >Datenschutzerklärung</nuxt-link> gelesen und bin damit einverstanden.</label>
+        >{{ $t('dataPrivacyPolicy') }}</nuxt-link> {{ $t('andAcceptTheTermsAndConditions') }}</label>
       </div>
       <!--
       <div class="checkbox-item">
@@ -172,7 +170,7 @@
       </div>
       <div class="form-item button-row">
         <button @click="submit">
-          Registrieren
+          {{ $t('register') }}
         </button>
       </div>
     </div>

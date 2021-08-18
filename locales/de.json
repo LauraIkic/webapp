@@ -46,5 +46,58 @@
   "available": "Verfügbar",
   "outOfOrder": "Außer Betrieb",
 
+  "paymentInterval":" Zahlungsintervall:",
+  "monthly": "Monatlich",
+  "yearly": "Jährlich",
+  "registerNow": "Jetzt registrieren",
+  "joinNow": "Jetzt Mitglied werden",
+
+  "discounted": " Ermäßigt",
+  "p.m.": "p.m.",
+  "regular": "Regulär",
+  "p.a": "p.a",
+
+  "covid-19-information": "COVID-19 INFO",
+  "understood": "Verstanden",
+
+  "pleaseEnterEmail": "Bitte gib deine Email-Adresse ein.",
+
+  "checkEmails": "  Next Step: Emails checken!",
+  "ifEmailRegistered":"Wenn deine Email-Adresse bei uns registriert ist, haben wir dir eine Mail geschickt. Drin findest du einen Link, mit dem du ein neues Passwort erstellen kannst.",
+  "close": "Schließen",
+
+  "becomeACommunityPart": "Werde Teil einer lebendigen Community!",
+  "firstStepsInTheGG": "Herzlich Willkommen auf deinen ersten Schritten in der GRAND GARAGE. Wir sind eine offene Werkstatt, ein Makerspace, ein FABLab und noch vieles mehr. Registriere dich jetzt und erhalte Zugang zur GRAND GARAGE und unseren Services.",
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+  "address": "Adresse",
+  "city": "Stadt",
+  "zipCode": "PLZ",
+  "reenterPassword": "Passwort (wiederholen)",
+  "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+  "iHaveReadThe":"Ich habe die",
+  "andAcceptTheTermsAndConditions":"gelesen und bin damit einverstanden.",
+  "conditionsOfParticipation": "Teilnahmebedingungen / AGB",
+  "dataPrivacyPolicy": "Datenschutzerklärung",
+  "register": "Registrieren",
+
+  "sentConfirmationLink": "Wir haben dir eine Mail mit einem Bestätigungslink geschickt.",
+  "onceAccountConfirmed": "Wenn du deinen Account bestätigt hast kannst du voll durchstarten.",
+
+  "theFuture": "Die Zukunft",
+  "belongs": "gehört",
+  "toUsAll": "uns allen",
+
+  "allCourses": "Alles Kurse",
+
+
+  "membersOnly": "Nur Members",
+
+  "instructions": "Einschulungen",
+  "event": "Event",
+  "meetup": "Meetup",
+  "workshops": "Workshops",
+  "soldOut": "ausgebucht",
+
   "toBlog": "Zum Blog"
 }
