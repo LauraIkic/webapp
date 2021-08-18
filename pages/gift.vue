@@ -14,7 +14,7 @@
       />
     </span>
     <template v-if="!action">
-      <selection class="items">
+      <div class="items">
         <section class="display-item">
           <div class="top">
             <div class="buy-image"></div>
@@ -40,7 +40,7 @@
           </div>
         </section>
         <br>
-      </selection>
+      </div>
     </template>
 
     <transition name="fade">
@@ -55,8 +55,7 @@
                   <option class="options" value="719">10€</option>
                   <div class="image-spacer"></div>
                   <div class="image">
-                    <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="40">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg" width="40">
                   </div>
                 </div>
               </div>
@@ -101,8 +100,7 @@
               <button
                 class="input-button-primary"
                 :disabled="!selectedProductId"
-                @click="step++"
-              >
+                @click="step++">
                 Weiter
               </button>
             </div>
@@ -116,54 +114,29 @@
                   type="radio"
                   name="paymentMethod"
                   value="1"
-                >Kreditkarte
+                >Kreditkarte / PayPal
               </div>
-            </div>
-            <div v-if="user !== null" class="logged-in-payment">
               <div class="spacer"></div>
-              <div class="input gg-card" @click="paymentMethod='2'">
-                <input
-                  v-model="paymentMethod"
-                  type="radio"
-                  name="paymentMethod"
-                  value="2"
-                >SEPA-Monatsrechnung
-              </div>
               <br>
               <h4>Rechnungsadresse</h4>
               <div class="user-contact">
                 <table>
                   <tr>
                     <th>
-                      <span class="label">Vorname</span>
+                      <span class="label">Firmenname</span>
                     </th>
                     <th>
                       <input
-                        v-model="user.profile.firstName"
+                        v-model="invoiceContact.company_name"
                         class="input-text"
                         type="text"
                         name=""
                       >
                     </th>
-                  </tr>
-                  <th>
-                    <span class="label">Nachname</span>
-                  </th>
-                  <th>
-                    <input
-                      v-model="user.profile.lastName"
-                      class="input-text"
-                      type="text"
-                      name=""
-                    >
-                  </th>
-                  <tr>
-                    <th>
-                      <span class="label">E-mail</span>
-                    </th>
-                    <th>
+                    <th v-if="invoiceContact.company_name">
+                      Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
                       <input
-                        v-model="user.profile.emailAddress"
+                        v-model="invoiceContact.uid"
                         class="input-text"
                         type="text"
                         name=""
@@ -172,11 +145,50 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Adresse</span>
+                      <span class="label">Vorname*</span>
                     </th>
                     <th>
                       <input
-                        v-model="user.profile.address"
+                        v-model="invoiceContact.firstname"
+                        class="input-text"
+                        type="text"
+                        name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">Nachname*</span>
+                    </th>
+                    <th>
+                      <input
+                        v-model="invoiceContact.lastname"
+                        class="input-text"
+                        type="text"
+                        name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">E-mail*</span>
+                    </th>
+                    <th>
+                      <input
+                        v-model="invoiceContact.email"
+                        class="input-text"
+                        type="text"
+                        name=""
+                      >
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <span class="label">Adresse*</span>
+                    </th>
+                    <th>
+                      <input
+                        v-model="invoiceContact.street"
                         class="input-text"
                         type="text"
                         name=""
@@ -189,7 +201,7 @@
                     </th>
                     <th>
                       <input
-                        v-model="user.profile.address2"
+                        v-model="invoiceContact.street_additional"
                         class="input-text"
                         type="text"
                         name=""
@@ -198,11 +210,11 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">PLZ</span>
+                      <span class="label">PLZ*</span>
                     </th>
                     <th>
                       <input
-                        v-model="user.profile.zip"
+                        v-model="invoiceContact.zip"
                         class="input-text"
                         type="text"
                         name=""
@@ -211,11 +223,11 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Stadt</span>
+                      <span class="label">Stadt*</span>
                     </th>
                     <th>
                       <input
-                        v-model="user.profile.city"
+                        v-model="invoiceContact.city"
                         class="input-text"
                         type="text"
                         name=""
@@ -234,15 +246,14 @@
               </button>
               <button
                 class="input-button-primary"
-                :disabled="!paymentMethod"
+                :disabled="!paymentMethod || !invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
                 @click="step++"
               >
                 Bestellung prüfen
               </button>
             </div>
           </div>
-          <!--          </div>-->
-          <div v-if="step === 2">
+          <div v-if="step === 2  && invoiceContact">
             <div class="headline">
               <h2> Bestätigung:</h2>
               <ul>
@@ -272,10 +283,7 @@
         </template>
 
         <template v-if="action === 'redeem'">
-          <div
-            v-if="step === 0"
-            class="giftcardForm"
-          >
+          <div v-if="step === 0" class="giftcardForm">
             <div class="card">
               <div class="input-redeem-card">
               <span class="span">
@@ -283,32 +291,19 @@
                 <div class="redeem-card-bottom">
                   <div class=" code">
                     <span class="code-span"> Code: </span>
-                    <input
-                      v-model="giftCardCode"
-                      class="form-item"
-                    >
+                    <input v-model="giftCardCode" class="form-item" disabled>
                   </div>
                   <div class="image">
-                    <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="50">
+                    <img src="~/assets/img/icons/gg-logo-icon.svg" width="50">
                   </div>
                 </div>
               </div>
               <div v-if="user==null">Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
               <br>
-              <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich auf unserer
-                Webseite registrieren!
+              <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich
+                auf unserer Webseite registrieren!
               </div>
               <br>
-            </div>
-            <div class="buttons">
-              <button
-                class="input-button-payment"
-                :disabled="!giftCardCode && user == null"
-                @click="redeem"
-              >
-                Einlösen
-              </button>
             </div>
           </div>
         </template>
@@ -340,36 +335,28 @@ export default {
       giftCardCode: null,
       paymentMethod: 0,
       error: '',
-      shippingAddressEnabled: 0,
-      invoiceContact: null,
+      shippingstreetEnabled: 0,
+      invoiceContact: {},
+      connectorInvoiceContact: null,
       sepa_active: false,
-      shippingAddress: [],
+      shippingstreet: [],
       loading: false
     }
   },
   computed: {
     user () {
       return this.$store.state.user
+    },
+    validInvoiceContact () {
+      if (!this.invoiceContact) {
+        return false
+      }
+      return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.email && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
     }
   },
   watch: {
     '$route.query' (to) {
       this.getQuery(to)
-    }
-  },
-  mounted () {
-    this.$store.dispatch('getUser').then((data) => {
-      this.profile = data.profile
-      // eslint-disable-next-line no-undef
-    })
-    this.getQuery(this.$route.query)
-    if (this.user != null) {
-      this.$store.dispatch('getUserMetadata').then((data) => {
-        console.log('userMetaData', data)
-        this.invoiceContact = data.data.invoice_contact
-        this.sepaActive = data.data.sepa_active
-      })
-      this.getQuery(this.$route.query)
     }
   },
   methods: {
@@ -429,12 +416,16 @@ export default {
       const data = {
         payment_method: parseInt(this.paymentMethod),
         product_id: this.selectedProductId,
-        count: 1
+        count: 1,
+        invoice_contact: this.invoiceContact
       }
 
       this.$store.dispatch('startTransaction', data)
         .then((response) => {
           if (response.data.redirect_link) {
+            if (response.data.invoice_contact) {
+              this.connectorInvoiceContact = response.data.invoice_contact
+            }
             // Redirect to payrexx screen
             window.location.href = response.data.redirect_link
           } else {
@@ -470,6 +461,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
+
+a {
+  color: $color-orange;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 
 .flex-center {
   display: flex;

@@ -171,7 +171,10 @@ const createStore = () => {
         return connector.post('/member/checkoutWorkshopDate', data)
       },
       checkout ({ state }, data) {
-        return connector.post('/member/checkout', data)
+        return connector.post('/member/checkout', data) //TODO replace with checkoutTransaction()
+      },
+      checkoutTransaction ({ state }, data) {
+        return connector.post('/member/checkoutTransaction', data)
       },
       async getCredits ({ state }) {
         const res = await connector.get('/member/getCredits')

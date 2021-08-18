@@ -70,36 +70,15 @@
                 </div>
               </div>
             </section>
-
-            <!--            <div class="input gg-card">
-                          <span> Extras: </span>
-                          <select
-                              v-model="selectedExtra"
-                              class="form-item"
-                          >
-                            <option value="733">
-                              E-mail - Gratis
-                            </option>
-                            <option value="734">
-                              Versand-Standard - 3€
-                            </option>
-                            <option value="735">
-                              Deluxe-Box - 25€
-                            </option>
-                          </select>
-                        </div>-->
-
             <div class="buttons">
               <button
                 class="input-button-primary"
                 :disabled="!selectedProductId || !invoiceContact"
-                @click="step++"
-              >
+                @click="step++">
                 Weiter
               </button>
             </div>
           </div>
-
           <div v-if="step === 1">
             <h4>Zahlungsmethode</h4>
             <div class="payment-methods">
@@ -256,9 +235,13 @@
               </button>
             </div>
           </div>
-          <div v-if="step === 3">
-            Kauf abgeschlossen. Die Rechnung und deinen Gutschein erhältst du per
-            Mail.
+          <div v-if="step === 3" style="text-align: center">
+            <div style="margin: 2em 0;"><img width="80px" src="~/assets/img/icons/thumbs-up.svg" class="decorator">
+            </div>
+            <h2 style="margin: 0;">Kauf abgeschlossen!</h2>
+            <p class="text">
+              Die Rechnung und deinen Gutschein erhältst du per Mail.
+            </p>
           </div>
         </template>
 
@@ -420,31 +403,29 @@ export default {
         invoice_contact: this.invoiceContact
       }
 
-      this.$store.dispatch('checkout', data)
+      this.$store.dispatch('checkoutTransaction', data)
         .then((response) => {
-          if (response.status >= 200 && response.status <= 300) {
-            switch (parseInt(this.paymentMethod)) {
-              case 1:
-                this.redirectToStripe(response.session_id)
-                break
-              case 2:
-                this.step++
-                break
-            }
-          } else {
-            console.log(response)
-            this.$sentry.captureException(new Error(response))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
-            })
+          switch (parseInt(this.paymentMethod)) {
+            case 1: // PAYREXX
+              if (response.data.redirect_link) {
+                if (response.data.invoice_contact) {
+                  this.connectorInvoiceContact = response.data.invoice_contact
+                }
+                // Redirect to payrexx screen
+                window.location.href = response.data.redirect_link
+              } else {
+                console.log('Error: No payrexx redirect_link returned!', response.data)
+                throw new Error('No payrexx redirect_link returned!')
+              }
+              break
+            case 2: // SEPA
+              this.step++
+              break
           }
         })
         .catch((error) => {
-          if (error.response) {
-            console.log(error.response.status, error.response.data.msg)
-          } else {
-            console.log('error', error)
-          }
+          console.log('error', error)
+          this.$sentry.captureException(new Error(error))
           this.$toast.show('Ein Fehler ist aufgetreten', {
             theme: 'bubble'
           })
@@ -452,23 +433,6 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-    redirectToStripe: function (sessionId) {
-      // eslint-disable-next-line no-undef
-      const stripe = Stripe('pk_live_XCUCaJMt8kMEpedQdvmtMu4Z00rNP9VDun')
-      stripe.redirectToCheckout({
-        sessionId: sessionId
-      })
-    },
-    getExtra (id) {
-      switch (id) {
-        case '733':
-          return 'Digital per E-Mail'
-        case '734':
-          return 'Versand'
-        case '735':
-          return 'Abholung Deluxe-Box'
-      }
     },
     getGiftCardValue (id) {
       switch (id) {
