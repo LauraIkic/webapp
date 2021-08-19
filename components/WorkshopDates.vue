@@ -38,7 +38,7 @@
             class="col"
           >
             <icon name="user" />
-            <span>Members only!</span>
+            <span>{{ $t('membersOnly') }}</span>
           </div>
           <!--<div class="col soldOut" v-if="d.content.sold_out">
             <span>ausgebucht</span>

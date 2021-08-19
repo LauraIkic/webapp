@@ -164,7 +164,7 @@
                 class="weiter"
                 @click="saveAnswer(q.id)"
             >
-              <span>weiter </span>
+              <span>{{ $t('continue') }} </span>
             </button>
           </template>
         </div>
@@ -208,7 +208,7 @@
             class="input-button-primary"
             @click="$router.push('/me/trainings')"
         >
-          Zurück
+          {{ $t('back') }}
         </button>
       </div>
       <div
@@ -237,7 +237,7 @@
             class="input-button-primary"
             @click="isPublic ? restartAsu() : $router.push('/me/trainings')"
         >
-          Zurück
+          {{ $t('back') }}
         </button>
       </div>
     </div>

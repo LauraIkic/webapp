@@ -10,9 +10,10 @@
   "startQuiz": "Start Quiz",
 
   "covidInfoTitle": "COVID-19 INFORMATION FOR OUR WORKSHOPS",
-
+  "covidInfoText": "Your health is very important to us. Therefore, our workshops will only take place under the current safety guidelines of our government. To participate in our workshops it is necessary to be tested, recovered, or vaccinated. You can find more information ",
   "here": "here",
-
+  "workShopCostRefund":"If there is a cancellation, the workshop costs will be refunded.",
+  "weAreLookingForward": "We look forward to seeing you!",
 
   "downloads": "Downloads",
 
@@ -70,8 +71,10 @@
   "firstName": "First name",
   "lastName": "Last name",
   "address": "Address",
+  "streetAndHouseNumber": "Street and house number",
   "city": "City",
   "zipCode": "ZIP-code",
+  "yourPassword": "Your password",
   "reenterPassword": "Reenter password",
   "passwordsDoNotMatch": "Passwords do not match",
   "iHaveReadThe":"I have read the",
@@ -98,5 +101,97 @@
   "workshops": "Workshops",
   "soldOut": "soldOut",
 
-  "toBlog": "To Blog"
+  "area": "Area",
+  "searchMachines": "Search machines",
+  "noSearchResults": "No search result",
+
+  "materialsUsed": "Materials used:",
+  "steps": "Steps:",
+  "machinesForProject": "Machines used for this project",
+  "personBehindTheProject": "The person behind the project",
+
+
+  "blog": "Blog",
+  "toBlog": "To Blog",
+
+  "the": "The",
+  "machines": "machines",
+  "peopleBehind": "Team",
+
+  "myActivities": "My activities",
+  "invoice": "Invoice",
+
+  "workshopBooking": "Workshop-Booking",
+  "selectPaymentOption": "Select payment option",
+  "remainingCredits": "Remaining Credits",
+  "deduct": "deduct",
+  "deducted": "deducted",
+  "redeemGiftCard": "Redeem gift card",
+  "credits": "Credits",
+  "currentStatus": "current status:",
+  "creditCard": "Credit card",
+  "sepaMonthlyBill": "Sepa-Monthly bill",
+  "continue": "Continue...",
+  "confirm": "Confirmation",
+
+  "bindingRegistrationText": "Your registration is binding. Should you not be able to participate, please inform us immediately at",
+  "eventEmailAddress": "events@grandgarage.eu",
+
+  "debitedFromCreditCard": "debited from your credit card.",
+  "includedInYourMonthlyBill": "included in  your monthly bill.",
+  "fromYourCredits":"from your credits",
+  "bookFreeOfCharge": "Book free of charge",
+  "bookWorkshopLiableToPayTheCosts": "Book workshops liable to pay the costs",
+  "workshopBooked": "Workshop booked!",
+  "displayMyWorkshops": "Display my workshops",
+
+
+  "myCredits": "My credits:",
+  "giftCard": "Gift card",
+  "giftCards": "Gift cards",
+  "credit": "Credit",
+  "buyGiftCard": "Buy gift Card",
+  "redeemGiftCard": "Redeem gift card",
+
+  "giftCardValue": "Gift card value:",
+  "extras": "Extras",
+  "free": "Free",
+  "standardShipping": "",
+  "deluxeBox": "Deluxe-Box",
+  "billingAddress": "Billing address",
+  "reviewOrder": "Review order...",
+
+  "redeem": "Redeem",
+  "buyLiableToPayTheCosts": "Buy liable to pay the costs",
+  "purchaseCompleted":"Purchase completed.",
+  "receiptAndGiftCardViaMail": "You will receive the invoice and your gift card by mail.",
+  "giftCardCode": "Gift card code:",
+  "phone": "Phone",
+
+  "contactDetails": "Contact details",
+  "save": "Save",
+
+  "myInvoices": "My invoices",
+
+
+
+  "packages": "Packages",
+  "noMembershipConcluded": "No membership concluded",
+
+  "trainings": "Trainings",
+  "myWorkshops": "My workshops",
+
+
+
+  "anErrorHasOccurred": "An error has occurred:",
+
+
+  "purchaseFailedOrWasAborted": "Purchase failed or was aborted.",
+  "youCanFindOurContactInformation": "You can find our contact information",
+
+  "openSafetyTraining": "Open safety training",
+  "myProfile": "My Profile",
+  "activities": "Activities",
+
+  "receiptAndConfirmationViaMail": "You will receive the invoice and the confirmation by mail."
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <h2>Packages</h2>
+    <h2>{{ $t('packages') }}</h2>
     <ul
       v-if="user && user.packages && user.packages.length > 0"
       class="item-list"
@@ -10,7 +10,7 @@
       </li>
     </ul>
     <div v-else>
-      <code>Keine Mitgliedschaft abgeschlossen</code>
+      <code>{{ $t('noMembershipConcluded') }}</code>
       <!--
       <div class="link-with-arrow">
         <div class="link-text">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Meine Workshops</h2>
+    <h2>{{ $t('myWorkshops') }}</h2>
     <div
       v-if="bookings.length"
       class="workshops"

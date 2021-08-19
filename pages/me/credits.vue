@@ -12,13 +12,13 @@
       <div class="myCredits">
         <span>
           <font-awesome-icon icon="coins" />
-          Meine Credits: {{ credits }}EUR
+          {{ $t('myCredits') }} {{ credits }}EUR
         </span>
         <button
           class="input-button-primary creditsButton"
           @click="$router.push(`giftcards?action=redeem`)"
         >
-          Gutschein einlösen
+          {{ $t('redeemGiftCard') }}
         </button>
       </div>
       <div class="logs">
@@ -39,15 +39,15 @@
           </div>
           <div class="info">
             <template v-if="log.refType === REF_TYPES.invoice">
-              <span class="link">Rechnung #{{ log.invoiceId }}</span>
+              <span class="link">{{ $t('invoice') }}#{{ log.invoiceId }}</span>
               <div class="icon">
                 <font-awesome-icon icon="link" />
               </div>
             </template>
             <template v-else-if="log.refType === REF_TYPES.giftCard">
-              Gutschein
+              {{ $t('giftCard') }}
             </template>
-            <span v-else>Gutschrift</span>
+            <span v-else>{{ $t('credit') }}</span>
           </div>
         </div>
       </div>

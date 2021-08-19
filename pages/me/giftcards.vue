@@ -1,10 +1,10 @@
 <template href="http://www.w3.org/1999/html">
   <div>
     <h2 v-if="action">
-      Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+      {{ $t('giftCard') }}{{ action === 'buy' ? 'kaufen' : 'einlösen' }}
     </h2>
     <h2 v-else>
-      Gutscheine
+      {{ $t('giftCards') }}
     </h2>
     <!--
         <template v-if="!action">
@@ -25,8 +25,8 @@
         </template>
     -->
     <template v-if="!action">
-      <Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link> /
-      <Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link><br><br>
+      <Nuxt-Link to="giftcards?action=buy"> {{ $t('buyGiftCard') }}</Nuxt-Link> /
+      <Nuxt-Link to="giftcards?action=redeem">{{ $t('redeemGiftCard') }}</Nuxt-Link><br><br>
     </template>
 
     <transition name="fade">
@@ -37,7 +37,7 @@
               class="giftcardForm"
           >
             <div class="input">
-              <span> Gutschein-Wert: </span>
+              <span>   {{ $t('giftCardValue') }} </span>
               <select
                   v-model="selectedProduct"
                   class="form-item"
@@ -58,19 +58,19 @@
             </div>
 
             <div class="input">
-              <span> Extras: </span>
+              <span>  {{ $t('extras') }}</span>
               <select
                   v-model="selectedExtra"
                   class="form-item"
               >
                 <option value="733">
-                  E-mail - Gratis
+                  {{ $t('email') }} - {{ $t('free') }}
                 </option>
                 <option value="734">
-                  Versand-Standard - 3€
+                  {{ $t('standardShipping') }} - 3€
                 </option>
                 <option value="735">
-                  Deluxe-Box - 25€
+                  {{ $t('deluxeBox') }} - 25€
                 </option>
               </select>
             </div>
@@ -81,33 +81,33 @@
                   :disabled="!selectedProduct || !selectedExtra"
                   @click="step++"
               >
-                Weiter...
+                {{ $t('continue') }}
               </button>
             </div>
           </div>
 
           <div v-if="step === 1">
-            <h4>Zahlungsmethode</h4>
+            <h4> {{ $t('selectPaymentOption') }}</h4>
             <input
                 v-model="paymentMethod"
                 type="radio"
                 name="paymentMethod"
                 value="1"
-            >Kreditkarte<br>
+            >{{ $t('creditCard') }}<br>
             <div v-if="invoiceContact.sepa_mandate_agreed">
               <input
                   v-model="paymentMethod"
                   type="radio"
                   name="paymentMethod"
                   value="2"
-              >SEPA-Monatsrechnung<br>
+              >{{ $t('sepaMonthlyBill') }}<br>
             </div>
 
             <div v-if="invoiceContact != null">
-              <h4>Rechnungsadresse</h4>
+              <h4>{{ $t('billingAddress') }}</h4>
 
               <div class="form-item">
-                <span class="label">Vorname</span>
+                <span class="label">{{ $t('firstName') }}</span>
                 <input
                     v-model="invoiceContact.firstname"
                     class="input-text"
@@ -116,7 +116,7 @@
                 >
               </div>
               <div class="form-item">
-                <span class="label">Nachname</span>
+                <span class="label">{{ $t('lastName') }}</span>
                 <input
                     v-model="invoiceContact.lastname"
                     class="input-text"
@@ -125,7 +125,7 @@
                 >
               </div>
               <div class="form-item">
-                <span class="label">Telefon</span>
+                <span class="label">{{ $t('phone') }}</span>
                 <input
                     v-model="invoiceContact.phone"
                     class="input-text"
@@ -134,7 +134,7 @@
                 >
               </div>
               <div class="form-item">
-                <span class="label">Adresse</span>
+                <span class="label">{{ $t('address') }}</span>
                 <input
                     v-model="invoiceContact.street"
                     class="input-text"
@@ -152,7 +152,7 @@
                 >
               </div>
               <div class="form-item">
-                <span class="label">PLZ</span>
+                <span class="label">{{ $t('zipCode') }}</span>
                 <input
                     v-model="invoiceContact.zip"
                     class="input-text"
@@ -161,7 +161,7 @@
                 >
               </div>
               <div class="form-item">
-                <span class="label">Stadt</span>
+                <span class="label">{{ $t('city') }}</span>
                 <input
                     v-model="invoiceContact.city"
                     class="input-text"
@@ -175,23 +175,23 @@
                   class="input-button-back"
                   @click="step--"
               >
-                Zurück
+                {{ $t('back') }}
               </button>
               <button
                   class="input-button-primary"
                   :disabled="!paymentMethod"
                   @click="step++"
               >
-                Bestellung prüfen...
+                {{ $t('reviewOrder') }}
               </button>
             </div>
           </div>
 
           <div v-if="step === 2">
-            Bestätigung:
+            {{ $t('confirmation') }}
             <ul>
-              <li>Gutschein {{ getGiftCardValue(selectedProduct) }}€</li>
-              <li>Extra: {{ getExtra(selectedExtra) }}</li>
+              <li>{{ $t('giftCard') }} {{ getGiftCardValue(selectedProduct) }}€</li>
+              <li>{{ $t('extra') }} {{ getExtra(selectedExtra) }}</li>
             </ul>
 
             <div class="buttons">
@@ -199,20 +199,19 @@
                   class="input-button-back"
                   @click="step--"
               >
-                Zurück
+                {{ $t('back') }}
               </button>
               <button
                   class="input-button-payment"
                   :disabled="!paymentMethod || loading"
                   @click="checkout()"
               >
-                Kostenpflichtig bestellen
+               {{ $t('buyLiableToPayTheCosts') }}
               </button>
             </div>
           </div>
           <div v-if="step === 3">
-            Kauf abgeschlossen. Die Rechnung und deinen Gutschein erhältst du per
-            Mail.
+            {{ $t('purchaseCompleted') }} {{ $t('receiptAndGiftCardViaMail') }}
           </div>
         </template>
 
@@ -222,7 +221,7 @@
               class="giftcardForm"
           >
             <div class="input">
-              <span> Gutschein-Code: </span>
+              <span> {{ $t('giftCardCode') }} </span>
               <input
                   v-model="giftcardCode"
                   class="form-item"
@@ -234,7 +233,7 @@
                   :disabled="!giftcardCode"
                   @click="redeem"
               >
-                Einlösen
+                {{ $t('redeem') }}
               </button>
             </div>
           </div>

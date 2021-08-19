@@ -4,7 +4,7 @@
       v-if="workshopDate != null"
       class="left-content"
     >
-      <h1>Workshop-Buchung</h1>
+      <h1>{{ $t('workshopBooking') }}</h1>
 
       <workshop-preview
         :id="workshopDate.content.workshop.uuid"
@@ -24,7 +24,7 @@
           <div class="info-row payment">
             <div class="info-block">
               <div class="col info title">
-                Zahlungsmethode auswählen
+                {{ $t('selectPaymentOption') }}
               </div>
             </div>
           </div>
@@ -49,14 +49,14 @@
                   for="credits"
                   class="label"
                 >
-                  Restliche Credits ({{ credits }}EUR) abziehen
+                  {{ $t('remainingCredits') }} ({{ credits }}EUR) {{ $t('deduct') }}
                 </label>
               </div>
               <button
                 class="input-button-primary creditsButton"
                 @click="$router.push(`giftcards?action=redeem&origin=${$route.query.uuid}`)"
               >
-                Gutschein einlösen
+                {{ $t('redeemGiftCard') }}
               </button>
             </div>
           </div>
@@ -82,14 +82,14 @@
                   for="credits"
                   class="label"
                 >
-                  Credits (aktueller Stand: {{ credits }}EUR)
+                  {{ $t('credits') }} ({{ $t('currentStatus') }} {{ credits }}EUR)
                 </label>
               </div>
               <button
                 class="input-button-primary creditsButton"
                 @click="$router.push(`giftcards?action=redeem&origin=${$route.query.uuid}`)"
               >
-                Gutschein einlösen
+                {{ $t('redeemGiftCard') }}
               </button>
             </div>
           </div>
@@ -106,7 +106,7 @@
                   value="stripe"
                   @click="paymentMethod = PAYMENT_METHODS.stripe"
                 >
-                <label for="stripe">Kreditkarte</label><br>
+                <label for="stripe"> {{ $t('creditCard') }}</label><br>
               </div>
             </div>
           </div>
@@ -125,7 +125,7 @@
                 value="sepa"
                 @click="paymentMethod = PAYMENT_METHODS.sepa"
               >
-              <label for="sepa">SEPA-Monatsrechnung</label><br>
+              <label for="sepa"> {{ $t('sepaMonthlyBill') }}</label><br>
             </div>
           </div>
         </div>
@@ -137,35 +137,35 @@
             :disabled="!paymentMethod"
             @click="onNextStep(1)"
           >
-            Weiter...
+            {{ $t('continue') }}
           </button>
         </div>
       </div>
 
       <div v-if="step == 1">
-        <h2>Bestätigung</h2>
+        <h2> {{ $t('confirmation') }}</h2>
 
         <div
           v-if="isFree"
           class="confirmation"
         >
-          Deine Anmeldung ist verbindlich. Solltest du doch nicht teilnehmen können, gib uns bitte umgehend unter <a href="mailto:events@grandgarage.eu">events@grandgarage.eu</a> Bescheid.
+          {{ $t('bindingRegistrationText') }} <a href="mailto:events@grandgarage.eu">{{ $t('eventEmailAddress') }}</a>
         </div>
         <div
           v-else
           class="confirmation"
         >
           <div v-if="useRemainingCredits">
-            Von deinen Credits {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR abgezogen.
+            {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR{{ $t('deducted') }}
           </div>
           <div v-if="paymentMethod === 1">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} von deiner Kreditkarte abgebucht.</strong>
+            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('debitedFromCreditCard') }}</strong>
           </div>
           <div v-if="paymentMethod === 2">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} via SEPA-Monatsrechnung eingezogen.</strong>
+            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('includedInYourMonthlyBill') }}</strong>
           </div>
           <div v-if="paymentMethod === 3">
-            {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} von deinen Credits ({{ credits }}EUR) abgezogen.
+            {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('fromYourCredits') }} ({{ credits }}EUR) {{ $t('deducted') }}
           </div>
         </div>
 
@@ -175,17 +175,17 @@
             class="input-button-back"
             @click="back"
           >
-            Zurück
+            {{ $t('back') }}
           </button>
           <button
             class="input-button-payment"
             @click="onNextStep(3)"
           >
             <template v-if="isFree">
-              Termin kostenlos buchen
+             {{ $t('bookFreeOfCharge') }}
             </template>
             <template v-else>
-              Workshop kostenpflichtig buchen
+              {{ $t('bookWorkshopLiableToPayTheCosts') }}
             </template>
           </button>
         </div>
@@ -198,12 +198,12 @@
         />
       </div>
       <div v-if="step == 4">
-        Workshop gebucht!<br>
+        {{ $t('workshopBooked') }}<br>
         <button
           class="input-button-primary"
           @click="$router.push('workshopBookings')"
         >
-          Meine Workshops anzeigen
+          {{ $t('displayMyWorkshops') }}
         </button>
       </div>
       <div v-if="step == 99">

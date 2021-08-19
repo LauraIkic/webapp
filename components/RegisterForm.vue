@@ -30,7 +30,7 @@
           v-model="firstName"
           :class="{ red: invalidFields.includes('firstName')} "
           type="text"
-          placeholder="Vorname"
+          :placeholder= "[[ $t('firstName') ]]"
           @input="checkName"
         >
       </div>
@@ -40,7 +40,7 @@
           v-model="lastName"
           :class="{ red: invalidFields.includes('lastName')}"
           type="text"
-          placeholder="Nachname"
+          :placeholder="[[ $t('lastName') ]]"
           @input="checkName"
         >
       </div>
@@ -51,7 +51,7 @@
           v-model="email"
           :class="{ red: invalidFields.includes('email') }"
           type="email"
-          placeholder="deine e-mail adresse"
+          :placeholder= "[[ $t('yourE-mailAddress') ]]"
           @input="checkMail"
         >
       </div>
@@ -62,7 +62,7 @@
           v-model="address"
           :class="{ red: invalidFields.includes('address') }"
           type="text"
-          placeholder="Straße und Hausnummer"
+          :placeholder= "[[ $t('streetAndHouseNumber') ]]"
           @input="checkAddress"
         >
       </div>
@@ -73,7 +73,7 @@
           v-model="city"
           :class="{ red: invalidFields.includes('city') }"
           type="text"
-          placeholder="Stadt"
+          :placeholder= "[[ $t('city') ]]"
           @input="checkCity"
         >
       </div>
@@ -84,7 +84,7 @@
           v-model="zip"
           :class="{ red: invalidFields.includes('zip') }"
           type="text"
-          placeholder="Postleitzahl"
+          :placeholder= "[[ $t('zipCode') ]]"
           @input="checkZip"
         >
       </div>

@@ -54,7 +54,7 @@
               class="input-text"
               type="name"
               name="name"
-              placeholder="Dein Name"
+              :placeholder= "[[ $t('yourName') ]]"
             >
           </div>
           <div
@@ -75,7 +75,7 @@
               class="input-text"
               type="email"
               name="email"
-              placeholder="Deine E-Mail Adresse"
+              :placeholder= "[[ $t('yourE-mailAddress') ]]"
             >
           </div>
         </label>

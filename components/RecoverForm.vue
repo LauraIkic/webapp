@@ -34,7 +34,7 @@
           ref="email"
           v-model="email"
           type="email"
-          placeholder="deine e-mail adresse"
+          :placeholder= "[[ $t('yourE-mailAddress') ]]"
           @input="checkMail"
         >
       </div>

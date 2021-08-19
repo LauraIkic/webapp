@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Meine Aktivitäten</h2>
+    <h2>{{ $t('myActivities') }}</h2>
     <div class="resources">
       <span v-if="machines.length < 1" class="resource-header">
         Hier kannst du bald eine Übersicht zur Nutzung der Maschinen einsehen

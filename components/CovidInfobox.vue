@@ -7,13 +7,12 @@
           {{ $t( "covidInfoTitle" ) }}
         </div>
         <div class="text">
-          Deine Gesundheit ist uns wichtig. Deshalb finden unsere Workshops nur statt, insofern die aktuellen
-          COVID-Maßnahmen der Bundesregierung dies zum Zeitpunkt der Abhaltung erlauben. Für die Teilnahme bei Workshops
-          gilt: Genesen, Getestet oder Geimpft. Genauere Infos findest du <NuxtLink to="/de/covid">{{ $t('here') }}</NuxtLink><br><br>
+          {{ $t( "covidInfoText" ) }}
+        <NuxtLink to="/de/covid">{{ $t('here') }}</NuxtLink><br><br>
 
-          Sollte es zu einer Absage kommen, werden dir die Workshop-Kosten selbstverständlich rückerstattet.<br><br>
+          {{ $t( "workShopCostRefund" ) }}<br><br>
 
-          Wir freuen uns auf dich!
+          {{ $t( "weAreLookingForward") }}
         </div>
       </div>
     </div>

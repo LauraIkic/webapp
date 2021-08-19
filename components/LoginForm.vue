@@ -22,7 +22,7 @@
         v-model="email"
         class="input"
         type="text"
-        placeholder="deine email"
+        :placeholder= "[[ $t('yourE-mailAddress') ]]"
         @input="clearErrorMessage"
       >
     </div>
@@ -32,7 +32,7 @@
         v-model="password"
         class="input"
         type="password"
-        placeholder="dein passwort"
+        :placeholder= "[[ $t('yourPassword') ]]"
         @input="clearErrorMessage"
       >
     </div>
