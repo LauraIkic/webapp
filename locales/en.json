@@ -14,6 +14,15 @@
   "here": "here",
   "workShopCostRefund":"If there is a cancellation, the workshop costs will be refunded.",
   "weAreLookingForward": "We look forward to seeing you!",
+  "searchForWorkshopsAndEvents": "Search for workshops and events",
+  "theOrganizer": "The organizer",
+  "toRegistration": "To registration",
+  "currentOccupancyRate": "current occupancy rate:",
+  "price": "Price:",
+  "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " In order to book a workshop you have to be registered and logged into your account",
+  "thankYou": "Thank you!",
+  "until": "until",
+  "oClock": "o'clock",
 
   "downloads": "Downloads",
 
@@ -119,6 +128,15 @@
   "peopleBehind": "Team",
 
   "myActivities": "My activities",
+  "machineUsageOverview":"Soon you will be able to see the usage of our machines",
+  "usage": "usage",
+  "totalDuration": "Total duration",
+  "seconds": "Seconds",
+  "more": "more",
+  "date": "Date",
+  "time": "Time",
+
+
   "invoice": "Invoice",
 
   "workshopBooking": "Workshop-Booking",
@@ -151,7 +169,6 @@
   "giftCards": "Gift cards",
   "credit": "Credit",
   "buyGiftCard": "Buy gift Card",
-  "redeemGiftCard": "Redeem gift card",
 
   "giftCardValue": "Gift card value:",
   "extras": "Extras",
@@ -183,6 +200,27 @@
 
 
 
+  "firstRead": "First read",
+  "andAnswerTheQuestions": "and answer the questions:",
+  "pdfWithCourseInformation": "PDF with course information",
+
+  "letsStart": "Lets start",
+  "youHaveAnsweredAllQuestions": "You have answered all questions!",
+  "sendAnswers": "Send answers",
+
+
+  "congrats": "Congratulation!",
+  "youHavePassedTheTest": "You have passed the test!",
+  "yourConfirmationCode": "Your confirmation code is:",
+  "withThisCodeYouCanGetYourCourseEnabled": "With this code you can get your course enabled",
+  "backToMainPage": "back to main page",
+
+  "ohYouDidNotPassTheTest": "Oje unfortunately, you did not pass the test.",
+  "pleaseReadTheSlidesAgain": "Please read the slides again.",
+
+
+  "youHaveToConfirmYourEmailForRegistration": "In order to become a member you have to first confirm your e-mail address.",
+  "anotherVerificationEmailHasBeenSentTo": "Another verification e-mail has been sent to the following address.",
   "anErrorHasOccurred": "An error has occurred:",
 
 
@@ -193,5 +231,46 @@
   "myProfile": "My Profile",
   "activities": "Activities",
 
-  "receiptAndConfirmationViaMail": "You will receive the invoice and the confirmation by mail."
+  "receiptAndConfirmationViaMail": "You will receive the invoice and the confirmation by mail.",
+  "becomeAMemberIn4simpleSteps":"Become a member in 4 simple steps!",
+  "startSafetyTraining": "Start your safety training",
+
+  "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "You made the first steps towards becoming a GRAND GARAGE member!",
+  "toCompleteOnboardingStartSafetyTraining":"In order to complete your registration process you can start the safety training now.",
+
+  "dateOfBirth": "Date of birth",
+  "company": "company",
+
+  "howDidYouLearnAboutUs": "How did you learn about us?",
+
+
+  "welcomeToTheGG": "Welcome to the GRAND GARAGE!",
+
+  "memberBenefitsText":"By signing up for a membership you become a part of our vibrant community, which will not only enable you access to our machines and devices, but also offer free WIFI and a personalized member card ",
+  "memberBenefitsText": "Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!",
+
+  "memberPerksText1/3":"Additionally you will get discounts for all of our workshops and the opportunity to buy materials at purchase price",
+  "memberPerksText2/3":"",
+  "memberPerksText2/3": "Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem eine Ermäßigung auf alle Workshops,",
+  "memberPerksText3/3": "sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu erwerben.",
+
+  "ifYouHaveAnyQuestionsRegardingYourMembership": "If you have any questions regarding your membership",
+  "doNotHesitateToAskOurFrontdeskTeam": "do not hesitate to ask our frontdesk team!",
+  "#makersgonnamake": "#MAKERSGONNAMAKE",
+
+
+  "differentCardListing": "4you card, student-ID, apprentices (under the age of 28), disability card",
+  "pleaseBringAccordingID": "Please bring the according ID along, when visiting us for the first time",
+  "euro": "EUR",
+  "euro/month": "EUR/ MONTH",
+  "euro/year": "EUR/ YEAR",
+  "factoryRules": "Factory rules",
+  "monthlyPayment": "monthly payment",
+  "yearlyPayment": "yearly payment",
+
+  "twoMonthsForFree": "Hint: By choosing a yearly membership you get 2 months for free!",
+  "howWouldYouPreferToPay": "How would you prefer to pay?",
+  "iban": "IBAN",
+  "bankName": "Bank name",
+  "sepaAgreementFormText": "My membership fee and any resulting additional costs will be deducted from my bank account via a sepa-debit order."
 }

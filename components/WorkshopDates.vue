@@ -20,15 +20,15 @@
           <div class="col info">
             <icon name="clock" />
             <span>{{ formatTime(d.content.starttime) }}</span>
-            <span v-if="d.content.endtime"> bis {{ formatTime(d.content.endtime) }}</span>
-            <span>Uhr</span>
+            <span v-if="d.content.endtime"> {{ $t('until') }}{{ formatTime(d.content.endtime) }}</span>
+            <span>{{ $t('oClock') }}</span>
 
             <div v-if="d.content.endtime2" >
               <br>
               <icon name="clock" />
               <span>{{ formatTime(d.content.starttime2) }}</span>
-              <span v-if="d.content.endtime2"> bis {{ formatTime(d.content.endtime2) }}</span>
-              <span>Uhr</span>
+              <span v-if="d.content.endtime2"> {{ $t('until') }} {{ formatTime(d.content.endtime2) }}</span>
+              <span>{{ $t('oClock') }}</span>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
             v-if="metadata != null && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col"
           >
-            <span>Preis: {{ metadata[d.uuid].price }}EUR</span>
+            <span>{{ $t('price') }}{{ metadata[d.uuid].price }}EUR</span>
           </div>
 
           <div
@@ -61,7 +61,7 @@
             v-if="metadata == null && logged_in == false && hideRegister != true && !d.content.without_registration"
             class="col"
           >
-            Für die Buchung eines Workshops musst du registriert und eingeloggt sein. Danke!
+            {{ $t('inOrderToBookAWorkshopYouHaveToBeLoggedIn') }} {{ $t('thankYou') }}
           </div>
           <div class="spacer" />
 
@@ -69,13 +69,13 @@
             v-if="metadata != null &&metadata[d.uuid].occupancy >= 100 || d.content.sold_out && !d.content.without_registration"
             class="col soldOut"
           >
-            <span>ausgebucht</span>
+            <span>{{ $t('soldOut') }}</span>
           </div>
           <div
             v-if="metadata != null &&metadata[d.uuid].occupancy < 100 && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col occupancy"
           >
-            <span>aktuelle Auslastung: {{ Math.round(metadata[d.uuid].occupancy) }}%</span>
+            <span>{{ $t('currentOccupancyRate') }} {{ Math.round(metadata[d.uuid].occupancy) }}%</span>
           </div>
           <div class="spacer" />
 
@@ -95,7 +95,7 @@
               {{ metadata != null && metadata[d.uuid].already_booked == true ? 'Du hast diesen Workshop schon gebucht.  ' : 'Zur Anmeldung' }}
             </NuxtLink>
             <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
-              Zur Anmeldung
+              {{ $t('toRegistration') }}
             </span>
           </div>
           <div
@@ -106,7 +106,7 @@
               :href="d.content.link.cached_url"
               class="link"
               target="_blank"
-            >Zum Veranstalter</a>
+            >{{ $t('theOrganizer') }}</a>
           </div>
         </div>
       </div>

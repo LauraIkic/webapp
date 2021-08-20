@@ -1,7 +1,7 @@
 <template>
   <div class="blog-best-of">
     <div class="headline">
-      <h1 class="headline-title">BLOG</h1>
+      <h1 class="headline-title">{{ $t('blog')}}</h1>
       <a class="link" href="https://grandgarage.eu/de/news/">
         <div class="arrow"></div>
         {{ $t('toBlog') }}

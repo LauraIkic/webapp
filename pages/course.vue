@@ -20,7 +20,7 @@
       >
         <div class="">
           <p class="directions">
-            Lies dir zuerst {{ quiz.slides_url ? 'die Folien' : 'das Dokument' }} durch und beantworte dann die Fragen:
+            {{ $t('firstRead') }}{{ quiz.slides_url ? 'die Folien' : 'das Dokument' }} {{ $t('andAnswerTheQuestions') }}
           </p>
           <p v-if="quiz.description">
             {{ quiz.description }}
@@ -52,7 +52,7 @@
         >
           <font-awesome-icon icon="file-pdf"/>
           <a :href="pdfUrl">
-            PDF mit Kursunterlagen</a>
+            {{ $t('pdfWithCourseInformation') }}</a>
         </div>
       </div>
       <div class="quiz">
@@ -173,19 +173,19 @@
             class="input-button-primary"
             @click="startQuiz"
         >
-          Los geht's
+          {{ $t('letsStart') }}
         </button>
         <div
             v-if="activeQuestion >= quiz.quiz_questions.length"
             class="quizDone"
         >
-          Du hast alle Fragen beantwortet!
+          {{ $t('youHaveAnsweredAllQuestions') }}
           <p/>
           <button
               class="input-button-primary"
               @click="saveQuiz"
           >
-            Antworten absenden
+            {{ $t('sendAnswers') }}
           </button>
         </div>
       </div>
@@ -203,7 +203,7 @@
           v-if="score === 1"
           class="result"
       >
-        <p>Gratuliere! Du hast den Test bestanden!</p>
+        <p>{{ $t('congrats') }} {{ $t('youHavePassedTheTest') }}</p>
         <button
             class="input-button-primary"
             @click="$router.push('/me/trainings')"
@@ -215,24 +215,25 @@
           v-else-if="code"
           class="result"
       >
-        <p>Gratuliere! Du hast den Test bestanden!</p>
-        <p>Dein Bestätigungscode lautet:</p>
+        <p>{{ $t('congrats') }} {{ $t('youHavePassedTheTest') }}</p>
+        <p>{{ $t('yourConfirmationCode') }}</p>
         <p class="code">
           {{ code }}
         </p>
-        <p>Mit diesem Code kannst du den Kurs von einem Host oder am Frontdesk freischalten lassen.</p>
+        <p>{{ $t('withThisCodeYouCanGetYourCourseEnabled') }}</p>
         <button
             class="input-button-primary"
             @click="$router.push('/')"
         >
-          Zurück zur Startseite
+
+          {{ $t('backToMainPage') }}
         </button>
       </div>
       <div
           v-else
           class="result"
       >
-        Oje, das hat leider nicht geklappt. Bitte lies dir nochmal die Unterlagen durch.
+        {{ $t('ohYouDidNotPassTheTest') }} {{ $t('pleaseReadTheSlidesAgain') }}
         <button
             class="input-button-primary"
             @click="isPublic ? restartAsu() : $router.push('/me/trainings')"

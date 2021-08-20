@@ -5,9 +5,7 @@
       v-if="user && user.packages && user.packages.length > 0"
       class="item-list"
     >
-      <li v-for="p in user.packages">
         <package :user-package="p" />
-      </li>
     </ul>
     <div v-else>
       <code>{{ $t('noMembershipConcluded') }}</code>

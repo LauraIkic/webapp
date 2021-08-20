@@ -48,7 +48,7 @@
                     value=""
                     name="EMAIL"
                     class="required email"
-                    placeholder="Deine E-Mail Adresse"
+                    :placeholder= "[[ $t('yourE-mailAddress') ]]"
                   >
                   <div
                     style="position: absolute; left: -5000px;"

@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <h2>Wie hast du von uns erfahren?</h2>
+    <h2>{{ $t('howDidYouLearnAboutUs') }}</h2>
     <no-ssr>
       <form class="form" name="signup" @submit.prevent="handleSubmit" data-netlify="true" netlify-honeypot="bot-field">
         <label class="hidden"><input name="bot-field" /></label>

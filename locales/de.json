@@ -15,6 +15,15 @@
   "here": "hier",
   "workShopCostRefund":"Sollte es zu einer Absage kommen, werden dir die Workshop-Kosten selbstverständlich rückerstattet.",
   "weAreLookingForward": "Wir freuen uns auf dich!",
+  "searchForWorkshopsAndEvents": "Workshops und Events suchen",
+  "theOrganizer": "Zum Veranstalter",
+  "toRegistration": "Zur Anmeldung",
+  "currentOccupancyRate": "aktuelle Auslastung:",
+  "price": "Preis:",
+  "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " Für die Buchung eines Workshops musst du registriert und eingeloggt sein.",
+  "thankYou": "Danke!",
+  "until": "bis",
+  "oClock": "Uhr",
 
   "downloads": "Downloads",
 
@@ -111,7 +120,7 @@
   "machinesForProject": "Die Maschinen für das Projekt",
   "personBehindTheProject": "Der Mensch hinter dem Projekt",
 
-  "blog": "Blog",
+  "blog": "BLOG",
   "toBlog": "Zum Blog",
 
   "the": "Die",
@@ -119,6 +128,15 @@
   "peopleBehind": "Menschen dahinter",
 
   "myActivities": "Meine Aktivitäten",
+  "machineUsageOverview":"Hier kannst du bald eine Übersicht zur Nutzung der Maschinen einsehen",
+  "usage": "Nutzung",
+  "totalDuration": "Gesamtdauer",
+  "seconds": "Sekunden",
+  "more": "mehr",
+  "date": "Datum",
+  "time": "Zeit",
+
+
   "invoice": "Rechnung",
 
   "workshopBooking": "Workshop-Buchung",
@@ -183,35 +201,29 @@
   "myWorkshops": "Meine Workshops",
 
 
+  "firstRead": "Lies dir zuerst",
+  "andAnswerTheQuestions": "durch und beantworte dann die Fragen:",
+  "pdfWithCourseInformation": "PDF mit Kursunterlagen",
+
+  "letsStart": "Los geht's",
+  "youHaveAnsweredAllQuestions": "Du hast alle Fragen beantwortet!",
+  "sendAnswers": "Antworten absenden",
 
 
-  "firstRead": "First read",
-  "andAnswerTheQuestions": "and answer the questions:",
-  "pdfWithCourseInformation": "PDF with course information",
-
-  "letsStart": "Lets start",
-  "youHaveAnsweredAllQuestions": "You have answered all questions!",
-  "sendAnswer": "Send answer",
-
-
-  "congrats": "Congratulation!",
-  "youHavePassedTheTest": "You have passed the test!",
-  "yourConfirmationCode": "Your confirmation code is:",
+  "congrats": "Gratuliere!",
+  "youHavePassedTheTest": "Du hast den Test bestanden!",
+  "yourConfirmationCode": "Dein Bestätigungscode lautet:",
   "withThisCodeYouCanGetYourCourseEnabled": "Mit diesem Code kannst du den Kurs von einem Host oder am Frontdesk freischalten lassen.",
   "backToMainPage": "Zurück zur Startseite",
 
-  "oje": "OJE!!!!!!!!!!!!",
+  "ohYouDidNotPassTheTest": "Oje, das hat leider nicht geklappt.",
+  "pleaseReadTheSlidesAgain": "Bitte lies dir nochmal die Unterlagen durch.",
 
 
 
-
-
-
-
-
-
-
-  "anErrorHasOccurred": "Ein Fehler ist aufgetreten",
+  "youHaveToConfirmYourEmailForRegistration": "Du musst zuerst deine E-Mail bestätigen um dich anmelden zu können.",
+  "anotherVerificationEmailHasBeenSentTo": "Eine erneute Bestätigungs E-Mail wurde soeben an deine angegebene E-Mail Adresse gesandt.",
+  "anErrorHasOccurred": "Ein Fehler ist aufgetreten:",
 
   "purchaseFailedOrWasAborted": "Kauf fehlgeschlagen oder abgebrochen.",
   "youCanFindOurContactInformation": "You can find our contact information",
@@ -221,5 +233,42 @@
   "myProfile": "Mein Profil",
   "activities": "Aktivitäten",
 
-  "receiptAndConfirmationViaMail": "Die Rechnung und eine Bestätigung erhältst du per Mail."
+  "receiptAndConfirmationViaMail": "Die Rechnung und eine Bestätigung erhältst du per Mail.",
+  "becomeAMemberIn4simpleSteps":"In 4 Schritten zu deiner Mitgliedschaft!",
+  "startSafetyTraining": "Sicherheits-Unterweisung starten",
+
+
+  "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "Der erste Schritt zum GRAND GARAGE Membership ist geschafft!",
+  "toCompleteOnboardingStartSafetyTraining": "Um deine Mitgliedschaft abzuschließen kannst du jetzt die allgemeine Sicherheitsunterweisung abschließen.",
+
+  "dateOfBirth": "Geburtsdatum",
+  "company": "Firma",
+
+  "howDidYouLearnAboutUs": "Wie hast du von uns erfahren?",
+
+  "welcomeToTheGG": "Willkommen in der GRAND GARAGE!",
+  "memberBenefitsText": "Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!",
+  "memberPerksText1/3": "Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen.",
+  "memberPerksText2/3": "Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem eine Ermäßigung auf alle Workshops,",
+  "memberPerksText3/3": "sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu erwerben.",
+  "ifYouHaveAnyQuestionsRegardingYourMembership": "Solltest du noch Fragen zu deiner Mitgliedschaft haben,",
+  "doNotHesitateToAskOurFrontdeskTeam": "melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!",
+  "#makersgonnamake": "#MAKERSGONNAMAKE",
+
+
+  "differentCardListing": "4you card, SchülerInnen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass",
+  "pleaseBringAccordingID": "Bitte entsprechenden Ausweis beim ersten Besuch mitnehmen!",
+  "euro": "EUR",
+  "euro/month": "EUR/ MONAT",
+  "euro/year": "EUR/ JAHR",
+  "factoryRules": "Werkstattordnung",
+  "monthlyPayment": "monatliche Zahlung",
+  "yearlyPayment": "jährliche Zahlung",
+
+  "twoMonthsForFree": "Tipp: Bei jährlicher Zahlung bekommst du 2 Monate geschenkt.",
+  "howWouldYouPreferToPay": "Wie möchtest du zahlen?",
+  "iban": "IBAN",
+  "bankName": "Name der Bank",
+  "sepaAgreementFormText":"Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben."
+
 }

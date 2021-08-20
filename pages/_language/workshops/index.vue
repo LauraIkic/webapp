@@ -54,7 +54,7 @@
       </div>
       <!--      <CovidInfobox />-->
       <div class="search">
-        <input type="text" placeholder="Workshops und Events suchen" v-model="search">
+        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
       <loading class="loading" v-if="loading"></loading>
     </div>

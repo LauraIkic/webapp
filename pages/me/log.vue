@@ -3,7 +3,7 @@
     <h2>{{ $t('myActivities') }}</h2>
     <div class="resources">
       <span v-if="machines.length < 1" class="resource-header">
-        Hier kannst du bald eine Übersicht zur Nutzung der Maschinen einsehen
+        {{ $t('machineUsageOverview') }}
       </span>
 
       <!--      <div class="info-row">
@@ -50,7 +50,7 @@
         <div class="info-row">
           <div class="info-block left">
             <div class="col log-info">
-              <span class="heading">Datum - Zeit</span>
+              <span class="heading">{{ $t('date') }} - {{ $t('time') }}</span>
             </div>
           </div>
           <div
@@ -58,12 +58,12 @@
               class="info-block"
           >
             <div class="col log-info">
-              <span class="heading">Nutzung</span>
+              <span class="heading">{{ $t('usage') }}</span>
             </div>
           </div>
           <div class="info-block  right">
             <div class="col log-info">
-              <span class="heading">Gesamtdauer</span>
+              <span class="heading">{{ $t('totalDuration') }}</span>
             </div>
           </div>
           <!--<div class="info-block">
@@ -91,7 +91,7 @@
               class="info-block"
           >
             <div class="col log-info">
-              <span>{{ i.active_seconds }} Sekunden</span>
+              <span>{{ i.active_seconds }} {{ $t('seconds') }}</span>
             </div>
           </div>
           <div class="info-block  right">
@@ -121,7 +121,7 @@
             class="more"
             @click="more(z)"
         >
-          mehr
+          {{ $t('more') }}
         </button>
       </div>
     </div>

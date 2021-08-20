@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <h2>Kontaktdaten</h2>
+    <h2>{{ $t('contactDetails') }}</h2>
       <form class="form">
       <!--
       <div class="form-item">
@@ -13,15 +13,15 @@
       </div>
       -->
       <div class="form-item">
-        <span class="label">Geburtsdatum <span class="red">*</span></span>
+        <span class="label">{{ $t('dateOfBirth') }}<span class="red">*</span></span>
         <input class="input-text" ref="firstInput" type="date" v-model="onboardingData.profile.birthdate" name="" id="onboarding_birthdate"/>
       </div>
       <div class="form-item">
-        <span class="label">Telefon <span class="red">*</span></span>
+        <span class="label">{{ $t('phone') }} <span class="red">*</span></span>
         <input class="input-text" type="tel" v-model="onboardingData.profile.phone" name="" id="onboarding_phone"/>
       </div>
       <div class="form-item">
-        <span class="label">Adresse <span class="red">*</span></span>
+        <span class="label">{{ $t('address') }} <span class="red">*</span></span>
         <input class="input-text" type="text" v-model="onboardingData.profile.address" name="" id="onboarding_address"/>
       </div>
       <div class="form-item">
@@ -29,15 +29,15 @@
         <input class="input-text" type="text" v-model="onboardingData.profile.address2" name="" id="onboarding_address2"/>
       </div>
       <div class="form-item">
-        <span class="label">PLZ <span class="red">*</span></span>
+        <span class="label">{{ $t('zipCode') }} <span class="red">*</span></span>
         <input class="input-text" type="number" v-model="onboardingData.profile.zip" name="" id="onboarding_zip"/>
       </div>
       <div class="form-item">
-        <span class="label">Stadt <span class="red">*</span></span>
+        <span class="label">{{ $t('city') }} <span class="red">*</span></span>
         <input class="input-text" type="text" v-model="onboardingData.profile.city" name="" id="onboarding_city"/>
       </div>
       <div class="form-item">
-        <span class="label">Firma</span>
+        <span class="label">{{ $t('company') }}</span>
         <input class="input-text" type="text" v-model="onboardingData.profile.company" name="" id="onboarding_company"/>
       </div>
     </form>
