@@ -1,8 +1,6 @@
 <template>
   <div class="blog-item-display">
-    <Nuxt-link :to="{ path: 'de/news/'+blog.slug}"
-               class="link"
-    >
+    <nuxt-link :to="localePath('/news/'+blog.slug)" class="link">
       <section class="header">
         <div class="image" :style="{ 'background-image': 'url(' + $resizeImage(blog.content.image, '400x250') + ')' }"/>
         <div class="background-square"></div>

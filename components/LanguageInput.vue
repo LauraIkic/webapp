@@ -10,7 +10,7 @@
          </option>
        </select>
        <a :href="$i18n.locale" @click="$router.push(localeLocation({ name: 'index', params: { foo: '1' } }))">Change</a>
-       <h1 class="title">{{ $t('message') }}</h1>
+       <h1 class="title">{{ $t('message') }}{{$store.state.language}} "  " {{$i18n.locale}}</h1>
      </div>
    </div>
 </template>
@@ -29,6 +29,9 @@ export default {
         lang: $i18n.locales
       }
     }
+  },
+  mounted () {
+    this.$store.state.language = $i18n.locale
   }
 }
 

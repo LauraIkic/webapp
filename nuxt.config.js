@@ -22,15 +22,7 @@ module.exports = {
     lazy: true,
     langDir: '~/locales/',
     vueI18n: {
-      fallbackLocale: 'de',
-      message: {
-        de: {
-          welcome: 'Willkommen'
-        },
-        en: {
-          welcome: 'Welcome'
-        }
-      }
+      fallbackLocale: 'de'
     }
   },
   robots: [

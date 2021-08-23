@@ -2,10 +2,10 @@
   <div class="blog-best-of">
     <div class="headline">
       <h1 class="headline-title">{{ $t('blog')}}</h1>
-      <a class="link" href="https://grandgarage.eu/de/news/">
+      <nuxt-link :to="localePath('/news' +'/ ')">
         <div class="arrow"></div>
         {{ $t('toBlog') }}
-      </a>
+      </nuxt-link>
     </div>
     <div class="blogItems">
       <BlogItem :blog="news" v-for="news of newsToDisplay" :key="news.id" class="item"/>
