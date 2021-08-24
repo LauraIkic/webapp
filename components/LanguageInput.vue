@@ -1,7 +1,7 @@
  <template>
    <div class="language-input">
      <div class="lang-dropdown">
-       <select class="holder" v-model="$i18n.locale">
+       <select class="holder" v-model="language">  <!-- v-model="$i18n.locale"> -->
          <option
              v-for="l in $i18n.locales"
              :key="l.code"
@@ -9,8 +9,15 @@
          >{{l.name}}
          </option>
        </select>
-       <a :href="$i18n.locale" @click="$router.push(localeLocation({ name: 'index', params: { foo: '1' } }))">Change</a>
-       <h1 class="title">{{ $t('message') }}{{$store.state.language}} "  " {{$i18n.locale}}</h1>
+       language {{ language }}
+<!--       <nuxt-link
+           :to="switchLocalePath($i18n.locale)">LANG CHANGE</nuxt-link>
+       <br>
+       <nuxt-link :to="switchLocalePath('en')">LANGUAGE</nuxt-link>
+       <br>
+       <nuxt-link :to="switchLocalePath('de')">Deutsch</nuxt-link>
+       <br>-->
+       <h1 class="title">{{ $t('message') }}"  "{{ this.localeLocation.toString()}}</h1>
      </div>
    </div>
 </template>
@@ -20,18 +27,32 @@ import { i18n as $i18n } from '../nuxt.config'
 
 export default {
   name: 'LanguageInput',
-  pathData () {
-    return this.data
+  data: () => ({
+    language: null
+  }),
+  watch: {
+    language: function (to) {
+      console.log('change', to)
+      console.log(this.$route)
+      this.$router.push('/' + to)
+    }
   },
   computed: {
     languages () {
       return {
         lang: $i18n.locales
       }
+    },
+    currentLanguage () {
+      return {
+        selected: this.localeLocation(this.$i18n.locale)
+      }
     }
   },
-  mounted () {
-    this.$store.state.language = $i18n.locale
+  methods: {
+    setLanguage (to) {
+      console.log(to)
+    }
   }
 }
 

@@ -67,6 +67,16 @@
           class="desktop"
           :item="item"
         />
+        <div class="lang-dropdown">
+          <select class="lang-select-button" v-model="language">  <!-- v-model="$i18n.locale"> -->
+            <option
+                v-for="l in $i18n.locales"
+                :key="l.code"
+                :value="l.code"
+            >{{l.name}}
+            </option>
+          </select>
+        </div>
         <div
           v-if="!hasAuth"
           class="login-button"
@@ -272,6 +282,18 @@ export default {
     display: flex;
     justify-content: space-between;
     margin: 0 -15px 0 -20px; // compensate paddings from logo and nav items
+    .lang-select-button{
+      font-weight: bold;
+      line-height: 1em;
+      padding: 10px;
+      outline: none;
+      width: 100%;
+      color: #FFF;
+      border: none;
+      background-color: $color-orange;
+      margin: 0;
+      cursor: pointer;
+    }
     .login-button {
       padding: 12px 15px;
       button {

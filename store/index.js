@@ -93,6 +93,7 @@ const createStore = () => {
       },
       setLanguage (state, language) {
         state.language = language
+        console.log('language', language)
       },
       setCacheVersion (state, version) {
         state.cacheVersion = version
@@ -113,6 +114,9 @@ const createStore = () => {
           }
         }
         return Promise.all(chain)
+      },
+      setLanguage ({ commit }, data) {
+        commit('setLanguage', data)
       },
       getRecourseLogs () {
         return connector.get('member/resourceLogs').then((r) => {
@@ -452,7 +456,7 @@ const createStore = () => {
         })
       },
       loadTeam ({ state }) {
-        return this.$storyapi.get('cdn/stories', {
+        return this.$storyapi.get(`cdn/stories/${state.language}`, {
           filter_query: {
             component: {
               in: 'team-member'
@@ -466,7 +470,7 @@ const createStore = () => {
         })
       },
       loadFullPage ({ state }, path) {
-        return this.$storyapi.get(`cdn/stories${path}`, {
+        return this.$storyapi.get(`cdn/stories/${state.language}${path}`, {
           version: version,
           cv: state.cacheVersion
         }).then((res) => {
@@ -476,7 +480,7 @@ const createStore = () => {
         })
       },
       loadStoryByUUid ({ state }, uuid) {
-        return this.$storyapi.get(`cdn/stories/${uuid}`, {
+        return this.$storyapi.get(`cdn/stories/${state.language}${uuid}`, {
           version: version,
           cv: state.cacheVersion,
           find_by: 'uuid',
@@ -545,7 +549,7 @@ const createStore = () => {
         if (!workshop) {
           console.log('workshop not found: ', workshop)
         }
-        const dates = await this.$storyapi.get('cdn/stories', {
+        const dates = await this.$storyapi.get(`cdn/stories/${state.language}`, {
           filter_query: {
             workshop: {
               in: workshop.uuid
@@ -608,7 +612,7 @@ const createStore = () => {
         })
       },
       findWorkshops ({ state }, filters) {
-        return this.$storyapi.get('cdn/stories', {
+        return this.$storyapi.get(`cdn/stories/${state.language}`, {
           ...filters,
           version: version,
           cv: state.cacheVersion,
@@ -631,7 +635,7 @@ const createStore = () => {
         })
       },
       findWorkshopDates ({ state }, filters) {
-        return this.$storyapi.get('cdn/stories', {
+        return this.$storyapi.get(`cdn/stories/${state.language}`, {
           ...filters,
           version: version,
           cv: state.cacheVersion,
