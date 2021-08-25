@@ -4,7 +4,14 @@
       v-if="workshopDate != null"
       class="left-content"
     >
-      <h1>Workshop-Buchung</h1>
+    <span class="flex-center" style="margin-top: 2em;">
+      <h1 style="padding-right: 0.5em;">Workshop-Buchung</h1>
+      <loading-spinner
+        v-if="!userMetadata || !workshopDate"
+        color="#333"
+        style="display: contents;"
+      />
+    </span>
 
       <workshop-preview
         :id="workshopDate.content.workshop.uuid"
@@ -17,7 +24,7 @@
         :hide-register="true"
       />
 
-      <div class="spacer" />
+      <div class="spacer"/>
 
       <div v-if="step === 0 && userMetadata != null">
         <div>
@@ -39,7 +46,7 @@
             <div :class="['col', 'info', 'creditsOption']">
               <div class="first">
                 <input
-                  id="sepa"
+                  id="sepa_not_enough"
                   type="checkbox"
                   name="payment"
                   value="credits"
@@ -71,7 +78,7 @@
             <div :class="['col', 'info', 'creditsOption', { disabled: !memberHasEnoughCredits }]">
               <div class="first">
                 <input
-                  id="sepa"
+                  id="sepa_credits"
                   type="radio"
                   :disabled="!memberHasEnoughCredits"
                   name="payment"
@@ -100,13 +107,13 @@
             <div class="info-block">
               <div class="col info">
                 <input
-                  id="stripe"
+                  id="payment_provider"
                   type="radio"
                   name="payment"
-                  value="stripe"
-                  @click="paymentMethod = PAYMENT_METHODS.stripe"
+                  value="payment_provider"
+                  @click="paymentMethod = PAYMENT_METHODS.payment_provider"
                 >
-                <label for="stripe">Kreditkarte</label><br>
+                <label for="payment_provider">Kreditkarte / PayPal</label><br>
               </div>
             </div>
           </div>
@@ -129,7 +136,7 @@
             </div>
           </div>
         </div>
-        <div class="spacer" />
+        <div class="spacer"/>
 
         <div class="buttons">
           <button
@@ -149,7 +156,8 @@
           v-if="isFree"
           class="confirmation"
         >
-          Deine Anmeldung ist verbindlich. Solltest du doch nicht teilnehmen können, gib uns bitte umgehend unter <a href="mailto:events@grandgarage.eu">events@grandgarage.eu</a> Bescheid.
+          Deine Anmeldung ist verbindlich. Solltest du doch nicht teilnehmen können, gib uns bitte umgehend unter <a
+          href="mailto:events@grandgarage.eu">events@grandgarage.eu</a> Bescheid.
         </div>
         <div
           v-else
@@ -159,13 +167,16 @@
             Von deinen Credits {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR abgezogen.
           </div>
           <div v-if="paymentMethod === 1">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} von deiner Kreditkarte abgebucht.</strong>
+            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} von deiner
+              Kreditkarte abgebucht.</strong>
           </div>
           <div v-if="paymentMethod === 2">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} via SEPA-Monatsrechnung eingezogen.</strong>
+            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} via
+              SEPA-Monatsrechnung eingezogen.</strong>
           </div>
           <div v-if="paymentMethod === 3">
-            {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} von deinen Credits ({{ credits }}EUR) abgezogen.
+            {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} von deinen Credits
+            ({{ credits }}EUR) abgezogen.
           </div>
         </div>
 
@@ -216,11 +227,12 @@
 <script>
 const PAYMENT_METHODS = {
   free: 0,
-  stripe: 1,
+  payment_provider: 1,
   sepa: 2,
   credits: 3
 }
 export default {
+  scrollToTop: true,
   name: 'BuyWorkshop',
   props: {},
   data () {
@@ -287,44 +299,81 @@ export default {
           break
       }
     },
-    redirect: function (data) {
-      // eslint-disable-next-line no-undef
-      const stripe = Stripe('pk_live_XCUCaJMt8kMEpedQdvmtMu4Z00rNP9VDun')
-      stripe.redirectToCheckout({
-        sessionId: data.session_id
-      })
-    },
+    // redirect: function (data) {
+    //   // eslint-disable-next-line no-undef
+    //   const stripe = Stripe('pk_live_XCUCaJMt8kMEpedQdvmtMu4Z00rNP9VDun')
+    //   stripe.redirectToCheckout({
+    //     sessionId: data.session_id
+    //   })
+    // },
 
     pay: function () {
       if (this.isFree) {
         this.paymentMethod = PAYMENT_METHODS.free
       }
+
       const data = {
         workshop_date_id: this.workshopDate.uuid,
         payment_method: this.paymentMethod,
         use_remaining_credits: this.useRemainingCredits
       }
-      this.$store.dispatch('bookWorkshop', data).then((data) => {
-        if (data.success) {
+
+      // this.$store.dispatch('bookWorkshop', data).then((data) => {
+      //   if (data.success) {
+      //     switch (this.paymentMethod) {
+      //       case PAYMENT_METHODS.payment_provider:
+      //         this.redirect(data)
+      //         break
+      //       default:
+      //         this.step = 4
+      //         this.getWorkshop()
+      //         this.reloadKey++
+      //         this.$toast.show('Der Workshop wurde erfolgreich gebucht!', {
+      //           className: 'goodToast'
+      //         })
+      //     }
+      //   } else {
+      //     this.$sentry.captureException(new Error(data))
+      //
+      //     this.error = 'Leider ist ein Fehler aufgetreten.'
+      //     this.step = 99
+      //   }
+      // })
+
+      this.$store.dispatch('bookWorkshop', data)
+        .then((response) => {
           switch (this.paymentMethod) {
-            case PAYMENT_METHODS.stripe:
-              this.redirect(data)
+            case PAYMENT_METHODS.payment_provider:
+              if (response.data.redirect_link) {
+                if (response.data.invoice_contact) {
+                  this.connectorInvoiceContact = response.data.invoice_contact
+                }
+                // Redirect to payrexx screen
+                window.location.href = response.data.redirect_link
+              } else {
+                console.log('Error: No payrexx redirect_link returned!', response.data)
+                throw new Error('No payrexx redirect_link returned!')
+              }
               break
             default:
               this.step = 4
               this.getWorkshop()
               this.reloadKey++
-              this.$toast.show('Der Workshop wurde erfolgreich gebucht!', {
-                className: 'goodToast'
-              })
+              break
           }
-        } else {
-          this.$sentry.captureException(new Error(data))
 
-          this.error = 'Leider ist ein Fehler aufgetreten.'
+          this.$toast.show('Der Workshop wurde erfolgreich gebucht!', {
+            className: 'goodToast'
+          })
+        })
+        .catch((error) => {
+          console.log('error', error.response.data)
+          this.$sentry.captureException(new Error(error))
+          this.$toast.show(error.response.data.msg, {
+            theme: 'bubble'
+          })
           this.step = 99
-        }
-      })
+        })
     }
   }
 }
@@ -471,27 +520,34 @@ export default {
     }
   }
 }
+
 .creditsOption {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+
   & .creditsButton {
     margin: 0;
   }
+
   & .first {
     display: flex;
+
     & label {
       margin-left: 0.6em;
     }
   }
 }
+
 .disabled {
   color: grey;
 }
+
 .spinner {
   margin-top: 2em;
 }
+
 .confirmation {
   & div {
     padding: 0.2em 0em;

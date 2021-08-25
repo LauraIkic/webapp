@@ -78,29 +78,20 @@
             <span>aktuelle Auslastung: {{ Math.round(metadata[d.uuid].occupancy) }}%</span>
           </div>
           <div class="spacer" />
-
-          <!--<div class="col register" v-if="d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out">
-            <a :href="d.content.link.cached_url" class="link" target="_blank">Zur Anmeldung</a>
-          </div>
-          -->
           <div
-            v-if="hideRegister != true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
-            class="col register"
+            v-if="metadata && hideRegister != true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
+            class="col register workshop-button"
           >
-            <NuxtLink v-if="metadata"
-              :event="metadata == null || metadata[d.uuid].occupancy >= 100|| metadata[d.uuid].already_booked == true ? '': 'click'"
+            <NuxtLink :event="metadata == null || metadata[d.uuid].occupancy >= 100|| metadata[d.uuid].already_booked == true ? '': 'click'"
               :to="{ path: '/me/buyWorkshop', query: { uuid: d.uuid }}"
               class="link"
             >
               {{ metadata != null && metadata[d.uuid].already_booked == true ? 'Du hast diesen Workshop schon gebucht.  ' : 'Zur Anmeldung' }}
             </NuxtLink>
-            <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
-              Zur Anmeldung
-            </span>
           </div>
           <div
             v-if="hideRegister != true && d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out"
-            class="col register"
+            class="col register workshop-button"
           >
             <a
               :href="d.content.link.cached_url"
@@ -177,7 +168,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
 .workshop-dates {
   width: 100%;
   margin-top: 20px;

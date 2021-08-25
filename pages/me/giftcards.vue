@@ -360,7 +360,6 @@ export default {
       this.loading = true
       await this.$store.dispatch('redeemGiftCard', { uuid: this.giftcardCode })
         .then((response) => {
-          console.log('success', response)
           this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
             className: 'goodToast'
           })
@@ -403,10 +402,10 @@ export default {
         invoice_contact: this.invoiceContact
       }
 
-      this.$store.dispatch('checkoutTransaction', data)
+      this.$store.dispatch('checkout', data)
         .then((response) => {
           switch (parseInt(this.paymentMethod)) {
-            case 1: // PAYREXX
+            case 1: // PAYMENT PROVIDER
               if (response.data.redirect_link) {
                 if (response.data.invoice_contact) {
                   this.connectorInvoiceContact = response.data.invoice_contact
@@ -452,12 +451,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
-.flex-center {
-  display: flex;
-  align-items: center;
-}
-
 .headline {
   padding-left: 21vw;
 }

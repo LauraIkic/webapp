@@ -142,6 +142,29 @@ $grid-breakpoints: (
   }
 }
 
+// Default classes
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+.content-card, .list-item {
+  background-color: white;
+}
+.content-card:hover, .list-item:hover {
+  -webkit-box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
+}
+
+// Workshops
+.workshop-button:hover {
+  opacity: 0.5;
+}
+
+// Machines
+.machine-teaser {
+  background-color: white;
+}
+
 // main navigation
 .main-nav-item:hover {
   color: #E69140 !important;

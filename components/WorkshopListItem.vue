@@ -1,7 +1,7 @@
 <template>
   <nuxt-link :to="'/' + blok.full_slug">
     <div
-        class="workshop-list-item"
+        class="workshop-list-item content-card"
         :class="{ slim: slim }"
     >
       <div class="image">

@@ -177,12 +177,9 @@ const createStore = () => {
         }
       },
       bookWorkshop ({ state }, data) {
-        return connector.post('/member/checkoutWorkshopDate', data)
+        return connector.post('/member/checkoutWorkshop', data)
       },
       checkout ({ state }, data) {
-        return connector.post('/member/checkout', data) //TODO replace with checkoutTransaction()
-      },
-      checkoutTransaction ({ state }, data) {
         return connector.post('/member/checkoutTransaction', data)
       },
       async getCredits ({ state }) {
