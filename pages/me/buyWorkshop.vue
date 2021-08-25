@@ -318,28 +318,6 @@ export default {
         use_remaining_credits: this.useRemainingCredits
       }
 
-      // this.$store.dispatch('bookWorkshop', data).then((data) => {
-      //   if (data.success) {
-      //     switch (this.paymentMethod) {
-      //       case PAYMENT_METHODS.payment_provider:
-      //         this.redirect(data)
-      //         break
-      //       default:
-      //         this.step = 4
-      //         this.getWorkshop()
-      //         this.reloadKey++
-      //         this.$toast.show('Der Workshop wurde erfolgreich gebucht!', {
-      //           className: 'goodToast'
-      //         })
-      //     }
-      //   } else {
-      //     this.$sentry.captureException(new Error(data))
-      //
-      //     this.error = 'Leider ist ein Fehler aufgetreten.'
-      //     this.step = 99
-      //   }
-      // })
-
       this.$store.dispatch('bookWorkshop', data)
         .then((response) => {
           switch (this.paymentMethod) {
