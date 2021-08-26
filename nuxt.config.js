@@ -9,13 +9,15 @@ module.exports = {
         code: 'de',
         iso: 'de-DE',
         name: 'DE',
-        file: 'de.json'
+        file: 'de.json',
+        path: ''
       },
       {
         code: 'en',
         iso: 'en-US',
         name: 'EN',
-        file: 'en.json'
+        file: 'en.json',
+        path: 'en'
       }
     ],
     defaultLocale: 'de',

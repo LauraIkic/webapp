@@ -1,14 +1,14 @@
  <template>
    <div>
      <div class="dropdown">
-       <button class="dropbtn">{{language}}</button>
+       <button class="dropbtn" @click="language = switchLanguage.oppositeLanguage">{{loadedLanguage.lang}}</button>
        <div class="dropdown-content" >
-         <option v-modal="language">
+         <option v-modal="to">
            <a v-for="l in $i18n.locales"
                      :key="l.code"
                      :value="l.code"
-                      @click="language = l.name"
-         >{{l.name}}</a>
+                      @click="language = l.code"
+         >{{l.code}}</a>
          </option>
      </div></div>
    </div>
@@ -19,19 +19,41 @@
 export default {
   name: 'LanguageInput',
   data: () => ({
-    language: 'DE'
+    language: 'de'
   }),
   watch: {
-    languageChange: function (to) {
+    language: function (to) {
       console.log('change', to)
       console.log(this.$route)
       this.$router.push('/' + to)
     }
   },
   computed: {
+    loadedLanguage () {
+      if (this.$route.path === '/en') {
+        return {
+          lang: 'en'
+        }
+      } else {
+        return {
+          lang: 'de'
+        }
+      }
+    },
     currentLanguage () {
       return {
-        selected: this.localeLocation(this.$i18n.locale)
+        selected: this.localeLocation(this.language)
+      }
+    },
+    switchLanguage () {
+      if (this.currentLanguage.selected.name === 'de___de') {
+        return {
+          oppositeLanguage: 'en'
+        }
+      } else {
+        return {
+          oppositeLanguage: 'de'
+        }
       }
     }
   },
@@ -49,6 +71,7 @@ export default {
    background-color: #f2f3ee;
    padding: 16px;
    border: none;
+   text-transform: uppercase;
  }
 
  .dropdown {
@@ -59,7 +82,7 @@ export default {
  .dropdown-content {
    display: none;
    position: absolute;
-   background-color: #f1f1f1;
+   background-color: white;
    min-width: 50px;
    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
    z-index: 1;
@@ -84,4 +107,5 @@ export default {
  .dropdown:hover .dropdown-content {display: block;}
 
  .dropdown:hover .dropbtn {background-color: black;   color: white;}
+
 </style>

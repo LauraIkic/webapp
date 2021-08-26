@@ -77,12 +77,12 @@
               LOGIN
             </button>
           </div>
-        </div>
-        <div
-          class="menu-icon"
-          @click="toggleMenu()"
+          <div
+            class="menu-icon"
+            @click="toggleMenu()"
         >
           <img src="~/assets/img/icons/menu-icon.svg">
+        </div>
         </div>
       </div>
     </header>

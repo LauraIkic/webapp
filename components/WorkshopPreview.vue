@@ -4,7 +4,7 @@
       <div class="workshop-preview">
         <nuxt-link
           class="story"
-          :to="localePath('/workshops/' + story.slug)">
+          :to="story.full_slug">
           <div
             class="banner"
             :style="{ 'background-image': 'url(' + $resizeImage(workshop.image, '700x0') + ')' }"
@@ -40,7 +40,7 @@ export default {
       return this.story.content
     }
   },
-  mounted () {
+  created () {
     this.$store.app.$storyapi.get(`cdn/stories/${this.id}`, {
       find_by: 'uuid'
     }).then((res) => {
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     open () {
-      this.$router.push({ path: this.story.slug })
+      this.$router.push({ path: this.story.full_slug })
     }
   }
 }
