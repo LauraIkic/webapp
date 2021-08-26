@@ -67,23 +67,16 @@
           class="desktop"
           :item="item"
         />
-        <div class="lang-dropdown">
-          <select class="lang-select-button" v-model="language">  <!-- v-model="$i18n.locale"> -->
-            <option
-                v-for="l in $i18n.locales"
-                :key="l.code"
-                :value="l.code"
-            >{{l.name}}
-            </option>
-          </select>
-        </div>
-        <div
-          v-if="!hasAuth"
-          class="login-button"
-        >
-          <button @click="login">
-            LOGIN
-          </button>
+        <div class="right-corner">
+          <LanguageInput> </LanguageInput>
+          <div
+              v-if="!hasAuth"
+              class="login-button"
+          >
+            <button @click="login">
+              LOGIN
+            </button>
+          </div>
         </div>
         <div
           class="menu-icon"
@@ -159,7 +152,12 @@
 </template>
 
 <script charset="utf-8">
+import LanguageInput from './LanguageInput'
+
 export default {
+  components: {
+    LanguageInput
+  },
   props: ['blok'],
   data () {
     return {
@@ -282,32 +280,26 @@ export default {
     display: flex;
     justify-content: space-between;
     margin: 0 -15px 0 -20px; // compensate paddings from logo and nav items
-    .lang-select-button{
-      font-weight: bold;
-      line-height: 1em;
-      padding: 10px;
-      outline: none;
-      width: 100%;
-      color: #FFF;
-      border: none;
-      background-color: $color-orange;
-      margin: 0;
-      cursor: pointer;
-    }
-    .login-button {
+    .right-corner{
+      display:flex;
+      align-items: center;
       padding: 12px 15px;
-      button {
-        font-weight: bold;
-        line-height: 1em;
-        padding: 10px;
-        outline: none;
-        width: 100%;
-        color: #FFF;
-        border: none;
-        background-color: $color-orange;
-        margin: 0;
-        cursor: pointer;
-      }
+      .login-button {
+        padding: 12px 15px;
+        button {
+          font-weight: bold;
+          line-height: 1em;
+          padding: 10px;
+          outline: none;
+          width: 100%;
+          color: #FFF;
+          border: none;
+          background-color: $color-orange;
+          margin: 0;
+          cursor: pointer;
+        }
+    }
+
     }
   }
 

@@ -45,45 +45,35 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
 .blog-best-of {
-  @media (min-width: 1460px){
-    background-color: black;
-  }
+  background-color: black;
   margin: 0 -10px;
   padding: 30px;
   color: #FFF;
   z-index: 2;
   position: relative;
-
   .headline {
-    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-left: 4vw;
+    padding-left: 3vw;
   }
-
   .headline-title {
     font-size: 3rem;
-    @include media-breakpoint-down(xs) {
-      font-size: 2.2rem;
+    @include media-breakpoint-down(md) {
+      font-size: 1.2rem;
     }
     font-family: $font-secondary;
     line-height: 1.4;
     letter-spacing: 1.4px;
-
     color: #FFFFFF;
   }
-
   .blogItems {
     display: flex;
     @media (max-width: 1460px) {
       flex-direction: column;
-      padding: 0 0em;
     }
-    background-color: black;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 5em;
@@ -99,7 +89,6 @@ export default {
   border-top: .1em solid #FFFFFF;
   margin: .25em 1em;
   transition: transform .15s ease-out;
-
   &:after {
     content: "";
     position: absolute;
@@ -113,14 +102,12 @@ export default {
     transform: rotate(45deg);
   }
 }
-
 .link {
   color: white;
   display: block;
   padding-right: 7vw;
   font-size: 1.3rem;
 }
-
 .link:hover {
   .arrow {
     transform: translateX(.5em);

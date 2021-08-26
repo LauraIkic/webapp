@@ -8,13 +8,13 @@ module.exports = {
       {
         code: 'de',
         iso: 'de-DE',
-        name: 'Deutsch',
+        name: 'DE',
         file: 'de.json'
       },
       {
         code: 'en',
         iso: 'en-US',
-        name: 'English',
+        name: 'EN',
         file: 'en.json'
       }
     ],

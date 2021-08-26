@@ -1,48 +1,35 @@
  <template>
-   <div class="language-input">
-     <div class="lang-dropdown">
-       <select class="holder" v-model="language">  <!-- v-model="$i18n.locale"> -->
-         <option
-             v-for="l in $i18n.locales"
-             :key="l.code"
-             :value="l.code"
-         >{{l.name}}
+   <div>
+     <div class="dropdown">
+       <button class="dropbtn">{{language}}</button>
+       <div class="dropdown-content" >
+         <option v-modal="language">
+           <a v-for="l in $i18n.locales"
+                     :key="l.code"
+                     :value="l.code"
+                      @click=this.languageChange(l)
+         >{{l.name}}</a>
          </option>
-       </select>
-       language {{ language }}
-<!--       <nuxt-link
-           :to="switchLocalePath($i18n.locale)">LANG CHANGE</nuxt-link>
-       <br>
-       <nuxt-link :to="switchLocalePath('en')">LANGUAGE</nuxt-link>
-       <br>
-       <nuxt-link :to="switchLocalePath('de')">Deutsch</nuxt-link>
-       <br>-->
-       <h1 class="title">{{ $t('message') }}"  "{{ this.localeLocation.toString()}}</h1>
-     </div>
+         language {{ language }}
+     </div></div>
    </div>
 </template>
 
 <script>
-import { i18n as $i18n } from '../nuxt.config'
 
 export default {
   name: 'LanguageInput',
   data: () => ({
-    language: null
+    language: 'DE'
   }),
   watch: {
-    language: function (to) {
+    languageChange: function (to) {
       console.log('change', to)
       console.log(this.$route)
       this.$router.push('/' + to)
     }
   },
   computed: {
-    languages () {
-      return {
-        lang: $i18n.locales
-      }
-    },
     currentLanguage () {
       return {
         selected: this.localeLocation(this.$i18n.locale)
@@ -57,16 +44,45 @@ export default {
 }
 
 </script>
+ <style lang="scss" scoped>
+ @import '/assets/scss/styles.scss';
+ .dropbtn {
+   background-color: #f2f3ee;
+   padding: 16px;
+   border: none;
+ }
 
-<style scoped>
-.lang-dropdown{
-  padding-left: 10vw;
-}
-.language-input{
-  background-color: grey;
-}
-.holder{
-  padding-left: 10vw;
+ .dropdown {
+   position: relative;
+   display: inline-block;
+ }
+
+ .dropdown-content {
+   display: none;
+   position: absolute;
+   background-color: #f1f1f1;
+   min-width: 50px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+   text-transform: uppercase;
+   color: #000;
+   text-decoration: none;
+   font-weight: bold;
+   font-size: 0.9rem;
+   padding: 8px;
+ }
+
+ .dropdown-content a {
+   color: black;
+   display: block;
+   padding: 16px;
+   text-align: left;
+ }
+
+ .dropdown-content a:hover {color: $color-secondary;    white-space: nowrap;
 }
 
+ .dropdown:hover .dropdown-content {display: block;}
+
+ .dropdown:hover .dropbtn {background-color: black;   color: white;}
 </style>
