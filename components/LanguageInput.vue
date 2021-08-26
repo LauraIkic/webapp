@@ -7,10 +7,9 @@
            <a v-for="l in $i18n.locales"
                      :key="l.code"
                      :value="l.code"
-                      @click=this.languageChange(l)
+                      @click="language = l.name"
          >{{l.name}}</a>
          </option>
-         language {{ language }}
      </div></div>
    </div>
 </template>
