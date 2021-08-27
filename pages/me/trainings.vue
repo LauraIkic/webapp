@@ -30,11 +30,12 @@ export default {
       return this.$store.state.memberCourses
     },
     courses () {
-      return this.$store.state.courses.sort((a, b) => {
-        const ma = this.memberCourses.filter(m => m.course_id === a.id)[0]
-        const mb = this.memberCourses.filter(m => m.course_id === b.id)[0]
-        return ma.is_valid - mb.is_valid
-      })
+      return this.$store.state.courses
+      // return this.$store.state.courses.sort((a, b) => {
+      //   const ma = this.memberCourses.filter(m => m.course_id === a.id)[0]
+      //   const mb = this.memberCourses.filter(m => m.course_id === b.id)[0]
+      //   return ma.is_valid - mb.is_valid
+      // })
     },
     user () {
       return this.$store.state.user

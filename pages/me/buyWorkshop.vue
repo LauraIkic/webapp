@@ -305,7 +305,7 @@ export default {
         use_remaining_credits: this.useRemainingCredits
       }
       this.$store.dispatch('bookWorkshop', data).then((data) => {
-        if (data.success) {
+        if (data.status >= 200 && data.status <= 300) {
           switch (this.paymentMethod) {
             case PAYMENT_METHODS.stripe:
               this.redirect(data)
