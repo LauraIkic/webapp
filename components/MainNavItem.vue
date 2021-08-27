@@ -81,7 +81,7 @@ export default {
           font-size: 2.2rem;
           content: '•';
           left: 5px;
-          top: 14px;
+          top: 23px;
         }
       }
     }

@@ -68,7 +68,7 @@
           :item="item"
         />
         <div class="right-corner">
-          <LanguageInput> </LanguageInput>
+<!--          <LanguageInput> </LanguageInput>-->
           <div
               v-if="!hasAuth"
               class="login-button"
@@ -152,12 +152,12 @@
 </template>
 
 <script charset="utf-8">
-import LanguageInput from './LanguageInput'
+/* import LanguageInput from './LanguageInput' */
 
 export default {
-  components: {
+/*  components: {
     LanguageInput
-  },
+  }, */
   props: ['blok'],
   data () {
     return {
