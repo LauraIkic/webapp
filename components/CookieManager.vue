@@ -10,22 +10,26 @@
           <NuxtLink to="/de/datenschutzerklaerung">Privacy Policy</NuxtLink><br><br>
             <div class="select-buttons">
               <label>
-                <input type="checkbox" name="" />
+                <input type="checkbox" name=""  v-model="necessaryCookie"/>
                 <div class="icon-box">
-                  <i aria-hidden="true"></i>
                   <span></span>
                 </div>Necessary
               </label>
               <label>
-                <input type="checkbox" name="" />
+                <input type="checkbox" name="" v-model="analyticsCookie"/>
                 <div class="icon-box">
                   <i aria-hidden="true"></i>
                 </div><span>Analytics</span>
               </label>
             </div>
           <br><br>
-          <Button class="input-button-primary">Accept all</Button>
-          <Button  class="input-button-primary">Save</Button>
+          <Button class="input-button-primary"
+          @click=selectAll>Accept all</Button>
+          <Button
+              :disabled="!necessaryCookie"
+              class="input-button-primary"
+              @click=setCookiePreferences>Save
+          </Button>
         </div>
       </div>
     </div>
@@ -35,17 +39,29 @@
 <script>
 
 export default {
-  name: 'CookieManager'
+  data: () => ({
+    necessaryCookie: true,
+    analyticsCookie: false
+  }),
+  name: 'CookieManager',
+  methods: {
+    selectAll () {
+      this.necessaryCookie = true
+      this.analyticsCookie = true
+    },
+    setCookiePreferences () {
+      this.$store.dispatch('setNecessaryCookie', this.necessaryCookie)
+      console.log(this.necessaryCookie)
+      this.$store.dispatch('setAnalyticsCookie', this.analyticsCookie)
+      console.log(this.analyticsCookie)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
-.input-button-primary{
-    background-color: grey;
-    border-color: grey;
-}
 .select-buttons label {
   padding: 10px;
   cursor: pointer;
@@ -114,7 +130,7 @@ export default {
     & .box {
       display: flex;
       flex-direction: column;
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.85);
       color: white;
       min-height: 12.5em;
       padding: 4em 5em;

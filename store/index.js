@@ -34,7 +34,9 @@ const createStore = () => {
       fabman: null,
       courses: null,
       memberCourses: null,
-      workshops: null
+      workshops: null,
+      necessaryCookie: false,
+      analyticsCookie: false
     },
     getters: {
       getMemberCourseById: (state) => (id) => {
@@ -73,6 +75,12 @@ const createStore = () => {
       }
     },
     mutations: {
+      setAnalyticsCookie (state, data) {
+        state.analyticsCookie = data
+      },
+      setNecessaryCookie  (state, data) {
+        state.necessaryCookie = data
+      },
       setAuth (state, auth) {
         state.auth = auth
       },
