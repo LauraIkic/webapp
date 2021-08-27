@@ -155,6 +155,10 @@ $grid-breakpoints: (
   box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
 }
 
+.top-header-inner img:hover {
+  filter: invert(1);
+}
+
 // Workshops
 .workshop-button:hover {
   opacity: 0.5;
@@ -218,9 +222,9 @@ $grid-breakpoints: (
 
 .input-button-primary {
   cursor: pointer;
-  background-color: #ff6f00;
+  background-color: $color-secondary;
   color: #FFF;
-  border: 1px solid #ff8c33;
+  border: 1px solid $color-secondary-border;
   padding: 7px 12px 8px;
   line-height: 1;
   outline: none;

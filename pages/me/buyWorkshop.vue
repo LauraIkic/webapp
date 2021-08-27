@@ -299,14 +299,6 @@ export default {
           break
       }
     },
-    // redirect: function (data) {
-    //   // eslint-disable-next-line no-undef
-    //   const stripe = Stripe('pk_live_XCUCaJMt8kMEpedQdvmtMu4Z00rNP9VDun')
-    //   stripe.redirectToCheckout({
-    //     sessionId: data.session_id
-    //   })
-    // },
-
     pay: function () {
       if (this.isFree) {
         this.paymentMethod = PAYMENT_METHODS.free
@@ -339,10 +331,6 @@ export default {
               this.reloadKey++
               break
           }
-
-          this.$toast.show('Der Workshop wurde erfolgreich gebucht!', {
-            className: 'goodToast'
-          })
         })
         .catch((error) => {
           console.log('error', error.response.data)
