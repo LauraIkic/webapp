@@ -4,11 +4,7 @@
     <p class="text">
       {{ $t('memberBenefitsText') }}
       <br>
-      {{ $t('memberPerksText1/3') }}
-      <br><br>
-      {{ $t('memberPerksText2/3') }}
-      <br>
-      {{ $t('memberPerksText3/3') }}
+      {{ $t('memberPerksText') }}
       <br><br>
       {{ $t('ifYouHaveAnyQuestionsRegardingYourMembership') }}
       <br>
