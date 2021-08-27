@@ -3,16 +3,29 @@
     <div class="boxContainer">
       <div class="box">
         <div class="title">
-          COVID-19 INFO ZU DEN WORKSHOPS
+          Manage Cookies
         </div>
         <div class="text">
-          Deine Gesundheit ist uns wichtig. Deshalb finden unsere Workshops nur statt, insofern die aktuellen
-          COVID-Maßnahmen der Bundesregierung dies zum Zeitpunkt der Abhaltung erlauben. Für die Teilnahme bei Workshops
-          gilt: Genesen, Getestet oder Geimpft. Genauere Infos findest du <NuxtLink to="/de/covid">hier</NuxtLink><br><br>
-
-          Sollte es zu einer Absage kommen, werden dir die Workshop-Kosten selbstverständlich rückerstattet.<br><br>
-
-          Wir freuen uns auf dich!
+          Genauere Infos zu unseren Cookies findest du unter
+          <NuxtLink to="/de/datenschutzerklaerung">Privacy Policy</NuxtLink><br><br>
+            <div class="select-buttons">
+              <label>
+                <input type="checkbox" name="" />
+                <div class="icon-box">
+                  <i aria-hidden="true"></i>
+                  <span></span>
+                </div>Necessary
+              </label>
+              <label>
+                <input type="checkbox" name="" />
+                <div class="icon-box">
+                  <i aria-hidden="true"></i>
+                </div><span>Analytics</span>
+              </label>
+            </div>
+          <br><br>
+          <Button class="input-button-primary">Accept all</Button>
+          <Button  class="input-button-primary">Save</Button>
         </div>
       </div>
     </div>
@@ -20,6 +33,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'CookieManager'
 }
@@ -28,29 +42,91 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
-.cookie-manager{
+.input-button-primary{
+    background-color: grey;
+    border-color: grey;
+}
+.select-buttons label {
+  padding: 10px;
+  cursor: pointer;
   display: flex;
+}
+
+.select-buttons label input[type="checkbox"] {
+  display: none;
+}
+
+.select-buttons label .icon-box {
+  position: relative;
+  display: flex;
+  width: 30px;
+  padding: 3px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #353746;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 21px;
+  transition: 0.5s;
+  user-select: none;
+  margin-right: 4vw;
+}
+
+.select-buttons label input[type="checkbox"]:checked ~ .icon-box {
+  background: $color-secondary;
+  background-image: url(assets/img/icons/check.svg);
+  background-size: 20px;
+  background-position: center;
+  color: #fff;
+  background-repeat: no-repeat;
+}
+
+.select-buttons label .icon-box span {
+  margin: 5px;
+  font-size: 18px;
+}
+
+.select-buttons .btn {
+  width: 130px;
+  height: 40px;
+  position: absolute;
+  left: 550px;
+  font-size: 16px;
+  border: 0;
+  outline: none;
+  transition: 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+}
+
+.cookie-manager{
+  height: 50vh;
+  width: 30vw;
+  display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   position: relative;
-  font-family: $font-mono;
+  font-family: "Roboto Mono", monospace;
+  .checkbox{
+    height: 3vh;
+  }
   & .boxContainer {
     & .box {
       display: flex;
       flex-direction: column;
-      background-color: $color-yellow;
-      width: 100vw;
+      background-color: black;
+      color: white;
       min-height: 12.5em;
       padding: 4em 5em;
       margin: 2em;
+      height: 50vh;
+      width:50vw;
       & .title {
         font-size: 1.5em;
         font-weight: bolder;
       }
       & .text {
         margin-top: 1.5em;
-        margin-right: 12em;
         line-height: 1.3em;
         @include media-breakpoint-down(sm) {
           margin-right: 0;
