@@ -7,7 +7,7 @@
       <div class="subline">
         <sb-link :link="blok.link">
           <div class="arrow" />
-          Alle Kurse
+          {{ $t('allCourses') }}
         </sb-link>
       </div>
     </section>

@@ -1,21 +1,20 @@
 <template>
   <div class="blog-best-of">
     <div class="headline">
-      <h1 class="headline-title">BLOG</h1>
-      <a class="link" href="https://grandgarage.eu/de/news/">
+      <h1 class="headline-title">{{ $t('blog')}}</h1>
+      <nuxt-link :to="localePath('/news' +'/ ')">
         <div class="arrow"></div>
-        Zum Blog
-      </a>
+        {{ $t('toBlog') }}
+      </nuxt-link>
     </div>
     <div class="blogItems">
-      <BlogItem :blog="news" v-for="news of newsToDisplay" :key="news.id"/>
+      <BlogItem :blog="news" v-for="news of newsToDisplay" :key="news.id" class="item"/>
     </div>
   </div>
 </template>
 
 <script>
 import BlogItem from './BlogItem'
-
 export default {
   components: {
     BlogItem
@@ -46,7 +45,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
 .blog-best-of {
   background: black;
   margin: 0 -10px;
@@ -54,7 +52,6 @@ export default {
   color: #FFF;
   z-index: 2;
   position: relative;
-
   .headline {
     display: flex;
     flex-direction: row;
@@ -62,7 +59,6 @@ export default {
     align-items: center;
     padding-left: 3vw;
   }
-
   .headline-title {
     font-size: 3rem;
     @include media-breakpoint-down(md) {
@@ -71,10 +67,8 @@ export default {
     font-family: $font-secondary;
     line-height: 1.4;
     letter-spacing: 1.4px;
-
     color: #FFFFFF;
   }
-
   .blogItems {
     display: flex;
     @media (max-width: 1460px) {
@@ -83,7 +77,6 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     padding: 0 5em;
-
   }
 }
 .arrow {
@@ -96,7 +89,6 @@ export default {
   border-top: .1em solid #FFFFFF;
   margin: .25em 1em;
   transition: transform .15s ease-out;
-
   &:after {
     content: "";
     position: absolute;
@@ -110,14 +102,12 @@ export default {
     transform: rotate(45deg);
   }
 }
-
 .link {
   color: white;
   display: block;
   padding-right: 7vw;
   font-size: 1.3rem;
 }
-
 .link:hover {
   .arrow {
     transform: translateX(.5em);

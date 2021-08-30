@@ -2,10 +2,10 @@
   <section class="auth">
     <div v-if="error">
       <div v-if="error.errorDescription == 'verify-mail'">
-        <p>Du musst zuerst deine E-Mail bestätigen um dich anmelden zu können. Eine erneute Bestätigungs E-Mail wurde soeben an deine angegebene E-Mail Adresse gesandt.</p>
+        <p>{{ $t('youHaveToConfirmYourEmailForRegistration') }} {{ $t('anotherVerificationEmailHasBeenSentTo') }}</p>
       </div>
       <div v-else>
-        <p>Ein Fehler ist aufgetreten: <code>{{ error }}</code></p>
+        <p>{{ $t('anErrorHasOccurred') }}<code>{{ error }}</code></p>
       </div>
     </div>
     <div
@@ -35,7 +35,7 @@ export default {
       this.$store.dispatch('auth', { hash }).then((r) => {
         this.$router.push('/me')
       }).catch((err) => {
-        if (err.errorDescription == 'verify-mail') {
+        if (err.errorDescription === 'verify-mail') {
           this.error = err
           this.$router.replace('/auth')
         } else {

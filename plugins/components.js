@@ -82,6 +82,7 @@ import PriceTableItem from '~/components/PriceTableItem.vue'
 import MachinePreview from '~/components/MachinePreview'
 import MakerPreview from '../components/MakerPreview'
 import CookieManager from '../components/CookieManager'
+import LanguageInput from '../components/LanguageInput'
 
 Vue.component('page', Page)
 Vue.component('general-header', GeneralHeader)
@@ -167,3 +168,4 @@ Vue.component('checkbox', Checkbox)
 
 Vue.component('feedback-form', FeedbackForm)
 Vue.component('cookie-manager', CookieManager)
+Vue.component('language-input', LanguageInput)

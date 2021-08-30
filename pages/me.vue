@@ -6,28 +6,28 @@
     </div>
     <div v-if="hasCompletedOnboarding && !hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
       <font-awesome-icon icon="info-circle"/>
-      Offene Sicherheitsschulungen
+      {{ $t('openSafetyTraining') }}
     </div>
     <div class="tab-section">
       <div class="tab-section-menu">
-        <MenuLink to="/me/" icon="user">Mein Profil</MenuLink>
-        <MenuLink v-if="isMember" to="/me/packages" icon="cube">Packages</MenuLink>
+        <MenuLink to="/me/" icon="user">{{ $t('myProfile') }}</MenuLink>
+        <MenuLink v-if="isMember" to="/me/packages" icon="cube">{{ $t('packages') }}</MenuLink>
         <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
-            class="fat">Jetzt Mitglied werden!</span></MenuLink>
+            class="fat">{{ $t('joinNow') }}</span></MenuLink>
           <MenuLink v-if="hasCompletedOnboarding" to="/me/trainings" icon="graduation-cap" style="color: white !important;">
-            <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> Unterweisungen
+            <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> {{ $t('trainings') }}
           </MenuLink>
-        <MenuLink to="/me/workshopBookings" icon="hammer">Meine Workshops</MenuLink>
+        <MenuLink to="/me/workshopBookings" icon="hammer">{{ $t('myWorkshops') }}</MenuLink>
         <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
-        <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">Rechnungen
+        <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">{{ $t('invoices') }}
         </MenuLink>
-        <MenuLink to="/me/activities" icon="running">Aktivitäten</MenuLink>
-        <MenuLink to="/me/giftcards" icon="gift">Gutscheine</MenuLink>
+        <MenuLink to="/me/activities" icon="running">{{ $t('activities') }}</MenuLink>
+        <MenuLink to="/me/giftcards" icon="gift">{{ $t('giftCard') }}</MenuLink>
         <transition name="slide">
           <div class="submenu" v-if="$route.name.startsWith('me-giftcards')">
-            <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">Gutschein kaufen
+            <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">{{ $t('buyGiftCard') }}
             </MenuLink>
-            <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">Gutschein einlösen
+            <MenuLink :isActive="$route.query.action === 'redeem'" to="/me/giftcards?action=redeem">{{ $t('redeemGiftCard') }}
             </MenuLink>
           </div>
         </transition>
