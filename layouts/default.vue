@@ -2,18 +2,20 @@
   <div style="overflow: hidden">
         <CookieManager v-if="modalVisible" @close="modalVisible = false" icon="exclamation-triangle">
         </CookieManager>
-    <div class="login-spacer" v-if="isAuthenticated"></div>
-    <div class="layout-container">
-      <top-header/>
-      <main id="main" role="main">
-      <nuxt/>
-      </main>
-      <bottom-footer/>
-      <sidebar />
-      <notifications position="bottom right" />
-      <!--
-        <breadcrumbs />
-      -->
+      <div class="login-spacer" v-if="isAuthenticated"></div>
+      <div class="layout-container">
+        <top-header/>
+        <div v-if="!modalVisible">
+        <main id="main" role="main">
+          <nuxt/>
+        </main>
+        <bottom-footer/>
+        <sidebar />
+        <notifications position="bottom right" />
+        <!--
+          <breadcrumbs />
+        -->
+      </div>
     </div>
 
   </div>
@@ -44,6 +46,14 @@ export default {
     const hasSeenPopup = sessionStorage.getItem('hasSeenPopup')
     if (!hasSeenPopup) {
       this.modalVisible = true
+    }
+    const hasAcceptedNecessaryCookie = sessionStorage.getItem('hasAcceptedNecessaryCookie')
+    if (hasAcceptedNecessaryCookie) {
+      this.$store.commit('setNecessaryCookie', 'true')
+    }
+    const hasAcceptedAnalyticsCookie = sessionStorage.getItem('hasAcceptedAnalyticsCookie')
+    if (hasAcceptedAnalyticsCookie) {
+      this.$store.commit('setAnalyticsCookie', 'true')
     }
   }
 }

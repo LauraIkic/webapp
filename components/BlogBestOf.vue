@@ -48,13 +48,7 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .blog-best-of {
-  background: repeating-linear-gradient(
-          45deg,
-          rgba(0, 0, 0, 0.85),
-          rgba(0, 0, 0, 0.85) 70px,
-          rgba(0, 0, 0, 1) 70px,
-          rgba(0, 0, 0, 1) 140px
-  );
+  background: black;
   margin: 0 -10px;
   padding: 30px;
   color: #FFF;

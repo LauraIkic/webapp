@@ -29,7 +29,8 @@
           <Button
               :disabled="!necessaryCookie"
               class="input-button-primary"
-              @click="close" >Save
+              @click="setCookiePreferences"
+          >Save
           </Button>
         </div>
       </div>
@@ -52,19 +53,17 @@ export default {
       this.analyticsCookie = true
     },
     setCookiePreferences () {
-      this.$store.dispatch('setNecessaryCookie', this.necessaryCookie)
+      this.$store.commit('setNecessaryCookie', this.necessaryCookie)
+      this.$store.commit('setAnalyticsCookie', this.analyticsCookie)
+      sessionStorage.setItem('hasAcceptedNecessaryCookie', this.necessaryCookie)
+      sessionStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
       console.log(this.necessaryCookie)
-      this.$store.dispatch('setAnalyticsCookie', this.analyticsCookie)
-      console.log(this.analyticsCookie)
+      this.close()
     },
     close () {
       this.$emit('close')
       sessionStorage.setItem('hasSeenPopup', 'true')
-      window.removeEventListener('scroll', this.handleScroll)
     }
-  },
-  mounted () {
-    window.addEventListener('scroll', this.close)
   }
 }
 </script>
@@ -153,7 +152,7 @@ export default {
       min-height: 12.5em;
       padding: 4em 5em;
       margin: 2em;
-      height: 50vh;
+      height: 40vh;
       width:50vw;
       border: 2px solid #313130;
       border-radius: 25px;
