@@ -71,25 +71,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
-.cookie-manager{
-  z-index: 1001;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: repeating-linear-gradient(
-          45deg,
-          rgba(0, 0, 0, 0.3),
-          rgba(0, 0, 0, 0.3) 70px,
-          rgba(0, 0, 0, 0.8) 70px,
-          rgba(0, 0, 0, 0.8) 140px
-  );
-.box{
-    z-index: 500000000;
-  }}
 .select-buttons label {
   padding: 10px;
   cursor: pointer;
@@ -142,13 +123,20 @@ export default {
 }
 
 .cookie-manager{
-  height: 50vh;
-  width: 30vw;
+  background: repeating-linear-gradient(
+          45deg,
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.3) 70px,
+          rgba(0, 0, 0, 0.8) 70px,
+          rgba(0, 0, 0, 0.8) 140px
+  );
+  z-index: 1001;
+  width: 100vw !important;
+  height: 100vh !important;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
   position: relative;
   font-family: "Roboto Mono", monospace;
   .checkbox{
@@ -158,13 +146,17 @@ export default {
     & .box {
       display: flex;
       flex-direction: column;
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: #191919;
+      position: relative;
+      z-index: 1000000000;
       color: white;
       min-height: 12.5em;
       padding: 4em 5em;
       margin: 2em;
       height: 50vh;
       width:50vw;
+      border: 2px solid #313130;
+      border-radius: 25px;
       & .title {
         font-size: 1.5em;
         font-weight: bolder;

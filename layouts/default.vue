@@ -1,6 +1,7 @@
 <template>
   <div style="overflow: hidden">
-    <CookieManager ></CookieManager>
+        <CookieManager v-if="modalVisible" @close="modalVisible = false" icon="exclamation-triangle">
+        </CookieManager>
     <div class="login-spacer" v-if="isAuthenticated"></div>
     <div class="layout-container">
       <top-header/>
@@ -14,11 +15,7 @@
         <breadcrumbs />
       -->
     </div>
-    <Modal title="Covid Info" icon="exclamation-triangle">
-    Momentan findet der Memberbetrieb nur eingeschränkt und
-    unter Einhaltung der erforderlichen COVID-Schutzmaßnahmen statt.
-    Klick <NuxtLink to="de/covid">hier</NuxtLink> um alle aktuellen Infos und Maßnahmen nachzulesen.<br>#staysafe
-  </Modal>
+
   </div>
 </template>
 
@@ -27,18 +24,16 @@ import TopHeader from '~/components/TopHeader.vue'
 import BottomFooter from '~/components/BottomFooter.vue'
 import Sidebar from '~/components/Sidebar.vue'
 import CookieManager from '../components/CookieManager'
-import Modal from '../components/Modal'
 
 export default {
   data: () => ({
     modalVisible: false
   }),
   components: {
-    CookieManager,
     TopHeader,
     BottomFooter,
     Sidebar,
-    Modal
+    CookieManager
   },
   computed: {
     isAuthenticated () {
