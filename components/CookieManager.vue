@@ -4,34 +4,37 @@
     <div class="boxContainer">
       <div class="box">
         <div class="title">
-          Manage Cookies
+          {{ $t('manageCookies') }}
         </div>
         <div class="text">
-          Genauere Infos zu unseren Cookies findest du unter
-          <NuxtLink to="/de/datenschutzerklaerung">Privacy Policy</NuxtLink><br><br>
+          {{ $t('cookiesDescription') }}<br><br>
             <div class="select-buttons">
               <label>
                 <input type="checkbox" name=""  v-model="necessaryCookie"/>
                 <div class="icon-box">
                   <span></span>
-                </div>Necessary
+                </div>{{ $t('necessaryCookies') }}
               </label>
               <label>
                 <input type="checkbox" name="" v-model="analyticsCookie"/>
                 <div class="icon-box">
                   <i aria-hidden="true"></i>
-                </div><span>Analytics</span>
+                </div><span>{{ $t('analyticsCookies') }}</span>
               </label>
             </div>
           <br><br>
-          <Button class="input-button-primary"
-          @click=selectAll>Accept all</Button>
-          <Button
-              :disabled="!necessaryCookie"
-              class="input-button-primary"
-              @click="setCookiePreferences"
-          >Save
-          </Button>
+          <div>{{ $t('findOutMoreAboutCookies') }} <NuxtLink to="/de/datenschutzerklaerung">{{ $t('here') }}</NuxtLink></div>
+          <br>
+          <div class="confirm-buttons">
+            <Button class="input-button-primary"
+                    @click=selectAll> {{ $t('selectAll') }}</Button>
+            <Button
+                :disabled="!necessaryCookie"
+                class="input-button-primary"
+                @click="setCookiePreferences"
+            >    {{ $t('save') }}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -133,10 +136,10 @@ export default {
   width: 100vw !important;
   height: 100vh !important;
   display: flex;
+  position:absolute;
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  position: relative;
   font-family: "Roboto Mono", monospace;
   .checkbox{
     height: 3vh;
@@ -152,8 +155,8 @@ export default {
       min-height: 12.5em;
       padding: 4em 5em;
       margin: 2em;
-      height: 40vh;
-      width:50vw;
+      height: 45vh;
+      width:43vw;
       border: 2px solid #313130;
       border-radius: 25px;
       & .title {
@@ -166,6 +169,17 @@ export default {
         @include media-breakpoint-down(sm) {
           margin-right: 0;
         }
+      }
+    }
+    .confirm-buttons{
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      .input-button-primary{
+        width:12vw;
+        height: 3.5vh;
+        border-radius: 3px;
+        font-size:1.5rem;
       }
     }
   }

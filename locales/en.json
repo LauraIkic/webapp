@@ -269,5 +269,12 @@
   "howWouldYouPreferToPay": "How would you prefer to pay?",
   "iban": "IBAN",
   "bankName": "Bank name",
-  "sepaAgreementFormText": "My membership fee and any resulting additional costs will be deducted from my bank account via a sepa-debit order."
+  "sepaAgreementFormText": "My membership fee and any resulting additional costs will be deducted from my bank account via a sepa-debit order.",
+
+  "manageCookies": "This website uses cookies",
+  "cookiesDescription": "We use cookies to improve your user experience. By using our website you consent to following cookies.",
+  "findOutMoreAboutCookies": "If you want to know more about our cookie police you can read more about it",
+  "selectAll": "Select all",
+  "necessaryCookies": "Necessary cookies",
+  "analyticsCookies": "Analytics cookies"
 }

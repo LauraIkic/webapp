@@ -4,20 +4,17 @@
         </CookieManager>
       <div class="login-spacer" v-if="isAuthenticated"></div>
       <div class="layout-container">
-        <top-header/>
-        <div v-if="!modalVisible">
+        <top-header/><div v-if="!modalVisible">
         <main id="main" role="main">
           <nuxt/>
-        </main>
+        </main> </div>
         <bottom-footer/>
-        <sidebar />
+        <sidebar/>
         <notifications position="bottom right" />
         <!--
           <breadcrumbs />
         -->
-      </div>
     </div>
-
   </div>
 </template>
 

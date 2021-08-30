@@ -268,6 +268,13 @@
   "howWouldYouPreferToPay": "Wie möchtest du zahlen?",
   "iban": "IBAN",
   "bankName": "Name der Bank",
-  "sepaAgreementFormText":"Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben."
+  "sepaAgreementFormText":"Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.",
+
+  "manageCookies": "Wir verwenden Cookies!",
+  "cookiesDescription": "Wir verwenden Cookies um dir eine optimales Webseiten-Erlebnis zu ermöglischen. Wenn du unsere Webseite verwendest stimmt du der Verwendung folgender Cookies zu.",
+  "findOutMoreAboutCookies": "Mehr Infos zu unseren Datenschutzrichtlinien findest du",
+  "selectAll": "Alle auswählen",
+  "necessaryCookies": "Notwendige Cookies",
+  "analyticsCookies": "Analytische Cookies"
 
 }
