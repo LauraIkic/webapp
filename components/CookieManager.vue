@@ -192,7 +192,7 @@ export default {
           font-size: 1.5em;
         }
         .select-buttons {
-          margin-left: 20%;
+          margin-left: 18%;
           margin-top: 5%;
         }
         .select-buttons label{
@@ -224,8 +224,12 @@ export default {
         height: 4.5vh;
         border-radius: 3px;
         font-size: 1.5rem;
+        @include media-breakpoint-down(lg) {
+          height: 7vh;
+          width: 17vw;
+        }
         @include media-breakpoint-down(md) {
-          width: 33vw;
+          width: 30vw;
         }
         @include media-breakpoint-down(xs) {
           width: 33vw;
