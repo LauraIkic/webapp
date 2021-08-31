@@ -1,20 +1,21 @@
 <template>
   <div style="overflow: hidden">
-        <CookieManager v-if="modalVisible" @close="modalVisible = false" icon="exclamation-triangle">
-        </CookieManager>
-      <div class="login-spacer" v-if="isAuthenticated"></div>
-      <div class="layout-container">
-        <top-header/><div v-if="!modalVisible">
-        <main id="main" role="main">
-          <nuxt/>
-        </main> </div>
-        <bottom-footer/>
-        <sidebar/>
-        <notifications position="bottom right" />
-        <!--
-          <breadcrumbs />
-        -->
+    <CookieManager v-if="modalVisible" @close="modalVisible = false" icon="exclamation-triangle">
+    </CookieManager>
+    <div class="login-spacer" v-if="isAuthenticated"></div>
+    <div class="layout-container">
+      <top-header/><div v-if="this.$route.path ==='/de/datenschutzerklaerung' || !modalVisible">
+      <main id="main" role="main">
+        <nuxt/>
+      </main></div>
+      <bottom-footer/>
+      <sidebar />
+      <notifications position="bottom right" />
+      <!--
+        <breadcrumbs />
+      -->
     </div>
+
   </div>
 </template>
 

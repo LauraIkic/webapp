@@ -1,13 +1,13 @@
 <template>
   <transition name="fade">
-  <div class="cookie-manager">
-    <div class="boxContainer">
-      <div class="box">
-        <div class="title">
-          {{ $t('manageCookies') }}
-        </div>
-        <div class="text">
-          {{ $t('cookiesDescription') }}<br><br>
+    <div class="cookie-manager" v-if="this.$route.path !='/de/datenschutzerklaerung'">
+      <div class="boxContainer">
+        <div class="box">
+          <div class="title">
+            {{ $t('manageCookies') }}
+          </div>
+          <div class="text">
+            {{ $t('cookiesDescription') }}<br><br>
             <div class="select-buttons">
               <label>
                 <input type="checkbox" name=""  v-model="necessaryCookie"/>
@@ -22,23 +22,23 @@
                 </div><span>{{ $t('analyticsCookies') }}</span>
               </label>
             </div>
-          <br><br>
-          <div>{{ $t('findOutMoreAboutCookies') }} <NuxtLink to="/de/datenschutzerklaerung">{{ $t('here') }}</NuxtLink></div>
-          <br>
-          <div class="confirm-buttons">
-            <Button class="input-button-primary"
-                    @click=selectAll> {{ $t('selectAll') }}</Button>
-            <Button
-                :disabled="!necessaryCookie"
-                class="input-button-primary"
-                @click="setCookiePreferences"
-            >    {{ $t('save') }}
-            </Button>
+            <br><br>
+            <div>{{ $t('findOutMoreAboutCookies') }} <NuxtLink to="/de/datenschutzerklaerung">{{ $t('here') }}</NuxtLink></div>
+            <br>
+            <div class="confirm-buttons">
+              <Button class="input-button-primary"
+                      @click=selectAll> {{ $t('selectAll') }}</Button>
+              <Button
+                  :disabled="!necessaryCookie"
+                  class="input-button-primary"
+                  @click="setCookiePreferences"
+              >    {{ $t('save') }}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </transition>
 </template>
 
@@ -73,10 +73,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
+.select-buttons{
+  display:flex;
+  flex-flow: column;
+  align-items: flex-start;
+  margin-left: 20%;
+}
 .select-buttons label {
   padding: 10px;
   cursor: pointer;
   display: flex;
+  width: 23vw;
 }
 
 .select-buttons label input[type="checkbox"] {
@@ -96,7 +103,7 @@ export default {
   font-size: 21px;
   transition: 0.5s;
   user-select: none;
-  margin-right: 4vw;
+  margin-right: 10%;
 }
 
 .select-buttons label input[type="checkbox"]:checked ~ .icon-box {
@@ -155,13 +162,14 @@ export default {
       min-height: 12.5em;
       padding: 4em 5em;
       margin: 2em;
-      height: 45vh;
-      width:43vw;
-      border: 2px solid #313130;
+      width:55vw;
+      border: 2px solid #ccccccb0;
       border-radius: 25px;
       & .title {
-        font-size: 1.5em;
+        font-size: 1.9em;
         font-weight: bolder;
+        text-transform: uppercase;
+        align-self: center;
       }
       & .text {
         margin-top: 1.5em;
@@ -170,16 +178,60 @@ export default {
           margin-right: 0;
         }
       }
+
+      @include media-breakpoint-down(md) {
+        min-heihgt: auto;
+        margin: auto;
+        width: auto;
+        padding: 2em 2em;
+        height: 35em;
+        margin-top: 10vw;
+        margin-left: 8%;
+        margin-right: 8%;
+        .title {
+          font-size: 1.5em;
+        }
+        .select-buttons {
+          margin-left: 20%;
+          margin-top: 5%;
+        }
+        .select-buttons label{
+          width: 100%;
+        }
+      }
+      @include media-breakpoint-down(xs) {
+        margin-top: 48vw;
+        height: 39em;
+        margin-left: 2%;
+        margin-right: 2%;
+        .title {
+          font-size: 1.3em;
+        }
+        .select-buttons {
+          margin:0%;
+        }
+      }
     }
-    .confirm-buttons{
+
+    .confirm-buttons {
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      .input-button-primary{
-        width:12vw;
-        height: 3.5vh;
+      margin-top: 6%;
+
+      .input-button-primary {
+        width: 17vw;
+        height: 4.5vh;
         border-radius: 3px;
-        font-size:1.5rem;
+        font-size: 1.5rem;
+        @include media-breakpoint-down(md) {
+          width: 33vw;
+        }
+        @include media-breakpoint-down(xs) {
+          width: 33vw;
+          height: 7.9vh;
+          font-size: 1.1em;
+        }
       }
     }
   }
