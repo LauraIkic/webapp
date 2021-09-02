@@ -138,7 +138,8 @@ export default {
           return !!requiredKeys.filter(k => !data.profile[k]).length
         }
         case 'payment':
-          return !(data.ibanIsValid && data.payment.bank && data.sepaAccepted && data.paymentFrequency)
+          return !(data.ibanIsValid && data.sepaAccepted && data.paymentFrequency)
+          // && data.payment.bank
         default:
           return false
       }
