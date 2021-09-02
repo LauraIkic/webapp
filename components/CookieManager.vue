@@ -7,7 +7,7 @@
             {{ $t('manageCookies') }}
           </div>
           <div class="text">
-            {{ $t('cookiesDescription') }}<br><br>
+            {{ $t('cookiesDescription') }}<NuxtLink to="/de/datenschutzerklaerung">{{ $t('dataPrivacyPolicy') }}</NuxtLink>.<br><br>
             <div class="select-buttons">
               <label>
                 <input type="checkbox" name=""  v-model="necessaryCookie"/>
@@ -23,7 +23,9 @@
               </label>
             </div>
             <br><br>
-            <div>{{ $t('findOutMoreAboutCookies') }} <NuxtLink to="/de/datenschutzerklaerung">{{ $t('here') }}</NuxtLink></div>
+            <div>
+<!--              {{ $t('adjustCookiePreferences') }} <NuxtLink to="/de/datenschutzerklaerung">{{ $t('cookieSettings') }}</NuxtLink>-->
+            </div>
             <br>
             <div class="confirm-buttons">
               <Button class="input-button-primary"
@@ -201,7 +203,7 @@ export default {
       }
       @include media-breakpoint-down(xs) {
         margin-top: 48vw;
-        height: 39em;
+        height: auto;
         margin-left: 2%;
         margin-right: 2%;
         .title {
