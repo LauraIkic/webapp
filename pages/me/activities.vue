@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Meine Aktivitäten</h2>
+    <h2>{{ $t('myActivities') }}</h2>
     <loading-spinner
       v-if="!activities"
       color="#333"
@@ -32,7 +32,7 @@
               class="info"
             >
               <template>
-                <span class="link">Rechnung #{{ activity.invoice_human_readable_id }}</span>
+                <span class="link">{{ $t('invoice') }} #{{ activity.invoice_human_readable_id }}</span>
                 <div class="icon">
                   <font-awesome-icon icon="link" />
                 </div>

@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss">
-    @import '@/assets/scss/styles.scss';
+    @import '/assets/scss/styles.scss';
 
     .voting-button {
       cursor: pointer;

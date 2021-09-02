@@ -4,9 +4,9 @@
       <img class="image" :src="$resizeImage(story.content.image, '1600x0')">
       <div class="team">
         <div class="headline">
-          Die
-          <span class="strike">Maschinen</span>
-          <br>Menschen dahinter
+          {{ $t('the') }}
+          <span class="strike"> {{ $t('machines') }}</span>
+          <br> {{ $t('peopleBehind') }}
         </div>
         <div class="subline">
           <markdown :value="story.content.introduction"></markdown>

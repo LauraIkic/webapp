@@ -15,20 +15,20 @@
     >
       <div v-if="resource.state === 'active'">
         <div v-if="resource.offline">
-          offline
+          {{ $t( "offline" ) }}
         </div>
         <div v-else-if="resource.inUse">
-          in Verwendung
+          {{ $t( "inUse" ) }}
         </div>
         <div v-else>
-          Verfügbar
+          {{ $t( "available" ) }}
         </div>
       </div>
       <div
         v-else-if="resource.state === 'locked'"
         :title="resource.maintenanceNotes"
       >
-        out of order
+        {{ $t( "outOfOrder" ) }}
       </div>
       <div v-else>
         {{ resource.state }}
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .machine-status {
   padding: 10px;

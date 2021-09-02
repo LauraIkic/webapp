@@ -32,6 +32,7 @@
     "moment": "^2.24.0",
     "node-sass": "^6.0.0",
     "nuxt": "^2.10.0",
+    "nuxt-i18n": "^6.28.1",
     "querystring": "^0.2.0",
     "reveal": "^0.0.4",
     "reveal.js": "^4.0.2",

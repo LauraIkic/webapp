@@ -4,8 +4,7 @@
       <div class="workshop-preview">
         <nuxt-link
           class="story"
-          :to="story.full_slug"
-        >
+          :to="story.full_slug">
           <div
             class="banner"
             :style="{ 'background-image': 'url(' + $resizeImage(workshop.image, '700x0') + ')' }"

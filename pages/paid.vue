@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    Kauf abgeschlossen. Die Rechnung und eine Bestätigung erhältst du per Mail.
+    {{ $t('purchaseCompleted') }}  {{ $t('receiptAndConfirmationViaMail') }}
   </div>
 </template>
 

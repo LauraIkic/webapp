@@ -1,5 +1,5 @@
 export default {
-  mounted() {
+  mounted () {
     this.$storyblok.init()
     this.$storyblok.on(['published', 'change'], (event) => {
       if (!event.slugChanged) {

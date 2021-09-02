@@ -21,14 +21,14 @@
       </svg>
     </div>
     <h3 class="headline">
-      Next Step: Emails checken!
+      {{ $t('checkEmails') }}
     </h3>
     <div class="info">
-      <p>Wir haben dir eine Mail mit einem Bestätigungslink geschickt.</p>
-      <p>Wenn du deinen Account bestätigt hast kannst du voll durchstarten.</p>
+      <p> {{ $t('sentConfirmationLink') }}</p>
+      <p>{{ $t('onceAccountConfirmed') }}</p>
     </div>
     <button @click="close">
-      Schließen
+      {{ $t('close') }}
     </button>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
+@import "/assets/scss/styles.scss";
 
 .register-success-form {
   margin: 0 -10px;

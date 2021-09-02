@@ -81,6 +81,7 @@ import PriceTable from '~/components/PriceTable.vue'
 import PriceTableItem from '~/components/PriceTableItem.vue'
 import MachinePreview from '~/components/MachinePreview'
 import MakerPreview from '../components/MakerPreview'
+import LanguageInput from '../components/LanguageInput'
 
 Vue.component('page', Page)
 Vue.component('general-header', GeneralHeader)
@@ -165,3 +166,4 @@ Vue.component('loading-spinner', LoadingSpinner)
 Vue.component('checkbox', Checkbox)
 
 Vue.component('feedback-form', FeedbackForm)
+Vue.component('language-input', LanguageInput)

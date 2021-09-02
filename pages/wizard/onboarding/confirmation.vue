@@ -1,10 +1,9 @@
 <template>
   <div class="section">
     <div style="margin-top: 2em;"><img width="80px" src="~/assets/img/icons/fireworks.svg" class="decorator"></div>
-    <h2 style="margin: 0;">Gratulation!</h2>
+    <h2 style="margin: 0;">{{ $t('congrats') }}</h2>
     <p class="text">
-      Der erste Schritt zum GRAND GARAGE Membership ist geschafft!<br>
-      Um deine Mitgliedschaft abzuschließen kannst du jetzt die allgemeine Sicherheitsunterweisung abschließen.
+      {{ $t('youMadeTheFirstStepsTowardsBecomingA-GG-Member') }}<br>{{ $t('toCompleteOnboardingStartSafetyTraining') }}
     </p>
   </div>
 </template>
