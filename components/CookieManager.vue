@@ -7,24 +7,22 @@
             {{ $t('manageCookies') }}
           </div>
           <div class="text">
-            {{ $t('cookiesDescription') }}<NuxtLink to="/de/datenschutzerklaerung">{{ $t('dataPrivacyPolicy') }}</NuxtLink>.<br><br>
+            {{ $t('cookiesDescription') }}<NuxtLink to="/de/datenschutzerklaerung">{{ $t('dataPrivacyPolicy') }}</NuxtLink>.<br><br><br>
             <div class="select-buttons">
               <label>
                 <input type="checkbox" name=""  v-model="necessaryCookie"/>
                 <div class="icon-box">
-                  <span></span>
-                </div>{{ $t('necessaryCookies') }}
+                </div><div class="cookie-name">{{ $t('necessaryCookies') }}</div>
               </label>
               <label>
                 <input type="checkbox" name="" v-model="analyticsCookie"/>
                 <div class="icon-box">
-                  <i aria-hidden="true"></i>
-                </div><span>{{ $t('analyticsCookies') }}</span>
+                </div><div class="cookie-name">{{ $t('analyticsCookies') }}</div>
               </label>
             </div>
             <br><br>
             <div>
-<!--              {{ $t('adjustCookiePreferences') }} <NuxtLink to="/de/datenschutzerklaerung">{{ $t('cookieSettings') }}</NuxtLink>-->
+              {{ $t('adjustCookiePreferences') }}
             </div>
             <br>
             <div class="confirm-buttons">
@@ -95,7 +93,8 @@ export default {
 .select-buttons label .icon-box {
   position: relative;
   display: flex;
-  width: 30px;
+  width: 60px;
+  height: 35px;
   padding: 3px;
   flex-direction: column;
   align-items: center;
@@ -107,7 +106,10 @@ export default {
   user-select: none;
   margin-right: 10%;
 }
-
+.cookie-name {
+  display:flex;
+  align-items: center;
+}
 .select-buttons label input[type="checkbox"]:checked ~ .icon-box {
   background: $color-secondary;
   background-image: url(assets/img/icons/check.svg);
@@ -164,7 +166,7 @@ export default {
       min-height: 12.5em;
       padding: 4em 5em;
       margin: 2em;
-      width:55vw;
+      width:40vw;
       border: 2px solid #ccccccb0;
       border-radius: 25px;
       & .title {
@@ -181,13 +183,13 @@ export default {
         }
       }
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
         min-heihgt: auto;
         margin: auto;
         width: auto;
         padding: 2em 2em;
-        height: 35em;
-        margin-top: 10vw;
+        height: auto;
+        margin-top: 5vw;
         margin-left: 8%;
         margin-right: 8%;
         .title {
@@ -202,7 +204,7 @@ export default {
         }
       }
       @include media-breakpoint-down(xs) {
-        margin-top: 48vw;
+        margin-top: 85vw;
         height: auto;
         margin-left: 2%;
         margin-right: 2%;
@@ -222,15 +224,12 @@ export default {
       margin-top: 6%;
 
       .input-button-primary {
-        width: 17vw;
+        width: 12vw;
         height: 4.5vh;
         border-radius: 3px;
         font-size: 1.5rem;
+
         @include media-breakpoint-down(lg) {
-          height: 7vh;
-          width: 17vw;
-        }
-        @include media-breakpoint-down(md) {
           width: 30vw;
         }
         @include media-breakpoint-down(xs) {

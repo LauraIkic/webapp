@@ -272,10 +272,9 @@
 
   "manageCookies": "Wir verwenden Cookies!",
   "cookiesDescription": "Diese Internetseite verwendet Cookies sowie Google Analytics, darunter auch \"Third Party Cookies\",  für die Analyse und Statistik. Wir nutzen Cookies zu unterschiedlichen Zwecken, unter anderem zur Analyse und für personalisierte Marketing-Mitteilungen. Details zu den Cookies entnehmen Sie unserer ",
-  "adjustCookiePreferences": "Wollen Sie keine oder nur der Setzung einzelner Cookies zustimmen, dann klicken Sie bitte auf",
   "cookieSettings": "Cookie-Einstellungen",
   "selectAll": "Alle auswählen",
   "necessaryCookies": "Notwendige Cookies",
-  "analyticsCookies": "Analytische Cookies"
-
+  "analyticsCookies": "Analytische Cookies",
+  "adjustCookiePreferences": "Sie können jederzeit Ihre Einwilligung widerrufen - dafür gehen Sie in Ihrem Browser zu den \"Cookie-Einstellungen\"."
 }
