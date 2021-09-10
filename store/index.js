@@ -179,6 +179,9 @@ const createStore = () => {
       checkout ({ state }, data) {
         return connector.post('/member/checkout', data)
       },
+      workshopStorno ({ state }, data) {
+        return connector.post('/member/workshopStorno', data)
+      },
       async getCredits ({ state }) {
         const res = await connector.get('/member/getCredits')
         return res.data

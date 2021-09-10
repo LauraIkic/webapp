@@ -15,6 +15,12 @@
           :key="workshopDate.content.workshop.uuid"
           class="preview"
         />
+        <button
+            class="input-button-primary"
+            @click="storno(workshopDate)"
+        >
+          Diesen Workshop stornieren
+        </button>
         <workshop-dates
           :dates="[workshopDate]"
           class="workshop-dates"
@@ -33,7 +39,8 @@ export default {
   middleware: 'authenticated',
   data () {
     return {
-      bookings: []
+      bookings: [],
+      error: null
     }
   },
   computed: {},
@@ -46,7 +53,29 @@ export default {
       })
     })
   },
-  methods: {}
+  methods: {
+    storno: function (workshopDate) {
+      const data = {
+        workshop_date_id: workshopDate.uuid
+      }
+      if (confirm('Workshop ' + workshopDate.content.workshop.name + ' wirklich stornieren?')) {
+        this.$store.dispatch('workshopStorno', data).then((data) => {
+          if (data.status >= 200 && data.status <= 300) {
+            this.$toast.show('Der Workshop wurde erfolgreich storniert!', {
+              className: 'goodToast'
+            })
+          } else {
+            if (data.status >= 400 && data.status < 500) {
+              //  TODO get some kind of messages.
+            } else {
+              this.$sentry.captureException(new Error(data))
+              this.error = 'Leider ist ein Fehler aufgetreten.'
+            }
+          }
+        })
+      }
+    }
+  }
 }
 </script>
 
