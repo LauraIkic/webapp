@@ -117,7 +117,6 @@ export default {
         sepaAccepted: false,
         payment: {
           iban: null
-          // bank: null
         },
         ibanIsValid: false,
         referrer: ''
@@ -139,7 +138,6 @@ export default {
         }
         case 'payment':
           return !(data.ibanIsValid && data.sepaAccepted && data.paymentFrequency)
-          // && data.payment.bank
         default:
           return false
       }

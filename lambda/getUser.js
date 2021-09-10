@@ -48,7 +48,6 @@ exports.handler = function (event, context, callback) {
       })
 
       const payment = { iban: '' }
-      // bank: ''
       const profile = instance.get(`members/${fabmanId}`).then((r) => {
         return {
           firstName: r.data.firstName,
