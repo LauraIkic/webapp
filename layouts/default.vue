@@ -45,6 +45,8 @@ export default {
     if (!hasSeenPopup) {
       this.modalVisible = true
     }
+    const locale = this.$route.fullPath.slice(1, 3)
+    this.$store.dispatch('setLanguage', locale)
   }
 }
 </script>

@@ -29,7 +29,7 @@
     <div class="membership-details">
       <div class="payment-options">
         <div class="payment-options-title">
-          Zahlungsintervall:
+          {{ $t( "paymentInterval" ) }}
         </div>
         <div class="pricetabs">
           <div
@@ -37,14 +37,14 @@
             :class="(priceView == 'monthly' ? 'active' : '')"
             @click="setPriceView('monthly')"
           >
-            monatlich
+            {{ $t( "monthly" ) }}
           </div>
           <div
             class="pricetab"
             :class="(priceView == 'annually' ? 'active' : '')"
             @click="setPriceView('annually')"
           >
-            jährlich
+            {{ $t( "yearly" ) }}
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@
         class="register-button"
       >
         <button @click="register">
-          Jetzt registrieren
+          {{ $t( "registerNow" ) }}
         </button>
       </div>
       <div
@@ -70,7 +70,7 @@
         class="register-button"
       >
         <button @click="$router.push('/wizard/onboarding')">
-          Jetzt Mitglied werden
+          {{ $t( "joinNow" ) }}
         </button>
       </div>
       <div

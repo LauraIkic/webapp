@@ -1,0 +1,273 @@
+{
+  "home": "home",
+
+  "innovationFactory": "Innovationswerkstatt für Menschen, Wissen und Technologie",
+  "stayInTouch": "Immer am Ball bleiben",
+  "signUp":"Zum Newsletter anmelden",
+
+  "grandGarage": " GRAND GARAGE",
+
+  "completed": "Abgeschlossen",
+  "startQuiz": "Quiz starten",
+
+  "covidInfoTitle": "COVID-19 INFO ZU DEN WORKSHOPS",
+  "covidInfoText": "  Deine Gesundheit ist uns wichtig. Deshalb finden unsere Workshops nur statt, insofern die aktuellen COVID-Maßnahmen der Bundesregierung dies zum Zeitpunkt der Abhaltung erlauben. Für die Teilnahme bei Workshops gilt: Genesen, Getestet oder Geimpft. Genauere Infos findest du",
+  "here": "hier",
+  "workShopCostRefund":"Sollte es zu einer Absage kommen, werden dir die Workshop-Kosten selbstverständlich rückerstattet.",
+  "weAreLookingForward": "Wir freuen uns auf dich!",
+  "searchForWorkshopsAndEvents": "Workshops und Events suchen",
+  "theOrganizer": "Zum Veranstalter",
+  "toRegistration": "Zur Anmeldung",
+  "currentOccupancyRate": "aktuelle Auslastung:",
+  "price": "Preis:",
+  "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " Für die Buchung eines Workshops musst du registriert und eingeloggt sein.",
+  "thankYou": "Danke!",
+  "until": "bis",
+  "oClock": "Uhr",
+
+  "downloads": "Downloads",
+
+  "loading": " Loading...",
+  "thankYouForFeedback": "Danke für dein Feedback!",
+  "back": "Zurück",
+
+  "name": "Name",
+  "yourName": "Dein Name",
+  "e-mailAddress": "E-Mail Adresse",
+  "yourE-mailAddress":"Deine E-Mail Adresse",
+  "message": "Nachricht",
+  "send": "Abschicken",
+
+  "apply": "Bewerben",
+
+  "level": "Ebene",
+
+  "toGGCommunityLogin": "Login zur GRAND GARAGE Community",
+  "email": "Email",
+  "password": "Passwort",
+  "registration": "Registrierung",
+  "resetPassword": "Passwort zurücksetzen",
+
+  "machineViewRestriction":" Du musst angemeldet sein um die Verfügbarkeit der Maschinen sehen zu können!",
+
+  "offline": "Offline",
+  "inUse": "In Verwendung",
+  "available": "Verfügbar",
+  "outOfOrder": "Außer Betrieb",
+
+  "paymentInterval":" Zahlungsintervall:",
+  "monthly": "Monatlich",
+  "yearly": "Jährlich",
+  "registerNow": "Jetzt registrieren",
+  "joinNow": "Jetzt Mitglied werden",
+
+  "discounted": " Ermäßigt",
+  "p.m.": "p.m.",
+  "regular": "Regulär",
+  "p.a": "p.a",
+
+  "covid-19-information": "COVID-19 INFO",
+  "understood": "Verstanden",
+
+  "pleaseEnterEmail": "Bitte gib deine Email-Adresse ein.",
+
+  "checkEmails": "  Next Step: Emails checken!",
+  "ifEmailRegistered":"Wenn deine Email-Adresse bei uns registriert ist, haben wir dir eine Mail geschickt. Drin findest du einen Link, mit dem du ein neues Passwort erstellen kannst.",
+  "close": "Schließen",
+
+  "becomeACommunityPart": "Werde Teil einer lebendigen Community!",
+  "firstStepsInTheGG": "Herzlich Willkommen auf deinen ersten Schritten in der GRAND GARAGE. Wir sind eine offene Werkstatt, ein Makerspace, ein FABLab und noch vieles mehr. Registriere dich jetzt und erhalte Zugang zur GRAND GARAGE und unseren Services.",
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+  "address": "Adresse",
+  "streetAndHouseNumber": "Straße und Hausnummer",
+  "city": "Stadt",
+  "zipCode": "PLZ",
+  "yourPassword": "Dein Passwort",
+  "reenterPassword": "Passwort (wiederholen)",
+  "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+  "iHaveReadThe":"Ich habe die",
+  "andAcceptTheTermsAndConditions":"gelesen und bin damit einverstanden.",
+  "conditionsOfParticipation": "Teilnahmebedingungen / AGB",
+  "dataPrivacyPolicy": "Datenschutzerklärung",
+  "register": "Registrieren",
+
+  "sentConfirmationLink": "Wir haben dir eine Mail mit einem Bestätigungslink geschickt.",
+  "onceAccountConfirmed": "Wenn du deinen Account bestätigt hast kannst du voll durchstarten.",
+
+  "theFuture": "Die Zukunft",
+  "belongs": "gehört",
+  "toUsAll": "uns allen",
+
+  "allCourses": "Alles Kurse",
+
+
+  "membersOnly": "Nur Members",
+
+  "instructions": "Einschulungen",
+  "event": "Event",
+  "meetup": "Meetup",
+  "workshops": "Workshops",
+  "soldOut": "ausgebucht",
+
+  "area": "Bereich",
+  "searchMachines": "Maschinen suchen",
+  "noSearchResults": "Keine Suchergebnisse",
+
+
+  "materialsUsed": "Verwendete Materialien:",
+  "steps": "Arbeitsschritte:",
+  "machinesForProject": "Die Maschinen für das Projekt",
+  "personBehindTheProject": "Der Mensch hinter dem Projekt",
+
+  "blog": "BLOG",
+  "toBlog": "Zum Blog",
+
+  "the": "Die",
+  "machines": "Maschinen",
+  "peopleBehind": "Menschen dahinter",
+
+  "myActivities": "Meine Aktivitäten",
+  "machineUsageOverview":"Hier kannst du bald eine Übersicht zur Nutzung der Maschinen einsehen",
+  "usage": "Nutzung",
+  "totalDuration": "Gesamtdauer",
+  "seconds": "Sekunden",
+  "more": "mehr",
+  "date": "Datum",
+  "time": "Zeit",
+
+
+  "invoice": "Rechnung",
+
+  "workshopBooking": "Workshop-Buchung",
+  "selectPaymentOption": "Zahlungsmethode auswählen",
+  "remainingCredits": "Restliche Credits",
+  "deduct": "abziehen",
+  "deducted": "abgezogen",
+  "redeemGiftCard": "Gutschein einlösen",
+  "credits": "Credits",
+  "currentState": "aktueller Stand: ",
+  "creditCard": "Kreditkarte",
+  "sepaMonthlyBill": "SEPA-Monatsrechnung",
+  "continue": "Weiter...",
+  "confirmation": "Bestätigung",
+
+  "bindingRegistrationText": "Deine Anmeldung ist verbindlich. Solltest du doch nicht teilnehmen können, gib uns bitte umgehend Bescheid unter",
+  "eventEmailAddress": "events@grandgarage.eu",
+
+  "debitedFromCreditCard":  " von deiner Kreditkarte abgebucht.",
+  "includedInYourMonthlyBill": "via SEPA-Monatsrechnung eingezogen.",
+  "fromYourCredits":"von deinen Credits.",
+  "bookFreeOfCharge": "Termin kostenlos buchen",
+  "bookWorkshopLiableToPayTheCosts": "Workshop kostenpflichtig buchen",
+  "workshopBooked": "Workshop gebucht!",
+  "displayMyWorkshops": "Meine Workshops anzeigen",
+
+
+  "myCredits": "Meine Credits:",
+  "giftCard": "Gutschein",
+  "giftCards": "Gutscheine",
+  "credit": "Gutschrift",
+  "buyGiftCard": "Gutschein kaufen",
+  "redeemGiftCard": "Gutschein einlösen",
+
+
+  "giftCardValue": "Gutschein-Wert:",
+  "extras": "Extras:",
+  "free": "Gratis",
+  "standardShipping": "Versand-Standard",
+  "deluxeBox": "Deluxe-Box",
+  "billingAddress": "Rechnungsadresse",
+  "reviewOrder": "Bestellung prüfen...",
+
+  "redeem": "Einlösen",
+  "buyLiableToPayTheCosts": "Kostenpflichtig bestellen",
+  "purchaseCompleted":"Kauf abgeschlossen.",
+  "receiptAndGiftCardViaMail": "Die Rechnung und deinen Gutschein erhältst du per Mail.",
+  "giftCardCode": "Gutschein Code:",
+  "phone": "Telefon",
+
+  "contactDetails": "Kontaktdaten",
+  "save": "Speichern",
+
+  "myInvoices": "Meine Rechnungen",
+
+
+
+  "packages": "Pakete",
+  "noMembershipConcluded": "Keine Mitgliedschaft abgeschlossen",
+
+  "trainings": "Unterweisungen",
+  "myWorkshops": "Meine Workshops",
+
+
+  "firstRead": "Lies dir zuerst",
+  "andAnswerTheQuestions": "durch und beantworte dann die Fragen:",
+  "pdfWithCourseInformation": "PDF mit Kursunterlagen",
+
+  "letsStart": "Los geht's",
+  "youHaveAnsweredAllQuestions": "Du hast alle Fragen beantwortet!",
+  "sendAnswers": "Antworten absenden",
+
+
+  "congrats": "Gratuliere!",
+  "youHavePassedTheTest": "Du hast den Test bestanden!",
+  "yourConfirmationCode": "Dein Bestätigungscode lautet:",
+  "withThisCodeYouCanGetYourCourseEnabled": "Mit diesem Code kannst du den Kurs von einem Host oder am Frontdesk freischalten lassen.",
+  "backToMainPage": "Zurück zur Startseite",
+
+  "ohYouDidNotPassTheTest": "Oje, das hat leider nicht geklappt.",
+  "pleaseReadTheSlidesAgain": "Bitte lies dir nochmal die Unterlagen durch.",
+
+
+
+  "youHaveToConfirmYourEmailForRegistration": "Du musst zuerst deine E-Mail bestätigen um dich anmelden zu können.",
+  "anotherVerificationEmailHasBeenSentTo": "Eine erneute Bestätigungs E-Mail wurde soeben an deine angegebene E-Mail Adresse gesandt.",
+  "anErrorHasOccurred": "Ein Fehler ist aufgetreten:",
+
+  "purchaseFailedOrWasAborted": "Kauf fehlgeschlagen oder abgebrochen.",
+  "youCanFindOurContactInformation": "You can find our contact information",
+
+
+  "openSafetyTraining": "Offene Sicherheitsschulungen",
+  "myProfile": "Mein Profil",
+  "activities": "Aktivitäten",
+
+  "receiptAndConfirmationViaMail": "Die Rechnung und eine Bestätigung erhältst du per Mail.",
+  "becomeAMemberIn4simpleSteps":"In 4 Schritten zu deiner Mitgliedschaft!",
+  "startSafetyTraining": "Sicherheits-Unterweisung starten",
+
+
+  "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "Der erste Schritt zum GRAND GARAGE Membership ist geschafft!",
+  "toCompleteOnboardingStartSafetyTraining": "Um deine Mitgliedschaft abzuschließen kannst du jetzt die allgemeine Sicherheitsunterweisung abschließen.",
+
+  "dateOfBirth": "Geburtsdatum",
+  "company": "Firma",
+
+  "howDidYouLearnAboutUs": "Wie hast du von uns erfahren?",
+
+  "welcomeToTheGG": "Willkommen in der GRAND GARAGE!",
+  "memberBenefitsText": "Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!",
+  "memberPerksText": "Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen.",
+
+  "ifYouHaveAnyQuestionsRegardingYourMembership": "Solltest du noch Fragen zu deiner Mitgliedschaft haben,",
+  "doNotHesitateToAskOurFrontdeskTeam": "melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!",
+  "#makersgonnamake": "#MAKERSGONNAMAKE",
+
+
+  "differentCardListing": "4you card, SchülerInnen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass",
+  "pleaseBringAccordingID": "Bitte entsprechenden Ausweis beim ersten Besuch mitnehmen!",
+  "euro": "EUR",
+  "euro/month": "EUR/ MONAT",
+  "euro/year": "EUR/ JAHR",
+  "factoryRules": "Werkstattordnung",
+  "monthlyPayment": "monatliche Zahlung",
+  "yearlyPayment": "jährliche Zahlung",
+
+  "twoMonthsForFree": "Tipp: Bei jährlicher Zahlung bekommst du 2 Monate geschenkt.",
+  "howWouldYouPreferToPay": "Wie möchtest du zahlen?",
+  "iban": "IBAN",
+  "bankName": "Name der Bank",
+  "sepaAgreementFormText":"Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben."
+
+}
