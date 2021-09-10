@@ -60,10 +60,10 @@
     <div class="body">
       <div class="future-slogan">
         <div class="first">
-          Die Zukunft
+          {{ $t('theFuture') }}
         </div>
         <div class="second">
-          gehört {{ blok.future }}<span v-if="!blok.future">uns allen</span>
+          {{ $t('belongs') }}{{ blok.future }}<span v-if="!blok.future"> {{ $t('toUsAll') }}</span>
         </div>
       </div>
       <div class="description">

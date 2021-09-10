@@ -25,7 +25,7 @@
           </div>
           <br>
           <div v-if="item.content.materials">
-            <div>Verwendete Materialien:</div>
+            <div> {{ $t('materialsUsed') }}</div>
             <vue-markdown>{{ item.content.materials }}</vue-markdown>
           </div>
           <div class="spacer"></div>
@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="image-container" v-if="item.content.images && item.content.images.length != 0">
-        <div class="name" v-if="item.content.images && item.content.images.length != 0">Arbeitsschritte:</div>
+        <div class="name" v-if="item.content.images && item.content.images.length != 0">{{ $t('steps') }}</div>
         <div class="images">
           <image-slideshow :blok="images"></image-slideshow>
         </div>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="machine" v-if="machine != null && machine.length != 0">
-        <div class="name"> Die Maschinen für das Projekt</div>
+        <div class="name">  {{ $t('machinesForProject') }}</div>
         <div class="display-machines">
           <machine-preview
               v-for="m in machine"
@@ -68,7 +68,7 @@
                       </div>
                     </div>-->
       <div class="maker" v-if="(person != null && person.length !=0) || (member != null && member.length !=0)">
-        <div class="name">Der Mensch hinter dem Projekt</div>
+        <div class="name"> {{ $t('personBehindTheProject') }}</div>
         <div class="display-makers">
           <maker-preview
               v-for="p in person"

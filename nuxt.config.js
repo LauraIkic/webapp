@@ -3,6 +3,30 @@ const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
 const googleId = 'UA-202640934-1'
 
 module.exports = {
+  i18n: {
+    locales: [
+      {
+        code: 'de',
+        iso: 'de-DE',
+        name: 'DE',
+        file: 'de.json',
+        path: ''
+      },
+      {
+        code: 'en',
+        iso: 'en-US',
+        name: 'EN',
+        file: 'en.json',
+        path: 'en'
+      }
+    ],
+    defaultLocale: 'de',
+    lazy: true,
+    langDir: '~/locales/',
+    vueI18n: {
+      fallbackLocale: 'en'
+    }
+  },
   robots: [
     {
       UserAgent: '*',
@@ -83,7 +107,8 @@ module.exports = {
     '@nuxtjs/sentry',
     '@nuxtjs/toast',
     '@nuxtjs/eslint-module',
-    ['@nuxtjs/robots']
+    '@nuxtjs/robots',
+    'nuxt-i18n'
   ],
   sentry: {
     config: {} // Additional config

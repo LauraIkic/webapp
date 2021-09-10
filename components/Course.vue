@@ -24,11 +24,11 @@
             </button>
           </div>--><div v-if="this.memberCourse.is_valid" class="success">
           <font-awesome-icon icon="check-circle"/>
-          <div>Abgeschlossen</div>
+          <div>{{ $t('completed') }}</div>
         </div>
           <div v-else>
             <div class="startButton">
-              <div>Quiz starten</div>
+              <div>{{ $t('startQuiz') }}</div>
             </div>
           </div>
         </div>
