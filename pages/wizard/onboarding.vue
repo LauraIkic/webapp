@@ -116,8 +116,8 @@ export default {
         },
         sepaAccepted: false,
         payment: {
-          iban: null,
-          bank: null
+          iban: null
+          // bank: null
         },
         ibanIsValid: false,
         referrer: ''
