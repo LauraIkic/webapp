@@ -8,7 +8,7 @@
     <div class="login-spacer" v-if="isAuthenticated"></div>
     <div class="layout-container">
       <top-header/>
-      <main id="main" role="main">
+      <main class="main" id="main" role="main">
       <nuxt/>
       </main>
       <bottom-footer/>
@@ -53,7 +53,6 @@ export default {
 
 <style lang="scss">
 @import '../assets/scss/styles.scss';
-
 body {
   background-color: $color-bright-bg;
   width: 100%;
