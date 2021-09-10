@@ -7,7 +7,7 @@
             {{ $t('manageCookies') }}
           </div>
           <div class="text">
-            {{ $t('cookiesDescription') }}<NuxtLink to="/de/datenschutzerklaerung">{{ $t('dataPrivacyPolicy') }}</NuxtLink>.<br><br><br>
+            {{ $t('cookiesDescription') }}<NuxtLink to="/de/datenschutzerklaerung">{{ $t('dataPrivacyPolicy') }}</NuxtLink>{{ $t('dataPrivacyRead') }}.<br><br><br>
             <div class="select-buttons">
               <label>
                 <input type="checkbox" name=""  v-model="necessaryCookie"/>
@@ -58,14 +58,14 @@ export default {
     setCookiePreferences () {
       this.$store.commit('setNecessaryCookie', this.necessaryCookie)
       this.$store.commit('setAnalyticsCookie', this.analyticsCookie)
-      sessionStorage.setItem('hasAcceptedNecessaryCookie', this.necessaryCookie)
-      sessionStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
+      localStorage.setItem('hasAcceptedNecessaryCookie', this.necessaryCookie)
+      localStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
       console.log(this.necessaryCookie)
       this.close()
     },
     close () {
       this.$emit('close')
-      sessionStorage.setItem('hasSeenPopup', 'true')
+      localStorage.setItem('hasSeenPopup', 'true')
     }
   }
 }

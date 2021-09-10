@@ -41,15 +41,15 @@ export default {
     }
   },
   mounted () {
-    const hasSeenPopup = sessionStorage.getItem('hasSeenPopup')
+    const hasSeenPopup = localStorage.getItem('hasSeenPopup')
     if (!hasSeenPopup) {
       this.modalVisible = true
     }
-    const hasAcceptedNecessaryCookie = sessionStorage.getItem('hasAcceptedNecessaryCookie')
+    const hasAcceptedNecessaryCookie = localStorage.getItem('hasAcceptedNecessaryCookie')
     if (hasAcceptedNecessaryCookie) {
       this.$store.commit('setNecessaryCookie', 'true')
     }
-    const hasAcceptedAnalyticsCookie = sessionStorage.getItem('hasAcceptedAnalyticsCookie')
+    const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedAnalyticsCookie')
     if (hasAcceptedAnalyticsCookie) {
       this.$store.commit('setAnalyticsCookie', 'true')
     }
