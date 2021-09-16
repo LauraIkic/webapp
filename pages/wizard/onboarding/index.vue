@@ -1,38 +1,34 @@
 <template>
   <div class="section onboarding-wizard">
-    <h2>Willkommen in der GRAND GARAGE!</h2>
+    <h2>{{ $t('welcomeToTheGG') }}</h2>
     <p class="text">
-      Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!
+      {{ $t('memberBenefitsText') }}
       <br>
-      Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen und unsere MakerSpaceShips für Transporte auszuleihen.
+      {{ $t('memberPerksText') }}
       <br><br>
-      Neben gratis WLAN und einer persönlichen Membercard, erhälst du außerdem eine Ermäßigung auf alle Workshops,
+      {{ $t('ifYouHaveAnyQuestionsRegardingYourMembership') }}
       <br>
-      sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu erwerben.
+      {{ $t('doNotHesitateToAskOurFrontdeskTeam') }}
       <br><br>
-      Solltest du noch Fragen zu deiner Mitgliedschaft haben,
-      <br>
-      melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!
-      <br><br>
-      #MAKERSGONNAMAKE
+      {{ $t('#makersgonnamake') }}
     </p>
     <div class="options">
       <div :class="['option', { selected: onboardingData.paymentType === TYPES.regular }]"
            @click="onboardingData.paymentType = TYPES.regular">
-        <span class="name">regulär 40EUR/m</span>
+        <span class="name">{{ $t('regular') }} 40{{ $t('euro/month') }}</span>
       </div>
       <div :class="['option', { selected: onboardingData.paymentType === TYPES.reduced }]"
            @click="onboardingData.paymentType = TYPES.reduced">
-        <span class="name">ermäßigt 15EUR/m</span>
-        <span class="description">4you card, SchülerInnen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass</span>
-        <span class="description">Bitte entsprechenden Ausweis beim ersten Besuch mitnehmen!</span>
+        <span class="name">{{ $t('discounted') }}15{{ $t('euro/month') }}</span>
+        <span class="description">{{ $t('differentCardListing') }}</span>
+        <span class="description">{{ $t('pleaseBringAccordingID') }}</span>
       </div>
     </div>
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
-      <label for="checkbox">Ja, ich habe die <a
+      <label for="checkbox">{{ $t('iHaveReadThe') }} <a
           href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
-          target="new">Werkstattordnung</a> gelesen und bin damit einverstanden.</label>
+          target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>
     </div>
   </div>
 </template>

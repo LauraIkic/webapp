@@ -48,7 +48,7 @@
             class="machine-list"
         >
           <div class="machine-list-warning">
-            Du musst angemeldet sein um die Verfügbarkeit der Maschinen sehen zu können!
+            {{ $t( "machineViewRestriction" ) }}
           </div>
         </div>
       </div>

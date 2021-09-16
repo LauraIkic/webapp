@@ -4,7 +4,7 @@
       <img class="blog-header-image" :src="$resizeImage(url, '1600x0')">
       <div class="blog">
         <div class="headline">
-          <p class="headline-text">Blog</p>
+          <p class="headline-text">{{ $t('blog') }}</p>
         </div>
         <div class="news-page">
           <div class="news-feed">

@@ -2,7 +2,7 @@
   <div class="breadcrumbs">
     <div class="content">
       <div class="item">
-        GRAND GARAGE
+        {{ $t('grandGarage') }}
       </div>
       <div
         v-for="(item, index) in pathItems"

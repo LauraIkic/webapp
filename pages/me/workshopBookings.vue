@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Meine Workshops</h2>
+    <h2>{{ $t('myWorkshops') }}</h2>
     <div
       v-if="bookings.length"
       class="workshops"
@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 .workshops{
   display:flex;
   flex-direction: column;

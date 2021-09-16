@@ -18,7 +18,7 @@
         v-else
         class="machine-list-none"
       >
-        <code>Keine Suchergebnisse</code>
+        <code>{{ $t('noSearchResults') }}</code>
       </div>
     </div>
   </section>
