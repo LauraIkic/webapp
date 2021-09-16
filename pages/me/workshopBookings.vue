@@ -39,8 +39,7 @@ export default {
   middleware: 'authenticated',
   data () {
     return {
-      bookings: [],
-      error: null
+      bookings: []
     }
   },
   computed: {},
