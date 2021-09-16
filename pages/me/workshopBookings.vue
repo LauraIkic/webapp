@@ -60,18 +60,16 @@ export default {
       }
       if (confirm('Workshop ' + workshopDate.content.workshop.name + ' wirklich stornieren?')) {
         this.$store.dispatch('workshopStorno', data).then((data) => {
-          if (data.status >= 200 && data.status <= 300) {
+          if (data.status >= 200 && data.status < 300) {
             this.$toast.show('Der Workshop wurde erfolgreich storniert!', {
               className: 'goodToast'
             })
-          } else {
-            if (data.status >= 400 && data.status < 500) {
-              //  TODO get some kind of messages.
-            } else {
-              this.$sentry.captureException(new Error(data))
-              this.error = 'Leider ist ein Fehler aufgetreten.'
-            }
           }
+        }, (err) => {
+          this.$sentry.captureException(new Error(err))
+          this.$toast.show('Fehler! Workshops koennen maximal 72h vor Beginn storniert werden. Sollte das nicht der Fall sein, wende dich an den Frontdesk.', {
+            className: 'badToast'
+          })
         })
       }
     }
