@@ -43,7 +43,8 @@
 </template>
 
 <script>
-
+import Vue from 'vue'
+import VueAnalytics from 'vue-analytics'
 export default {
   name: 'CookieManager',
   data: () => ({
@@ -60,7 +61,14 @@ export default {
       this.$store.commit('setAnalyticsCookie', this.analyticsCookie)
       localStorage.setItem('hasAcceptedNecessaryCookie', this.necessaryCookie)
       localStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
-      console.log(this.necessaryCookie)
+      console.log('test1 ', Vue.$ga)
+      Vue.use(VueAnalytics, {
+        id: 'UA-202640934-1',
+        enabled: () => {
+          return false
+        }
+      })
+      console.log('test2 ', Vue.$ga.toString())
       this.close()
     },
     close () {
