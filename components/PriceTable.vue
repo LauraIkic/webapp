@@ -1,4 +1,3 @@
-
 <template>
   <div
       v-editable="blok"
@@ -11,7 +10,7 @@
         <th>{{ blok.usage }}</th>
       </tr>
       <tr v-for="p in blok.items"
-      :key="p.price">
+      :key="p.title">
         <th>{{ p.title }}</th>
         <td>{{ p.workshop }}</td>
         <td>{{ p.usage }}</td>

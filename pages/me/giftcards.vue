@@ -206,7 +206,7 @@
                   :disabled="!paymentMethod || loading"
                   @click="checkout()"
               >
-               {{ $t('buyLiableToPayTheCosts') }}
+                {{ $t('buyLiableToPayTheCosts') }}
               </button>
             </div>
           </div>
@@ -360,18 +360,18 @@ export default {
       }
 
       this.$store.dispatch('checkout', data).then((data) => {
-        if (data.success) {
+        if (data.data.success) {
           this.loading = false
           switch (parseInt(this.paymentMethod)) {
             case 1:
-              this.redirectToStripe(data.session_id)
+              this.redirectToStripe(data.data.session_id)
               break
             case 2:
               this.step++
               break
           }
         } else {
-          this.$sentry.captureException(new Error(data))
+          this.$sentry.captureException(new Error(data.data))
           this.$toast.show('Ein Fehler ist aufgetreten', {
             theme: 'bubble'
           })

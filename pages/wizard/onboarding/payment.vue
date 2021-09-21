@@ -33,11 +33,6 @@
           <font-awesome-icon class="ibanIcon" v-else icon="times-circle" />
         </div>
       </div>
-      <div class="form-item ibanFormItem">
-        <span class="label">{{ $t('bankName') }}</span>
-        <input class="input-text" type="text" v-model="mutableOnBoarding.payment.bank" name="" id=""/>
-        <span class="bankSpacer" />
-      </div>
     </form>
 
     <div class="wizard-checkbox">

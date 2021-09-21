@@ -115,7 +115,6 @@ export default {
       .picture {
         width: 100%;
         max-width: 70%;
-        max-height: 90%;
       }
     }
     .info {
