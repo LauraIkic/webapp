@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .membership-grid {
   margin: 10vh 4% 10vh 4%;

@@ -1,7 +1,7 @@
 <template>
   <div
-    v-editable="blok"
-    class="price-table"
+      v-editable="blok"
+      class="price-table"
   >
     <table>
       <tr>

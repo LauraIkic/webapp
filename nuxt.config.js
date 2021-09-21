@@ -191,6 +191,10 @@ module.exports = {
     transpile: [/^vue2-google-maps($|\/)/]
   },
   googleAnalytics: {
-    id: googleId
+    id: googleId,
+    debug: {
+      enable: true,
+      sendHitTask: true
+    }
   }
 }

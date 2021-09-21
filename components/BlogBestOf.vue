@@ -46,7 +46,7 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 .blog-best-of {
-  background-color: black;
+  background: black;
   margin: 0 -10px;
   padding: 30px;
   color: #FFF;

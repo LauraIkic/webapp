@@ -46,8 +46,8 @@
                   @click="useRemainingCredits = true"
                 >
                 <label
-                  for="credits"
-                  class="label"
+                    for="credits"
+                    class="label"
                 >
                   {{ $t('remainingCredits') }} ({{ credits }}EUR) {{ $t('deduct') }}
                 </label>
