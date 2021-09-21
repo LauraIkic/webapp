@@ -192,6 +192,9 @@ module.exports = {
   },
   googleAnalytics: {
     id: googleId,
-    disableScriptLoader: true
+    debug: {
+      enable: true,
+      sendHitTask: true
+    }
   }
 }
