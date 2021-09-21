@@ -50,6 +50,18 @@ export default {
     analyticsCookie: false
   }),
   methods: {
+    disableTracking () {
+      this.$ga.disable()
+      console.log('eventStart')
+      this.$ga.event('category', 'action', 'label', 123)
+      console.log('disable')
+    },
+    enableTracking () {
+      this.$ga.enable()
+      console.log('eventStart')
+      this.$ga.event('category', 'action', 'label', 123)
+      console.log('enable')
+    },
     selectAll () {
       this.necessaryCookie = true
       this.analyticsCookie = true
@@ -59,6 +71,9 @@ export default {
       this.$store.commit('setAnalyticsCookie', this.analyticsCookie)
       localStorage.setItem('hasAcceptedNecessaryCookie', this.necessaryCookie)
       localStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
+      if (!this.analyticsCookie) {
+        this.disableTracking()
+      }
       this.close()
     },
     close () {

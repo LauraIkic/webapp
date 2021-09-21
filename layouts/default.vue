@@ -1,27 +1,28 @@
 <template>
   <div style="overflow: hidden">
-    <!--    <Modal v-if="modalVisible" @close="modalVisible = false" title="Covid Info" icon="exclamation-triangle">
+<!--        <Modal v-if="modalVisible" @close="modalVisible = false" title="Covid Info" icon="exclamation-triangle">
       Momentan findet der Memberbetrieb nur eingeschränkt und
       unter Einhaltung der erforderlichen COVID-Schutzmaßnahmen statt.
       Klick <NuxtLink to="de/covid">hier</NuxtLink> um alle aktuellen Infos und Maßnahmen nachzulesen.<br>#staysafe
     </Modal>-->
-<!--    <CookieManager v-if="modalVisible" @close="modalVisible = false" icon="exclamation-triangle">
-    </CookieManager>-->
+    <CookieManager v-if="modalVisible" @close="modalVisible = false" icon="exclamation-triangle">
+    </CookieManager>
     <div class="login-spacer" v-if="isAuthenticated"></div>
     <div class="layout-container">
       <top-header/>
-<!--      <div v-if="this.$route.path ==='/de/datenschutzerklaerung' || !modalVisible">-->
+      <div v-if="this.$route.path ==='/de/datenschutzerklaerung' || !modalVisible">
       <main id="main" role="main">
         <nuxt/>
       </main>
-<!--    </div>-->
+    </div>
       <bottom-footer/>
       <sidebar />
       <notifications position="bottom right" />
       <!--
         <breadcrumbs />
       -->
-      <div class="test"> <button class="test-buttonGoogle" @click="setGoogleAnalyticFalse" >test</button></div>
+      <div class="test"> <button class="test-buttonGoogle" @click="setGoogleAnalyticFalse" >test</button>
+      <Button @click="setGoogleAnalyticsTrue" >Test2</Button></div>
     </div>
   </div>
 </template>
@@ -30,7 +31,7 @@
 import TopHeader from '~/components/TopHeader.vue'
 import BottomFooter from '~/components/BottomFooter.vue'
 import Sidebar from '~/components/Sidebar.vue'
-/* import CookieManager from '../components/CookieManager' */
+import CookieManager from '../components/CookieManager'
 
 export default {
   data: () => ({
@@ -39,37 +40,35 @@ export default {
   components: {
     TopHeader,
     BottomFooter,
-    Sidebar
-    /*    CookieManager */
+    Sidebar,
+    CookieManager
   },
   computed: {
     isAuthenticated () {
       return !!this.$store.state.auth
     }
   },
-  /*  mounted () {
-    this.disableTracking()
-    this.eventTrack()
-    console.log('test-event')
-  }, */
   methods: {
     setGoogleAnalyticFalse () {
       this.disableTracking()
-      this.eventTrack()
-      console.log('test-event')
+    },
+    setGoogleAnalyticsTrue () {
+      this.enableTracking()
     },
     disableTracking () {
       this.$ga.disable()
+      console.log('eventStart')
+      this.$ga.event('category', 'action', 'label', 123)
+      console.log('disable')
     },
     enableTracking () {
       this.$ga.enable()
-    },
-    eventTrack () {
-      console.log('event')
+      console.log('eventStart')
       this.$ga.event('category', 'action', 'label', 123)
+      console.log('enable')
     }
   },
-  beforeMount () {
+  mounted () {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup')
     if (!hasSeenPopup) {
       this.modalVisible = true
@@ -81,6 +80,8 @@ export default {
     const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedAnalyticsCookie')
     if (hasAcceptedAnalyticsCookie) {
       this.$store.commit('setAnalyticsCookie', 'true')
+    } else {
+      this.disableTracking()
     }
   }
 }
