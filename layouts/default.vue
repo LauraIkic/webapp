@@ -58,7 +58,6 @@ export default {
     disableTracking () {
       this.$ga.disable()
       this.$ga.event('category', 'action', 'label', 123)
-      console.log('disable')
     },
     enableTracking () {
       this.$ga.enable()
@@ -66,7 +65,7 @@ export default {
       console.log('enable')
     }
   },
-  mounted () {
+  async mounted () {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup')
     if (!hasSeenPopup) {
       this.modalVisible = true
@@ -75,13 +74,14 @@ export default {
     if (hasAcceptedNecessaryCookie) {
       this.$store.commit('setNecessaryCookie', 'true')
     }
-    const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedAnalyticsCookie')
-    if (hasAcceptedAnalyticsCookie === 'true') {
+    const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedNecessaryCookie')
+    /*    if (hasAcceptedAnalyticsCookie === 'true') {
+      /!*      this.enableTracking() *!/
       this.$store.commit('setAnalyticsCookie', 'true')
-    }
+    } */
     if (hasAcceptedAnalyticsCookie === 'false') {
-      console.log('noCookie')
       this.disableTracking()
+      console.log('loading-deactivation')
     }
   }
 }

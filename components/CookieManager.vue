@@ -71,8 +71,6 @@ export default {
       localStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
       if (!this.analyticsCookie) {
         this.disableTracking()
-      } else {
-        this.enableTracking()
       }
       this.close()
     },

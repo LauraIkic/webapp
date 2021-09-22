@@ -192,7 +192,18 @@ module.exports = {
   },
   googleAnalytics: {
     id: googleId,
+    disabled: () => {
+      // eslint-disable-next-line no-unused-vars
+      const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedAnalyticsCookie')
+      console.log('has accepted?: ', hasAcceptedAnalyticsCookie)
+      if (hasAcceptedAnalyticsCookie === 'true') {
+        return true
+      } else {
+        return false
+      }
+    },
     debug: {
+      enable: true,
       enabled: true
     }
   }

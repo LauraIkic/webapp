@@ -57,17 +57,6 @@ export default {
     return {
     }
   },
-  methods: {
-    disableTracking () {
-      this.$ga.disable()
-      console.log('eventStart')
-      this.$ga.event('category', 'action', 'label', 123)
-      console.log('event')
-    },
-    enableTracking () {
-      this.$ga.enable()
-    }
-  },
   computed: {
     linktitle () {
       return this.blok.linktitle
@@ -79,7 +68,6 @@ export default {
     }
   },
   head () {
-    this.disableTracking()
     return getMetaTagsForWorkshop(this.blok)
   }
 }
