@@ -52,13 +52,11 @@ export default {
   methods: {
     disableTracking () {
       this.$ga.disable()
-      console.log('eventStart')
       this.$ga.event('category', 'action', 'label', 123)
-      console.log('disable')
+      console.log('disabled')
     },
     enableTracking () {
       this.$ga.enable()
-      console.log('eventStart')
       this.$ga.event('category', 'action', 'label', 123)
       console.log('enable')
     },
@@ -73,6 +71,8 @@ export default {
       localStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
       if (!this.analyticsCookie) {
         this.disableTracking()
+      } else {
+        this.enableTracking()
       }
       this.close()
     },
