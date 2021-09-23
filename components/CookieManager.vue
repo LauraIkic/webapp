@@ -50,15 +50,9 @@ export default {
     analyticsCookie: false
   }),
   methods: {
-    disableTracking () {
-      this.$ga.disable()
-      this.$ga.event('category', 'action', 'label', 123)
-      console.log('disabled')
-    },
     enableTracking () {
       this.$ga.enable()
       this.$ga.event('category', 'action', 'label', 123)
-      console.log('enable')
     },
     selectAll () {
       this.necessaryCookie = true
@@ -69,8 +63,8 @@ export default {
       this.$store.commit('setAnalyticsCookie', this.analyticsCookie)
       localStorage.setItem('hasAcceptedNecessaryCookie', this.necessaryCookie)
       localStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
-      if (!this.analyticsCookie) {
-        this.disableTracking()
+      if (this.analyticsCookie) {
+        this.enableTracking()
       }
       this.close()
     },
@@ -236,7 +230,7 @@ export default {
 
       .input-button-primary {
         width: 12vw;
-        height: 4.5vh;
+        height: 7vh;
         border-radius: 3px;
         font-size: 1.5rem;
 

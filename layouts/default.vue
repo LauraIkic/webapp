@@ -21,8 +21,6 @@
       <!--
         <breadcrumbs />
       -->
-      <div class="test"> <button class="test-buttonGoogle" @click="setGoogleAnalyticFalse" >test</button>
-      <Button @click="setGoogleAnalyticsTrue" >Test2</Button></div>
     </div>
   </div>
 </template>
@@ -48,23 +46,6 @@ export default {
       return !!this.$store.state.auth
     }
   },
-  methods: {
-    setGoogleAnalyticFalse () {
-      this.disableTracking()
-    },
-    setGoogleAnalyticsTrue () {
-      this.enableTracking()
-    },
-    disableTracking () {
-      this.$ga.disable()
-      this.$ga.event('category', 'action', 'label', 123)
-    },
-    enableTracking () {
-      this.$ga.enable()
-      this.$ga.event('category', 'action', 'label', 123)
-      console.log('enable')
-    }
-  },
   async mounted () {
     const hasSeenPopup = localStorage.getItem('hasSeenPopup')
     if (!hasSeenPopup) {
@@ -75,13 +56,8 @@ export default {
       this.$store.commit('setNecessaryCookie', 'true')
     }
     const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedNecessaryCookie')
-    /*    if (hasAcceptedAnalyticsCookie === 'true') {
-      /!*      this.enableTracking() *!/
+    if (hasAcceptedAnalyticsCookie === 'true') {
       this.$store.commit('setAnalyticsCookie', 'true')
-    } */
-    if (hasAcceptedAnalyticsCookie === 'false') {
-      this.disableTracking()
-      console.log('loading-deactivation')
     }
   }
 }
@@ -89,14 +65,6 @@ export default {
 
 <style lang="scss">
 @import '../assets/scss/styles.scss';
-.test {
-  background: #24211e;
-  .test-buttonGoogle{
-    background: #24211e;
-    border: #24211e;
-    color: #24211e;
-  }
-}
 body {
   background-color: $color-bright-bg;
   width: 100%;

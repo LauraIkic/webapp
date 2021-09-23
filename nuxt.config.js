@@ -197,14 +197,10 @@ module.exports = {
       const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedAnalyticsCookie')
       console.log('has accepted?: ', hasAcceptedAnalyticsCookie)
       if (hasAcceptedAnalyticsCookie === 'true') {
-        return true
-      } else {
         return false
+      } else {
+        return true
       }
-    },
-    debug: {
-      enable: true,
-      enabled: true
     }
   }
 }
