@@ -52,7 +52,7 @@ export default {
 <style lang="scss">
 @import '../assets/scss/styles.scss';
 
-body {
+.body {
   background-color: $color-bright-bg;
   width: 100%;
   overflow-x: hidden;
