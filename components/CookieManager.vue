@@ -50,6 +50,10 @@ export default {
     analyticsCookie: false
   }),
   methods: {
+    enableTracking () {
+      this.$ga.enable()
+      this.$ga.event('category', 'action', 'label', 123)
+    },
     selectAll () {
       this.necessaryCookie = true
       this.analyticsCookie = true
@@ -59,6 +63,9 @@ export default {
       this.$store.commit('setAnalyticsCookie', this.analyticsCookie)
       localStorage.setItem('hasAcceptedNecessaryCookie', this.necessaryCookie)
       localStorage.setItem('hasAcceptedAnalyticsCookie', this.analyticsCookie)
+      if (this.analyticsCookie) {
+        this.enableTracking()
+      }
       this.close()
     },
     close () {
@@ -223,7 +230,7 @@ export default {
 
       .input-button-primary {
         width: 12vw;
-        height: 4.5vh;
+        height: 7vh;
         border-radius: 3px;
         font-size: 1.5rem;
 
