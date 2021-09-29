@@ -308,6 +308,7 @@ export default {
     display: flex;
     margin: 0 4%;
     padding-top: 1rem;
+    margin-bottom: 2em;
     @include media-breakpoint-down(xs) {
       padding-bottom: 0rem;
     }
