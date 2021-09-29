@@ -158,6 +158,7 @@ export default {
         .join('&')
     },
     shuffle (arra1) {
+      if (!arra1) return []
       let ctr = null
       if (arra1.length != null) {
         ctr = arra1.length

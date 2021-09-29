@@ -627,16 +627,19 @@ const createStore = () => {
           sort_by: 'content.starttime:asc',
           per_page: 100
         }).then((res) => {
-          const workshopdates = res.data.stories
+          const workshopdates = res.data.stories.reverse()
           const workshops = {}
           for (const w of workshopdates) {
+            if (!w.content.workshop) {
+              continue
+            }
             const wid = w.content.workshop.uuid
             if (!(wid in workshops)) {
               workshops[wid] = Object.assign({ dates: [] }, w.content.workshop)
             }
             workshops[wid].dates.push(w)
           }
-          return Object.values(workshops)
+          return Object.values(workshops).sort((a, b) => a.name.localeCompare(b.name))
         }).catch((res) => {
           this.$sentry.captureException(res)
         })
