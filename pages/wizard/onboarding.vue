@@ -8,8 +8,8 @@
           class="icon"
           icon="user-friends"
       />
-      <h2>Mitglied werden</h2>
-      <p>In 4 Schritten zu deiner Mitgliedschaft!</p>
+      <h2>{{ $t('joinNow') }}</h2>
+      <p>{{ $t('becomeAMemberIn4simpleSteps') }}</p>
     </div>
     <div class="wizard-section">
       <div class="wizard-section-menu">
@@ -69,14 +69,14 @@
                 class="input-button-primary"
                 @click="$router.push('/me/trainings')"
             >
-              <font-awesome-icon icon="arrow-circle-right"/> Sicherheits-Unterweisung starten
+              <font-awesome-icon icon="arrow-circle-right"/> {{ $t('startSafetyTraining') }}
             </button>
             <button
                 v-else-if="index > 0"
                 class="input-button-primary"
                 @click="back()"
             >
-              zurück
+              {{ $t('back') }}
             </button>
             <button
                 v-if="activeStep !== 'confirmation'"
@@ -116,8 +116,7 @@ export default {
         },
         sepaAccepted: false,
         payment: {
-          iban: null,
-          bank: null
+          iban: null
         },
         ibanIsValid: false,
         referrer: ''
@@ -138,7 +137,7 @@ export default {
           return !!requiredKeys.filter(k => !data.profile[k]).length
         }
         case 'payment':
-          return !(data.ibanIsValid && data.payment.bank && data.sepaAccepted && data.paymentFrequency)
+          return !(data.ibanIsValid && data.sepaAccepted && data.paymentFrequency)
         default:
           return false
       }

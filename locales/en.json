@@ -1,0 +1,282 @@
+{
+  "home": "home",
+
+  "innovationFactory": "Innovation factory for people, knowledge and technologies",
+  "stayInTouch": "Stay in touch",
+  "signUp":"Sign up for our newsletter",
+
+  "grandGarage": " GRAND GARAGE",
+
+  "completed": "Completed",
+  "startQuiz": "Start Quiz",
+
+  "covidInfoTitle": "COVID-19 INFORMATION FOR OUR WORKSHOPS",
+  "covidInfoText": "Your health is very important to us. Therefore, our workshops will only take place under the current safety guidelines of our government. To participate in our workshops it is necessary to be tested, recovered, or vaccinated. You can find more information ",
+  "here": "here",
+  "workShopCostRefund":"If there is a cancellation, the workshop costs will be refunded.",
+  "weAreLookingForward": "We look forward to seeing you!",
+  "searchForWorkshopsAndEvents": "Search for workshops and events",
+  "theOrganizer": "The organizer",
+  "toRegistration": "To registration",
+  "currentOccupancyRate": "current occupancy rate:",
+  "price": "Price:",
+  "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " In order to book a workshop you have to be registered and logged into your account",
+  "thankYou": "Thank you!",
+  "until": "until",
+  "oClock": "o'clock",
+
+  "downloads": "Downloads",
+
+  "loading": " Loading...",
+  "thankYouForFeedback": "Thank you for your feedback!",
+  "back": "Back",
+
+
+  "name": "Name",
+  "yourName": "Your name",
+  "e-mailAddress": "E-mail address",
+  "yourE-mailAddress": "Your e-mail address",
+  "message": "Message",
+  "send": "Send",
+
+  "apply": "Apply",
+
+  "level": "Level",
+
+  "toGGCommunityLogin": "Login to GRAND GARAGE Community",
+  "email": "Email",
+  "password": "Password",
+  "registration": "Registration",
+  "resetPassword": "Reset password",
+
+  "machineViewRestriction":" You have to be logged in, in order to see machine availability!",
+
+  "offline": "Offline",
+  "inUse": "In use",
+  "available": "Available",
+  "outOfOrder": "Out of order",
+
+  "paymentInterval":"Payment interval:",
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+  "registerNow": "Register now",
+  "joinNow": "Join now",
+
+  "discounted": " Discounted",
+  "p.m.": "p.m.",
+  "regular": "Regular",
+  "p.a": "p.a",
+
+  "covid-19-information": "COVID-19 INFO",
+  "understood": "I understand",
+
+  "pleaseEnterEmail": "Please enter your e-mail address.",
+
+  "checkEmails": "Next step: Check your emails!",
+  "ifEmailRegistered": "If this email-address has been registered on our homepage you will receive an email that contains a link, with which you can reset your password.",
+  "close": "Close",
+
+  "becomeACommunityPart": "Become part of a vibrant community!",
+  "firstStepsInTheGG": "Welcome to your first steps in the GRAND GARAGE.   We are an open workshop, a makerspace, a FABLab and much more. Register now and get access to the GRAND GARAGE and our services.",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "address": "Address",
+  "streetAndHouseNumber": "Street and house number",
+  "city": "City",
+  "zipCode": "ZIP-code",
+  "yourPassword": "Your password",
+  "reenterPassword": "Reenter password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "iHaveReadThe":"I have read the",
+  "andAcceptTheTermsAndConditions":"and accept the terms and conditions.",
+  "conditionsOfParticipation": "Conditions of participation",
+  "dataPrivacyPolicy": "Data privacy policy",
+  "register": "Register",
+
+  "sentConfirmationLink": "We have sent you an email with a confirmation link.",
+  "onceAccountConfirmed": "Once you have confirmed your account, you can get started.",
+
+
+  "theFuture": "The future",
+  "belongs": "belongs",
+  "toUsAll": "to us all",
+
+  "allCourses": "All courses",
+
+  "membersOnly": "Members only!",
+
+  "instructions": "Instructions",
+  "event": "Event",
+  "meetup": "Meetup",
+  "workshops": "Workshops",
+  "soldOut": "soldOut",
+
+  "area": "Area",
+  "searchMachines": "Search machines",
+  "noSearchResults": "No search result",
+
+  "materialsUsed": "Materials used:",
+  "steps": "Steps:",
+  "machinesForProject": "Machines used for this project",
+  "personBehindTheProject": "The person behind the project",
+
+
+  "blog": "BLOG",
+  "toBlog": "To Blog",
+
+  "the": "The",
+  "machines": "machines",
+  "peopleBehind": "Team",
+
+  "myActivities": "My activities",
+  "machineUsageOverview":"Soon you will be able to see the usage of our machines",
+  "usage": "usage",
+  "totalDuration": "Total duration",
+  "seconds": "Seconds",
+  "more": "more",
+  "date": "Date",
+  "time": "Time",
+
+
+  "invoice": "Invoice",
+
+  "workshopBooking": "Workshop-Booking",
+  "selectPaymentOption": "Select payment option",
+  "remainingCredits": "Remaining Credits",
+  "deduct": "deduct",
+  "deducted": "deducted",
+  "redeemGiftCard": "Redeem gift card",
+  "credits": "Credits",
+  "currentStatus": "current status:",
+  "creditCard": "Credit card",
+  "sepaMonthlyBill": "Sepa-Monthly bill",
+  "continue": "Continue...",
+  "confirm": "Confirmation",
+
+  "bindingRegistrationText": "Your registration is binding. Should you not be able to participate, please inform us immediately at",
+  "eventEmailAddress": "events@grandgarage.eu",
+
+  "debitedFromCreditCard": "debited from your credit card.",
+  "includedInYourMonthlyBill": "included in  your monthly bill.",
+  "fromYourCredits":"from your credits",
+  "bookFreeOfCharge": "Book free of charge",
+  "bookWorkshopLiableToPayTheCosts": "Book workshops liable to pay the costs",
+  "workshopBooked": "Workshop booked!",
+  "displayMyWorkshops": "Display my workshops",
+
+
+  "myCredits": "My credits:",
+  "giftCard": "Gift card",
+  "giftCards": "Gift cards",
+  "credit": "Credit",
+  "buyGiftCard": "Buy gift Card",
+
+  "giftCardValue": "Gift card value:",
+  "extras": "Extras",
+  "free": "Free",
+  "standardShipping": "",
+  "deluxeBox": "Deluxe-Box",
+  "billingAddress": "Billing address",
+  "reviewOrder": "Review order...",
+
+  "redeem": "Redeem",
+  "buyLiableToPayTheCosts": "Buy liable to pay the costs",
+  "purchaseCompleted":"Purchase completed.",
+  "receiptAndGiftCardViaMail": "You will receive the invoice and your gift card by mail.",
+  "giftCardCode": "Gift card code:",
+  "phone": "Phone",
+
+  "contactDetails": "Contact details",
+  "save": "Save",
+
+  "myInvoices": "My invoices",
+
+
+
+  "packages": "Packages",
+  "noMembershipConcluded": "No membership concluded",
+
+  "trainings": "Trainings",
+  "myWorkshops": "My workshops",
+
+
+
+  "firstRead": "First read",
+  "andAnswerTheQuestions": "and answer the questions:",
+  "pdfWithCourseInformation": "PDF with course information",
+
+  "letsStart": "Lets start",
+  "youHaveAnsweredAllQuestions": "You have answered all questions!",
+  "sendAnswers": "Send answers",
+
+
+  "congrats": "Congratulation!",
+  "youHavePassedTheTest": "You have passed the test!",
+  "yourConfirmationCode": "Your confirmation code is:",
+  "withThisCodeYouCanGetYourCourseEnabled": "With this code you can get your course enabled",
+  "backToMainPage": "back to main page",
+
+  "ohYouDidNotPassTheTest": "Oje unfortunately, you did not pass the test.",
+  "pleaseReadTheSlidesAgain": "Please read the slides again.",
+
+
+  "youHaveToConfirmYourEmailForRegistration": "In order to become a member you have to first confirm your e-mail address.",
+  "anotherVerificationEmailHasBeenSentTo": "Another verification e-mail has been sent to the following address.",
+  "anErrorHasOccurred": "An error has occurred:",
+
+
+  "purchaseFailedOrWasAborted": "Purchase failed or was aborted.",
+  "youCanFindOurContactInformation": "You can find our contact information",
+
+  "openSafetyTraining": "Open safety training",
+  "myProfile": "My Profile",
+  "activities": "Activities",
+
+  "receiptAndConfirmationViaMail": "You will receive the invoice and the confirmation by mail.",
+  "becomeAMemberIn4simpleSteps":"Become a member in 4 simple steps!",
+  "startSafetyTraining": "Start your safety training",
+
+  "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "You made the first steps towards becoming a GRAND GARAGE member!",
+  "toCompleteOnboardingStartSafetyTraining":"In order to complete your registration process you can start the safety training now.",
+
+  "dateOfBirth": "Date of birth",
+  "company": "company",
+
+  "howDidYouLearnAboutUs": "How did you learn about us?",
+
+
+  "welcomeToTheGG": "Welcome to the GRAND GARAGE!",
+
+  "memberBenefitsText":"By signing up for a membership you become a part of our vibrant community, which will not only enable you access to our machines and devices, but also offer free WIFI and a personalized member card ",
+
+  "memberPerksText":"Additionally you will get discounts for all of our workshops and the opportunity to buy materials at purchase price",
+
+  "ifYouHaveAnyQuestionsRegardingYourMembership": "If you have any questions regarding your membership",
+  "doNotHesitateToAskOurFrontdeskTeam": "do not hesitate to ask our frontdesk team!",
+  "#makersgonnamake": "#MAKERSGONNAMAKE",
+
+
+  "differentCardListing": "4you card, student-ID, apprentices (under the age of 28), disability card",
+  "pleaseBringAccordingID": "Please bring the according ID along, when visiting us for the first time",
+  "euro": "EUR",
+  "euro/month": "EUR/ MONTH",
+  "euro/year": "EUR/ YEAR",
+  "factoryRules": "Factory rules",
+  "monthlyPayment": "monthly payment",
+  "yearlyPayment": "yearly payment",
+
+  "twoMonthsForFree": "Hint: By choosing a yearly membership you get 2 months for free!",
+  "howWouldYouPreferToPay": "How would you prefer to pay?",
+  "iban": "IBAN",
+  "bankName": "Bank name",
+  "sepaAgreementFormText": "My membership fee and any resulting additional costs will be deducted from my bank account via a sepa-debit order.",
+
+  "manageCookies": "This website uses cookies!",
+  "cookiesDescription": "This website uses cookies and Google analytics, which also include third party cookies for analytical purposes. We apply cookies for different reasons, such as personalising marketing notifications. For more information about our cookie police please read our ",
+  "dataPrivacyRead": "",
+  "cookieSettings": "Cookie-Settings",
+  "selectAll": "Select all",
+  "necessaryCookies": "Necessary cookies",
+  "analyticsCookies": "Analytics cookies",
+  "adjustCookiePreferences": "You can always change your cookie-settings - to do so, go to your browser settings and select \"Cookie-settings\"."
+}
