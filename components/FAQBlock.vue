@@ -5,7 +5,7 @@
   >
     <div class="downloads">
       <div class="headline">
-        Downloads
+        {{ $t('downloads') }}
       </div>
       <div class="download-list">
         <download-item
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .faq-block {
   display: flex;

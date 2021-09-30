@@ -13,16 +13,16 @@
       <div class="body">
         <div class="category">
           <div v-if="content.category === 'training'">
-            <span>Einschulung</span>
+            <span>{{ $t('instructions') }}</span>
           </div>
           <div v-if="content.category === 'event'">
-            <span>Event</span>
+            <span>{{ $t('event') }}</span>
           </div>
           <div v-if="content.category === 'meetup'">
-            <span>Meetup</span>
+            <span>{{ $t('meetup') }}</span>
           </div>
           <div v-if="content.category === 'workshop'">
-            <span>Workshop</span>
+            <span>{{ $t('workshops') }}</span>
           </div>
         </div>
         <div class="title">
@@ -77,13 +77,13 @@
                     class="col"
                 >
                   <icon name="user" />
-                  <span>Members only!</span>
+                  <span>{{ $t('membersOnly') }}</span>
                 </div>
                 <div
                     v-if="d.content.sold_out"
                     class="col soldOut"
                 >
-                  <span>ausgebucht</span>
+                  <span>{{ $t('soldOut') }}</span>
                 </div>
               </div>
               <!-- <div class="info-block">

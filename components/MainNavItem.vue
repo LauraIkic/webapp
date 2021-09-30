@@ -50,7 +50,10 @@ export default {
     display: flex;
     text-transform: uppercase;
     color: #000;
-    padding: 25px 25px;
+    padding-top: 35px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom:25px;
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
@@ -78,7 +81,7 @@ export default {
           font-size: 2.2rem;
           content: '•';
           left: 5px;
-          top: 14px;
+          top: 23px;
         }
       }
     }

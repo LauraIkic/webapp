@@ -85,6 +85,8 @@ import PressContact from '../components/PressContact'
 import PressImageSlider from '../components/PressImageSlider'
 import Press from '../components/Press'
 import PressPost from '../components/PressPost'
+import CookieManager from '../components/CookieManager'
+import LanguageInput from '../components/LanguageInput'
 
 Vue.component('page', Page)
 Vue.component('general-header', GeneralHeader)
@@ -169,6 +171,9 @@ Vue.component('loading-spinner', LoadingSpinner)
 Vue.component('checkbox', Checkbox)
 
 Vue.component('feedback-form', FeedbackForm)
+Vue.component('cookie-manager', CookieManager)
+Vue.component('language-input', LanguageInput)
+Vue.component('location-description', LocationDescription)
 
 Vue.component('press-contact', PressContact)
 Vue.component('press-images', PressImageSlider)
