@@ -187,9 +187,11 @@ export default {
           margin-right: 0;
         }
       }
-
+      @media(max-width: 1500px) {
+        width:60vw;
+        height: 89vh;
+      }
       @include media-breakpoint-down(lg) {
-        min-heihgt: auto;
         margin: auto;
         width: auto;
         padding: 2em 2em;
@@ -233,9 +235,13 @@ export default {
         height: 7vh;
         border-radius: 3px;
         font-size: 1.5rem;
-
+        @media(max-width: 1500px) {
+          width: 18vw;
+          margin-top: auto;
+        }
         @include media-breakpoint-down(lg) {
           width: 30vw;
+          height: 5vh;
         }
         @include media-breakpoint-down(xs) {
           width: 33vw;
