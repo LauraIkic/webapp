@@ -19,7 +19,7 @@
         v-else
         class="workshop-list-none"
       >
-        <code>Keine Suchergebnisse</code>
+        <code>{{ $t('noSearchResults') }}</code>
       </div>
     </div>
   </section>

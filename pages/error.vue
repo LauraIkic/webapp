@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-     Kauf fehlgeschlagen oder abgebrochen. Unsere Kontaktdaten findest du&nbsp;<nuxt-link to="/de/kontakt">hier</nuxt-link>.
+    {{ $t('purchaseFailedOrWasAborted') }}   {{ $t('youCanFindOurContactInformation') }}<nuxt-link to="/de/kontakt">{{ $t('here') }}</nuxt-link>.
   </div>
 </template>
 

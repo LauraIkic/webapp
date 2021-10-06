@@ -2,7 +2,7 @@
   <div :class="active ? 'level-item active' : 'level-item'">
     <!-- .level-indicator content must be loaded from storyblok language -->
     <h3 class="level-indicator">
-      Ebene
+      {{ $t('level') }}
     </h3>
     <h1 class="number">
       {{ number }}
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~/assets/scss/styles.scss";
+@import '/assets/scss/styles.scss';
 
 .level-item {
   display: flex;

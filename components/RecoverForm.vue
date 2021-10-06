@@ -14,7 +14,7 @@
               >
                 <font-awesome-icon icon="angle-left" />
               </div>
-              <span class="text">Password zurücksetzen</span>
+              <span class="text"> {{ $t( "resetPassword" ) }}</span>
             </div>
             <div
               class="close"
@@ -24,17 +24,17 @@
             </div>
           </div>
           <div class="info">
-            Bitte gib deine Email-Adresse ein.
+            {{ $t( "pleaseEnterEmail" ) }}
           </div>
         </div>
       </div>
       <div class="form-item">
-        <span class="label">E-Mail</span>
+        <span class="label"> {{ $t( "email" ) }}</span>
         <input
           ref="email"
           v-model="email"
           type="email"
-          placeholder="deine e-mail adresse"
+          :placeholder= "[[ $t('yourE-mailAddress') ]]"
           @input="checkMail"
         >
       </div>
@@ -43,7 +43,7 @@
           :disabled="!email.length"
           @click="submit"
         >
-          Absenden
+          {{ $t( "send" ) }}
         </button>
       </div>
     </div>

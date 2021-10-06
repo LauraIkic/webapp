@@ -167,9 +167,9 @@ $grid-breakpoints: (
 
 .input-button-primary {
   cursor: pointer;
-  background-color: #ff6f00;
+  background-color: $color-secondary;
   color: #FFF;
-  border: 1px solid #ff8c33;
+  border: 1px solid $color-secondary-border;
   padding: 7px 12px 8px;
   line-height: 1;
   outline: none;

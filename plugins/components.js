@@ -81,6 +81,8 @@ import PriceTable from '~/components/PriceTable.vue'
 import PriceTableItem from '~/components/PriceTableItem.vue'
 import MachinePreview from '~/components/MachinePreview'
 import MakerPreview from '../components/MakerPreview'
+import CookieManager from '../components/CookieManager'
+import LanguageInput from '../components/LanguageInput'
 import PressContact from '../components/PressContact'
 import PressImageSlider from '../components/PressImageSlider'
 import Press from '../components/Press'
@@ -169,6 +171,9 @@ Vue.component('loading-spinner', LoadingSpinner)
 Vue.component('checkbox', Checkbox)
 
 Vue.component('feedback-form', FeedbackForm)
+Vue.component('cookie-manager', CookieManager)
+Vue.component('language-input', LanguageInput)
+Vue.component('location-description', LocationDescription)
 
 Vue.component('press-contact', PressContact)
 Vue.component('press-images', PressImageSlider)
