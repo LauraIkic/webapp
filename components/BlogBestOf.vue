@@ -37,7 +37,7 @@ export default {
   computed: {
     newsToDisplay () {
       if (!this.news) return
-      return this.news.stories.slice(0, 3)
+      return this.news.stories.slice(0, 2)
     }
   }
 }
@@ -73,6 +73,7 @@ export default {
     display: flex;
     @media (max-width: 1460px) {
       flex-direction: column;
+      align-items: center;
     }
     flex-direction: row;
     justify-content: space-between;

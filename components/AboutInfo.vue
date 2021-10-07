@@ -53,7 +53,7 @@ export default {
       font-weight: bold;
       @include media-breakpoint-up(lg) {
         padding: 0 3.4vw 10vh;
-        font-size: 4.2vw;
+        font-size: 3.5vw;
       }
       @include media-breakpoint-down(md) {
         padding: 0 3.4vw 2vh;
@@ -95,7 +95,7 @@ export default {
       padding: 0 7vw 0 0;
       margin-top: 7vh;
       margin-bottom: -3%;
-      font-size: 1.4vw;
+      font-size: 1.3vw;
       @include media-breakpoint-down(md) {
         font-size: 1em;
       }

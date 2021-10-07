@@ -30,23 +30,25 @@
             <div class="name">
               {{ blok.name }}
             </div>
+          </div>
+          <div class="title-contact-options">
+            <div class="title">
+              {{ blok.title }}
+            </div>
             <div class="contact-options">
               <a
-                v-if="blok.email"
-                class="option email"
-                :href="'mailto:'+blok.email"
+                  v-if="blok.email"
+                  class="option email"
+                  :href="'mailto:'+blok.email"
               >
                 <img
-                  class="icon"
-                  src="~/assets/img/icons/envelope.svg"
-                  alt=""
+                    class="icon"
+                    src="~/assets/img/icons/envelope.svg"
+                    alt=""
                 >
                 <div class="text">{{ blok.email }}</div>
               </a>
             </div>
-          </div>
-          <div class="title">
-            {{ blok.title }}
           </div>
         </div>
         <div class="short-description">
@@ -143,27 +145,36 @@ export default {
             text-transform: uppercase;
             line-height: 1.2;
           }
-          .contact-options {
-            font-size: .9rem;
-            margin-bottom: .8rem;
-            display: flex;
-            flex-direction: column;
-            .option {
-              display: flex;
-              flex-direction: row-reverse;
-              align-items: center;
-              padding: .4em 0;
-              color: inherit;
-              text-decoration: none;
-              .icon {
-                width: 18px;
-                margin-left: .5em;
-              }
-              .text {
-              }
-            }
-          }
         }
+        .title-contact-options {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+                    .contact-options {
+                      font-size: .9rem;
+                      margin-bottom: .8rem;
+                      display: flex;
+                      flex-direction: column;
+
+                      .option {
+                        display: flex;
+                        flex-direction: row-reverse;
+                        align-items: center;
+                        padding: .4em 0;
+                        color: inherit;
+                        text-decoration: none;
+
+                        .icon {
+                          width: 18px;
+                          margin-left: .5em;
+                        }
+
+                        .text {
+                        }
+                      }
+                    }
+                  }
         .title {
           font-family: $font-mono;
           font-size: 1rem;
