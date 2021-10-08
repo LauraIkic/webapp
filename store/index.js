@@ -720,8 +720,7 @@ const createStore = () => {
           filter_query: filters.filter_query,
           version: version,
           cv: state.cacheVersion,
-          starts_with: `${state.language}/press`,
-          sort_by: 'content.datetime:desc'
+          starts_with: `${state.language}/press`
         }).then((res) => {
           return res.data
         }).catch((res) => {

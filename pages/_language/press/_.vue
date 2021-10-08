@@ -1,7 +1,6 @@
 <template>
-  <section class="util__container">
-    <component v-if="story && story.content && story.content.component" :key="story.content._uid" :blok="story.content" :is="story.content.component"></component>
-  </section>
+  <section>
+ </section>
 </template>
 
 <script>

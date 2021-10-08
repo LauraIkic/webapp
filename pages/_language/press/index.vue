@@ -1,12 +1,22 @@
 <template>
   <section>
     <div class="press-page">
-    </div>
-    <div class="blog-wrapper">
-      <div class="blog">
-        <div class="headline">
-          <p class="headline-text">Presse</p>
+      <div class="headline">
+        <h1 class="headline-text">Presse</h1>
+      </div>
+        <press-contact :key="p.id" v-for="p in story.content.body" :story="p"></press-contact>
+      <div class="press-post-title">Pressemitteilungen</div>
+      <div class="press-preview">
+        <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
+      </div>
+      <details>
+        <summary style="cursor:pointer" class="press-post-title">Alle Pressemitteilungen <div class="arrow"></div> </summary>
+        <div class="all-press-posts">
+          <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
+      </details>
+      <div class="images">
+        <press-image-slider :key="p.id" v-for="p in story.content.Images" :story="p"></press-image-slider>
       </div>
     </div>
   </section>
@@ -36,7 +46,7 @@ export default {
       }
     }
   },
-  async asyncData (context) {
+  async asyncData  (context) {
     const press = await context.store
       .dispatch('loadPress')
       .catch(e => {
@@ -68,6 +78,10 @@ export default {
     }
   },
   computed: {
+    pressToDisplay () {
+      if (!this.press) return
+      return this.press.slice(0, 2)
+    },
     items () {
       const list = []
       let temp = []
@@ -109,5 +123,45 @@ export default {
 
 <style lang="scss">
 @import "/assets/scss/styles.scss";
-
+.press-page{
+  .headline{
+    padding: 10px;
+    background-color: white;
+    .headline-text{
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+      color:black;
+      font-size: 5rem;
+      display: flex;
+    }
+  }
+  .press-post-title{
+    display: flex;
+    justify-content: center;
+    font-size: 3rem;
+    margin-top: 5%;
+  }
+  .arrow {
+    display: inline-block;
+    position: relative;
+    width: 4em;
+    border-right: .1em solid black;
+    border-top: .1em solid black;
+    margin: .25em 1em;
+    transition: transform .15s ease-out;
+    &:after {
+      content: "";
+      position: absolute;
+      right: -.1em;
+      top: -.05em;
+      border-top: .1em solid black;
+      border-right: .1em solid black;
+      width: .5em;
+      height: .5em;
+      transform-origin: right top;
+      transform: rotate(45deg);
+    }
+  }
+}
 </style>

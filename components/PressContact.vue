@@ -1,34 +1,35 @@
 <template>
     <div
-        v-editable="blok"
         class="press-contact"
     >
-      <div  v-if="story.content && story.content.component == 'press-page'">
         <div  class="contact-details">
           <h2  class="your-contact">
             Ihr Kontakt
           </h2>
           <h2 class="teaser">
-            {{ blok.title }}
+            {{ person.title }}
           </h2>
           <h4>
-            {{ blok.position}}
+            {{ person.position}}
           </h4>
           <h4>
-            {{ blok.company_details}}
+            {{ person.company_details}}
           </h4>
           <h4>
-            {{ blok.contact}}
+            {{ person.contact}}
           </h4>
         </div>
       </div>
-    </div>
 </template>
 
 <script>
 export default {
-  props: ['blok'],
-  name: 'PressContact'
+  props: ['story'],
+  computed: {
+    person () {
+      return this.story
+    }
+  }
 }
 </script>
 
@@ -53,6 +54,7 @@ export default {
   display: flex;
   justify-content: center;
   .contact-details{
+    width: 1400px;
     .your-contact{
       font-size: 4.6875rem;
       line-height: 1.1;
@@ -61,7 +63,6 @@ export default {
     display: flex;
     align-self: center;
     flex-flow: column;
-    max-width: 960px;
     margin-left:auto;
     margin-right: auto;
   }
