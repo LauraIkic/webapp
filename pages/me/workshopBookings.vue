@@ -55,6 +55,7 @@ export default {
     })
   },
   methods: {
+    // This function is for the commented out storno-button. That gives user the possibility to cancel their workshops
     storno: function (workshopDate) {
       const data = {
         workshop_date_id: workshopDate.uuid
