@@ -15,12 +15,14 @@
           :key="workshopDate.content.workshop.uuid"
           class="preview"
         />
+        <!--
         <button
             class="input-button-primary"
             @click="storno(workshopDate)"
         >
           Diesen Workshop stornieren
         </button>
+        -->
         <workshop-dates
           :dates="[workshopDate]"
           class="workshop-dates"
