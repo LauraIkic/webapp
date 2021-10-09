@@ -2,7 +2,7 @@
   <nuxt-link :to="postItemSlug">
     <div class="press-post-preview">
       <div class="date">
-        DATUM
+        {{postItemDate}}
       </div>
       <div class="press-information">
         <div class="title">
@@ -26,6 +26,12 @@ export default {
     postItem () {
       return this.story.content
     },
+    postItemDate () {
+      if (this.story.content.Date) {
+        return this.story.content.Date.slice(0, 11)
+      }
+      return null
+    },
     postItemSlug () {
       return 'press/' + this.story.slug
     }
@@ -44,25 +50,54 @@ export default {
   margin-right: auto;
   background:white;
   width: 50vw;
+  border-radius: 10px;
   &:hover {
-  background-color: $color-secondary;
+    background-color: #000;
+    color: white;
+    .arrow{
+      border-right: .1em solid white;
+      border-top: .1em solid white;
+      &:after {
+        border-top: .1em solid white;
+        border-right: .1em solid white;
+      }
+    }
 }
-  .date{
-    width:8vw;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .to-full-press-post{
-    align-items: center;
-    display: flex;
-  }
   .press-information{
-    line-height: 1.8;
-    padding: 19px;
-    width: 30vw;
-    .title{
-      font-size: 3rem;
+     line-height: 1.8;
+     padding: 19px;
+     width: 30vw;
+     .title{
+       font-size: 3rem;
+     }
+     .date{
+       width:8vw;
+       display:flex;
+       align-items: center;
+       justify-content: center;
+     }
+     .to-full-press-post{
+       align-items: center;
+       display: flex;
+     }
+   }
+  @include media-breakpoint-down(sm) {
+    width: 90%;
+    margin-top: 4vh;
+    display: flex;
+    flex-flow: column;
+    .press-information{
+      width:auto;
+      .title{
+      font-size: 2rem;
+    }
+    } .date{
+        padding: 12px;
+        align-self: end;
+      }
+    .to-full-press-post{
+      padding:12px;
+      align-self: end;
     }
   }
   .arrow {

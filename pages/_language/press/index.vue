@@ -10,13 +10,13 @@
         <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
       </div>
       <details>
-        <summary style="cursor:pointer" class="press-post-title">Alle Pressemitteilungen <div class="arrow"></div> </summary>
+        <summary style="cursor:pointer" class="to-all-posts"> Alle Pressemitteilungen<div class="arrow"></div> </summary>
         <div class="all-press-posts">
           <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
       </details>
       <div class="images">
-        <press-image-slider :key="p.id" v-for="p in story.content.Images" :story="p"></press-image-slider>
+        <press-image-slider :story="images"></press-image-slider>
       </div>
     </div>
   </section>
@@ -32,7 +32,6 @@ export default {
     return {
       page: [],
       press: [],
-      story: null,
       root: null,
       loading: false
     }
@@ -78,6 +77,9 @@ export default {
     }
   },
   computed: {
+    images () {
+      return this.story.content.Images
+    },
     pressToDisplay () {
       if (!this.press) return
       return this.press.slice(0, 2)
@@ -134,6 +136,10 @@ export default {
       color:black;
       font-size: 5rem;
       display: flex;
+      @include media-breakpoint-down(xs) {
+        font-size: 3rem;
+        max-width: 350px;
+      }
     }
   }
   .press-post-title{
@@ -141,6 +147,20 @@ export default {
     justify-content: center;
     font-size: 3rem;
     margin-top: 5%;
+    font-weight: bold;
+    @include media-breakpoint-down(sm) {
+      font-size: 2rem;
+      margin-top: 15%;
+    }
+  }
+  .to-all-posts{
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    margin-top: 5%;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .arrow {
     display: inline-block;

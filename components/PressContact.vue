@@ -66,5 +66,13 @@ export default {
     margin-left:auto;
     margin-right: auto;
   }
+  @include media-breakpoint-down(sm) {
+    .contact-details{
+      max-width: 350px;
+      .your-contact{
+        font-size: 2rem;
+      }
+    }
+  }
 }
 </style>

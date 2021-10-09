@@ -5,11 +5,12 @@
         Bilder zum Downloaden
       </div>
     <div class="image-container">
-      <img
-          v-if="imageGallery"
+      <div
+          v-for="s in imageGallery"
+          :key="s._uid"
           class="picture"
-          :src="$resizeImage(imageGallery.image, '300x300')"
-      >
+          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
+      />
     </div>
   </div>
   </nuxt-link>
@@ -46,6 +47,13 @@ export default {
     margin-left: auto;
     margin-right: auto;
     margin-top: 4vh;
+    display: block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .picture{
+
   }
 }
 
