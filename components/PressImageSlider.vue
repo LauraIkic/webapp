@@ -5,12 +5,18 @@
         Bilder zum Downloaden
       </div>
     <div class="image-container">
-      <div
-          v-for="s in imageGallery"
-          :key="s._uid"
-          class="picture"
-          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
-      />
+      <div class="picture-container">
+        <div
+            v-for="s in imageGallery"
+            :key="s._uid"
+            class="picture"
+            :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
+        />
+        <div cass="download">
+          Herunterladen
+          <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
+        </div>
+      </div>
     </div>
   </div>
   </nuxt-link>
@@ -42,7 +48,7 @@ export default {
     justify-content: center;
     font-size: 2em;
   }
-  .image-container {
+  .picture-container {
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
@@ -50,10 +56,22 @@ export default {
     display: block;
     background-size: contain;
     background-position: center;
-    background-repeat: no-repeat;
+    display: flex;
+    flex-flow: row;
   }
   .picture{
-
+    height: 32vh;
+    width: 23vw;
+    overflow:hidden;
+    background-repeat: no-repeat;
+  }
+  .download{
+    display:flex;
+    flex-flow:row;
+    .download-cloud{
+      height: 10vh;
+      width: 3vw;
+    }
   }
 }
 

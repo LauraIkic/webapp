@@ -51,8 +51,16 @@ export default {
   background:white;
   width: 50vw;
   border-radius: 10px;
+  border-top: black 10px solid;
   &:hover {
-    background-color: #000;
+    border-top: white 10px solid;
+    background: repeating-linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.3) 70px,
+            rgba(0, 0, 0, 0.8) 70px,
+            rgba(0, 0, 0, 0.8) 140px
+    );
     color: white;
     .arrow{
       border-right: .1em solid white;
@@ -62,6 +70,9 @@ export default {
         border-right: .1em solid white;
       }
     }
+    .date{
+      border-right: white 1px solid;
+    }
 }
   .press-information{
      line-height: 1.8;
@@ -70,17 +81,20 @@ export default {
      .title{
        font-size: 3rem;
      }
-     .date{
-       width:8vw;
-       display:flex;
-       align-items: center;
-       justify-content: center;
-     }
-     .to-full-press-post{
-       align-items: center;
-       display: flex;
-     }
    }
+  .date{
+          width:8vw;
+          display:flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.3rem;
+    border-right: black 1px solid;
+        }
+  .to-full-press-post{
+    align-items: center;
+    display: flex;
+  }
   @include media-breakpoint-down(sm) {
     width: 90%;
     margin-top: 4vh;
