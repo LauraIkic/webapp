@@ -10,7 +10,7 @@
         <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
       </div>
       <details>
-        <summary style="cursor:pointer" class="to-all-posts"> Alle Pressemitteilungen<div class="arrow"></div> </summary>
+        <summary style="cursor:pointer" class="to-all-posts"> Alle Pressemitteilungen</summary>
         <div class="all-press-posts">
           <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
@@ -162,26 +162,37 @@ export default {
       text-decoration: underline;
     }
   }
-  .arrow {
+  }
+  .all-press-posts{
+    background: #0001;
+    padding-top: 53.5px;
+    padding-bottom: 53.5px;
+    margin-top: -3%;
+    @include media-breakpoint-down(xs) {
+      margin-top: -10%;
+    }
+  }
+  .small-arrow{
     display: inline-block;
     position: relative;
-    width: 4em;
-    border-right: .1em solid black;
     border-top: .1em solid black;
-    margin: .25em 1em;
+    margin: 0.4em 1em;
     transition: transform .15s ease-out;
+
     &:after {
       content: "";
       position: absolute;
       right: -.1em;
       top: -.05em;
-      border-top: .1em solid black;
       border-right: .1em solid black;
+      border-top: .1em solid black;
       width: .5em;
       height: .5em;
       transform-origin: right top;
       transform: rotate(45deg);
     }
+    details[open] > summary:before {
+      transform: rotate(90deg);
+    }
   }
-}
 </style>

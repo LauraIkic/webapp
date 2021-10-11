@@ -86,6 +86,7 @@ import LanguageInput from '../components/LanguageInput'
 import PressContact from '../components/PressContact'
 import PressImageSlider from '../components/PressImageSlider'
 import PressPostPreview from '../components/PressPostPreview'
+import PressPost from '../components/PressPost'
 
 Vue.component('page', Page)
 Vue.component('general-header', GeneralHeader)
@@ -177,3 +178,4 @@ Vue.component('location-description', LocationDescription)
 Vue.component('press-contact', PressContact)
 Vue.component('press-image-slider', PressImageSlider)
 Vue.component('press-post-preview', PressPostPreview)
+Vue.component('press-overview', PressPost)

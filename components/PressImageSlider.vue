@@ -1,11 +1,10 @@
 <template>
-  <nuxt-link :to="$resizeImage(imageURL.link())" >
   <div class="press-image-slider">
       <div class="title">
         Bilder zum Downloaden
       </div>
     <div class="image-container">
-      <div class="picture-container">
+      <div class="picture-container" >
         <div
             v-for="s in imageGallery"
             :key="s._uid"
@@ -19,7 +18,6 @@
       </div>
     </div>
   </div>
-  </nuxt-link>
 </template>
 
 <script>
