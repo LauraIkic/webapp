@@ -15,12 +15,14 @@
           :key="workshopDate.content.workshop.uuid"
           class="preview"
         />
+        <!--
         <button
             class="input-button-primary"
             @click="storno(workshopDate)"
         >
           Diesen Workshop stornieren
         </button>
+        -->
         <workshop-dates
           :dates="[workshopDate]"
           class="workshop-dates"
@@ -53,6 +55,7 @@ export default {
     })
   },
   methods: {
+    // This function is for the commented out storno-button. That gives user the possibility to cancel their workshops
     storno: function (workshopDate) {
       const data = {
         workshop_date_id: workshopDate.uuid
