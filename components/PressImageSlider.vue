@@ -9,13 +9,18 @@
             v-for="s in imageGallery"
             :key="s._uid"
             class="swiper-slide"
-            :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
-            :aria-label="HI"
+            :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}"
         />
-        <div cass="download">
-          Herunterladen
-          <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
-        </div>
+      </div>
+      <div  class="swiper-wrapper"
+            :class="{ center : length }">
+          <div
+              v-for="s in imageGallery"
+              :key="s._uid"
+              class="swiper-slide"
+              :text="'Herunterladen'"
+              :style="{backgroundImage: 'url('+require('assets/img/icons/download-icon.svg' )+')'}"
+          />
       </div>
       <div
           class="swiper-button-next"
@@ -73,43 +78,6 @@ export default {
 
 <style lang="scss">
 @import '../assets/scss/styles.scss';
-.press-image-slider{
-  margin-top: 5vh;
-  background-color: black;
-  color:white;
-  padding: 50px;
-  .title{
-    display: flex;
-    justify-content: center;
-    font-size: 2em;
-  }
-  .picture-container {
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 4vh;
-    display: block;
-    background-size: contain;
-    background-position: center;
-    display: flex;
-    flex-flow: row;
-  }
-  .picture{
-    height: 32vh;
-    width: 23vw;
-    overflow:hidden;
-    background-repeat: no-repeat;
-  }
-  .download{
-    display:flex;
-    flex-flow:row;
-    .download-cloud{
-      height: 10vh;
-      width: 3vw;
-    }
-  }
-}
-
 .swiper-wrapper.center {
   @include media-breakpoint-up(sm) {
     justify-content: center;
@@ -117,17 +85,33 @@ export default {
 }
 
 .image-slideshow {
-  color: $color-blue;
-  .text {
-    @include margin-page-middle();
-    padding: 5rem 0 4rem;
-    font-size: 1.8rem;
-    font-family: $font-secondary;
-    line-height: 1.4;
-    letter-spacing: 1.4px;
+  .swiper-slide-download{
+    display: block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height:3vh;
+    width:300px;
+    @include media-breakpoint-down(md){
+      width:200px !important;
+      height: 180px !important;
+    }
   }
   .swiper-container {
-    height: 25em;
+    padding-top: 30px;
+    .download{
+      .swiper-slide {
+        display: block;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        height:3vh;
+        @include media-breakpoint-down(md){
+          width:200px !important;
+          height: 180px !important;
+        }
+      }
+    }
     .swiper-slide {
       display: block;
       background-size: contain;

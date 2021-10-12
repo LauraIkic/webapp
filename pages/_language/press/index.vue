@@ -162,6 +162,10 @@ export default {
       text-decoration: underline;
     }
   }
+  .images{
+    margin-top:10%;
+    background: black;
+  }
   }
   .all-press-posts{
     background: #0001;
