@@ -1,21 +1,28 @@
 <template>
-  <div class="press-image-slider">
-      <div class="title">
-        Bilder zum Downloaden
-      </div>
-    <div class="image-container">
-      <div class="picture-container" >
+  <div class="image-slideshow ">
+    <div v-swiper:swiper="swiperOption">
+      <div
+          class="swiper-wrapper"
+          :class="{ center : length }"
+      >
         <div
             v-for="s in imageGallery"
             :key="s._uid"
-            class="picture"
+            class="swiper-slide"
             :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
+            :aria-label="HI"
         />
         <div cass="download">
           Herunterladen
           <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
         </div>
       </div>
+      <div
+          class="swiper-button-next"
+      />
+      <div
+          class="swiper-button-prev"
+      />
     </div>
   </div>
 </template>
@@ -29,6 +36,36 @@ export default {
     },
     imageURL () {
       return 'img2.storyblok.com' + this.story.image
+    },
+    swiperOption () {
+      return {
+        slidesPerView: this.num,
+        spaceBetween: this.spaceBetween,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      }
+    },
+    spaceBetween () {
+      if (process.client && window && window.innerWidth) {
+        if (window.innerWidth < 786) {
+          return 0
+        }
+      }
+      return 30
+    },
+    num () {
+      if (process.client && window && window.innerWidth) {
+        if (window.innerWidth < 786) {
+          return 1
+        }
+      }
+      return 3
     }
   }
 }
@@ -73,4 +110,46 @@ export default {
   }
 }
 
+.swiper-wrapper.center {
+  @include media-breakpoint-up(sm) {
+    justify-content: center;
+  }
+}
+
+.image-slideshow {
+  color: $color-blue;
+  .text {
+    @include margin-page-middle();
+    padding: 5rem 0 4rem;
+    font-size: 1.8rem;
+    font-family: $font-secondary;
+    line-height: 1.4;
+    letter-spacing: 1.4px;
+  }
+  .swiper-container {
+    height: 25em;
+    .swiper-slide {
+      display: block;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      @include media-breakpoint-down(md){
+        width:200px !important;
+        height: 180px !important;
+      }
+    }
+    padding-bottom: 60px;
+    @include media-breakpoint-down(md){
+      height: 25vh;
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    background-size: 12px;
+  }
+}
 </style>
