@@ -1,6 +1,9 @@
 <template>
   <div class="image-slideshow ">
     <div v-swiper:swiper="swiperOption">
+      <div class="title">
+      PRESSEBILDER
+    </div>
       <div
           class="swiper-wrapper"
           :class="{ center : length }"
@@ -9,19 +12,30 @@
             v-for="s in imageGallery"
             :key="s._uid"
             class="swiper-slide"
-            :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}"
-        />
+            :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}">
+          <div class="download-underline">
+            <nuxt-link :to="s.image" class="download">
+              <div class="download">
+                Herunterladen
+                <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
+              </div>
+            </nuxt-link>
+          </div>
+       </div>
       </div>
-      <div  class="swiper-wrapper"
+<!--      <div  class="swiper-wrapper"
             :class="{ center : length }">
-          <div
+          <div class="swiper-slide"
               v-for="s in imageGallery"
               :key="s._uid"
-              class="swiper-slide"
-              :text="'Herunterladen'"
-              :style="{backgroundImage: 'url('+require('assets/img/icons/download-icon.svg' )+')'}"
-          />
-      </div>
+              v-bind:class="swiper-slide-download"
+              :style="{backgroundImage: 'url('+require('assets/img/icons/download-icon.svg' )+')'}">
+            <div v-bind:class="swiper-slide" class="download-text">
+              <a :href="s.image"></a>
+              Herunterladen
+            </div>
+          </div>
+        </div>-->
       <div
           class="swiper-button-next"
       />
@@ -39,8 +53,8 @@ export default {
     imageGallery () {
       return this.story
     },
-    imageURL () {
-      return 'img2.storyblok.com' + this.story.image
+    image () {
+      return 'assets/img/icons/download-icon.svg'
     },
     swiperOption () {
       return {
@@ -76,55 +90,97 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../assets/scss/styles.scss';
 .swiper-wrapper.center {
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(xs) {
     justify-content: center;
   }
 }
-
+.download-underline{
+  display: flex;
+  height: 38vh;
+  color:white;
+  .download{
+    color:white;
+    align-self: end;
+    display: flex;
+    flex-flow: row;
+    height: 3vh;
+    width: 400px;
+    justify-content: center;
+    .download-cloud{
+      height: 2.5vh;
+      padding: 4px;
+    }
+  }
+  &:hover {
+    text-decoration: underline;
+    .download-cloud{
+      padding: 3px;
+    }
+  }
+  @include media-breakpoint-down(xs) {
+    height:26vh;
+    .download{
+      width:211px;
+    }
+  }
+}
+.swiper-slide-download{
+  width:300px;
+  height:3vh;
+  display: block;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 401.333px;
+  margin-left:10%;
+  @include media-breakpoint-down(sm){
+    width:200px !important;
+    height: 180px !important;
+  }
+}
 .image-slideshow {
-  .swiper-slide-download{
-    display: block;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    height:3vh;
-    width:300px;
-    @include media-breakpoint-down(md){
-      width:200px !important;
-      height: 180px !important;
+  .title{
+    font-family: Chakra Petch;
+    font-size: 2.5rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2%;
+    text-transform: capitalize;
+    @include media-breakpoint-down(xs) {
+      font-size: 1.8rem;
+      margin-bottom: 4%;
     }
   }
   .swiper-container {
-    padding-top: 30px;
-    .download{
-      .swiper-slide {
-        display: block;
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        height:3vh;
-        @include media-breakpoint-down(md){
-          width:200px !important;
-          height: 180px !important;
-        }
+    .download-text{
+      color:white;
+      cursor: pointer;
+      &:hover{
+        text-decoration: underline;
       }
     }
+    padding-top: 30px;
+    height: 25em;
     .swiper-slide {
       display: block;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      @include media-breakpoint-down(md){
+      @include media-breakpoint-down(sm){
         width:200px !important;
         height: 180px !important;
       }
     }
-    padding-bottom: 60px;
-    @include media-breakpoint-down(md){
+    padding-bottom: 130px;
+    @include media-breakpoint-down(sm){
       height: 25vh;
+    }
+    @include media-breakpoint-down(xs){
+      height: 36vh;
     }
   }
   .swiper-button-prev,
@@ -132,7 +188,7 @@ export default {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: white;
+    background-color: $color-yellow;
     background-size: 12px;
   }
 }

@@ -54,9 +54,10 @@ export default {
   display: flex;
   justify-content: center;
   .contact-details{
-    width: 1400px;
+    max-width: 1000px;
     .your-contact{
-      font-size: 4.6875rem;
+      font-size: 3rem;
+      font-family: Chakra Petch;
       line-height: 1.1;
     }
     color: white;

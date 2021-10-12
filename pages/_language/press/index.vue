@@ -126,16 +126,25 @@ export default {
 <style lang="scss">
 @import "/assets/scss/styles.scss";
 .press-page{
+  max-width: 1264px;
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-flow: column;
   .headline{
+    font-family: Chakra Petch;
     padding: 10px;
     background-color: white;
     .headline-text{
-      max-width: 1400px;
+      max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
       color:black;
       font-size: 5rem;
       display: flex;
+      font-family: Chakra Petch;
       @include media-breakpoint-down(xs) {
         font-size: 3rem;
         max-width: 350px;
@@ -148,17 +157,24 @@ export default {
     font-size: 3rem;
     margin-top: 5%;
     font-weight: bold;
-    @include media-breakpoint-down(sm) {
+    font-family: Chakra Petch;
+    @include media-breakpoint-down(xs) {
       font-size: 2rem;
       margin-top: 15%;
     }
   }
   .to-all-posts{
     display: flex;
+    font-family: Chakra Petch;
     justify-content: center;
     font-size: 2rem;
     margin-top: 5%;
     &:hover {
+      text-decoration: underline;
+    }
+    @include media-breakpoint-down(xs) {
+      margin-top: 15%;
+      font-size: 1.5rem;
       text-decoration: underline;
     }
   }
@@ -171,7 +187,7 @@ export default {
     background: #0001;
     padding-top: 53.5px;
     padding-bottom: 53.5px;
-    margin-top: -3%;
+    margin-top: -5%;
     @include media-breakpoint-down(xs) {
       margin-top: -10%;
     }

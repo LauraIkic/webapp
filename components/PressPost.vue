@@ -23,13 +23,15 @@ export default {
 @import "/assets/scss/styles.scss";
 .press-overview{
   margin-top:1%;
-  max-width: 1400px;
+  max-width: 1000px;
   margin-left:auto;
   margin-right:auto;
   .title{
     font-size:3rem;
     background: white;
     padding:20px;
+    padding-top: 60px;
+    font-family: Chakra Petch;
   }
   .teaser{
     line-height: 1.8;

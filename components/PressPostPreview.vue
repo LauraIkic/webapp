@@ -70,7 +70,7 @@ export default {
   }
 
   .date {
-    width: 8vw;
+    width: 10vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,16 +86,18 @@ export default {
     background: white;
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(xs) {
+    margin-right: 7%;
     width: 90%;
     margin-top: 4vh;
     display: flex;
     flex-flow: column;
     .press-information {
       width: auto;
-
       .title {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border-bottom: black 1px solid;
       }
     }
     .date {
@@ -103,10 +105,12 @@ export default {
       align-self: end;
       width: auto;
       border-right: none;
+      font-weight: normal;
     }
     .to-full-press-post {
       padding: 12px;
       align-self: end;
+      border-radius: 10px;
     }
   }
 
