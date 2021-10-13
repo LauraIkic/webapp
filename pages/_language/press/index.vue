@@ -2,15 +2,15 @@
   <section>
     <div class="press-page">
       <div class="headline">
-        <h1 class="headline-text">Presse</h1>
+        <h1 class="headline-text"> {{ $t('press') }}</h1>
       </div>
         <press-contact :key="p.id" v-for="p in story.content.body" :story="p"></press-contact>
-      <div class="press-post-title">Pressemitteilungen</div>
+      <div class="press-post-title"> {{ $t('pressReleases') }}</div>
       <div class="press-preview">
         <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
       </div>
       <details>
-        <summary style="cursor:pointer" class="to-all-posts"> Alle Pressemitteilungen</summary>
+        <summary style="cursor:pointer" class="to-all-posts">  {{ $t('allPressReleases') }}</summary>
         <div class="all-press-posts">
           <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 export default {
   mixins: [storyblokLivePreview],
@@ -34,15 +33,6 @@ export default {
       press: [],
       root: null,
       loading: false
-    }
-  },
-  created () {
-    for (let i = 0; i < this.items.length; i++) {
-      for (let j = 0; j < this.items[i].items.length; j++) {
-        if (this.items[i].items[j].name === 'Header') {
-          this.url = this.items[i].items[j].content.image
-        }
-      }
     }
   },
   async asyncData  (context) {
@@ -83,34 +73,6 @@ export default {
     pressToDisplay () {
       if (!this.press) return
       return this.press.slice(0, 2)
-    },
-    items () {
-      const list = []
-      let temp = []
-      let currentMonth = null
-      let m = null
-      if (!this.press || !this.press.length || this.press.length === 0) {
-        return []
-      }
-
-      this.press.forEach((n) => {
-        // n.count = this.votes[n.uuid];
-        if (currentMonth !== moment(n.content.datetime).month()) {
-          if (currentMonth != null) {
-            list.push({ items: temp, label: m.locale('de-at').format('MMMM') })
-            temp = []
-          }
-          m = moment(n.content.datetime)
-          currentMonth = m.month()
-        }
-        if (n.name === 'Header') {
-          this.url = n.content.image
-          console.log(this.url)
-        }
-        temp.push({ type: 'item', ...n })
-      })
-      list.push({ items: temp, label: m.locale('de-at').format('MMMM') })
-      return list
     },
     filters () {
       // eslint-disable-next-line camelcase

@@ -2,7 +2,7 @@
   <div class="image-slideshow ">
     <div v-swiper:swiper="swiperOption">
       <div class="title">
-      PRESSEBILDER
+        {{ $t('pressImages') }}
     </div>
       <div
           class="swiper-wrapper"
@@ -14,14 +14,12 @@
             class="swiper-slide"
             :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}">
           <div class="download-underline" @click="myPath(s.image)">
-<!--            <nuxt-link :to="s.image" class="download">-->
               <div class="download">
                 <div class="download-text">
-                  Herunterladen
+                  {{ $t('download') }}
                 </div>
                 <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
               </div>
-<!--            </nuxt-link>-->
           </div>
        </div>
       </div>

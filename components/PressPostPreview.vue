@@ -70,7 +70,7 @@ export default {
   }
 
   .date {
-    width: 10vw;
+    width: 11vw;
     display: flex;
     align-items: center;
     justify-content: center;

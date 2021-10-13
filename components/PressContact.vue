@@ -4,7 +4,7 @@
     >
         <div  class="contact-details">
           <h2  class="your-contact">
-            Ihr Kontakt
+            {{ $t('yourContact') }}
           </h2>
           <h2 class="teaser">
             {{ person.title }}
