@@ -85,8 +85,7 @@ export default {
     display: flex;
     background: white;
   }
-
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(md) {
     margin-right: 7%;
     width: 90%;
     margin-top: 4vh;
@@ -98,6 +97,7 @@ export default {
         font-size: 1.5rem;
         font-weight: bold;
         border-bottom: black 1px solid;
+        margin-bottom: 3%;
       }
     }
     .date {

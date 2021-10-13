@@ -182,6 +182,13 @@ export default {
     margin-top:10%;
     background: black;
   }
+  @include media-breakpoint-down(md) {
+    .headline{
+      .headline-text{
+        margin-left:10%;
+      }
+    }
+  }
   }
   .all-press-posts{
     background: #0001;

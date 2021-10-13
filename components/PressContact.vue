@@ -76,4 +76,12 @@ export default {
     }
   }
 }
+@include media-breakpoint-down(md) {
+  .press-contact{
+    .contact-details{
+      margin-left:10%;
+      margin-right: 10%;
+    }
+  }
+}
 </style>

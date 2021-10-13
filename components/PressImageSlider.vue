@@ -13,29 +13,18 @@
             :key="s._uid"
             class="swiper-slide"
             :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}">
-          <div class="download-underline">
-            <nuxt-link :to="s.image" class="download">
+          <div class="download-underline" @click="myPath(s.image)">
+<!--            <nuxt-link :to="s.image" class="download">-->
               <div class="download">
-                Herunterladen
+                <div class="download-text">
+                  Herunterladen
+                </div>
                 <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
               </div>
-            </nuxt-link>
+<!--            </nuxt-link>-->
           </div>
        </div>
       </div>
-<!--      <div  class="swiper-wrapper"
-            :class="{ center : length }">
-          <div class="swiper-slide"
-              v-for="s in imageGallery"
-              :key="s._uid"
-              v-bind:class="swiper-slide-download"
-              :style="{backgroundImage: 'url('+require('assets/img/icons/download-icon.svg' )+')'}">
-            <div v-bind:class="swiper-slide" class="download-text">
-              <a :href="s.image"></a>
-              Herunterladen
-            </div>
-          </div>
-        </div>-->
       <div
           class="swiper-button-next"
       />
@@ -86,6 +75,11 @@ export default {
       }
       return 3
     }
+  },
+  methods: {
+    myPath: function (to) {
+      window.open(to)
+    }
   }
 }
 </script>
@@ -93,13 +87,13 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/styles.scss';
 .swiper-wrapper.center {
-  @include media-breakpoint-up(xs) {
+  @include media-breakpoint-up(sm) {
     justify-content: center;
   }
 }
 .download-underline{
   display: flex;
-  height: 38vh;
+  height: 115%;
   color:white;
   .download{
     color:white;
@@ -109,8 +103,13 @@ export default {
     height: 3vh;
     width: 400px;
     justify-content: center;
+    .download-text{
+      display: flex;
+      align-self: center;
+      font-size: 19px;
+    }
     .download-cloud{
-      height: 2.5vh;
+      height: 3vh;
       padding: 4px;
     }
   }
@@ -120,8 +119,10 @@ export default {
       padding: 3px;
     }
   }
-  @include media-breakpoint-down(xs) {
-    height:26vh;
+  @include media-breakpoint-down(md){
+    height:125%;
+  }
+  @include media-breakpoint-down(sm) {
     .download{
       width:211px;
     }
@@ -136,7 +137,7 @@ export default {
   background-repeat: no-repeat;
   width: 401.333px;
   margin-left:10%;
-  @include media-breakpoint-down(sm){
+  @include media-breakpoint-down(md){
     width:200px !important;
     height: 180px !important;
   }
@@ -150,7 +151,7 @@ export default {
     justify-content: center;
     margin-bottom: 2%;
     text-transform: capitalize;
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       font-size: 1.8rem;
       margin-bottom: 4%;
     }
@@ -170,17 +171,17 @@ export default {
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      @include media-breakpoint-down(sm){
+      @include media-breakpoint-down(md){
         width:200px !important;
         height: 180px !important;
       }
     }
     padding-bottom: 130px;
-    @include media-breakpoint-down(sm){
-      height: 25vh;
+    @include media-breakpoint-down(md){
+      height: 31vh;
     }
-    @include media-breakpoint-down(xs){
-      height: 36vh;
+    @include media-breakpoint-down(sm){
+      height: 40vh;
     }
   }
   .swiper-button-prev,
