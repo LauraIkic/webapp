@@ -1,7 +1,7 @@
 <template>
   <div class="section onboarding-wizard">
-    <h2>{{ $t('howWouldYouPreferToPay') }}</h2>
-    <div class="options">
+    <h2>{{ $t('iban') }}</h2>
+<!--    <div class="options">
       <div :class="['option', { selected: mutableOnBoarding.paymentFrequency === FREQS.monthly }]"
         @click="mutableOnBoarding.paymentFrequency = FREQS.monthly">
         <b>{{ $t('monthlyPayment') }}</b>
@@ -21,8 +21,8 @@
           {{ $t('euro/year') }}
         </p>
       </div>
-    </div>
-    <small style="text-align: center"> <font-awesome-icon icon="info-circle"/>{{ $t('twoMonthsForFree') }}</small>
+    </div>-->
+<!--    <small style="text-align: center"> <font-awesome-icon icon="info-circle"/>{{ $t('twoMonthsForFree') }}</small>-->
     <br>
     <form class="form wizard">
       <div class="form-item">

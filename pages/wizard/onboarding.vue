@@ -102,8 +102,8 @@ export default {
       loading: false,
       steps: ['index', 'contact', 'payment', 'done', 'confirmation'],
       onboardingData: {
-        paymentType: null,
-        paymentFrequency: null,
+        /* paymentType: null,
+        paymentFrequency: null, */
         rulesAccepted: false,
         profile: {
           address: null,
@@ -131,13 +131,13 @@ export default {
       const data = this.onboardingData
       switch (this.activeStep) {
         case 'index':
-          return !(data.paymentType && data.rulesAccepted)
+          return !(data.rulesAccepted)
         case 'contact': {
           const requiredKeys = ['address', 'city', 'zip', 'phone', 'birthdate']
           return !!requiredKeys.filter(k => !data.profile[k]).length
         }
         case 'payment':
-          return !(data.ibanIsValid && data.sepaAccepted && data.paymentFrequency)
+          return !(data.ibanIsValid && data.sepaAccepted)
         default:
           return false
       }

@@ -12,7 +12,7 @@
       <br><br>
       {{ $t('#makersgonnamake') }}
     </p>
-    <div class="options">
+<!--    <div class="options">
       <div :class="['option', { selected: onboardingData.paymentType === TYPES.regular }]"
            @click="onboardingData.paymentType = TYPES.regular">
         <span class="name">{{ $t('regular') }} 40{{ $t('euro/month') }}</span>
@@ -23,7 +23,7 @@
         <span class="description">{{ $t('differentCardListing') }}</span>
         <span class="description">{{ $t('pleaseBringAccordingID') }}</span>
       </div>
-    </div>
+    </div>-->
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
       <label for="checkbox">{{ $t('iHaveReadThe') }} <a
