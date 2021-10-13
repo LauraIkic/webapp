@@ -5,7 +5,7 @@
         <h1 class="headline-text"> {{ $t('press') }}</h1>
       </div>
         <press-contact :key="p.id" v-for="p in story.content.body" :story="p"></press-contact>
-      <div class="press-post-title"> {{ $t('pressReleases') }}</div>
+      <div class="press-post-title" > {{ $t('pressReleases') }}</div>
       <div class="press-preview">
         <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
       </div>
@@ -31,7 +31,6 @@ export default {
     return {
       page: [],
       press: [],
-      root: null,
       loading: false
     }
   },

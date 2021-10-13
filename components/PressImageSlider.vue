@@ -6,7 +6,6 @@
     </div>
       <div
           class="swiper-wrapper"
-          :class="{ center : length }"
       >
         <div
             v-for="s in imageGallery"
