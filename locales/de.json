@@ -277,5 +277,13 @@
   "selectAll": "Alle auswählen",
   "necessaryCookies": "Notwendige Cookies",
   "analyticsCookies": "Analytische Cookies",
-  "adjustCookiePreferences": "Du kannst jederzeit deine Einwilligung widerrufen - gehe dafür in deinem Browser zu den \"Cookie-Einstellungen\"."
+  "adjustCookiePreferences": "Du kannst jederzeit deine Einwilligung widerrufen - gehe dafür in deinem Browser zu den \"Cookie-Einstellungen\".",
+
+  "press": "Presse",
+  "pressReleases": "Pressemitteilungen",
+  "allPressReleases": "Alle Pressemitteilungen",
+  "yourContact": "Ihr Kontakt",
+  "pressImages": "PRESSEBILDER",
+  "download": "Herunterladen"
+
 }
