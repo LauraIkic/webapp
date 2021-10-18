@@ -79,14 +79,14 @@
           </div>
           <div class="spacer" />
           <div
-            v-if="metadata && hideRegister != true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
+            v-if="metadata && hideRegister !== true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col register workshop-button"
           >
             <NuxtLink :event="metadata == null || metadata[d.uuid].occupancy >= 100|| metadata[d.uuid].already_booked == true ? '': 'click'"
               :to="{ path: '/me/buyWorkshop', query: { uuid: d.uuid }}"
               class="link"
             >
-              {{ metadata != null && metadata[d.uuid].already_booked == true ? 'Du hast diesen Workshop schon gebucht.  ' : 'Zur Anmeldung' }}
+              {{ metadata != null && metadata[d.uuid].already_booked === true ? 'Bereits gebucht' : 'Zur Anmeldung' }}
             </NuxtLink>
           </div>
           <div
