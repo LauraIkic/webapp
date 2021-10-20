@@ -227,11 +227,20 @@
                 Zurück
               </button>
               <button
+                v-if="parseInt(paymentMethod) === 1"
                 class="input-button-payment"
                 :disabled="!paymentMethod || loading"
                 @click="checkout()"
               >
-                Kostenpflichtig bestellen
+                {{ $t('toPaymentProcess')}}
+              </button>
+              <button
+                v-else
+                class="input-button-payment"
+                :disabled="!paymentMethod || loading"
+                @click="checkout()"
+              >
+                {{ $t('buyLiableToPayTheCosts')}}
               </button>
             </div>
           </div>
