@@ -9,23 +9,23 @@
       <div class="info-row">
         <div class="info-block">
           <div class="col info">
-            <icon name="calendar" />
+            <icon name="calendar"/>
             {{ formatDate(d.content.starttime) }}
-            <div v-if="d.content.starttime2" >
+            <div v-if="d.content.starttime2">
               <br>
-              <icon name="calendar" />
+              <icon name="calendar"/>
               {{ formatDate(d.content.starttime2) }}
             </div>
           </div>
           <div class="col info">
-            <icon name="clock" />
+            <icon name="clock"/>
             <span>{{ formatTime(d.content.starttime) }}</span>
             <span v-if="d.content.endtime"> {{ $t('until') }}{{ formatTime(d.content.endtime) }}</span>
             <span>{{ $t('oClock') }}</span>
 
-            <div v-if="d.content.endtime2" >
+            <div v-if="d.content.endtime2">
               <br>
-              <icon name="clock" />
+              <icon name="clock"/>
               <span>{{ formatTime(d.content.starttime2) }}</span>
               <span v-if="d.content.endtime2"> {{ $t('until') }} {{ formatTime(d.content.endtime2) }}</span>
               <span>{{ $t('oClock') }}</span>
@@ -37,7 +37,7 @@
             v-if="d.content.members_only && !d.content.without_registration "
             class="col"
           >
-            <icon name="user" />
+            <icon name="user"/>
             <span>{{ $t('membersOnly') }}</span>
           </div>
           <!--<div class="col soldOut" v-if="d.content.sold_out">
@@ -55,7 +55,7 @@
             v-if="metadata == null && logged_in != false && hideRegister != true && !d.content.without_registration"
             class="col"
           >
-            <loading-spinner color="black" />
+            <loading-spinner color="black"/>
           </div>
           <div
             v-if="metadata == null && logged_in == false && hideRegister != true && !d.content.without_registration"
@@ -63,7 +63,7 @@
           >
             {{ $t('inOrderToBookAWorkshopYouHaveToBeLoggedIn') }} {{ $t('thankYou') }}
           </div>
-          <div class="spacer" />
+          <div class="spacer"/>
 
           <div
             v-if="metadata != null &&metadata[d.uuid].occupancy >= 100 || d.content.sold_out && !d.content.without_registration"
@@ -77,21 +77,22 @@
           >
             <span>{{ $t('currentOccupancyRate') }} {{ Math.round(metadata[d.uuid].occupancy) }}%</span>
           </div>
-          <div class="spacer" />
+          <div class="spacer"/>
           <div
             v-if="metadata && hideRegister !== true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col register workshop-button"
           >
-            <NuxtLink :event="metadata == null || metadata[d.uuid].occupancy >= 100|| metadata[d.uuid].already_booked == true ? '': 'click'"
+            <NuxtLink
+              :event="metadata == null || metadata[d.uuid].occupancy >= 100|| metadata[d.uuid].already_booked == true ? '': 'click'"
               :to="{ path: '/me/buyWorkshop', query: { uuid: d.uuid }}"
               class="link"
             >
               {{ metadata != null && metadata[d.uuid].already_booked === true ? 'Bereits gebucht' : 'Zur Anmeldung' }}
             </NuxtLink>
-            <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
+          </div>
+          <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
               {{ $t('toRegistration') }}
             </span>
-          </div>
           <div
             v-if="hideRegister != true && d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out"
             class="col register workshop-button"
@@ -171,6 +172,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
+
 .workshop-dates {
   width: 100%;
   margin-top: 20px;
@@ -242,10 +244,12 @@ export default {
     background-color: lightgray !important;
     pointer-events: none;
   }
+
   .link {
     cursor: pointer;
     color: white;
   }
+
   br {
     display: block;
     margin: 4px;
