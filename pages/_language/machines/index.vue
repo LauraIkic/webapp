@@ -1,12 +1,12 @@
 <template>
   <section class="machine-overview">
     <div class="machine-filters">
-      <code class="loading" v-if="loading">loading…</code>
+      <code class="loading" v-if="loading">{{ $t('Loading') }}</code>
       <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
         <div class="expander" @click="toggleTags()">
         </div>
         <div class="headline">
-          Bereiche
+          {{ $t('Area') }}
         </div>
         <div class="tag-list">
           <div v-for="t in tags" :key="t.key" class="tag">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="search">
-        <input type="text" placeholder="Maschinen suchen" v-model="search" name="" id=""/>
+        <input type="text" :placeholder="[[ $t('searchMachines') ]]" v-model="search" name="" id=""/>
       </div>
     </div>
     <div class="machine-list-wrapper">
@@ -29,7 +29,7 @@
         </transition-group>
       </div>
       <div v-else class="machine-list-none">
-        <code>Keine Suchergebnisse</code>
+        <code>   {{ $t('noSearchResults') }}</code>
       </div>
     </div>
   </section>
@@ -112,7 +112,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .machine-overview {
   .loading {

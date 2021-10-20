@@ -1,47 +1,43 @@
 <template>
   <div class="section onboarding-wizard">
-    <h2>Wie möchtest du zahlen?</h2>
+    <h2>{{ $t('howWouldYouPreferToPay') }}</h2>
     <div class="options">
       <div :class="['option', { selected: mutableOnBoarding.paymentFrequency === FREQS.monthly }]"
         @click="mutableOnBoarding.paymentFrequency = FREQS.monthly">
-        <b>monatliche Zahlung</b>
+        <b>{{ $t('monthlyPayment') }}</b>
         <p>
           <template v-if="mutableOnBoarding.paymentType === 1">40</template>
           <template v-if="mutableOnBoarding.paymentType === 2">15</template>
-          EUR / Monat
+          {{ $t('euro/month') }}
+
         </p>
       </div>
       <div :class="['option', { selected: mutableOnBoarding.paymentFrequency === FREQS.annually }]"
         @click="mutableOnBoarding.paymentFrequency = FREQS.annually">
-        <b>jährliche Zahlung</b>
+        <b>{{ $t('yearlyPayment') }}</b>
         <p>
           <template v-if="mutableOnBoarding.paymentType === 1">400</template>
           <template v-if="mutableOnBoarding.paymentType === 2">150</template>
-          EUR / Jahr
+          {{ $t('euro/year') }}
         </p>
       </div>
     </div>
-    <small style="text-align: center"> <font-awesome-icon icon="info-circle"/> Tipp: Bei jährlicher Zahlung bekommst du 2 Monate geschenkt.</small>
+    <small style="text-align: center"> <font-awesome-icon icon="info-circle"/>{{ $t('twoMonthsForFree') }}</small>
     <br>
     <form class="form wizard">
       <div class="form-item">
-        <span class="label">IBAN</span>
-        <input class="input-text" type="text" v-model="mutableOnBoarding.payment.iban" name="" id=" "/>
+        <span class="label">{{ $t('iban') }}</span>
+        <input class="input-text" type="text" v-model="mutableOnBoarding.payment.iban" name="" id=""/>
         <div>
           <font-awesome-icon class="ibanIcon success" v-if="ibanIsValid" icon="check-circle" />
           <font-awesome-icon class="ibanIcon" v-else icon="times-circle" />
         </div>
       </div>
-      <div class="form-item ibanFormItem">
-        <span class="label">Name der Bank</span>
-        <input class="input-text" type="text" v-model="mutableOnBoarding.payment.bank" name="" id=""/>
-        <span class="bankSpacer" />
-      </div>
     </form>
 
     <div class="wizard-checkbox">
       <input id="checkbox" type="checkbox" name="checkbox" v-model="mutableOnBoarding.sepaAccepted">
-      <label for="checkbox">Meine Mitgliedsbeiträge und zusätzlich anfallende Kosten werden per SEPA-Lastschrift von meinem angegeben Konto eingehoben.</label>
+      <label for="checkbox">{{ $t('sepaAgreementFormText') }}</label>
     </div>
 
   </div>

@@ -54,7 +54,7 @@
       </div>
       <!--      <CovidInfobox />-->
       <div class="search">
-        <input type="text" placeholder="Workshops und Events suchen" v-model="search">
+        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
       <loading class="loading" v-if="loading"></loading>
     </div>
@@ -82,7 +82,7 @@
         </transition-group>
       </div>
       <div v-else class="workshop-list-none">
-        <code>Keine Suchergebnisse</code>
+        <code> {{ $t('noSearchResults') }}</code>
       </div>
     </div>
   </section>
@@ -308,7 +308,10 @@ export default {
     display: flex;
     margin: 0 4%;
     padding-top: 1rem;
-    padding-bottom: 4rem;
+    margin-bottom: 2em;
+    @include media-breakpoint-down(xs) {
+      padding-bottom: 0rem;
+    }
     input[type="text"] {
       flex: 1;
       display: block;

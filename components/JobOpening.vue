@@ -54,7 +54,7 @@
               <a
                 href="mailto:office@grandgarage.eu"
                 class="apply-button"
-              >Bewerben</a>
+              >{{ $t('apply') }}</a>
             </div>
           </div>
           <markdown :value="blok.description" />

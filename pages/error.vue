@@ -1,9 +1,9 @@
 <template>
   <div class="section">
-    <h2>Kauf fehlgeschlagen</h2>
+    <h2>{{ $t('purchaseFailed') }}</h2>
     <p class="text">
-      Der Kauf wurde abgebrochen oder ist fehlgeschlagen. <br>
-      Bei Problemen kontaktiere uns&nbsp;<nuxt-link to="/de/kontakt">hier</nuxt-link>.
+      {{ $t('purchaseFailedOrWasAborted') }} <br>
+      {{ $t('youCanFindOurContactInformation') }}&nbsp;<nuxt-link to="/de/kontakt">{{ $t('here') }}</nuxt-link>.
     </p>
   </div>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <div class="section">
     <div style="margin: 2em 0;"><img width="80px" src="~/assets/img/icons/thumbs-up.svg" class="decorator"></div>
-    <h2 style="margin: 0;">Kauf abgeschlossen!</h2>
+    <h2 style="margin: 0;"> {{ $t('purchaseCompleted') }}</h2>
     <p class="text">
-      Die Rechnung und Bestätigung wird dir per E-Mail zugestellt.
+      {{ $t('receiptAndConfirmationViaMail') }}
     </p>
   </div>
 </template>

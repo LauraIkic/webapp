@@ -2,7 +2,7 @@
   <div class="breadcrumbs">
     <div class="content">
       <div class="item">
-        GRAND GARAGE
+        {{ $t('grandGarage') }}
       </div>
       <div
         v-for="(item, index) in pathItems"
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
+@import "/assets/scss/styles.scss";
 
 .breadcrumbs {
   z-index: 900;

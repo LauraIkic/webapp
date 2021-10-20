@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Meine Rechnungen</h2>
+    <h2>{{ $t('myInvoices') }}</h2>
     <loading-spinner
       v-if="!invoices"
       color="#333"

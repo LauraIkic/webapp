@@ -2,10 +2,10 @@
   <div>
     <span class="flex-center" style="margin-top: 2em;">
       <h2 v-if="action" class="headline">
-        Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+        {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
       <h2 v-else class="headline">
-        Gutscheine
+        {{ $t('giftCard') }}
       </h2>
       <loading-spinner
         v-if="loading"
@@ -14,34 +14,10 @@
       />
     </span>
     <template v-if="!action">
-      <div class="items ">
-        <section class="display-item ">
-          <div class="top">
-            <div class="buy-image"></div>
-          </div>
-          <div class="bottom">
-            <div class="buy-redeem-button"
-                 @click="$router.push('giftcards?action=buy')">
-              Gutschein kaufen
-            </div>
-          </div>
-        </section>
-        <div class="spacer"></div>
-        <br>
-        <section class="display-item">
-          <div class="top">
-            <div class="redeem-image"></div>
-          </div>
-          <div class="bottom">
-            <div class="buy-redeem-button"
-                 @click="$router.push('giftcards?action=redeem')">
-              Gutschein einlösen
-            </div>
-          </div>
-        </section>
-        <br>
-      </div>
-
+      <Nuxt-Link to="giftcards?action=buy">{{ $t('buyGiftCard') }}</Nuxt-Link>
+      /
+      <Nuxt-Link to="giftcards?action=redeem">{{ $t('redeemGiftCard') }}</Nuxt-Link>
+      <br><br>
     </template>
 
     <transition name="fade">
@@ -51,7 +27,7 @@
             <section class="buy-gift-cards">
               <div class="input gg-card" @click="selectedProductId='719'">
                 <input type="radio" value="719" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="719">10€</option>
                   <div class="image">
@@ -62,7 +38,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='720'">
                 <input type="radio" value="720" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
                   <div class="image">
@@ -73,7 +49,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='721'">
                 <input type="radio" value="721" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
                   <div class="image">
@@ -84,7 +60,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='722'">
                 <input type="radio" value="722" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
                   <div class="image">
@@ -128,28 +104,6 @@
             <div v-if="invoiceContact != null">
               <h4>Rechnungsadresse</h4>
               <table>
-                <tr>
-                  <th>
-                    <span class="label">Firmenname</span>
-                  </th>
-                  <th>
-                    <input
-                        v-model="invoiceContact.company_name"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
-                  <th v-if="invoiceContact.company_name">
-                    Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
-                    <input
-                        v-model="invoiceContact.uid"
-                        class="input-text"
-                        type="text"
-                        name=""
-                    >
-                  </th>
-                </tr>
                 <tr>
                   <th>
                     <span class="label">Vorname</span>
@@ -252,7 +206,7 @@
                 </button>
                 <button
                   class="input-button-primary"
-                  :disabled="(!paymentMethod || !validInvoiceContact)"
+                  :disabled="!paymentMethod"
                   @click="step++"
                 >
                   Bestellung prüfen
@@ -273,11 +227,20 @@
                 Zurück
               </button>
               <button
+                v-if="parseInt(paymentMethod) === 1"
                 class="input-button-payment"
                 :disabled="!paymentMethod || loading"
                 @click="checkout()"
               >
-                Kostenpflichtig bestellen
+                {{ $t('toPaymentProcess')}}
+              </button>
+              <button
+                v-else
+                class="input-button-payment"
+                :disabled="!paymentMethod || loading"
+                @click="checkout()"
+              >
+                {{ $t('buyLiableToPayTheCosts')}}
               </button>
             </div>
           </div>
@@ -363,12 +326,6 @@ export default {
   computed: {
     user () {
       return this.$store.state.user
-    },
-    validInvoiceContact () {
-      if (!this.invoiceContact) {
-        return false
-      }
-      return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
     }
   },
   watch: {
@@ -503,20 +460,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
-a {
-  color: $color-orange;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-}
-
 .headline {
   padding-left: 21vw;
 }
@@ -526,7 +469,10 @@ a:hover {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
+
+  @media (max-width: 600px) {
+
+  }
 }
 
 .spacer {
@@ -536,53 +482,24 @@ a:hover {
 }
 
 .display-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  background-size: cover;
   width: 17em;
   height: 19em;
   position: relative;
   border: 1px solid black;
-
-  .top {
-    height: 14em;
-
-    .buy-image {
-      background-image: url(~assets/img/buy-giftcard.png);
-      height: 14em;
-    }
-
-    .redeem-image {
-      background-image: url(~assets/img/redeem-giftcard.png);
-      height: 14em;
-    }
-  }
+  color: white;
 
   .bottom {
+    background: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    bottom: 0;
     height: 5em;
     width: 100%;
   }
 
-  .buy-redeem-button {
-    cursor: pointer;
-    width: 100%;
-    background: black;
-    color: white;
-    height: 5.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    font-family: $font-mono;
-    @media screen and (max-width: 799px) {
-      height: 3rem;
-      border-radius: 0.8em;
-      padding: 10px;
-      font-size: 1em;
-      background: $color-orange;
-      font-family: "IBM Plex Sans Condensed", sans-serif;
-    }
-  }
   .input-button-primary {
     width: 100%;
     background: black;
@@ -621,7 +538,12 @@ a:hover {
   }
 }
 
-.display-item:hover .buy-redeem-button {
+.display-item:hover .buy-button {
+  border-top: 1px solid white;
+  background: $color-orange;
+}
+
+.display-item:hover .redeem-button {
   border-top: 1px solid white;
   background: $color-orange;
 }
@@ -688,6 +610,13 @@ a:hover {
   display: flex;
   flex-flow: wrap;
 }
+
+/*
+.input:hover{
+  background: $color-orange;
+  color: white;
+}
+*/
 
 .input-redeem-card {
   position: relative;

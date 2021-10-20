@@ -1,12 +1,12 @@
 <template>
   <div class="section">
-    <h2>Kontaktdaten</h2>
+    <h2>{{ $t('contactDetails') }}</h2>
     <form
       class="form"
       @submit.prevent="updateUser"
     >
       <div class="form-item">
-        <span class="label">Vorname</span>
+        <span class="label">{{ $t('firstName') }}</span>
         <input
           id=""
           v-model="user.profile.firstName"
@@ -17,7 +17,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">Nachname</span>
+        <span class="label">{{ $t('lastName') }}</span>
         <input
           id=""
           v-model="user.profile.lastName"
@@ -28,7 +28,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">Adresse</span>
+        <span class="label">{{ $t('address') }}</span>
         <input
           id=""
           v-model="user.profile.address"
@@ -48,7 +48,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">PLZ</span>
+        <span class="label">{{ $t('zipCode') }}</span>
         <input
           id=""
           v-model="user.profile.zip"
@@ -58,7 +58,7 @@
         >
       </div>
       <div class="form-item">
-        <span class="label">Stadt</span>
+        <span class="label">{{ $t('city') }}</span>
         <input
           id=""
           v-model="user.profile.city"
@@ -76,7 +76,7 @@
           type="submit"
           class="input-button-primary"
         >
-          <font-awesome-icon icon="save"/> Speichern
+          <font-awesome-icon icon="save"/> {{ $t('save') }}
         </button>
       </div>
     </form>

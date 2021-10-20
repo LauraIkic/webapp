@@ -34,7 +34,9 @@ const createStore = () => {
       fabman: null,
       courses: null,
       memberCourses: null,
-      workshops: null
+      workshops: null,
+      necessaryCookie: false,
+      analyticsCookie: false
     },
     getters: {
       getMemberCourseById: (state) => (id) => {
@@ -76,6 +78,12 @@ const createStore = () => {
       }
     },
     mutations: {
+      setAnalyticsCookie (state, data) {
+        state.analyticsCookie = data
+      },
+      setNecessaryCookie  (state, data) {
+        state.necessaryCookie = data
+      },
       setAuth (state, auth) {
         state.auth = auth
       },
@@ -181,6 +189,9 @@ const createStore = () => {
       },
       checkout ({ state }, data) {
         return connector.post('/member/checkoutTransaction', data)
+      },
+      workshopStorno ({ state }, data) {
+        return connector.post('/member/workshopStorno', data)
       },
       async getCredits ({ state }) {
         const res = await connector.get('/member/getCredits')
@@ -472,6 +483,20 @@ const createStore = () => {
           return res.data
         })
       },
+      loadPress ({ state }) {
+        return this.$storyapi.get('cdn/stories', {
+          filter_query: {
+            component: {
+              in: 'press-overview'
+            }
+          },
+          per_page: 50,
+          version: version,
+          cv: state.cacheVersion
+        }).then((res) => {
+          return res.data
+        })
+      },
       loadFullPage ({ state }, path) {
         return this.$storyapi.get(`cdn/stories${path}`, {
           version: version,
@@ -623,16 +648,19 @@ const createStore = () => {
           sort_by: 'content.starttime:asc',
           per_page: 100
         }).then((res) => {
-          const workshopdates = res.data.stories
+          const workshopdates = res.data.stories.reverse()
           const workshops = {}
           for (const w of workshopdates) {
+            if (!w.content.workshop) {
+              continue
+            }
             const wid = w.content.workshop.uuid
             if (!(wid in workshops)) {
               workshops[wid] = Object.assign({ dates: [] }, w.content.workshop)
             }
             workshops[wid].dates.push(w)
           }
-          return Object.values(workshops)
+          return Object.values(workshops).sort((a, b) => a.name.localeCompare(b.name))
         }).catch((res) => {
           this.$sentry.captureException(res)
         })
@@ -692,6 +720,18 @@ const createStore = () => {
           commit('setSettings', res.data.story.content)
         }).catch((e) => {
           console.log(e)
+        })
+      },
+      findPress ({ state }, filters) {
+        return this.$storyapi.get('cdn/stories', {
+          filter_query: filters.filter_query,
+          version: version,
+          cv: state.cacheVersion,
+          starts_with: `${state.language}/press`
+        }).then((res) => {
+          return res.data
+        }).catch((res) => {
+          this.$sentry.captureException(res)
         })
       }
     }
