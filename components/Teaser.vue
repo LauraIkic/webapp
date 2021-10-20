@@ -13,7 +13,7 @@
           v-if="blok.link"
           :link="blok.link"
         >
-          Alle Kurse
+          {{ $t('allCourses') }}
         </sb-link>
       </div>
     </div>
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .teaser-item {
   .header {

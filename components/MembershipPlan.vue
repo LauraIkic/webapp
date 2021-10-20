@@ -14,27 +14,27 @@
         >
           <div class="price">
             <h4 class="title">
-              Ermäßigt
+              {{ $t( "discounted" ) }}
             </h4>
             <div class="pricetag">
               <div class="price-value">
                 {{ blok.price_reduced }},-
               </div>
               <div class="interval">
-                p.m.
+                {{ $t( "p.m." ) }}
               </div>
             </div>
           </div>
           <div class="price">
             <h4 class="title">
-              Regulär
+              {{ $t( "regular" ) }}
             </h4>
             <div class="pricetag">
               <div class="price-value">
                 {{ blok.price_regular }},-
               </div>
               <div class="interval">
-                p.m.
+                {{ $t( "p.m." ) }}
               </div>
             </div>
           </div>
@@ -45,27 +45,27 @@
         >
           <div class="price">
             <h4 class="title">
-              Ermäßigt
+              {{ $t( "discounted" ) }}
             </h4>
             <div class="pricetag">
               <div class="price-value">
                 {{ blok.price_reduced_annually }},-
               </div>
               <div class="interval">
-                p.a.
+                {{ $t( "p.a." ) }}
               </div>
             </div>
           </div>
           <div class="price">
             <h4 class="title">
-              Regulär
+              {{ $t( "regular" ) }}
             </h4>
             <div class="pricetag">
               <div class="price-value">
                 {{ blok.price_regular_annually }},-
               </div>
               <div class="interval">
-                p.a.
+                {{ $t( "p.a." ) }}
               </div>
             </div>
           </div>

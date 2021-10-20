@@ -1,3 +1,4 @@
+// const languages = ['de', 'en']
 const defaultLanguage = 'de'
 
 export default function ({ app, route, store, isDev, redirect }) {

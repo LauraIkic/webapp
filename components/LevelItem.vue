@@ -2,7 +2,7 @@
   <div :class="active ? 'level-item active' : 'level-item'">
     <!-- .level-indicator content must be loaded from storyblok language -->
     <h3 class="level-indicator">
-      Ebene
+      {{ $t('level') }}
     </h3>
     <h1 class="number">
       {{ number }}
@@ -11,11 +11,7 @@
       <h2 class="title">
         {{ blok.title }}
       </h2>
-      <img
-        v-if="blok.areas"
-        class="arrow"
-        src="~/assets/img/arrow-right.svg"
-      >
+
     </div>
     <div
       v-if="blok.areas"
@@ -40,7 +36,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~/assets/scss/styles.scss";
+@import '/assets/scss/styles.scss';
 
 .level-item {
   display: flex;

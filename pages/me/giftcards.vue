@@ -2,10 +2,10 @@
   <div>
     <span class="flex-center" style="margin-top: 2em;">
       <h2 v-if="action" class="headline">
-        Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+        {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
       <h2 v-else class="headline">
-        Gutscheine
+        {{ $t('giftCard') }}
       </h2>
       <loading-spinner
         v-if="loading"
@@ -14,9 +14,9 @@
       />
     </span>
     <template v-if="!action">
-      <Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link>
+      <Nuxt-Link to="giftcards?action=buy">{{ $t('buyGiftCard') }}</Nuxt-Link>
       /
-      <Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link>
+      <Nuxt-Link to="giftcards?action=redeem">{{ $t('redeemGiftCard') }}</Nuxt-Link>
       <br><br>
     </template>
 
@@ -27,7 +27,7 @@
             <section class="buy-gift-cards">
               <div class="input gg-card" @click="selectedProductId='719'">
                 <input type="radio" value="719" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="719">10€</option>
                   <div class="image">
@@ -38,7 +38,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='720'">
                 <input type="radio" value="720" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
                   <div class="image">
@@ -49,7 +49,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='721'">
                 <input type="radio" value="721" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
                   <div class="image">
@@ -60,7 +60,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='722'">
                 <input type="radio" value="722" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
                   <div class="image">
