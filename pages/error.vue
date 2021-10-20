@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <h2>Kauf fehlgeschlagen</h2>
+    <h2>{{ $t('purchaseFailed') }}</h2>
     <p class="text">
       {{ $t('purchaseFailedOrWasAborted') }} <br>
       {{ $t('youCanFindOurContactInformation') }}&nbsp;<nuxt-link to="/de/kontakt">{{ $t('here') }}</nuxt-link>.
