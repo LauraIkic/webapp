@@ -222,7 +222,8 @@
   "anErrorHasOccurred": "Ein Fehler ist aufgetreten:",
 
   "purchaseFailed": "Zahlungsvorgang fehlgeschlagen",
-  "purchaseFailedOrWasAborted": "Kauf fehlgeschlagen oder wurde abgebrochen. Es wird keine Abbuchung getätigt.",
+  "purchaseFailedOrWasAborted": "Kauf fehlgeschlagen oder wurde abgebrochen.",
+  "thereIsNoPurchase": "Es wurde keine Abbuchung getätigt.",
   "youCanFindOurContactInformation": "Bei Problemen kontaktiere uns",
 
   "openSafetyTraining": "Offene Sicherheitsschulungen",

@@ -192,7 +192,8 @@
              {{ $t('bookFreeOfCharge') }}
             </template>
             <template v-else>
-              {{ $t('bookWorkshopLiableToPayTheCosts') }}
+              <span v-if="paymentMethod === 1">{{ $t('toPaymentProcess') }}</span>
+              <span v-else>{{ $t('bookWorkshopLiableToPayTheCosts') }}</span>
             </template>
           </button>
         </div>
