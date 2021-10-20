@@ -14,10 +14,34 @@
       />
     </span>
     <template v-if="!action">
-      <Nuxt-Link to="giftcards?action=buy">Gutschein kaufen</Nuxt-Link>
-      /
-      <Nuxt-Link to="giftcards?action=redeem">Gutschein einlösen</Nuxt-Link>
-      <br><br>
+      <div class="items ">
+        <section class="display-item ">
+          <div class="top">
+            <div class="buy-image"></div>
+          </div>
+          <div class="bottom">
+            <div class="buy-redeem-button"
+                 @click="$router.push('giftcards?action=buy')">
+              Gutschein kaufen
+            </div>
+          </div>
+        </section>
+        <div class="spacer"></div>
+        <br>
+        <section class="display-item">
+          <div class="top">
+            <div class="redeem-image"></div>
+          </div>
+          <div class="bottom">
+            <div class="buy-redeem-button"
+                 @click="$router.push('giftcards?action=redeem')">
+              Gutschein einlösen
+            </div>
+          </div>
+        </section>
+        <br>
+      </div>
+
     </template>
 
     <transition name="fade">
@@ -104,6 +128,28 @@
             <div v-if="invoiceContact != null">
               <h4>Rechnungsadresse</h4>
               <table>
+                <tr>
+                  <th>
+                    <span class="label">Firmenname</span>
+                  </th>
+                  <th>
+                    <input
+                        v-model="invoiceContact.company_name"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                  <th v-if="invoiceContact.company_name">
+                    Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
+                    <input
+                        v-model="invoiceContact.uid"
+                        class="input-text"
+                        type="text"
+                        name=""
+                    >
+                  </th>
+                </tr>
                 <tr>
                   <th>
                     <span class="label">Vorname</span>
@@ -206,7 +252,7 @@
                 </button>
                 <button
                   class="input-button-primary"
-                  :disabled="!paymentMethod"
+                  :disabled="(!paymentMethod || !validInvoiceContact)"
                   @click="step++"
                 >
                   Bestellung prüfen
@@ -317,6 +363,12 @@ export default {
   computed: {
     user () {
       return this.$store.state.user
+    },
+    validInvoiceContact () {
+      if (!this.invoiceContact) {
+        return false
+      }
+      return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
     }
   },
   watch: {
@@ -451,6 +503,20 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
+
+a {
+  color: $color-orange;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
 .headline {
   padding-left: 21vw;
 }
@@ -460,10 +526,7 @@ export default {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-
-  @media (max-width: 600px) {
-
-  }
+  justify-content: center;
 }
 
 .spacer {
@@ -473,24 +536,53 @@ export default {
 }
 
 .display-item {
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 17em;
   height: 19em;
   position: relative;
   border: 1px solid black;
-  color: white;
+
+  .top {
+    height: 14em;
+
+    .buy-image {
+      background-image: url(~assets/img/buy-giftcard.png);
+      height: 14em;
+    }
+
+    .redeem-image {
+      background-image: url(~assets/img/redeem-giftcard.png);
+      height: 14em;
+    }
+  }
 
   .bottom {
-    background: white;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    bottom: 0;
     height: 5em;
     width: 100%;
   }
 
+  .buy-redeem-button {
+    cursor: pointer;
+    width: 100%;
+    background: black;
+    color: white;
+    height: 5.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-family: $font-mono;
+    @media screen and (max-width: 799px) {
+      height: 3rem;
+      border-radius: 0.8em;
+      padding: 10px;
+      font-size: 1em;
+      background: $color-orange;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+  }
   .input-button-primary {
     width: 100%;
     background: black;
@@ -529,12 +621,7 @@ export default {
   }
 }
 
-.display-item:hover .buy-button {
-  border-top: 1px solid white;
-  background: $color-orange;
-}
-
-.display-item:hover .redeem-button {
+.display-item:hover .buy-redeem-button {
   border-top: 1px solid white;
   background: $color-orange;
 }
@@ -601,13 +688,6 @@ export default {
   display: flex;
   flex-flow: wrap;
 }
-
-/*
-.input:hover{
-  background: $color-orange;
-  color: white;
-}
-*/
 
 .input-redeem-card {
   position: relative;
