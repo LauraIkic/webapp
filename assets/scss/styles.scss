@@ -142,6 +142,61 @@ $grid-breakpoints: (
   }
 }
 
+// Default classes
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+.content-card, .list-item {
+  background-color: white;
+}
+.content-card:hover, .list-item:hover {
+  -webkit-box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
+}
+
+.top-header-inner img:hover {
+  filter: invert(1);
+}
+
+// Workshops
+.workshop-button:hover {
+  opacity: 0.5;
+}
+
+// Machines
+.machine-teaser {
+  background-color: white;
+}
+
+// main navigation
+.main-nav-item:hover {
+  color: #E69140 !important;
+}
+
+.login-button button:hover {
+  background-color: black !important;
+}
+
+.dropdown .child a:hover {
+  color: #E69140 !important;
+}
+
+// cards
+.gg-card {
+  cursor: pointer;
+}
+
+.gg-card:hover {
+  background-color: black;
+  color: white;
+  opacity: 0.8;
+}
+
+.gg-card:hover img:not(:hover) {
+  filter: invert(1);
+}
+
 // layout margins
 @mixin margin-page-wide() {
   margin-left: 4%;
@@ -243,4 +298,17 @@ h3 {
 .fade {
   opacity: 0;
   transition: opacity .15s linear;
+}
+
+
+input:invalid {
+  background-color: rgba(198, 141, 141, 0.96);
+  color: white;
+  border: 2px solid rgba(193, 111, 111, 0.96);
+  border-radius: 2px;
+}
+input:focus {
+  outline: none !important;
+  border: 2px solid rgba(30, 30, 30, 0.87);
+  border-radius: 2px;
 }
