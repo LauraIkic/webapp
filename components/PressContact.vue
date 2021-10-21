@@ -9,15 +9,19 @@
           <h2 class="teaser">
             {{ person.title }}
           </h2>
-          <h4>
+          <h4 class="position">
             {{ person.position}}
           </h4>
           <h4>
-            {{ person.company_details}}
+            <markdown :value="person.company_details" />
           </h4>
-          <h4>
+          <h4 class="contact-email">
             {{ person.contact}}
           </h4>
+          <div
+              class="contact-image"
+              :style="{ 'background-image': 'url(' + $resizeImage(person.Image, '600x600') + ')' }"
+          />
         </div>
       </div>
 </template>
@@ -50,9 +54,18 @@ export default {
   margin-bottom: 10vh;
 }
 .press-contact{
-  background-color: black;
-  display: flex;
+  .contact-image{
+    height: 2vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
   justify-content: center;
+  .position{
+    margin-top:0%;
+  }
+  .contact-email{
+    margin-top: -2%;
+  }
   .contact-details{
     max-width: 1000px;
     .your-contact{
@@ -60,7 +73,6 @@ export default {
       font-family: Chakra Petch;
       line-height: 1.1;
     }
-    color: white;
     display: flex;
     align-self: center;
     flex-flow: column;
