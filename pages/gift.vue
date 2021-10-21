@@ -4,7 +4,7 @@
       <h2 v-if="action" class="headline">
         Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
-      <h2 v-else class="headline">
+      <h2 v-else class="gift-page-headline">
         Gutscheine
       </h2>
       <loading-spinner
@@ -17,12 +17,15 @@
       <div class="items">
         <section class="display-item">
           <div class="top">
-            <div class="buy-image"></div>
+            <div class="top-image"></div>
           </div>
           <div class="bottom">
+            <div class="bottom-text">
+              GUTSCHEIN €10-200
+            </div>
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=buy')">
-              Gutschein kaufen
+              KAUFEN
             </div>
           </div>
         </section>
@@ -30,12 +33,15 @@
         <br>
         <section class="display-item">
           <div class="top">
-            <div class="redeem-image"></div>
+            <div class="top-image"></div>
           </div>
           <div class="bottom">
+            <div class="bottom-text">
+              GUTSCHEIN ENTWERTEN
+            </div>
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=redeem')">
-              Gutschein einlösen
+              EINLÖSEN
             </div>
           </div>
         </section>
@@ -487,9 +493,19 @@ a:hover {
   display: flex;
   align-items: center;
 }
-
 .headline {
   padding-left: 21vw;
+}
+.gift-page-headline {
+  width: 1200px;
+  background: white;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 3rem;
+  font-family: "Chakra Petch", sans-serif;
+  text-transform: uppercase;
+  padding: 38px;
+  padding-left: 130px;
 }
 
 .items {
@@ -498,6 +514,7 @@ a:hover {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 10vh;
   @media screen and (max-width: 799px) {
     flex-direction: column;
     justify-content: space-between;
@@ -516,33 +533,75 @@ a:hover {
 }
 
 .display-item {
+  border-radius: 15px;
+  height: 20vh;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 17em;
-  height: 19em;
-  position: relative;
-  border: 1px solid black;
+  background: black;
+  width: 350px;
+  box-shadow: 10px 5px 5px #00000024;
+  flex-flow: column;
 
   .top {
-    height: 14em;
-
-    .buy-image {
-      background-image: url(~assets/img/buy-giftcard.png);
-      height: 14em;
+    height: inherit;
+    color:white;
+    .top-image {
+      background-image: url(assets/img/icons/gg-logo-icon.svg);
+      background-size: contain;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      height: 4vh;
+      filter: invert(1);
+      margin-top: 15%;
+      &:hover {
+        background-image: url(assets/img/icons/gg-logo.svg);
+      }
     }
-
-    .redeem-image {
-      background-image: url(~assets/img/redeem-giftcard.png);
-      height: 14em;
+    .top-text{
+      display: flex;
+      justify-content: center;
+      margin-top: 5%;
+      font-size: 28px;
     }
   }
 
   .bottom {
-    height: 5em;
-    width: 100%;
+    height: 45%;
+    background: white;
+    align-self: end;
+    width: inherit;
+    border-bottom-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+    display:flex;
+    flex-flow:row;
+    .bottom-text{
+      width: 8vw;
+      margin-left: 5%;
+      margin-top:3%;
+    }
+    .buy-redeem-button{
+      cursor: pointer;
+      margin-top:3%;
+      margin-right: 5%;
+      width: 110px;
+      height: 3vh;
+      background: $color-secondary;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      color: white;
+      padding: 20px;
+      font-size:16px;
+      margin-left: 24%;
+    }
   }
-
+  &:hover {
+    .top{
+      .top-image {
+        background-image: url(assets/img/icons/gg-logo.svg);
+        height: 5vh;
+      }
+    }
+  }
   @media screen and (max-width: 799px) {
     background: white;
     border-radius: 0.8em;
@@ -554,7 +613,7 @@ a:hover {
       width: 60%;
 
       .buy-image {
-        background-image: url(~assets/img/buy-giftcard-mobile.png);
+        //background-image: url(~assets/img/buy-giftcard-mobile.png);
         height: 17.7vh;
         border-radius: 0.8em;
       }
@@ -578,16 +637,16 @@ a:hover {
 }
 
 .buy-redeem-button {
-  cursor: pointer;
-  width: 100%;
-  background: black;
-  color: white;
-  height: 5.7rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5em;
-  font-family: $font-mono;
+  //cursor: pointer;
+  //width: 100%;
+  //background: black;
+  //color: white;
+  //height: 5.7rem;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  //font-size: 1.5em;
+  //font-family: $font-mono;
   @media screen and (max-width: 799px) {
     height: 3rem;
     border-radius: 0.8em;
@@ -599,7 +658,7 @@ a:hover {
 }
 
 .display-item:hover .buy-redeem-button {
-  border-top: 1px solid white;
+  border-top: 2px solid white;
   background: $color-orange;
 }
 
