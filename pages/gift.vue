@@ -138,6 +138,7 @@
                       <input
                         v-model="invoiceContact.uid"
                         class="input-text"
+                        required
                         type="text"
                         name=""
                       >
@@ -151,6 +152,7 @@
                       <input
                         v-model="invoiceContact.firstname"
                         class="input-text"
+                        required
                         type="text"
                         name=""
                       >
@@ -164,6 +166,7 @@
                       <input
                         v-model="invoiceContact.lastname"
                         class="input-text"
+                        required
                         type="text"
                         name=""
                       >
@@ -177,7 +180,8 @@
                       <input
                         v-model="invoiceContact.email"
                         class="input-text"
-                        type="text"
+                        required
+                        type="email"
                         name=""
                       >
                     </th>
@@ -217,6 +221,7 @@
                         v-model="invoiceContact.zip"
                         class="input-text"
                         type="text"
+                        required
                         name=""
                       >
                     </th>
@@ -229,6 +234,7 @@
                       <input
                         v-model="invoiceContact.city"
                         class="input-text"
+                        required
                         type="text"
                         name=""
                       >
@@ -314,6 +320,7 @@
 
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+import { helpers } from '../utils/helper'
 
 export default {
   mixins: [storyblokLivePreview],
@@ -360,6 +367,12 @@ export default {
     }
   },
   methods: {
+    capitalize (str) {
+      return helpers.capitalize(str)
+    },
+    isValidEmailAdress (email) {
+      return helpers.validateEmail(email)
+    },
     getQuery (to) {
       // eslint-disable-next-line no-prototype-builtins
       if (to.hasOwnProperty('origin')) {
