@@ -66,7 +66,7 @@ export default {
   }
   justify-content: center;
   .contact-information{
-    margin-top: -5%;
+    margin-top: -4%;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
