@@ -66,6 +66,7 @@ export default {
   }
   justify-content: center;
   .contact-information{
+    margin-top: -11%;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
@@ -85,16 +86,21 @@ export default {
   }
 
   @include media-breakpoint-down(sm) {
-      .contact-information {
-        flex-flow: column;
-      }
-      .contact-image {
-        height: 20vh;
-        width: auto;
-      }
-
+    .contact-information {
+      flex-flow: column;
     }
+    .contact-details{
+      .your-contact{
+        font-size: 2.5rem;
+      }
+    }
+    .contact-image {
+      height: 20vh;
+      width: auto;
+    }
+
   }
+}
 
 @include media-breakpoint-down(md) {
   .press-contact {

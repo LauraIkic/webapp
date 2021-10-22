@@ -107,7 +107,7 @@ export default {
       display: flex;
       font-family: Chakra Petch;
       @include media-breakpoint-down(xs) {
-        font-size: 3rem;
+        font-size: 3.5rem;
         max-width: 350px;
       }
     }
