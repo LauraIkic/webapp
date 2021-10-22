@@ -1,5 +1,8 @@
 <template>
 <div    v-editable="blok" class="press-overview">
+  <div class="press-post-image"
+    :style="{ 'background-image': 'url(' + $resizeImage(blok.Image, '1600x0') + ')' }"
+  />
   <div class="headline">
     <div class="title">
       {{blok.Title}}
@@ -30,13 +33,17 @@ export default {
   max-width: 1000px;
   margin-left:auto;
   margin-right:auto;
+  .press-post-image{
+    height: 18vh;
+    background-size: cover;
+    background-position: center;
+  }
   .headline{
     background: white;
   }
   .title{
     font-size:3rem;
     padding:20px;
-    padding-top: 60px;
     font-family: Chakra Petch;
   }
   .teaser{

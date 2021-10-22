@@ -71,7 +71,7 @@ export default {
     },
     pressToDisplay () {
       if (!this.press) return
-      return this.press.slice(0, 2)
+      return this.press.slice(0, 3)
     },
     filters () {
       // eslint-disable-next-line camelcase
