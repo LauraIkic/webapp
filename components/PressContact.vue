@@ -66,7 +66,7 @@ export default {
   }
   justify-content: center;
   .contact-information{
-    margin-top: -11%;
+    margin-top: -5%;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
@@ -88,6 +88,7 @@ export default {
   @include media-breakpoint-down(sm) {
     .contact-information {
       flex-flow: column;
+      margin-top: -10%;
     }
     .contact-details{
       .your-contact{
