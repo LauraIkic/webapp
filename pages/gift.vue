@@ -1,6 +1,6 @@
 <template href="http://www.w3.org/1999/html">
   <div>
-    <span class="flex-center" style="margin-top: 2em;">
+    <span class="flex-center">
       <h2 v-if="action" class="headline">
         Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
@@ -103,6 +103,12 @@
               </div>
             </section>
             <div class="buttons">
+<!--              <button-->
+<!--                  class="input-button-primary"-->
+<!--                  @click="step&#45;&#45;"-->
+<!--              >-->
+<!--                Zurück-->
+<!--              </button>-->
               <button
                 class="input-button-primary"
                 :disabled="!selectedProductId"
@@ -120,7 +126,7 @@
                   type="radio"
                   name="paymentMethod"
                   value="1"
-                >Kreditkarte / PayPal
+                > Kreditkarte / PayPal
               </div>
               <div class="spacer"></div>
               <br>
@@ -534,7 +540,7 @@ a:hover {
 
 .display-item {
   border-radius: 15px;
-  height: 20vh;
+  height: 200px;
   display: flex;
   background: black;
   width: 350px;
@@ -601,59 +607,6 @@ a:hover {
         height: 5vh;
       }
     }
-  }
-  @media screen and (max-width: 799px) {
-    background: white;
-    border-radius: 0.8em;
-    width: 75vw;
-    height: 18vh;
-    .top {
-      align-self: end;
-      height: 100%;
-      width: 60%;
-
-      .buy-image {
-        //background-image: url(~assets/img/buy-giftcard-mobile.png);
-        height: 17.7vh;
-        border-radius: 0.8em;
-      }
-
-      .redeem-image {
-        background: none;
-        height: 17.7vh;
-        border-radius: 0.8em;
-      }
-    }
-
-    .bottom {
-      background: none;
-      position: absolute;
-      width: 40%;
-      height: 100%;
-      padding-top: 8vh;
-      padding-left: 5vw;
-    }
-  }
-}
-
-.buy-redeem-button {
-  //cursor: pointer;
-  //width: 100%;
-  //background: black;
-  //color: white;
-  //height: 5.7rem;
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
-  //font-size: 1.5em;
-  //font-family: $font-mono;
-  @media screen and (max-width: 799px) {
-    height: 3rem;
-    border-radius: 0.8em;
-    padding: 10px;
-    font-size: 1em;
-    background: $color-orange;
-    font-family: "IBM Plex Sans Condensed", sans-serif;
   }
 }
 
