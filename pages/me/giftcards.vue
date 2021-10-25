@@ -144,6 +144,7 @@
                     <input
                         v-model="invoiceContact.uid"
                         class="input-text"
+                        required
                         type="text"
                         name=""
                     >
@@ -151,24 +152,26 @@
                 </tr>
                 <tr>
                   <th>
-                    <span class="label">Vorname</span>
+                    <span class="label">Vorname*</span>
                   </th>
                   <th>
                     <input
                       v-model="invoiceContact.firstname"
                       class="input-text"
+                      required
                       type="text"
                       name=""
                     >
                   </th>
                 </tr>
                 <th>
-                  <span class="label">Nachname</span>
+                  <span class="label">Nachname*</span>
                 </th>
                 <th>
                   <input
                     v-model="invoiceContact.lastname"
                     class="input-text"
+                    required
                     type="text"
                     name=""
                   >
@@ -188,12 +191,13 @@
                 </tr>
                 <tr>
                   <th>
-                    <span class="label">Adresse</span>
+                    <span class="label">Adresse*</span>
                   </th>
                   <th>
                     <input
                       v-model="invoiceContact.street"
                       class="input-text"
+                      required
                       type="text"
                       name=""
                     >
@@ -214,12 +218,13 @@
                 </tr>
                 <tr>
                   <th>
-                    <span class="label">PLZ</span>
+                    <span class="label">PLZ*</span>
                   </th>
                   <th>
                     <input
                       v-model="invoiceContact.zip"
                       class="input-text"
+                      required
                       type="text"
                       name=""
                     >
@@ -227,12 +232,13 @@
                 </tr>
                 <tr>
                   <th>
-                    <span class="label">Stadt</span>
+                    <span class="label">Stadt*</span>
                   </th>
                   <th>
                     <input
                       v-model="invoiceContact.city"
                       class="input-text"
+                      required
                       type="text"
                       name=""
                     >

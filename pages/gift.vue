@@ -194,6 +194,7 @@
                       <input
                         v-model="invoiceContact.street"
                         class="input-text"
+                        required
                         type="text"
                         name=""
                       >
