@@ -156,6 +156,7 @@
   "eventEmailAddress": "events@grandgarage.eu",
 
   "debitedFromCreditCard": "debited from your credit card.",
+  "invoiced":  " will be invoiced.",
   "includedInYourMonthlyBill": "included in  your monthly bill.",
   "fromYourCredits":"from your credits",
   "bookFreeOfCharge": "Book free of charge",

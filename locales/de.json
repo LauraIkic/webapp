@@ -155,6 +155,7 @@
   "eventEmailAddress": "events@grandgarage.eu",
 
   "debitedFromCreditCard":  " von deiner Kreditkarte abgebucht.",
+  "invoiced":  " verrechnet.",
   "includedInYourMonthlyBill": "via SEPA-Monatsrechnung eingezogen.",
   "fromYourCredits":"von deinen Credits.",
   "bookFreeOfCharge": "Termin kostenlos buchen",

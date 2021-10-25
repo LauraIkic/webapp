@@ -266,7 +266,7 @@
               </button>
               <button
                 class="input-button-primary"
-                :disabled="!invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
+                :disabled="!paymentMethod || !invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
                 @click="step++"
               >
                 Bestellung prüfen
@@ -293,6 +293,7 @@
                 @click="redirectToPayrexxCheckout()"
               >
                 Weiter zum Zahlungsvorgang
+                {{ $t('toPaymentProcess') }}
               </button>
             </div>
           </div>
@@ -687,9 +688,9 @@ a:hover {
     padding-right: 3vw;
   }
   .spacer {
-     width: 0em;
-     height: 0vh;
-   }
+    width: 0em;
+    height: 0vh;
+  }
   @include media-breakpoint-down(md) {
     padding-right: 10vw;
   }
