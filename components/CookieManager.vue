@@ -47,7 +47,7 @@ export default {
   name: 'CookieManager',
   data: () => ({
     necessaryCookie: true,
-    analyticsCookie: false
+    analyticsCookie: true
   }),
   methods: {
     enableTracking () {
