@@ -166,7 +166,7 @@
             {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR{{ $t('deducted') }}
           </div>
           <div v-if="paymentMethod === 1">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('debitedFromCreditCard') }}</strong>
+            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('invoiced') }}</strong>
           </div>
           <div v-if="paymentMethod === 2">
             <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill') }}</strong>

@@ -279,7 +279,7 @@
                 :disabled="!paymentMethod || loading"
                 @click="redirectToPayrexxCheckout()"
               >
-                Kostenpflichtig bestellen
+                {{ $t('toPaymentProcess') }}
               </button>
             </div>
           </div>
