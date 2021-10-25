@@ -31,8 +31,12 @@ export default {
   },
   methods: {
     vote () {
-      this.votes++
-      this.$store.dispatch('voteBlog', { uuid: this.uuid }).then(r => console.log(r))
+      console.log(localStorage.getItem('hasAlreadyVoted'))
+      if (!localStorage.getItem('hasAlreadyVoted')) {
+        localStorage.setItem('hasAlreadyVoted', 'voted')
+        this.votes++
+        this.$store.dispatch('voteBlog', { uuid: this.uuid }).then(r => console.log(r))
+      }
     }
   }
 }
