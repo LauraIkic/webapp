@@ -1,6 +1,6 @@
 <template href="http://www.w3.org/1999/html">
   <div class="gift-card-body">
-      <h2 v-if="action" class="headline">
+      <h2 v-if="action" class="gift-page-headline">
         Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
       <h2 v-else class="gift-page-headline">
@@ -119,19 +119,18 @@
           </div>
           <div v-if="step === 1">
             <div class="gift-card-body">
-            <h2 class="headline">Zahlungsmethode</h2>
+            <h2 class="headline">Rechnungsadresse</h2>
             <div class="logged-out-payment">
-              <div class="input gg-card" @click="paymentMethod='1'">
+<!--              <div class="input gg-card" @click="paymentMethod='1'">
                 <input
                   v-model="paymentMethod"
                   type="radio"
                   name="paymentMethod"
                   value="1"
                 > Kreditkarte / PayPal
-              </div>
+              </div>-->
               <div class="spacer"></div>
               <br>
-              <h4>Rechnungsadresse</h4>
               <div class="user-contact">
                 <table>
                   <tr>
@@ -267,7 +266,7 @@
               </button>
               <button
                 class="input-button-primary"
-                :disabled="!paymentMethod || !invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
+                :disabled="!invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
                 @click="step++"
               >
                 Bestellung prüfen
@@ -290,10 +289,10 @@
               </button>
               <button
                 class="input-button-payment"
-                :disabled="!paymentMethod || loading"
+                :disabled="loading"
                 @click="redirectToPayrexxCheckout()"
               >
-                Kostenpflichtig bestellen
+                Weiter zum Zahlungsvorgang
               </button>
             </div>
           </div>
@@ -516,7 +515,7 @@ a:hover {
   background: white;
   margin-left: auto;
   margin-right: auto;
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-family: "Chakra Petch", sans-serif;
   text-transform: uppercase;
   padding: 38px;
@@ -647,10 +646,10 @@ a:hover {
   padding-bottom: 2vh;
   padding-left: 1.5vw;
   padding-right: 3vw;
-  border: 1px solid grey;
+  border: 1px solid #30302f42;
   border-radius: 0.3em;
   font-size: 24px;
-  width: 300px;
+  width: 350px;
   @include media-breakpoint-down(sm) {
     width: 80vw;
   }
@@ -658,13 +657,23 @@ a:hover {
 
 ///////////PAYMENT-DETAILS//////////////////////////////////////////////////////////
 .logged-out-payment {
-  padding-left: 10vw;
-  padding-right: 40vw;
-  .input {
-    padding-top: 1vh;
-    padding-bottom: 1.2vh;
-    padding-left: 1vw;
-    padding-right: 3vw;
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  align-items: center;
+  .user-contact{
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px #00000024;
+    border: 1px solid #30302f26;
+    .label{
+      padding-left: 60px;
+      padding-right: 90px;
+    }
+    .input-text{
+      margin-right: 40px;
+    }
   }
 }
 .logged-in-payment {
