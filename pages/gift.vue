@@ -266,7 +266,7 @@
               </button>
               <button
                 class="input-button-primary"
-                :disabled="!paymentMethod || !invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
+                :disabled="!invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
                 @click="step++"
               >
                 Bestellung prüfen
@@ -292,7 +292,6 @@
                 :disabled="loading"
                 @click="redirectToPayrexxCheckout()"
               >
-                Weiter zum Zahlungsvorgang
                 {{ $t('toPaymentProcess') }}
               </button>
             </div>
