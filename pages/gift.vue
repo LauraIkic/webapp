@@ -1,6 +1,5 @@
 <template href="http://www.w3.org/1999/html">
-  <div>
-    <span class="flex-center">
+  <div class="gift-card-body">
       <h2 v-if="action" class="headline">
         Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
@@ -12,7 +11,6 @@
         color="#333"
         style="margin-left: 0.5em;"
       />
-    </span>
     <template v-if="!action">
       <div class="items">
         <section class="display-item">
@@ -53,6 +51,7 @@
       <template>
         <template v-if="action === 'buy'">
           <div v-if="step === 0" class="giftcardForm">
+            <div class="gift-card-body">
             <section class="buy-gift-cards">
               <div class="input gg-card" @click="selectedProductId='719'">
                 <input type="radio" value="719" v-model="selectedProductId">
@@ -102,6 +101,7 @@
                 </div>
               </div>
             </section>
+            </div>
             <div class="buttons">
 <!--              <button-->
 <!--                  class="input-button-primary"-->
@@ -118,6 +118,7 @@
             </div>
           </div>
           <div v-if="step === 1">
+            <div class="gift-card-body">
             <h2 class="headline">Zahlungsmethode</h2>
             <div class="logged-out-payment">
               <div class="input gg-card" @click="paymentMethod='1'">
@@ -255,6 +256,7 @@
                 </table>
               </div>
             </div>
+            </div>
             <div class="buttons">
               <button
                 class="input-button-primary"
@@ -316,12 +318,13 @@
                   </div>
                 </div>
               </div>
-              <div v-if="user==null"><font-awesome-icon icon="info-circle"/> Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
-              <br>
-              <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich
-                auf unserer Webseite registrieren!
+              <div v-if="user==null" class="login-reminder">
+                <div><font-awesome-icon icon="info-circle"/> Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
+                <div>Solltest du noch kein Member sein kannst du dich jetzt unverbindlich
+                  auf unserer Webseite registrieren!
+                </div>
+                <br>
               </div>
-              <br>
             </div>
           </div>
         </template>
@@ -487,6 +490,7 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
+/*
 a {
   color: $color-orange;
 }
@@ -494,14 +498,18 @@ a {
 a:hover {
   text-decoration: underline;
 }
+*/
 
-.flex-center {
-  display: flex;
-  align-items: center;
+.image-spacer {
+  background-size: cover;
+  width: 3em;
+  position: relative;
 }
-.headline {
-  padding-left: 21vw;
+.spacer {
+  width: 2em;
+  height: 2vh;
 }
+//////////FIRST-PAGE//////////////////////////////////////////
 .gift-page-headline {
   width: 1200px;
   background: white;
@@ -512,6 +520,9 @@ a:hover {
   text-transform: uppercase;
   padding: 38px;
   padding-left: 130px;
+  @include media-breakpoint-down(sm) {
+    padding-left: 38px;
+  }
 }
 
 .items {
@@ -521,106 +532,94 @@ a:hover {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 10vh;
+  .display-item {
+    border-radius: 15px;
+    height: 230px;
+    display: flex;
+    background: black;
+    width: 370px;
+    box-shadow: 10px 5px 5px #00000024;
+    flex-flow: column;
+
+    .top {
+      height: inherit;
+      color:white;
+      .top-image {
+        background-image: url(assets/img/icons/gg-logo-icon.svg);
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        height: 3.5vh;
+        filter: invert(1);
+        margin-top: 15%;
+        &:hover {
+          background-image: url(assets/img/icons/gg-logo.svg);
+        }
+      }
+      .top-text{
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+        font-size: 28px;
+      }
+    }
+
+    .bottom {
+      height: 45%;
+      background: white;
+      align-self: end;
+      width: inherit;
+      border-bottom-right-radius: 13px;
+      border-bottom-left-radius: 13px;
+      display:flex;
+      flex-flow:row;
+      .bottom-text{
+        width: 8vw;
+        margin-left: 5%;
+        margin-top:3%;
+      }
+      .buy-redeem-button{
+        cursor: pointer;
+        margin-top:3%;
+        margin-right: 5%;
+        width: 110px;
+        height: 3vh;
+        background: $color-secondary;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        color: white;
+        padding: 20px;
+        font-size:16px;
+        margin-left: 24%;
+        @include media-breakpoint-down(sm) {
+          margin-left: 45%;
+        }
+      }
+    }
+    &:hover {
+      .top{
+        .top-image {
+          background-image: url(assets/img/icons/gg-logo.svg);
+          height: 5vh;
+        }
+      }
+    }
+  }
   @media screen and (max-width: 799px) {
     flex-direction: column;
     justify-content: space-between;
   }
 }
 
-.image-spacer {
-  background-size: cover;
-  width: 3em;
-  position: relative;
-}
-
-.spacer {
-  width: 2em;
-  height: 2vh;
-}
-
-.display-item {
-  border-radius: 15px;
-  height: 200px;
-  display: flex;
-  background: black;
-  width: 350px;
-  box-shadow: 10px 5px 5px #00000024;
-  flex-flow: column;
-
-  .top {
-    height: inherit;
-    color:white;
-    .top-image {
-      background-image: url(assets/img/icons/gg-logo-icon.svg);
-      background-size: contain;
-      background-position: 50%;
-      background-repeat: no-repeat;
-      height: 4vh;
-      filter: invert(1);
-      margin-top: 15%;
-      &:hover {
-        background-image: url(assets/img/icons/gg-logo.svg);
-      }
-    }
-    .top-text{
-      display: flex;
-      justify-content: center;
-      margin-top: 5%;
-      font-size: 28px;
-    }
-  }
-
-  .bottom {
-    height: 45%;
-    background: white;
-    align-self: end;
-    width: inherit;
-    border-bottom-right-radius: 13px;
-    border-bottom-left-radius: 13px;
-    display:flex;
-    flex-flow:row;
-    .bottom-text{
-      width: 8vw;
-      margin-left: 5%;
-      margin-top:3%;
-    }
-    .buy-redeem-button{
-      cursor: pointer;
-      margin-top:3%;
-      margin-right: 5%;
-      width: 110px;
-      height: 3vh;
-      background: $color-secondary;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      color: white;
-      padding: 20px;
-      font-size:16px;
-      margin-left: 24%;
-    }
-  }
-  &:hover {
-    .top{
-      .top-image {
-        background-image: url(assets/img/icons/gg-logo.svg);
-        height: 5vh;
-      }
-    }
-  }
-}
-
-.display-item:hover .buy-redeem-button {
-  border-top: 2px solid white;
-  background: $color-orange;
-}
+////////////SELECT-GIFT-CARD-VALUE/////////////////////////////////
 
 .buy-gift-cards {
   position: relative;
   display: flex;
   align-items: center;
   flex-flow: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-left: 11vw;
   padding-right: 11vw;
 
@@ -630,8 +629,10 @@ a:hover {
     justify-content: space-between;
     padding-left: 3vw;
     padding-top: 0.5vh;
+    .image {
+      padding-top: 0.6vh;
+    }
   }
-
   .headline {
     padding-left: 15vw;
     margin-top: 2em;
@@ -648,16 +649,115 @@ a:hover {
   border: 1px solid grey;
   border-radius: 0.3em;
   font-size: 24px;
-  width: 30vw;
+  width: 300px;
   @include media-breakpoint-down(sm) {
     width: 80vw;
   }
 }
 
-.image {
-  padding-top: 0.6vh;
+///////////PAYMENT-DETAILS//////////////////////////////////////////////////////////
+.logged-out-payment {
+  padding-left: 10vw;
+  padding-right: 40vw;
+  .input {
+    padding-top: 1vh;
+    padding-bottom: 1.2vh;
+    padding-left: 1vw;
+    padding-right: 3vw;
+  }
+}
+.logged-in-payment {
+  padding-left: 10vw;
+  padding-right: 40vw;
+
+  .input {
+    padding-top: 1vh;
+    padding-bottom: 1.2vh;
+    padding-left: 1vw;
+    padding-right: 3vw;
+  }
+  .spacer {
+     width: 0em;
+     height: 0vh;
+   }
+  @include media-breakpoint-down(md) {
+    padding-right: 10vw;
+  }
 }
 
+///////////REDEEM-CARD-PAGE//////////////////////////////////////////
+.card {
+  .login-reminder {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    line-height: 1.8;
+  }
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+  .input-redeem-card {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    margin: 1em 0;
+    border: 1px solid grey;
+
+    padding-bottom: 1vh;
+    padding-left: 1vw;
+    padding-right: 1.5vw;
+    border-radius: 0.3em;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 240px;
+    width: 580px;
+
+    .redeem-card-bottom {
+      display: flex;
+      flex-flow: row;
+      justify-content: inherit;
+
+      .form-item {
+        height: 2vh;
+        width: 8vw;
+        @include media-breakpoint-down(sm) {
+          width: 20vw;
+          height: 3vh;
+        }
+      }
+    }
+    @include media-breakpoint-down(md) {
+      width: 70vw;
+    }
+    @include media-breakpoint-down(sm) {
+      width: 80vw;
+      height: 16vh;
+    }
+  }
+}
+
+/////////GENERAL////////////////////////////////////////////////
+.gift-card-body{
+  max-width: 1264px;
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-flow: column;
+}
+.display-item:hover .buy-redeem-button {
+  border-top: 2px solid white;
+  background: $color-orange;
+}
+.headline {
+  padding-left: 21vw;
+}
 .input-button-payment {
   font-weight: 700;
   line-height: 1em;
@@ -669,92 +769,6 @@ a:hover {
   cursor: pointer;
   border-radius: 0.2em;
   border: 1px solid $color-secondary-border;
-}
-
-.logged-out-payment {
-  padding-left: 10vw;
-  padding-right: 40vw;
-
-  .input {
-    padding-top: 1vh;
-    padding-bottom: 1.2vh;
-    padding-left: 1vw;
-    padding-right: 3vw;
-  }
-
-  @include media-breakpoint-down(md) {
-    padding-right: 10vw;
-  }
-}
-
-.logged-in-payment {
-  padding-left: 10vw;
-  padding-right: 40vw;
-
-  .input {
-    padding-top: 1vh;
-    padding-bottom: 1.2vh;
-    padding-left: 1vw;
-    padding-right: 3vw;
-  }
-
-  @include media-breakpoint-down(md) {
-    padding-right: 10vw;
-  }
-
-  .spacer {
-    width: 0em;
-    height: 0vh;
-  }
-}
-
-.card {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.input-redeem-card {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-  margin: 1em 0;
-  border: 1px solid grey;
-
-  padding-bottom: 1vh;
-  padding-left: 1vw;
-  padding-right: 1.5vw;
-  border-radius: 0.3em;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 22vh;
-  width: 40vw;
-
-  .redeem-card-bottom {
-    display: flex;
-    flex-flow: row;
-    justify-content: inherit;
-
-    .form-item {
-      height: 2vh;
-      width: 8vw;
-      @include media-breakpoint-down(sm) {
-        width: 20vw;
-        height: 3vh;
-      }
-    }
-  }
-
-  @include media-breakpoint-down(md) {
-    width: 70vw;
-  }
-  @include media-breakpoint-down(sm) {
-    width: 80vw;
-    height: 16vh;
-  }
 }
 
 .span {
