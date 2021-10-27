@@ -148,7 +148,7 @@
   "currentState": "aktueller Stand: ",
   "creditCard": "Kreditkarte / PayPal",
   "sepaMonthlyBill": "SEPA-Monatsrechnung",
-  "continue": "Weiter...",
+  "continue": "Weiter",
   "confirmation": "Bestätigung",
 
   "bindingRegistrationText": "Deine Anmeldung ist verbindlich. Solltest du doch nicht teilnehmen können, gib uns bitte umgehend Bescheid unter",
@@ -168,9 +168,9 @@
   "giftCard": "Gutschein",
   "giftCards": "Gutscheine",
   "credit": "Gutschrift",
-  "buyGiftCard": "Gutschein kaufen",
-  "redeemGiftCard": "Gutschein einlösen",
-
+  "buyGiftCard": "Gutschein erwerben",
+  "redeemGiftCard": "Gutschein entwerten",
+  "buy": "kaufen",
 
   "giftCardValue": "Gutschein-Wert:",
   "extras": "Extras:",
@@ -178,7 +178,8 @@
   "standardShipping": "Versand-Standard",
   "deluxeBox": "Deluxe-Box",
   "billingAddress": "Rechnungsadresse",
-  "reviewOrder": "Bestellung prüfen...",
+  "reviewOrder": "Bestellung prüfen",
+
 
   "redeem": "Einlösen",
   "buyLiableToPayTheCosts": "Kostenpflichtig bestellen",
@@ -187,6 +188,11 @@
   "receiptAndGiftCardViaMail": "Die Rechnung und deinen Gutschein erhältst du per Mail.",
   "giftCardCode": "Gutschein Code:",
   "phone": "Telefon",
+  "registerToRedeemGiftCard": "Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!",
+  "ifNotAMemberGoAndRegister": "Solltest du noch kein Member sein kannst du dich jetzt unverbindlich\n auf unserer Webseite registrieren!",
+
+
+
 
   "contactDetails": "Kontaktdaten",
   "save": "Speichern",
@@ -282,5 +288,8 @@
   "yourContact": "Ihr Kontakt",
   "pressImages": "PRESSEBILDER",
   "download": "Herunterladen"
+
+
+
 
 }

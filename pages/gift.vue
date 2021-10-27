@@ -1,10 +1,10 @@
 <template href="http://www.w3.org/1999/html">
   <div class="gift-card-body">
       <h2 v-if="action" class="gift-page-headline">
-        Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+        {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
       <h2 v-else class="gift-page-headline">
-        Gutscheine
+        {{ $t('giftCard') }}
       </h2>
       <loading-spinner
         v-if="loading"
@@ -19,11 +19,11 @@
           </div>
           <div class="bottom">
             <div class="bottom-text">
-              GUTSCHEIN ERWERBEN
+              {{ $t('buyGiftCard') }}
             </div>
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=buy')">
-              KAUFEN
+              {{ $t('buy') }}
             </div>
           </div>
         </section>
@@ -35,11 +35,11 @@
           </div>
           <div class="bottom">
             <div class="bottom-text">
-              GUTSCHEIN ENTWERTEN
+              {{ $t('redeemGiftCard') }}
             </div>
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=redeem')">
-              EINLÖSEN
+              {{ $t('redeem') }}
             </div>
           </div>
         </section>
@@ -55,7 +55,7 @@
             <section class="buy-gift-cards">
               <div class="input gg-card" @click="selectedProductId='719'">
                 <input type="radio" value="719" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="719">10€</option>
                   <div class="image-spacer"></div>
@@ -66,7 +66,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='720'">
                 <input type="radio" value="720" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span>  {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
                   <div class="image-spacer"></div>
@@ -78,7 +78,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='721'">
                 <input type="radio" value="721" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span>  {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
                   <div class="image-spacer"></div>
@@ -90,7 +90,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='722'">
                 <input type="radio" value="722" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span>  {{ $t('giftCardValue') }}</span>
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
                   <div class="image-spacer"></div>
@@ -113,13 +113,13 @@
                 class="input-button-primary"
                 :disabled="!selectedProductId"
                 @click="step++">
-                Weiter
+                {{ $t('continue') }}
               </button>
             </div>
           </div>
           <div v-if="step === 1">
             <div class="gift-card-body">
-            <h2 class="headline">Rechnungsadresse</h2>
+            <h2 class="headline"> {{ $t('billingAddress') }}</h2>
             <div class="logged-out-payment">
 <!--              <div class="input gg-card" @click="paymentMethod='1'">
                 <input
@@ -135,7 +135,7 @@
                 <table>
                   <tr>
                     <th>
-                      <span class="label">Firmenname</span>
+                      <span class="label"> {{ $t('company') }}</span>
                     </th>
                     <th>
                       <input
@@ -158,7 +158,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Vorname*</span>
+                      <span class="label"> {{ $t('firstName') }}*</span>
                     </th>
                     <th>
                       <input
@@ -172,7 +172,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Nachname*</span>
+                      <span class="label"> {{ $t('lastName') }}*</span>
                     </th>
                     <th>
                       <input
@@ -186,7 +186,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">E-mail*</span>
+                      <span class="label"> {{ $t('email') }}*</span>
                     </th>
                     <th>
                       <input
@@ -200,7 +200,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Adresse*</span>
+                      <span class="label"> {{ $t('address') }}*</span>
                     </th>
                     <th>
                       <input
@@ -227,7 +227,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">PLZ*</span>
+                      <span class="label"> {{ $t('zipCode') }}*</span>
                     </th>
                     <th>
                       <input
@@ -241,7 +241,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Stadt*</span>
+                      <span class="label"> {{ $t('city') }}*</span>
                     </th>
                     <th>
                       <input
@@ -262,22 +262,22 @@
                 class="input-button-primary"
                 @click="step--"
               >
-                Zurück
+                {{ $t('back') }}
               </button>
               <button
                 class="input-button-primary"
                 :disabled="!invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
                 @click="step++"
               >
-                Bestellung prüfen
+                {{ $t('reviewOrder') }}
               </button>
             </div>
           </div>
           <div v-if="step === 2  && invoiceContact">
             <div class="headline">
-              <h2> Bestätigung:</h2>
+              <h2>{{ $t('confirmation') }}:</h2>
               <ul>
-                <li>Gutschein {{ getGiftCardValue(selectedProductId) }}€</li>
+                <li> {{ $t('giftCard') }} {{ getGiftCardValue(selectedProductId) }}€</li>
               </ul>
             </div>
             <div class="buttons">
@@ -285,7 +285,7 @@
                 class="input-button-payment"
                 @click="step--"
               >
-                Zurück
+                {{ $t('back') }}
               </button>
               <button
                 class="input-button-payment"
@@ -297,8 +297,7 @@
             </div>
           </div>
           <div v-if="step === 3">
-            Kauf abgeschlossen. Die Rechnung und deinen Gutschein erhältst du per
-            Mail.
+            {{ $t('purchaseCompleted') }}  {{ $t('receiptAndGiftCardViaMail') }}
           </div>
         </template>
 
@@ -307,7 +306,7 @@
             <div class="card">
               <div class="input-redeem-card">
               <span class="span">
-                Gutschein</span>
+               {{ $t('giftCard') }} </span>
                 <div class="redeem-card-bottom">
                   <div class=" code">
                     <span class="code-span"> Code: </span>
@@ -319,9 +318,8 @@
                 </div>
               </div>
               <div v-if="user==null" class="login-reminder">
-                <div><font-awesome-icon icon="info-circle"/> Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
-                <div>Solltest du noch kein Member sein kannst du dich jetzt unverbindlich
-                  auf unserer Webseite registrieren!
+                <div><font-awesome-icon icon="info-circle"/> {{ $t('registerToRedeemGiftCard') }}</div>
+                <div>{{ $t('ifNotAMemberGoAndRegister') }}
                 </div>
                 <br>
               </div>
@@ -613,6 +611,9 @@ a:hover {
         @include media-breakpoint-down(sm) {
           margin-left: 35%;
         }
+      }
+      & * {
+        text-transform: uppercase;
       }
     }
     &:hover {
