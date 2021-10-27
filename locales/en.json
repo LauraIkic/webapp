@@ -149,7 +149,7 @@
   "currentStatus": "current status:",
   "creditCard": "Credit card",
   "sepaMonthlyBill": "Sepa-Monthly bill",
-  "continue": "Continue...",
+  "continue": "Continue",
   "confirm": "Confirmation",
 
   "bindingRegistrationText": "Your registration is binding. Should you not be able to participate, please inform us immediately at",
@@ -171,14 +171,14 @@
   "credit": "Credit",
   "buyGiftCard": "Buy gift Card",
   "redeemGiftCard": "Redeem gift card",
-
+  "buy": "buy",
   "giftCardValue": "Gift card value:",
   "extras": "Extras",
   "free": "Free",
   "standardShipping": "",
   "deluxeBox": "Deluxe-Box",
   "billingAddress": "Billing address",
-  "reviewOrder": "Review order...",
+  "reviewOrder": "Review order",
 
   "redeem": "Redeem",
   "buyLiableToPayTheCosts": "Buy liable to pay the costs",
@@ -186,6 +186,10 @@
   "receiptAndGiftCardViaMail": "You will receive the invoice and your gift card by mail.",
   "giftCardCode": "Gift card code:",
   "phone": "Phone",
+  "registerToRedeemGiftCard": "In order to redeem a gift card you have to be logged into your user account!",
+  "ifNotAMemberGoAndRegister": "If have not created a user profile yet, you can do so by registering now!",
+
+
 
   "contactDetails": "Contact details",
   "save": "Save",

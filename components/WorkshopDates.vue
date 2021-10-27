@@ -101,7 +101,7 @@
               :href="d.content.link.cached_url"
               class="link"
               target="_blank"
-            >{{ $t('theOrganizer') }}</a>
+            > {{ $t('toRegistration') }}</a>
           </div>
         </div>
       </div>

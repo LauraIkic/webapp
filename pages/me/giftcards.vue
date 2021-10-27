@@ -1,3 +1,4 @@
+
 <template href="http://www.w3.org/1999/html">
   <div>
     <span class="flex-center" style="margin-top: 2em;">
@@ -140,7 +141,7 @@
                     >
                   </th>
                   <th v-if="invoiceContact.company_name">
-                    Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
+                    Uid* &lt;!&ndash; TODO implement a validator for business-iddentification-number (UID) -->
                     <input
                         v-model="invoiceContact.uid"
                         class="input-text"
