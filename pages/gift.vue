@@ -194,6 +194,7 @@
                       <input
                         v-model="invoiceContact.street"
                         class="input-text"
+                        required
                         type="text"
                         name=""
                       >
@@ -278,7 +279,7 @@
                 :disabled="!paymentMethod || loading"
                 @click="redirectToPayrexxCheckout()"
               >
-                Kostenpflichtig bestellen
+                {{ $t('toPaymentProcess') }}
               </button>
             </div>
           </div>
