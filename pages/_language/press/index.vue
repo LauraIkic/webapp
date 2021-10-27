@@ -71,7 +71,7 @@ export default {
     },
     pressToDisplay () {
       if (!this.press) return
-      return this.press.slice(0, 2)
+      return this.press.slice(0, 3)
     },
     filters () {
       // eslint-disable-next-line camelcase
@@ -107,7 +107,7 @@ export default {
       display: flex;
       font-family: Chakra Petch;
       @include media-breakpoint-down(xs) {
-        font-size: 3rem;
+        font-size: 3.5rem;
         max-width: 350px;
       }
     }
@@ -116,7 +116,7 @@ export default {
     display: flex;
     justify-content: center;
     font-size: 3rem;
-    margin-top: 5%;
+    margin-top: 8%;
     font-weight: bold;
     font-family: Chakra Petch;
     @include media-breakpoint-down(xs) {
@@ -152,6 +152,7 @@ export default {
   }
   }
   .all-press-posts{
+    box-shadow: 10px 5px 5px #00000024;
     background: #0001;
     padding-top: 53.5px;
     padding-bottom: 53.5px;

@@ -53,7 +53,7 @@ export default {
   width: 50vw;
   border-radius: 10px;
   border-top: black 10px solid;
-
+  box-shadow: 10px 5px 5px #00000024;
   &:hover {
     background: repeating-linear-gradient(45deg, #787877, #787877 70px, rgba(0, 0, 0, 0.8) 70px, rgba(0, 0, 0, 0.8) 140px);
     border-top: 10px solid;
