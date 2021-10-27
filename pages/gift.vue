@@ -103,12 +103,12 @@
             </section>
             </div>
             <div class="buttons">
-<!--              <button-->
-<!--                  class="input-button-primary"-->
-<!--                  @click="step&#45;&#45;"-->
-<!--              >-->
-<!--                Zurück-->
-<!--              </button>-->
+              <button
+                  class="input-button-primary"
+                  @click="$router.push('gift')"
+              >
+                {{ $t('back') }}
+              </button>
               <button
                 class="input-button-primary"
                 :disabled="!selectedProductId"
@@ -119,16 +119,41 @@
           </div>
           <div v-if="step === 1">
             <div class="gift-card-body">
+              <div v-if="user !== null">
+                <h2 class="headline">Zahlungsmethode</h2>
+                <div class="payment-methods">
+                  <div class="input gg-card" @click="paymentMethod='1'">
+                    <input
+                        v-model="paymentMethod"
+                        type="radio"
+                        name="paymentMethod"
+                        value="1">
+                    Kreditkarte / PayPal
+                    <div v-if="invoiceContact.sepa_mandate_agreed"></div>
+                  </div>
+                  <div class="spacer"></div>
+                  <div class="input gg-card" @click="paymentMethod='2'">
+                    <input
+                        v-model="paymentMethod"
+                        type="radio"
+                        name="paymentMethod"
+                        value="2">
+                    SEPA-Rechnung
+                  </div>
+                </div>
+              </div>
             <h2 class="headline"> {{ $t('billingAddress') }}</h2>
-            <div class="logged-out-payment">
-<!--              <div class="input gg-card" @click="paymentMethod='1'">
+            <div  class="logged-out-payment">
+              <div v-if="user === null">
+              <div class="input gg-card" @click="paymentMethod='1'">
                 <input
                   v-model="paymentMethod"
                   type="radio"
                   name="paymentMethod"
                   value="1"
                 > Kreditkarte / PayPal
-              </div>-->
+              </div>
+            </div>
               <div class="spacer"></div>
               <br>
               <div class="user-contact">
@@ -184,7 +209,7 @@
                       >
                     </th>
                   </tr>
-                  <tr>
+                  <tr v-if="this.user === null">
                     <th>
                       <span class="label"> {{ $t('email') }}*</span>
                     </th>
@@ -266,7 +291,7 @@
               </button>
               <button
                 class="input-button-primary"
-                :disabled="!invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
+                :disabled="!validInvoiceContact || !validPayment"
                 @click="step++"
               >
                 {{ $t('reviewOrder') }}
@@ -287,12 +312,19 @@
               >
                 {{ $t('back') }}
               </button>
-              <button
+              <button v-if="paymentMethod==='1'"
                 class="input-button-payment"
                 :disabled="loading"
                 @click="redirectToPayrexxCheckout()"
               >
                 {{ $t('toPaymentProcess') }}
+              </button>
+              <button v-if="paymentMethod==='2'"
+                      class="input-button-payment"
+                      :disabled="loading"
+                      @click="redirectToPayrexxCheckout()"
+              >
+                {{ $t('payWithSepa') }}
               </button>
             </div>
           </div>
@@ -303,28 +335,75 @@
 
         <template v-if="action === 'redeem'">
           <div v-if="step === 0" class="giftcardForm">
-            <div class="card">
-              <div class="input-redeem-card">
-              <span class="span">
-               {{ $t('giftCard') }} </span>
-                <div class="redeem-card-bottom">
-                  <div class=" code">
-                    <span class="code-span"> Code: </span>
-                    <input v-model="giftCardCode" class="form-item" disabled> <font-awesome-icon icon="info-circle"/>
-                  </div>
-                  <div class="image">
+            <div v-if="user == null" >
+              <div class="card">
+                <div class="input-redeem-card">
+                <span class="span">
+                {{ $t('giftCard') }} </span>
+                  <div class="redeem-card-bottom">
+                    <div class=" code">
+                      <span class="code-span"> Code: </span>
+                      <input v-model="giftCardCode" class="form-item" disabled> <font-awesome-icon icon="info-circle"/>
+                    </div>
+                    <div class="image">
                     <img src="~/assets/img/icons/gg-logo-icon.svg" width="50">
                   </div>
                 </div>
               </div>
-              <div v-if="user==null" class="login-reminder">
+              <div class="login-reminder">
                 <div><font-awesome-icon icon="info-circle"/> {{ $t('registerToRedeemGiftCard') }}</div>
                 <div>{{ $t('ifNotAMemberGoAndRegister') }}
                 </div>
                 <br>
               </div>
+                <div class="buttons">
+                  <button
+                      class="input-button-primary"
+                      @click="$router.push('gift')"
+                  >
+                    {{ $t('back') }}
+                  </button>
+                </div>
             </div>
-          </div>
+            </div>
+            <div v-if="user !== null" >
+              <div class="card">
+              <div class="input-redeem-card">
+                <span class="span">
+                Gutschein</span>
+                  <div class="redeem-card-bottom">
+                    <div class=" code">
+                      <span class="code-span"> Code: </span>
+                      <input
+                          v-model="giftcardCode"
+                          class="form-item"
+                      >
+                    </div>
+                    <div class="image">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg"
+                           width="40">
+                    </div>
+                  </div>
+                </div>
+                <div class="buttons">
+                  <button
+                      class="input-button-payment"
+                      @click="$router.push('gift')"
+                  >
+                    {{ $t('back') }}
+                  </button>
+                  <button
+                      class="input-button-payment"
+                      :disabled="!giftcardCode"
+                      @click="redeem"
+                  >
+                    Einlösen
+                  </button>
+
+                </div>
+              </div>
+            </div>
+            </div>
         </template>
       </template>
     </transition>
@@ -352,7 +431,7 @@ export default {
       action: null,
       origin: null,
       selectedProductId: null,
-      giftCardCode: null,
+      giftcardCode: null,
       paymentMethod: 0,
       error: '',
       shippingstreetEnabled: 0,
@@ -365,13 +444,23 @@ export default {
   },
   computed: {
     user () {
+      if (this.$store.state.user) {
+        this.loadUserData()
+      }
       return this.$store.state.user
     },
     validInvoiceContact () {
       if (!this.invoiceContact) {
         return false
       }
-      return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.email && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
+      if (this.user === null) {
+        return (this.invoiceContact.firstname && this.invoiceContact.lastname && helpers.validateEmail(this.invoiceContact.email) && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
+      } else {
+        return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
+      }
+    },
+    validPayment () {
+      return this.paymentMethod !== 0
     }
   },
   watch: {
@@ -379,12 +468,33 @@ export default {
       this.getQuery(to)
     }
   },
+  mounted () {
+  },
   methods: {
+    loadUserData () {
+      this.loading = true
+      this.$store.dispatch('getUserMetadata')
+        .then((data) => {
+          this.invoiceContact = data.data.invoice_contact
+          this.sepaActive = data.data.sepa_active
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.data.msg)
+          this.$toast.show('Ein Fehler ist aufgetreten', {
+            theme: 'bubble'
+          })
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
     capitalize (str) {
       return helpers.capitalize(str)
     },
     isValidEmailAdress (email) {
-      return helpers.validateEmail(email)
+      if (this.user === null) {
+        return helpers.validateEmail(email)
+      } else return true
     },
     getQuery (to) {
       // eslint-disable-next-line no-prototype-builtins
@@ -410,7 +520,7 @@ export default {
           if (this.origin) {
             this.$router.push(`buyWorkshop?uuid=${this.origin}`)
           }
-          this.$router.push('credits')
+          this.$router.push('me/credits')
         })
         .catch((error) => {
           console.log('error', error.response)
@@ -445,29 +555,61 @@ export default {
         count: 1,
         invoice_contact: this.invoiceContact
       }
-
-      this.$store.dispatch('startTransaction', data)
-        .then((response) => {
-          if (response.data.redirect_link) {
-            if (response.data.invoice_contact) {
-              this.connectorInvoiceContact = response.data.invoice_contact
+      if (this.user === null) {
+        this.$store.dispatch('startTransaction', data)
+          .then((response) => {
+            if (response.data.redirect_link) {
+              if (response.data.invoice_contact) {
+                this.connectorInvoiceContact = response.data.invoice_contact
+              }
+              // Redirect to payrexx screen
+              window.location.href = response.data.redirect_link
+            } else {
+              console.log('response', response.data)
             }
-            // Redirect to payrexx screen
-            window.location.href = response.data.redirect_link
-          } else {
-            console.log('response', response.data)
-          }
-        })
-        .catch((error) => {
-          console.log('error', error)
-          this.$sentry.captureException(new Error(error))
-          this.$toast.show('Ein Fehler ist aufgetreten', {
-            theme: 'bubble'
           })
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .catch((error) => {
+            console.log('error', error)
+            this.$sentry.captureException(new Error(error))
+            this.$toast.show('Ein Fehler ist aufgetreten', {
+              theme: 'bubble'
+            })
+          })
+          .finally(() => {
+            this.loading = false
+          })
+      } else {
+        this.$store.dispatch('checkout', data)
+          .then((response) => {
+            switch (parseInt(this.paymentMethod)) {
+              case 1: // PAYMENT PROVIDER
+                if (response.data.redirect_link) {
+                  if (response.data.invoice_contact) {
+                    this.connectorInvoiceContact = response.data.invoice_contact
+                  }
+                  // Redirect to payrexx screen
+                  window.location.href = response.data.redirect_link
+                } else {
+                  console.log('Error: No payrexx redirect_link returned!', response.data)
+                  throw new Error('No payrexx redirect_link returned!')
+                }
+                break
+              case 2: // SEPA
+                this.step++
+                break
+            }
+          })
+          .catch((error) => {
+            console.log('error', error)
+            this.$sentry.captureException(new Error(error))
+            this.$toast.show('Ein Fehler ist aufgetreten', {
+              theme: 'bubble'
+            })
+          })
+          .finally(() => {
+            this.loading = false
+          })
+      }
     },
     getGiftCardValue (id) {
       switch (id) {
@@ -676,6 +818,14 @@ a:hover {
 }
 
 ///////////PAYMENT-DETAILS//////////////////////////////////////////////////////////
+.payment-methods {
+  position: relative;
+  display: flex;
+  flex-flow: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
 .logged-out-payment {
   display: flex;
   flex-flow: column;

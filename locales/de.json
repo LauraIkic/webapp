@@ -184,6 +184,7 @@
   "redeem": "Einlösen",
   "buyLiableToPayTheCosts": "Kostenpflichtig bestellen",
   "toPaymentProcess": "Weiter zum Zahlungsvorgang",
+  "payWithSepa": "mit SEPA-Einzug bezahlen",
   "purchaseCompleted":"Kauf abgeschlossen.",
   "receiptAndGiftCardViaMail": "Die Rechnung und deinen Gutschein erhältst du per Mail.",
   "giftCardCode": "Gutschein Code:",

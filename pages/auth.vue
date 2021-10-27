@@ -33,7 +33,7 @@ export default {
     if (process.client) {
       const hash = this.$route.hash
       this.$store.dispatch('auth', { hash }).then((r) => {
-        this.$router.push('/me')
+        this.$router.push(localStorage.getItem('pathToLoadAfterLogin') || '/')
       }).catch((err) => {
         if (err.errorDescription === 'verify-mail') {
           this.error = err
