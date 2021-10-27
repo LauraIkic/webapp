@@ -1,28 +1,29 @@
 <template href="http://www.w3.org/1999/html">
-  <div>
-    <span class="flex-center" style="margin-top: 2em;">
-      <h2 v-if="action" class="headline">
-        Gutschein {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+  <div class="gift-card-body">
+      <h2 v-if="action" class="gift-page-headline">
+        {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </h2>
-      <h2 v-else class="headline">
-        Gutscheine
+      <h2 v-else class="gift-page-headline">
+        {{ $t('giftCard') }}
       </h2>
       <loading-spinner
         v-if="loading"
         color="#333"
         style="margin-left: 0.5em;"
       />
-    </span>
     <template v-if="!action">
       <div class="items">
         <section class="display-item">
           <div class="top">
-            <div class="buy-image"></div>
+            <div class="top-image"></div>
           </div>
           <div class="bottom">
+            <div class="bottom-text">
+              {{ $t('buyGiftCard') }}
+            </div>
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=buy')">
-              Gutschein kaufen
+              {{ $t('buy') }}
             </div>
           </div>
         </section>
@@ -30,12 +31,15 @@
         <br>
         <section class="display-item">
           <div class="top">
-            <div class="redeem-image"></div>
+            <div class="top-image"></div>
           </div>
           <div class="bottom">
+            <div class="bottom-text">
+              {{ $t('redeemGiftCard') }}
+            </div>
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=redeem')">
-              Gutschein einlösen
+              {{ $t('redeem') }}
             </div>
           </div>
         </section>
@@ -47,10 +51,11 @@
       <template>
         <template v-if="action === 'buy'">
           <div v-if="step === 0" class="giftcardForm">
+            <div class="gift-card-body">
             <section class="buy-gift-cards">
               <div class="input gg-card" @click="selectedProductId='719'">
                 <input type="radio" value="719" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span> {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="719">10€</option>
                   <div class="image-spacer"></div>
@@ -61,7 +66,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='720'">
                 <input type="radio" value="720" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span>  {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="720">25€</option>
                   <div class="image-spacer"></div>
@@ -73,7 +78,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='721'">
                 <input type="radio" value="721" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span>  {{ $t('giftCardValue') }} </span>
                 <div class="bottom-gift-card">
                   <option class="options" value="721">50€</option>
                   <div class="image-spacer"></div>
@@ -85,7 +90,7 @@
               </div>
               <div class="input gg-card" @click="selectedProductId='722'">
                 <input type="radio" value="722" v-model="selectedProductId">
-                <span> Gutschein-Wert: </span>
+                <span>  {{ $t('giftCardValue') }}</span>
                 <div class="bottom-gift-card">
                   <option class="options" value="722">100€</option>
                   <div class="image-spacer"></div>
@@ -96,34 +101,41 @@
                 </div>
               </div>
             </section>
+            </div>
             <div class="buttons">
+<!--              <button-->
+<!--                  class="input-button-primary"-->
+<!--                  @click="step&#45;&#45;"-->
+<!--              >-->
+<!--                Zurück-->
+<!--              </button>-->
               <button
                 class="input-button-primary"
                 :disabled="!selectedProductId"
                 @click="step++">
-                Weiter
+                {{ $t('continue') }}
               </button>
             </div>
           </div>
           <div v-if="step === 1">
-            <h2 class="headline">Zahlungsmethode</h2>
+            <div class="gift-card-body">
+            <h2 class="headline"> {{ $t('billingAddress') }}</h2>
             <div class="logged-out-payment">
-              <div class="input gg-card" @click="paymentMethod='1'">
+<!--              <div class="input gg-card" @click="paymentMethod='1'">
                 <input
                   v-model="paymentMethod"
                   type="radio"
                   name="paymentMethod"
                   value="1"
-                >Kreditkarte / PayPal
-              </div>
+                > Kreditkarte / PayPal
+              </div>-->
               <div class="spacer"></div>
               <br>
-              <h4>Rechnungsadresse</h4>
               <div class="user-contact">
                 <table>
                   <tr>
                     <th>
-                      <span class="label">Firmenname</span>
+                      <span class="label"> {{ $t('company') }}</span>
                     </th>
                     <th>
                       <input
@@ -146,7 +158,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Vorname*</span>
+                      <span class="label"> {{ $t('firstName') }}*</span>
                     </th>
                     <th>
                       <input
@@ -160,7 +172,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Nachname*</span>
+                      <span class="label"> {{ $t('lastName') }}*</span>
                     </th>
                     <th>
                       <input
@@ -174,7 +186,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">E-mail*</span>
+                      <span class="label"> {{ $t('email') }}*</span>
                     </th>
                     <th>
                       <input
@@ -188,7 +200,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Adresse*</span>
+                      <span class="label"> {{ $t('address') }}*</span>
                     </th>
                     <th>
                       <input
@@ -215,7 +227,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">PLZ*</span>
+                      <span class="label"> {{ $t('zipCode') }}*</span>
                     </th>
                     <th>
                       <input
@@ -229,7 +241,7 @@
                   </tr>
                   <tr>
                     <th>
-                      <span class="label">Stadt*</span>
+                      <span class="label"> {{ $t('city') }}*</span>
                     </th>
                     <th>
                       <input
@@ -244,27 +256,28 @@
                 </table>
               </div>
             </div>
+            </div>
             <div class="buttons">
               <button
                 class="input-button-primary"
                 @click="step--"
               >
-                Zurück
+                {{ $t('back') }}
               </button>
               <button
                 class="input-button-primary"
-                :disabled="!paymentMethod || !invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
+                :disabled="!invoiceContact.firstname || !invoiceContact.lastname || !invoiceContact.email || !invoiceContact.street || !invoiceContact.city || !invoiceContact.zip"
                 @click="step++"
               >
-                Bestellung prüfen
+                {{ $t('reviewOrder') }}
               </button>
             </div>
           </div>
           <div v-if="step === 2  && invoiceContact">
             <div class="headline">
-              <h2> Bestätigung:</h2>
+              <h2>{{ $t('confirmation') }}:</h2>
               <ul>
-                <li>Gutschein {{ getGiftCardValue(selectedProductId) }}€</li>
+                <li> {{ $t('giftCard') }} {{ getGiftCardValue(selectedProductId) }}€</li>
               </ul>
             </div>
             <div class="buttons">
@@ -272,11 +285,11 @@
                 class="input-button-payment"
                 @click="step--"
               >
-                Zurück
+                {{ $t('back') }}
               </button>
               <button
                 class="input-button-payment"
-                :disabled="!paymentMethod || loading"
+                :disabled="loading"
                 @click="redirectToPayrexxCheckout()"
               >
                 {{ $t('toPaymentProcess') }}
@@ -284,8 +297,7 @@
             </div>
           </div>
           <div v-if="step === 3">
-            Kauf abgeschlossen. Die Rechnung und deinen Gutschein erhältst du per
-            Mail.
+            {{ $t('purchaseCompleted') }}  {{ $t('receiptAndGiftCardViaMail') }}
           </div>
         </template>
 
@@ -294,7 +306,7 @@
             <div class="card">
               <div class="input-redeem-card">
               <span class="span">
-                Gutschein</span>
+               {{ $t('giftCard') }} </span>
                 <div class="redeem-card-bottom">
                   <div class=" code">
                     <span class="code-span"> Code: </span>
@@ -305,12 +317,12 @@
                   </div>
                 </div>
               </div>
-              <div v-if="user==null"><font-awesome-icon icon="info-circle"/> Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!</div>
-              <br>
-              <div v-if="user==null">Solltest du noch kein Member sein kannst du dich jetzt unverbindlich
-                auf unserer Webseite registrieren!
+              <div v-if="user==null" class="login-reminder">
+                <div><font-awesome-icon icon="info-circle"/> {{ $t('registerToRedeemGiftCard') }}</div>
+                <div>{{ $t('ifNotAMemberGoAndRegister') }}
+                </div>
+                <br>
               </div>
-              <br>
             </div>
           </div>
         </template>
@@ -476,6 +488,7 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
+/*
 a {
   color: $color-orange;
 }
@@ -483,14 +496,42 @@ a {
 a:hover {
   text-decoration: underline;
 }
+*/
 
-.flex-center {
-  display: flex;
-  align-items: center;
+.image-spacer {
+  background-size: cover;
+  width: 3em;
+  position: relative;
 }
-
-.headline {
-  padding-left: 21vw;
+.spacer {
+  width: 2em;
+  height: 2vh;
+}
+//////////FIRST-PAGE//////////////////////////////////////////
+.gift-page-headline {
+  width: 1200px;
+  background: white;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2.8rem;
+  font-family: "Chakra Petch", sans-serif;
+  text-transform: uppercase;
+  padding: 38px;
+  padding-left: 130px;
+  @include media-breakpoint-down(md) {
+    max-width: 800px;
+    padding-left: 38px;
+  }
+  @include media-breakpoint-down(sm) {
+    max-width: 600px;
+    padding: 20px;
+    font-size: 2rem;
+  }
+  @include media-breakpoint-down(xs) {
+    max-width: 400px;
+    font-size: 1.8rem;
+    padding: 19px;
+  }
 }
 
 .items {
@@ -499,117 +540,105 @@ a:hover {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 10vh;
+  .display-item {
+    border-radius: 15px;
+    height: 230px;
+    display: flex;
+    background: black;
+    width: 370px;
+    box-shadow: 10px 5px 5px #00000024;
+    flex-flow: column;
+    @include media-breakpoint-down(sm) {
+      height: 200px;
+      width: 300px;
+    }
+
+    .top {
+      height: inherit;
+      color:white;
+      .top-image {
+        background-image: url(assets/img/icons/gg-logo-icon.svg);
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        height: 3.5vh;
+        filter: invert(1);
+        margin-top: 15%;
+        @include media-breakpoint-down(sm) {
+          margin-top: 19%;
+        }
+        &:hover {
+          background-image: url(assets/img/icons/gg-logo.svg);
+        }
+      }
+      .top-text{
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+        font-size: 28px;
+      }
+    }
+
+    .bottom {
+      height: 45%;
+      background: white;
+      align-self: end;
+      width: inherit;
+      border-bottom-right-radius: 13px;
+      border-bottom-left-radius: 13px;
+      display:flex;
+      flex-flow:row;
+      .bottom-text{
+        width: 8vw;
+        margin-left: 5%;
+        margin-top:3%;
+      }
+      .buy-redeem-button{
+        cursor: pointer;
+        margin-top:3%;
+        margin-right: 5%;
+        width: 110px;
+        height: 3vh;
+        background: $color-secondary;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        color: white;
+        padding: 20px;
+        font-size:16px;
+        margin-left: 35%;
+        @include media-breakpoint-down(sm) {
+          margin-left: 35%;
+        }
+      }
+      & * {
+        text-transform: uppercase;
+      }
+    }
+    &:hover {
+      .top{
+        .top-image {
+          background-image: url(assets/img/icons/gg-logo.svg);
+          height: 5vh;
+        }
+      }
+    }
+  }
   @media screen and (max-width: 799px) {
     flex-direction: column;
     justify-content: space-between;
   }
 }
 
-.image-spacer {
-  background-size: cover;
-  width: 3em;
-  position: relative;
-}
-
-.spacer {
-  width: 2em;
-  height: 2vh;
-}
-
-.display-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 17em;
-  height: 19em;
-  position: relative;
-  border: 1px solid black;
-
-  .top {
-    height: 14em;
-
-    .buy-image {
-      background-image: url(~assets/img/buy-giftcard.png);
-      height: 14em;
-    }
-
-    .redeem-image {
-      background-image: url(~assets/img/redeem-giftcard.png);
-      height: 14em;
-    }
-  }
-
-  .bottom {
-    height: 5em;
-    width: 100%;
-  }
-
-  @media screen and (max-width: 799px) {
-    background: white;
-    border-radius: 0.8em;
-    width: 75vw;
-    height: 18vh;
-    .top {
-      align-self: end;
-      height: 100%;
-      width: 60%;
-
-      .buy-image {
-        background-image: url(~assets/img/buy-giftcard-mobile.png);
-        height: 17.7vh;
-        border-radius: 0.8em;
-      }
-
-      .redeem-image {
-        background: none;
-        height: 17.7vh;
-        border-radius: 0.8em;
-      }
-    }
-
-    .bottom {
-      background: none;
-      position: absolute;
-      width: 40%;
-      height: 100%;
-      padding-top: 8vh;
-      padding-left: 5vw;
-    }
-  }
-}
-
-.buy-redeem-button {
-  cursor: pointer;
-  width: 100%;
-  background: black;
-  color: white;
-  height: 5.7rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5em;
-  font-family: $font-mono;
-  @media screen and (max-width: 799px) {
-    height: 3rem;
-    border-radius: 0.8em;
-    padding: 10px;
-    font-size: 1em;
-    background: $color-orange;
-    font-family: "IBM Plex Sans Condensed", sans-serif;
-  }
-}
-
-.display-item:hover .buy-redeem-button {
-  border-top: 1px solid white;
-  background: $color-orange;
-}
+////////////SELECT-GIFT-CARD-VALUE/////////////////////////////////
 
 .buy-gift-cards {
   position: relative;
   display: flex;
   align-items: center;
   flex-flow: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-left: 11vw;
   padding-right: 11vw;
 
@@ -619,8 +648,10 @@ a:hover {
     justify-content: space-between;
     padding-left: 3vw;
     padding-top: 0.5vh;
+    .image {
+      padding-top: 0.6vh;
+    }
   }
-
   .headline {
     padding-left: 15vw;
     margin-top: 2em;
@@ -628,25 +659,146 @@ a:hover {
 }
 
 .input {
+  box-shadow: 10px 5px 5px rgba(0,0,0,0.14118);
   background-color: white;
   margin: 1em 0;
   padding-top: 1.5vh;
   padding-bottom: 2vh;
   padding-left: 1.5vw;
   padding-right: 3vw;
-  border: 1px solid grey;
+  border: 1px solid #30302f42;
   border-radius: 0.3em;
   font-size: 24px;
-  width: 30vw;
+  width: 350px;
   @include media-breakpoint-down(sm) {
     width: 80vw;
   }
 }
 
-.image {
-  padding-top: 0.6vh;
+///////////PAYMENT-DETAILS//////////////////////////////////////////////////////////
+.logged-out-payment {
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  align-items: center;
+  .user-contact{
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px #00000024;
+    border: 1px solid #30302f26;
+    .label{
+      padding-left: 60px;
+      padding-right: 90px;
+    }
+    .input-text{
+      margin-right: 40px;
+    }
+    @include media-breakpoint-down(sm) {
+      padding: 17px;
+      .label{
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+      .input-text{
+        margin-right: 3px;
+      }
+    }
+  }
+}
+.logged-in-payment {
+  padding-left: 10vw;
+  padding-right: 40vw;
+
+  .input {
+    padding-top: 1vh;
+    padding-bottom: 1.2vh;
+    padding-left: 1vw;
+    padding-right: 3vw;
+  }
+  .spacer {
+    width: 0em;
+    height: 0vh;
+  }
+  @include media-breakpoint-down(md) {
+    padding-right: 10vw;
+  }
 }
 
+///////////REDEEM-CARD-PAGE//////////////////////////////////////////
+.card {
+  .login-reminder {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    line-height: 1.8;
+    @include media-breakpoint-down(sm) {
+      max-width: 80%;
+    }
+  }
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+  .input-redeem-card {
+    box-shadow: 10px 5px 5px #00000024;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    margin: 1em 0;
+    border: 1px solid grey;
+    border-radius: 0.3em;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 240px;
+    width: 580px;
+
+    .redeem-card-bottom {
+      display: flex;
+      flex-flow: row;
+      justify-content: inherit;
+
+      .form-item {
+        width: 100px;
+        height: 21px;
+        @include media-breakpoint-down(sm) {
+          width: 90px;
+          height: 21px;
+        }
+      }
+    }
+    @include media-breakpoint-down(xs) {
+      width: 300px;
+      height: 150px;
+      padding: 15px;
+
+    }
+  }
+}
+
+/////////GENERAL////////////////////////////////////////////////
+.gift-card-body{
+  max-width: 1264px;
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-flow: column;
+}
+.display-item:hover .buy-redeem-button {
+  border-top: 2px solid white;
+  background: $color-orange;
+}
+.headline {
+  padding-left: 21vw;
+  text-decoration: underline;
+}
 .input-button-payment {
   font-weight: 700;
   line-height: 1em;
@@ -658,103 +810,17 @@ a:hover {
   cursor: pointer;
   border-radius: 0.2em;
   border: 1px solid $color-secondary-border;
-}
-
-.logged-out-payment {
-  padding-left: 10vw;
-  padding-right: 40vw;
-
-  .input {
-    padding-top: 1vh;
-    padding-bottom: 1.2vh;
-    padding-left: 1vw;
-    padding-right: 3vw;
-  }
-
-  @include media-breakpoint-down(md) {
-    padding-right: 10vw;
-  }
-}
-
-.logged-in-payment {
-  padding-left: 10vw;
-  padding-right: 40vw;
-
-  .input {
-    padding-top: 1vh;
-    padding-bottom: 1.2vh;
-    padding-left: 1vw;
-    padding-right: 3vw;
-  }
-
-  @include media-breakpoint-down(md) {
-    padding-right: 10vw;
-  }
-
-  .spacer {
-    width: 0em;
-    height: 0vh;
-  }
-}
-
-.card {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.input-redeem-card {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-  margin: 1em 0;
-  border: 1px solid grey;
-
-  padding-bottom: 1vh;
-  padding-left: 1vw;
-  padding-right: 1.5vw;
-  border-radius: 0.3em;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 22vh;
-  width: 40vw;
-
-  .redeem-card-bottom {
-    display: flex;
-    flex-flow: row;
-    justify-content: inherit;
-
-    .form-item {
-      height: 2vh;
-      width: 8vw;
-      @include media-breakpoint-down(sm) {
-        width: 20vw;
-        height: 3vh;
-      }
-    }
-  }
-
-  @include media-breakpoint-down(md) {
-    width: 70vw;
-  }
-  @include media-breakpoint-down(sm) {
-    width: 80vw;
-    height: 16vh;
+  @include media-breakpoint-down(xs) {
+    font-size: 16px !important;
   }
 }
 
 .span {
-  padding-top: 2vh;
-  padding-left: 1vw;
-  font-size: 2.5vh;
-}
-
-.code-span {
-  padding-left: 1vw;
-  padding-right: 1vw;
+  font-size: 2rem;
+  font-weight: bold;
+  @include media-breakpoint-down(xs) {
+    font-size: 1.4rem;
+  }
 }
 
 .buttons {
