@@ -19,7 +19,7 @@
           </div>
           <div class="bottom">
             <div class="bottom-text">
-              GUTSCHEIN €10-200
+              GUTSCHEIN ERWERBEN
             </div>
             <div class="buy-redeem-button"
                  @click="$router.push('gift?action=buy')">
@@ -520,8 +520,19 @@ a:hover {
   text-transform: uppercase;
   padding: 38px;
   padding-left: 130px;
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
+    max-width: 800px;
     padding-left: 38px;
+  }
+  @include media-breakpoint-down(sm) {
+    max-width: 600px;
+    padding: 20px;
+    font-size: 2rem;
+  }
+  @include media-breakpoint-down(xs) {
+    max-width: 400px;
+    font-size: 1.8rem;
+    padding: 19px;
   }
 }
 
@@ -540,6 +551,10 @@ a:hover {
     width: 370px;
     box-shadow: 10px 5px 5px #00000024;
     flex-flow: column;
+    @include media-breakpoint-down(sm) {
+      height: 200px;
+      width: 300px;
+    }
 
     .top {
       height: inherit;
@@ -552,6 +567,9 @@ a:hover {
         height: 3.5vh;
         filter: invert(1);
         margin-top: 15%;
+        @include media-breakpoint-down(sm) {
+          margin-top: 19%;
+        }
         &:hover {
           background-image: url(assets/img/icons/gg-logo.svg);
         }
@@ -591,9 +609,9 @@ a:hover {
         color: white;
         padding: 20px;
         font-size:16px;
-        margin-left: 24%;
+        margin-left: 35%;
         @include media-breakpoint-down(sm) {
-          margin-left: 45%;
+          margin-left: 35%;
         }
       }
     }
@@ -640,6 +658,7 @@ a:hover {
 }
 
 .input {
+  box-shadow: 10px 5px 5px rgba(0,0,0,0.14118);
   background-color: white;
   margin: 1em 0;
   padding-top: 1.5vh;
@@ -674,6 +693,16 @@ a:hover {
     .input-text{
       margin-right: 40px;
     }
+    @include media-breakpoint-down(sm) {
+      padding: 17px;
+      .label{
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+      .input-text{
+        margin-right: 3px;
+      }
+    }
   }
 }
 .logged-in-payment {
@@ -702,6 +731,9 @@ a:hover {
     flex-flow: column;
     align-items: center;
     line-height: 1.8;
+    @include media-breakpoint-down(sm) {
+      max-width: 80%;
+    }
   }
 
   display: flex;
@@ -710,16 +742,14 @@ a:hover {
   align-items: center;
 
   .input-redeem-card {
+    box-shadow: 10px 5px 5px #00000024;
+    padding: 20px;
     position: relative;
     display: flex;
     justify-content: space-between;
     background-color: white;
     margin: 1em 0;
     border: 1px solid grey;
-
-    padding-bottom: 1vh;
-    padding-left: 1vw;
-    padding-right: 1.5vw;
     border-radius: 0.3em;
     display: flex;
     justify-content: space-between;
@@ -733,20 +763,19 @@ a:hover {
       justify-content: inherit;
 
       .form-item {
-        height: 2vh;
-        width: 8vw;
+        width: 100px;
+        height: 21px;
         @include media-breakpoint-down(sm) {
-          width: 20vw;
-          height: 3vh;
+          width: 90px;
+          height: 21px;
         }
       }
     }
-    @include media-breakpoint-down(md) {
-      width: 70vw;
-    }
-    @include media-breakpoint-down(sm) {
-      width: 80vw;
-      height: 16vh;
+    @include media-breakpoint-down(xs) {
+      width: 300px;
+      height: 150px;
+      padding: 15px;
+
     }
   }
 }
@@ -767,6 +796,7 @@ a:hover {
 }
 .headline {
   padding-left: 21vw;
+  text-decoration: underline;
 }
 .input-button-payment {
   font-weight: 700;
@@ -779,17 +809,17 @@ a:hover {
   cursor: pointer;
   border-radius: 0.2em;
   border: 1px solid $color-secondary-border;
+  @include media-breakpoint-down(xs) {
+    font-size: 16px !important;
+  }
 }
 
 .span {
-  padding-top: 2vh;
-  padding-left: 1vw;
-  font-size: 2.5vh;
-}
-
-.code-span {
-  padding-left: 1vw;
-  padding-right: 1vw;
+  font-size: 2rem;
+  font-weight: bold;
+  @include media-breakpoint-down(xs) {
+    font-size: 1.4rem;
+  }
 }
 
 .buttons {
