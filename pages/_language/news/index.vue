@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="blog-wrapper">
-      <img class="blog-header-image" :src="$resizeImage(url, '1600x0')">
+<!--   FUNKTIONIERT NED   <img class="blog-header-image" :src="$resizeImage(url, '1600x0')">-->
+      <img class="blog-header-image">
       <div class="blog">
         <div class="headline">
           <p class="headline-text">{{ $t('blog') }}</p>
@@ -128,9 +129,9 @@ export default {
           m = moment(n.content.datetime)
           currentMonth = m.month()
         }
+
         if (n.name === 'Header') {
           this.url = n.content.image
-          console.log(this.url)
         }
         temp.push({ type: 'item', ...n })
       })
@@ -156,7 +157,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
+@import "/assets/scss/styles.scss";
 
 .blog-wrapper {
   padding-left: 15%;
