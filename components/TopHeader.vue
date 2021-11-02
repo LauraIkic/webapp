@@ -273,8 +273,10 @@ export default {
 .top-header {
   @include margin-page-wide();
   font-size: 1.1em;
-  @media screen and (min-width: 1149px) {
+  @media screen and (min-width: 1335px) {
     letter-spacing: .1em;
+    max-width: 1264px;
+    margin: 0 auto;
   }
   .top-header-inner {
     display: flex;

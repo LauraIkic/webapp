@@ -71,12 +71,12 @@ export default {
   }
   .blogItems {
     display: flex;
-    @media (max-width: 1460px) {
+    @include media-breakpoint-down(lg) {
       flex-direction: column;
       align-items: center;
     }
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 5em;
   }
 }
