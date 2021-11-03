@@ -30,23 +30,25 @@
             <div class="name">
               {{ blok.name }}
             </div>
+          </div>
+          <div class="title-contact-options">
+            <div class="title">
+              {{ blok.title }}
+            </div>
             <div class="contact-options">
               <a
-                v-if="blok.email"
-                class="option email"
-                :href="'mailto:'+blok.email"
+                  v-if="blok.email"
+                  class="option-email"
+                  :href="'mailto:'+blok.email"
               >
                 <img
-                  class="icon"
-                  src="~/assets/img/icons/envelope.svg"
-                  alt=""
+                    class="icon"
+                    src="~/assets/img/icons/envelope.svg"
+                    alt=""
                 >
                 <div class="text">{{ blok.email }}</div>
               </a>
             </div>
-          </div>
-          <div class="title">
-            {{ blok.title }}
           </div>
         </div>
         <div class="short-description">
@@ -99,6 +101,7 @@ export default {
       flex-grow: 1;
       width: 46%;
       margin-right: 2%;
+      margin-top: 6em;
       text-align: right;
       &:hover {
         .image-alt {
@@ -123,11 +126,12 @@ export default {
       flex-grow: 1;
       width: 50%;
       margin-left: 2%;
+      margin-top: 2rem;
       .short-info {
         display: flex;
         flex-grow: 1;
         flex-direction: column;
-        justify-content: flex-end;
+        justify-content: flex-start;
         .name-contact {
           padding-bottom: 1rem;
           border-bottom: .4rem solid black;
@@ -139,26 +143,34 @@ export default {
           justify-content: space-between;
           .name {
             font-family: $font-secondary;
-            font-size: 4rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
             line-height: 1.2;
           }
+        }
+        .title-contact-options {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
           .contact-options {
             font-size: .9rem;
             margin-bottom: .8rem;
             display: flex;
             flex-direction: column;
-            .option {
+
+            .option-email {
               display: flex;
               flex-direction: row-reverse;
               align-items: center;
-              padding: .4em 0;
               color: inherit;
               text-decoration: none;
+
               .icon {
                 width: 18px;
                 margin-left: .5em;
               }
+
               .text {
               }
             }
@@ -168,12 +180,13 @@ export default {
           font-family: $font-mono;
           font-size: 1rem;
           margin-bottom: 2em;
+          margin-right: 3em;
         }
       }
       .short-description {
         line-height: 1.5;
         @include media-breakpoint-up(xl) {
-          width: 80%;
+          width: 90%;
         }
         font-size: 1rem;
       }
@@ -208,16 +221,24 @@ export default {
     }
   }
 
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(md) {
     .header {
       .info {
         .short-info {
-          justify-content: flex-start;
           .name-contact {
             flex-direction: column-reverse;
             .name {
               align-self: flex-start;
               font-size: 2.5em;
+            }
+          }
+          .title-contact-options {
+            flex-direction: column;
+            .title {
+              margin-bottom: 1em;
+            }
+            .contact-options {
+              flex-direction: initial;
             }
           }
         }
@@ -228,7 +249,7 @@ export default {
     }
     .short-description-mobile {
       display: flex;
-      margin: 1em 0;
+      margin: 1em 5em;
       line-height: 1.4;
       font-size: 1rem;
     }
@@ -252,11 +273,30 @@ export default {
       .image {
         width: 400px;
         max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        margin-bottom: 2em;
+
+        &:hover {
+          .image-alt {
+            display: inline;
+          }
+        }
+        .image-alt {
+          display: none;
+          position: absolute;
+          top: 0;
+          right: auto;
+          z-index: 99;
+        }
       }
     }
     .short-description-mobile {
+      margin: 1em 0;
     }
     .body {
+      padding: 50px 0;
       .future-slogan {
         margin-left: 2%;
         margin-bottom: 20%;
@@ -265,15 +305,15 @@ export default {
         margin: 0;
       }
     }
-  }
 
-  @include media-breakpoint-down(xs) {
-    .header {
-      .info {
-        .short-info {
-          .name-contact {
-            .name {
-              font-size: 2em;
+    @include media-breakpoint-down(xs) {
+      .header {
+        .info {
+          .short-info {
+            .name-contact {
+              .name {
+                font-size: 2em;
+              }
             }
           }
         }

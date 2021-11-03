@@ -42,13 +42,22 @@ export default {
   font-family: $font-secondary;
   line-height: 1.4;
   letter-spacing: 1.4px;
+  display: flex;
+  width: 20vw;
+  @include media-breakpoint-down(lg) {
+    width: 50vw;
+  }
 }
 .image {
-  width: 25vw;
-  height: 20vw;
-  @media (max-width: 1460px) {
+  width: 20vw;
+  height: 15vw;
+  @include media-breakpoint-down(lg) {
     width: 50vw;
     height: 40vw;
   }
+  /*@media (max-width: 1460px) {
+    width: 50vw;
+    height: 40vw;
+  }*/
 }
 </style>

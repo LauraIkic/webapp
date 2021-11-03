@@ -133,7 +133,7 @@ export default {
           margin: 0;
           font-size: 4vw;
           line-height: 1.3;
-          width: 42vw;
+          width: 40vw;
         }
 
         @include media-breakpoint-down(md) {
