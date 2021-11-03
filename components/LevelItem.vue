@@ -11,11 +11,7 @@
       <h2 class="title">
         {{ blok.title }}
       </h2>
-      <img
-        v-if="blok.areas"
-        class="arrow"
-        src="~/assets/img/arrow-right.svg"
-      >
+
     </div>
     <div
       v-if="blok.areas"

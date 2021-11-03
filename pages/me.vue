@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '/assets/scss/styles.scss';
 
 .profile {
   min-height: 60vh;

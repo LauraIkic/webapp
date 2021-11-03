@@ -476,6 +476,20 @@ const createStore = () => {
           return res.data
         })
       },
+      loadPress ({ state }) {
+        return this.$storyapi.get('cdn/stories', {
+          filter_query: {
+            component: {
+              in: 'press-overview'
+            }
+          },
+          per_page: 50,
+          version: version,
+          cv: state.cacheVersion
+        }).then((res) => {
+          return res.data
+        })
+      },
       loadFullPage ({ state }, path) {
         return this.$storyapi.get(`cdn/stories${path}`, {
           version: version,
@@ -699,6 +713,18 @@ const createStore = () => {
           commit('setSettings', res.data.story.content)
         }).catch((e) => {
           console.log(e)
+        })
+      },
+      findPress ({ state }, filters) {
+        return this.$storyapi.get('cdn/stories', {
+          filter_query: filters.filter_query,
+          version: version,
+          cv: state.cacheVersion,
+          starts_with: `${state.language}/press`
+        }).then((res) => {
+          return res.data
+        }).catch((res) => {
+          this.$sentry.captureException(res)
         })
       }
     }
