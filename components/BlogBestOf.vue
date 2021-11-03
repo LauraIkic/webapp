@@ -37,7 +37,7 @@ export default {
   computed: {
     newsToDisplay () {
       if (!this.news) return
-      return this.news.stories.slice(0, 3)
+      return this.news.stories.slice(0, 2)
     }
   }
 }
@@ -71,11 +71,12 @@ export default {
   }
   .blogItems {
     display: flex;
-    @media (max-width: 1460px) {
+    @include media-breakpoint-down(lg) {
       flex-direction: column;
+      align-items: center;
     }
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 5em;
   }
 }
