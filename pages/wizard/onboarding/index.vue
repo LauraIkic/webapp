@@ -12,32 +12,29 @@
       <br><br>
       {{ $t('#makersgonnamake') }}
     </p>
-<!--    <div class="options">
-      <div :class="['option', { selected: onboardingData.paymentType === TYPES.regular }]"
-           @click="onboardingData.paymentType = TYPES.regular">
-        <span class="name">{{ $t('regular') }} 40{{ $t('euro/month') }}</span>
-      </div>
-      <div :class="['option', { selected: onboardingData.paymentType === TYPES.reduced }]"
-           @click="onboardingData.paymentType = TYPES.reduced">
-        <span class="name">{{ $t('discounted') }}15{{ $t('euro/month') }}</span>
-        <span class="description">{{ $t('differentCardListing') }}</span>
-        <span class="description">{{ $t('pleaseBringAccordingID') }}</span>
-      </div>
-    </div>-->
+    <div class="our-rates">
+      <h3>{{ $t('ourRates') }}</h3>
+      <ul>
+        <li>{{ $t('regular/month') }}</li>
+        <li>{{ $t('discounted/month') }}</li>
+        <li>{{ $t('differentCardListing') }}{{ $t('pleaseBringAccordingID') }} </li>
+        <li>{{ $t('specialConditions') }}</li>
+      </ul>
+    </div>
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
       <label for="checkbox">{{ $t('iHaveReadThe') }} <a
           href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
-          target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>
+          target="new">{{ $t('factoryRules') }}</a> {{ $t(' andAcceptTheTermsAndConditions') }}</label>
     </div>
   </div>
 </template>
 
 <script>
-const TYPES = {
-  regular: 1,
-  reduced: 2
-}
+// const TYPES = {
+//   regular: 1,
+//   reduced: 2
+// }
 export default {
   middleware: 'authenticated',
   props: {
@@ -48,7 +45,7 @@ export default {
   },
   data () {
     return {
-      TYPES,
+      /*      TYPES, */
       loading: false
     }
   },
@@ -67,38 +64,19 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .onboarding-wizard {
+  line-height: 1.7;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .options {
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-around;
-    margin: 0 -10px;
-    width: 80%;
-
-    .option {
-      margin: 10px;
-      flex: 1;
-      cursor: pointer;
-      padding: 25px;
-      background-color: #FFF;
-      border: 2px solid #FFF;
-      display: flex;
-      flex-direction: column;
-
-      &:hover {
-        border: 2px solid $color-orange;
-      }
-    }
-
-    .description {
-      color: grey;
-    }
+  .our-rates {
+    margin-top:5%;
+    margin-bottom: 5%;
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
   }
-
   .name {
     font-weight: bolder;
     margin-bottom: 1em;

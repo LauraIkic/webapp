@@ -248,15 +248,21 @@
 
   "welcomeToTheGG": "Willkommen in der GRAND GARAGE!",
   "memberBenefitsText": "Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!",
-  "memberPerksText": "Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen.",
+  "memberPerksText": "Als Mitglied in unserem Makerspace bekommst du nicht nur Zutritt zu unseren Maschinen und Geräten in unserem 4.500 m2 großen Makerspace, sondern wirst auch Teil einer lebendigen Community, kannst kostenfrei unser W-LAN nutzen, vergünstigt an Workshops teilnehmen und Materialien zum Selbstkostenpreis erhalten. Möglich macht das deine Member-Card! \n\nSolltest du noch Fragen zu deiner Mitgliedschaft haben, melde dich bei unserem Frontdesk oder schreibe uns eine E-Mail! frontdesk@grandgarag.eu .",
+
 
   "ifYouHaveAnyQuestionsRegardingYourMembership": "Solltest du noch Fragen zu deiner Mitgliedschaft haben,",
   "doNotHesitateToAskOurFrontdeskTeam": "melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!",
   "#makersgonnamake": "#MAKERSGONNAMAKE",
+  "ourRates": "Unsere Tarife:",
+  "regular/month": "Regulär 40€ pro Monat ",
+  "discounted/month": "Ermäßigt 15€ pro Monat ",
+  "differentCardListing": "Für 4youCard-Besitzer, Schüler:innen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass",
+  "pleaseBringAccordingID": "(BITTE NIMM EINEN ENTSPRECHENDEN AUSWEIS BEI DEINEM ERSTEN TERMIN MIT)",
+  "specialConditions": "Spezielle Konditionen für Kooperations- & Bildungspartner:innen",
+  "yearlyMembersGetADiscount": "Bei einer jährlichen Zahlung schenken wir dir zwei Monate Mitgliedschaft GRATIS! \n\nDein Mitgliedsbeitrag sowie zusätzlich anfallende Kosten (Materialkosten, Getränke, etc.) werden von meinem Konto per SEPA-Lastschrift abgebucht. ",
 
 
-  "differentCardListing": "4you card, SchülerInnen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass",
-  "pleaseBringAccordingID": "Bitte entsprechenden Ausweis beim ersten Besuch mitnehmen!",
   "euro": "EUR",
   "euro/month": "EUR/ MONAT",
   "euro/year": "EUR/ JAHR",
