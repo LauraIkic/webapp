@@ -1,7 +1,9 @@
 <template>
   <section>
     <div class="blog-wrapper">
-<!--   FUNKTIONIERT NED   <img class="blog-header-image" :src="$resizeImage(url, '1600x0')">-->
+     <img class="blog-header-image" :src="$resizeImage(headerImage, '1600x0')">
+      <div class="blog-header-image">
+      </div>
       <img class="blog-header-image">
       <div class="blog">
         <div class="headline">
@@ -41,10 +43,11 @@
 import moment from 'moment'
 
 export default {
-  props: ['item'],
+  props: ['blok'],
   data () {
     return {
       news: [],
+      page: [],
       root: null,
       loading: false,
       sources: [
@@ -57,16 +60,6 @@ export default {
       url: null
     }
   },
-  created () {
-    this.$watch('sources', this.update, { deep: true })
-    for (let i = 0; i < this.items.length; i++) {
-      for (let j = 0; j < this.items[i].items.length; j++) {
-        if (this.items[i].items[j].name === 'Header') {
-          this.url = this.items[i].items[j].content.image
-        }
-      }
-    }
-  },
   async asyncData (context) {
     const filters = {
       filter_query: {
@@ -75,14 +68,6 @@ export default {
         }
       }
     }
-    /* root = context.store.dispatch("loadPage", "/news").then(data => {
-                        return data.stories ;
-                      }).catch(e => {
-                        context.error({
-                          statusCode: e.response.status,
-                          message: e.response.statusText
-                        });
-                      }); */
     const news = await context.store.dispatch('findNews', filters).then(data => {
       return data.stories
     })
@@ -95,8 +80,13 @@ export default {
         })
       }
     })
-
-    return { news }
+    const page = await context.store.dispatch('loadPage', '/news').catch(e => {
+      context.error({
+        statusCode: e.response.status,
+        message: e.response.statusText
+      })
+    })
+    return { news, page }
   },
   methods: {
     update () {
@@ -110,6 +100,9 @@ export default {
     }
   },
   computed: {
+    headerImage () {
+      return this.page.story.content.image
+    },
     items () {
       const list = []
       let temp = []

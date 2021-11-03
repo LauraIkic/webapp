@@ -44,7 +44,6 @@ function getMetaTagsForWorkshop (workshop) {
  * @param machine Machine
  */
 function getMetaTagsForMachine (machine) {
-  console.log('Test')
   let metaTitle = ''
   let metaDescription = ''
   if (!(machine.metadata.title === '')) {
