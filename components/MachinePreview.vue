@@ -8,9 +8,6 @@
             <div class="title">
               {{ machine.title }}
             </div>
-            <div v-if="machine.subtitle" class="subtitle">
-              {{ machine.subtitle }}
-            </div>
           </div>
         </nuxt-link>
       </div>

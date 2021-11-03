@@ -87,7 +87,7 @@
 import MachineStatus from '@/components/MachineStatus'
 import MachineCalendar from '@/components/MachineCalendar'
 import MachineHeader from '@/components/MachineHeader'
-import { getMetaTagsForMachine } from '../services/MetaDataService'
+/* import { getMetaTagsForMachine } from '../services/MetaDataService' */
 
 export default {
   components: {
@@ -114,10 +114,10 @@ export default {
         items: this.machine.images
       }
     }
-  },
-  head () {
-    return getMetaTagsForMachine(this.machine)
   }
+/*  head () {
+    return getMetaTagsForMachine(this.machine)
+  } */
 }
 </script>
 
