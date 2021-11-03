@@ -278,5 +278,13 @@
   "selectAll": "Select all",
   "necessaryCookies": "Necessary cookies",
   "analyticsCookies": "Analytics cookies",
-  "adjustCookiePreferences": "You can always change your cookie-settings - to do so, go to your browser settings and select \"Cookie-settings\"."
+  "adjustCookiePreferences": "You can always change your cookie-settings - to do so, go to your browser settings and select \"Cookie-settings\".",
+
+
+  "press": "Press",
+  "pressReleases": "Press releases",
+  "allPressReleases": "All press releases",
+  "yourContact": "Your Contact",
+  "pressImages": "PRESS IMAGES",
+  "download": "Download"
 }
