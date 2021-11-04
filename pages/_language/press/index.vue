@@ -21,8 +21,8 @@
     </div>
   </section>
 </template>
-
 <script>
+
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 export default {
   mixins: [storyblokLivePreview],

@@ -11,9 +11,11 @@
     <div class="layout-container">
       <top-header/>
       <div v-if="this.$route.path ==='/de/datenschutzerklaerung' || !modalVisible">
-      <main id="main" role="main">
+      <div class="main-body">
+        <main id="main" role="main">
         <nuxt/>
-      </main>
+        </main>
+      </div>
     </div>
       <bottom-footer/>
       <sidebar />
@@ -76,6 +78,16 @@ body {
   color: #000;
   margin: 0;
   padding: 0;
+}
+
+.main-body {
+  max-width: 1264px;
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-flow: column;
 }
 
 * {
