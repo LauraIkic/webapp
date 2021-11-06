@@ -92,7 +92,7 @@ export default {
           padding-bottom: 6vw;
         }
         .teaser {
-          font-size: 2.0vw;
+          font-size: 1.5em;
           line-height: 1.3;
           font-family: $font-mono;
           @include media-breakpoint-down(sm) {
@@ -102,10 +102,10 @@ export default {
         .title {
           word-break: break-word !important;
           hyphens: auto;
-          font-size: 8vw;
+          font-size: 6em;
           z-index: 9;
           @include media-breakpoint-down(sm) {
-            font-size: 8vh;
+            font-size: 6vh;
           }
         }
         .teaser,
