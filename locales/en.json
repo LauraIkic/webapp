@@ -173,6 +173,11 @@
   "redeemGiftCard": "Redeem gift card",
   "buy": "buy",
   "giftCardValue": "Gift card value:",
+  "giftCardNoticeYearlyDiscounted": "equals a discounted yearly membership",
+  "giftCardNoticeYearlyRegular": "equals a regular yearly membership",
+
+
+
   "extras": "Extras",
   "free": "Free",
   "standardShipping": "",

@@ -213,6 +213,18 @@ $grid-breakpoints: (
   margin-right: 9%;
 }
 
+//text
+.info-text-subtle{
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  padding-top: 15px;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #808080c4;
+}
+
 // Buttons
 .input-button-primary:hover {
   background-color: black !important;
