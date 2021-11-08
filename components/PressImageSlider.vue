@@ -96,6 +96,10 @@ export default {
   justify-content: end;
   margin-top:40%;
   transition: 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  width: inherit;
+  @include media-breakpoint-down(md) {
+    margin-top:47%;
+  }
 }
 .image-title {
   transition: 0.5s cubic-bezier(.02,-0.15,.74,.05);
@@ -104,6 +108,17 @@ export default {
   color: white;
   display: flex;
   flex-flow: column;
+
+  @include media-breakpoint-down(md) {
+    opacity: 1;
+    position: fixed;
+    transform: none;
+    width: inherit;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin-bottom: 4%;
+  }
 }
 
 .download-underline {
@@ -135,7 +150,7 @@ export default {
   @include media-breakpoint-down(md){
     height:125%;
   }
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     .download{
       width:211px;
     }
@@ -164,9 +179,12 @@ export default {
     justify-content: center;
     margin-bottom: 2%;
     text-transform: capitalize;
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       font-size: 1.8rem;
-      margin-bottom: 4%;
+      margin-bottom: 2%;
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 4%;
+      }
     }
   }
   .swiper-container {
@@ -208,10 +226,7 @@ export default {
     }
     padding-bottom: 130px;
     @include media-breakpoint-down(md){
-      height: 31vh;
-    }
-    @include media-breakpoint-down(sm){
-      height: 40vh;
+      height: 360px;
     }
   }
   .swiper-button-prev,
