@@ -105,13 +105,13 @@
         <div>
           <div class="info-row option">
             <div class="info-block">
-              <div class="col info">
+              <div class="col info disabled">
                 <input
+                  disabled
                   id="payment_provider"
                   type="radio"
                   name="payment"
                   value="payment_provider"
-                  @click="paymentMethod = PAYMENT_METHODS.payment_provider"
                 >
                 <label for="payment_provider">{{ $t('creditCard') }}</label><br>
               </div>
