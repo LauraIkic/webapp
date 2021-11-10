@@ -22,7 +22,6 @@
         <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">{{ $t('invoices') }}
         </MenuLink>
         <MenuLink to="/me/activities" icon="running">{{ $t('activities') }}</MenuLink>
-        <MenuLink to="/me/giftcards" icon="gift">{{ $t('giftCard') }}</MenuLink>
         <transition name="slide">
           <div class="submenu" v-if="$route.name.startsWith('me-giftcards')">
             <MenuLink :isActive="$route.query.action === 'buy'" to="/me/giftcards?action=buy">{{ $t('buyGiftCard') }}

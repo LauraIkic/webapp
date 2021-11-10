@@ -7,7 +7,7 @@
     >
       <div
         v-for="workshopDate in bookings"
-        :key="workshopDate.content.workshop.uuid"
+        :key="workshopDate.content.workshop.uuid + '-div'"
         class="workshop-item"
       >
         <workshop-preview

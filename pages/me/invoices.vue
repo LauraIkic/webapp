@@ -25,13 +25,14 @@
           #{{ invoice.human_readable_id }}
         </div>
         <div class="status">
-          Status: <span :class="[[4, 5].includes(invoice.status) ? 'green' : 'yellow']">{{ getStatus(invoice.status) }}</span>
+          Status: <span :class="[[4, 5].includes(invoice.status) ? 'green' : 'yellow']">{{ getStatus(invoice.status)
+          }}</span>
         </div>
         <div
           v-if="invoice.has_attachment"
           class="icon"
         >
-          <font-awesome-icon icon="download" />
+          <font-awesome-icon icon="download"/>
         </div>
       </div>
     </div>
@@ -69,18 +70,28 @@ export default {
       if (!invoice.has_attachment) {
         return
       }
-      const res = await this.$store.dispatch('getPDF', invoice.uuid)
-      const blob = new Blob([res.data], { type: 'application/pdf' })
-      const link = document.createElement('a')
-      link.download = invoice.filename + '.pdf'
-      link.href = URL.createObjectURL(blob)
-      link.click()
+      await this.$store.dispatch('getPDF', invoice.uuid)
+        .then((res) => {
+          const blob = new Blob([res.data], { type: 'application/pdf' })
+          const link = document.createElement('a')
+          link.download = invoice.filename + '.pdf'
+          link.href = URL.createObjectURL(blob)
+          link.click()
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.msg)
+          this.$sentry.captureException(new Error(error))
+          this.$toast.show('Die Rechnung konnte nicht geladen werden', {
+            className: 'badToast'
+          })
+        })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/styles.scss';
+
 .invoices {
   & .invoice {
     display: flex;
@@ -108,35 +119,44 @@ export default {
         padding-bottom: 0.4em;
       }
     }
+
     & * {
       margin-right: 2em;
     }
+
     & .date {
       color: grey;
       width: 5em;
       transition: highlight 3s;
     }
+
     & .name {
       width: 10em;
     }
+
     & .invoiceNumber {
       width: 8em;
       color: grey;
     }
+
     & .green {
       color: green;
     }
+
     & .yellow {
       color: $color-orange;
     }
+
     & .status {
       min-width: 12em;
     }
+
     & .info {
       padding-left: 1em;
       // text-align: right;
       color: grey;
     }
+
     & .icon {
       display: flex;
       align-items: center;
@@ -144,15 +164,19 @@ export default {
     }
   }
 }
+
 .invoice:nth-child(odd) {
   background: #fafafa;
 }
+
 .invoice:hover .icon {
   color: $color-blue-alt;
 }
+
 .pointer {
   cursor: pointer;
 }
+
 .highlighted {
   background: $color-yellow !important;
 }

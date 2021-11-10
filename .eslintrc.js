@@ -16,6 +16,10 @@ module.exports = {
   ],
   rules: {
     'vue/no-mutating-props': 0,
-    'vue/no-side-effects-in-computed-properties': 1
+    'vue/no-side-effects-in-computed-properties': 1,
+    'no-unused-vars': 1,
+    'spaced-comment': 0,
+    'indent': 1,
+    'padded-blocks': 1
   }
 }

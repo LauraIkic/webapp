@@ -279,7 +279,7 @@ export default {
         if (e.code) {
           switch (e.code) {
             case 'user_exists':
-              this.errorMessage = 'Der User Existiert bereits'
+              this.errorMessage = 'Ein User mit dieser Email Adresse existiert bereits'
               break
             case 'invalid_password':
               this.errorMessage = 'Das Passwort ist zu schwach.'
@@ -323,9 +323,6 @@ export default {
 
 <style lang="scss">
 @import "/assets/scss/styles.scss";
-.red {
-  outline: 1px solid red !important;
-}
 .register-form {
   padding: 5vw;
   background-color: $color-bright-bg;

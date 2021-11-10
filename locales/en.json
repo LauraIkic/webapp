@@ -145,18 +145,18 @@
   "remainingCredits": "Remaining Credits",
   "deduct": "deduct",
   "deducted": "deducted",
-  "redeemGiftCard": "Redeem gift card",
   "credits": "Credits",
   "currentStatus": "current status:",
   "creditCard": "Credit card",
   "sepaMonthlyBill": "Sepa-Monthly bill",
-  "continue": "Continue...",
+  "continue": "Continue",
   "confirm": "Confirmation",
 
   "bindingRegistrationText": "Your registration is binding. Should you not be able to participate, please inform us immediately at",
   "eventEmailAddress": "events@grandgarage.eu",
 
   "debitedFromCreditCard": "debited from your credit card.",
+  "invoiced":  " will be invoiced.",
   "includedInYourMonthlyBill": "included in  your monthly bill.",
   "fromYourCredits":"from your credits",
   "bookFreeOfCharge": "Book free of charge",
@@ -170,14 +170,20 @@
   "giftCards": "Gift cards",
   "credit": "Credit",
   "buyGiftCard": "Buy gift Card",
-
+  "redeemGiftCard": "Redeem gift card",
+  "buy": "buy",
   "giftCardValue": "Gift card value:",
+  "giftCardNoticeYearlyDiscounted": "equals a discounted yearly membership",
+  "giftCardNoticeYearlyRegular": "equals a regular yearly membership",
+
+
+
   "extras": "Extras",
   "free": "Free",
   "standardShipping": "",
   "deluxeBox": "Deluxe-Box",
   "billingAddress": "Billing address",
-  "reviewOrder": "Review order...",
+  "reviewOrder": "Review order",
 
   "redeem": "Redeem",
   "buyLiableToPayTheCosts": "Buy liable to pay the costs",
@@ -185,6 +191,10 @@
   "receiptAndGiftCardViaMail": "You will receive the invoice and your gift card by mail.",
   "giftCardCode": "Gift card code:",
   "phone": "Phone",
+  "registerToRedeemGiftCard": "In order to redeem a gift card you have to be logged into your user account!",
+  "ifNotAMemberGoAndRegister": "If have not created a user profile yet, you can do so by registering now!",
+
+
 
   "contactDetails": "Contact details",
   "save": "Save",
@@ -192,14 +202,11 @@
   "myInvoices": "My invoices",
   "invoices": "Invoices",
 
-
   "packages": "Packages",
   "noMembershipConcluded": "No membership concluded",
 
   "trainings": "Trainings",
   "myWorkshops": "My workshops",
-
-
 
   "firstRead": "First read",
   "andAnswerTheQuestions": "and answer the questions:",
@@ -208,7 +215,6 @@
   "letsStart": "Lets start",
   "youHaveAnsweredAllQuestions": "You have answered all questions!",
   "sendAnswers": "Send answers",
-
 
   "congrats": "Congratulation!",
   "youHavePassedTheTest": "You have passed the test!",
@@ -219,13 +225,13 @@
   "ohYouDidNotPassTheTest": "Oje unfortunately, you did not pass the test.",
   "pleaseReadTheSlidesAgain": "Please read the slides again.",
 
-
   "youHaveToConfirmYourEmailForRegistration": "In order to become a member you have to first confirm your e-mail address.",
   "anotherVerificationEmailHasBeenSentTo": "Another verification e-mail has been sent to the following address.",
   "anErrorHasOccurred": "An error has occurred:",
 
-
+  "purchaseFailed": "Purchase failed",
   "purchaseFailedOrWasAborted": "Purchase failed or was aborted.",
+  "thereIsNoPurchase": "No charge was made.",
   "youCanFindOurContactInformation": "You can find our contact information",
 
   "openSafetyTraining": "Open safety training",
