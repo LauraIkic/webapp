@@ -33,8 +33,8 @@
           <!--          <p class="directions" v-if="!quiz.slides_url.includes('slides')"><a :href="quiz.slides_url" target="_blank"  @click="showSlides">zu den Folien</a></p>-->
           <iframe
               :src="quiz.slides_url"
-              width="800"
-              height="600"
+              width="100%"
+              height="100%"
               scrolling="no"
               frameborder="0"
               webkitallowfullscreen
@@ -424,7 +424,7 @@ export default {
   }
 
   .directions {
-    margin: 4em;
+    margin: 4em 4em 15px;
   }
 
   /*  .slides {
@@ -531,7 +531,7 @@ export default {
     padding: 7px 12px 8px;
     line-height: 1;
     outline: none;
-    width: 5%;
+    width: 10%;
     align-self: center;
     @include media-breakpoint-down(lg) {
       width: 20%;
@@ -605,7 +605,7 @@ export default {
   justify-content: center;
 
   iframe {
-    height: 450px;
+    height: 700px;
   }
 }
 
