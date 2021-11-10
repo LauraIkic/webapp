@@ -99,7 +99,7 @@
   "belongs": "gehört",
   "toUsAll": "uns allen",
 
-  "allCourses": "Alles Kurse",
+  "allCourses": "Alle Kurse",
 
 
   "membersOnly": "Nur Members",
@@ -173,6 +173,8 @@
   "buy": "kaufen",
 
   "giftCardValue": "Gutschein-Wert:",
+  "giftCardNoticeYearlyDiscounted": "entspricht einer ermäßigten jährlichen Mitgliedschaft",
+  "giftCardNoticeYearlyRegular": "entspricht einer regulären jährlichen Mitgliedschaft",
   "extras": "Extras:",
   "free": "Gratis",
   "standardShipping": "Versand-Standard",

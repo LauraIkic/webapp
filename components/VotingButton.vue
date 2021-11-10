@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     vote () {
-      console.log(localStorage.getItem('hasAlreadyVoted'))
       if (!localStorage.getItem('hasAlreadyVoted')) {
         localStorage.setItem('hasAlreadyVoted', 'voted')
         this.votes++

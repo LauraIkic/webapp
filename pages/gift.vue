@@ -1,16 +1,16 @@
 <template href="http://www.w3.org/1999/html">
   <div class="gift-card-body">
-      <h2 v-if="action" class="gift-page-headline">
-        {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
-      </h2>
-      <h2 v-else class="gift-page-headline">
-        {{ $t('giftCard') }}
-      </h2>
-      <loading-spinner
+    <h2 v-if="action" class="gift-page-headline">
+      {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+    </h2>
+    <h2 v-else class="gift-page-headline">
+      {{ $t('giftCard') }}
+    </h2>
+    <loading-spinner
         v-if="loading"
         color="#333"
         style="margin-left: 0.5em;"
-      />
+    />
     <template v-if="!action">
       <div class="items">
         <section class="display-item">
@@ -52,55 +52,81 @@
         <template v-if="action === 'buy'">
           <div v-if="step === 0" class="giftcardForm">
             <div class="gift-card-body">
-            <section class="buy-gift-cards">
-              <div class="input gg-card" @click="selectedProductId='719'">
-                <input type="radio" value="719" v-model="selectedProductId">
-                <span> {{ $t('giftCardValue') }} </span>
-                <div class="bottom-gift-card">
-                  <option class="options" value="719">10€</option>
-                  <div class="image-spacer"></div>
-                  <div class="image">
-                    <img src="~/assets/img/icons/gg-logo-icon.svg" width="40">
+              <section class="buy-gift-cards">
+                <div class="input gg-card" @click="selectedProductId='719'">
+                  <input type="radio" value="719" v-model="selectedProductId">
+                  <span> {{ $t('giftCardValue') }} </span>
+                  <div class="bottom-gift-card">
+                    <option class="options" value="719">10€</option>
+                    <div class="image-spacer"></div>
+                    <div class="image">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg" width="40">
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="input gg-card" @click="selectedProductId='720'">
-                <input type="radio" value="720" v-model="selectedProductId">
-                <span>  {{ $t('giftCardValue') }} </span>
-                <div class="bottom-gift-card">
-                  <option class="options" value="720">25€</option>
-                  <div class="image-spacer"></div>
-                  <div class="image">
-                    <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="40">
+                <div class="input gg-card" @click="selectedProductId='720'">
+                  <input type="radio" value="720" v-model="selectedProductId">
+                  <span>  {{ $t('giftCardValue') }} </span>
+                  <div class="bottom-gift-card">
+                    <option class="options" value="720">25€</option>
+                    <div class="image-spacer"></div>
+                    <div class="image">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg"
+                           width="40">
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="input gg-card" @click="selectedProductId='721'">
-                <input type="radio" value="721" v-model="selectedProductId">
-                <span>  {{ $t('giftCardValue') }} </span>
-                <div class="bottom-gift-card">
-                  <option class="options" value="721">50€</option>
-                  <div class="image-spacer"></div>
-                  <div class="image">
-                    <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="40">
+                <div class="input gg-card" @click="selectedProductId='721'">
+                  <input type="radio" value="721" v-model="selectedProductId">
+                  <span>  {{ $t('giftCardValue') }} </span>
+                  <div class="bottom-gift-card">
+                    <option class="options" value="721">50€</option>
+                    <div class="image-spacer"></div>
+                    <div class="image">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg"
+                           width="40">
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="input gg-card" @click="selectedProductId='722'">
-                <input type="radio" value="722" v-model="selectedProductId">
-                <span>  {{ $t('giftCardValue') }}</span>
-                <div class="bottom-gift-card">
-                  <option class="options" value="722">100€</option>
-                  <div class="image-spacer"></div>
-                  <div class="image">
-                    <img src="~/assets/img/icons/gg-logo-icon.svg"
-                         width="40">
+                <div class="input gg-card" @click="selectedProductId='722'">
+                  <input type="radio" value="722" v-model="selectedProductId">
+                  <span>  {{ $t('giftCardValue') }}</span>
+                  <div class="bottom-gift-card">
+                    <option class="options" value="722">100€</option>
+                    <div class="image-spacer"></div>
+                    <div class="image">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg"
+                           width="40">
+                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
+                <div class="input gg-card" @click="selectedProductId='923'">
+                  <input type="radio" value="923" v-model="selectedProductId">
+                  <span>  {{ $t('giftCardValue') }}</span>
+                  <div class="bottom-gift-card">
+                    <option class="options" value="923">150€</option>
+                    <div class="image-spacer"></div>
+                    <div class="image">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg"
+                           width="40">
+                    </div>
+                  </div>
+                  <div class="info-text-subtle">{{ $t('giftCardNoticeYearlyDiscounted') }}</div>
+                </div>
+                <div class="input gg-card" @click="selectedProductId='924'">
+                  <input type="radio" value="924" v-model="selectedProductId">
+                  <span>  {{ $t('giftCardValue') }}</span>
+                  <div class="bottom-gift-card">
+                    <option class="options" value="924">400€</option>
+                    <div class="image-spacer"></div>
+                    <div class="image">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg"
+                           width="40">
+                    </div>
+                  </div>
+                  <div class="info-text-subtle">{{ $t('giftCardNoticeYearlyRegular') }}</div>
+                </div>
+              </section>
             </div>
             <div class="buttons">
               <button
@@ -110,9 +136,9 @@
                 {{ $t('back') }}
               </button>
               <button
-                class="input-button-primary"
-                :disabled="!selectedProductId"
-                @click="step++">
+                  class="input-button-primary"
+                  :disabled="!selectedProductId"
+                  @click="step++">
                 {{ $t('continue') }}
               </button>
             </div>
@@ -142,157 +168,157 @@
                   </div>
                 </div>
               </div>
-            <h2 class="headline"> {{ $t('billingAddress') }}</h2>
-            <div  class="logged-out-payment">
-              <div v-if="user === null">
-              <div class="input gg-card" @click="paymentMethod='1'">
-                <input
-                  v-model="paymentMethod"
-                  type="radio"
-                  name="paymentMethod"
-                  value="1"
-                > Kreditkarte / PayPal
+              <h2 class="headline"> {{ $t('billingAddress') }}</h2>
+              <div  class="logged-out-payment">
+                <div v-if="user === null">
+                  <div class="input gg-card" @click="paymentMethod='1'">
+                    <input
+                        v-model="paymentMethod"
+                        type="radio"
+                        name="paymentMethod"
+                        value="1"
+                    > Kreditkarte / PayPal
+                  </div>
+                </div>
+                <div class="spacer"></div>
+                <br>
+                <div class="user-contact">
+                  <table>
+                    <tr>
+                      <th>
+                        <span class="label"> {{ $t('company') }}</span>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.company_name"
+                            class="input-text"
+                            type="text"
+                            name=""
+                        >
+                      </th>
+                      <th v-if="invoiceContact.company_name">
+                        Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
+                        <input
+                            v-model="invoiceContact.uid"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>
+                        <span class="label"> {{ $t('firstName') }}*</span>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.firstname"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>
+                        <span class="label"> {{ $t('lastName') }}*</span>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.lastname"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                    <tr v-if="this.user === null">
+                      <th>
+                        <span class="label"> {{ $t('email') }}*</span>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.email"
+                            class="input-text"
+                            required
+                            type="email"
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>
+                        <span class="label"> {{ $t('address') }}*</span>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.street"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>
+                        <span class="label"/>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.street_additional"
+                            class="input-text"
+                            type="text"
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>
+                        <span class="label"> {{ $t('zipCode') }}*</span>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.zip"
+                            class="input-text"
+                            type="text"
+                            required
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>
+                        <span class="label"> {{ $t('city') }}*</span>
+                      </th>
+                      <th>
+                        <input
+                            v-model="invoiceContact.city"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
+                        >
+                      </th>
+                    </tr>
+                  </table>
+                </div>
               </div>
-            </div>
-              <div class="spacer"></div>
-              <br>
-              <div class="user-contact">
-                <table>
-                  <tr>
-                    <th>
-                      <span class="label"> {{ $t('company') }}</span>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.company_name"
-                        class="input-text"
-                        type="text"
-                        name=""
-                      >
-                    </th>
-                    <th v-if="invoiceContact.company_name">
-                      Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
-                      <input
-                        v-model="invoiceContact.uid"
-                        class="input-text"
-                        required
-                        type="text"
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>
-                      <span class="label"> {{ $t('firstName') }}*</span>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.firstname"
-                        class="input-text"
-                        required
-                        type="text"
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>
-                      <span class="label"> {{ $t('lastName') }}*</span>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.lastname"
-                        class="input-text"
-                        required
-                        type="text"
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                  <tr v-if="this.user === null">
-                    <th>
-                      <span class="label"> {{ $t('email') }}*</span>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.email"
-                        class="input-text"
-                        required
-                        type="email"
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>
-                      <span class="label"> {{ $t('address') }}*</span>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.street"
-                        class="input-text"
-                        required
-                        type="text"
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>
-                      <span class="label"/>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.street_additional"
-                        class="input-text"
-                        type="text"
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>
-                      <span class="label"> {{ $t('zipCode') }}*</span>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.zip"
-                        class="input-text"
-                        type="text"
-                        required
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>
-                      <span class="label"> {{ $t('city') }}*</span>
-                    </th>
-                    <th>
-                      <input
-                        v-model="invoiceContact.city"
-                        class="input-text"
-                        required
-                        type="text"
-                        name=""
-                      >
-                    </th>
-                  </tr>
-                </table>
-              </div>
-            </div>
             </div>
             <div class="buttons">
               <button
-                class="input-button-primary"
-                @click="step--"
+                  class="input-button-primary"
+                  @click="step--"
               >
                 {{ $t('back') }}
               </button>
               <button
-                class="input-button-primary"
-                :disabled="!validInvoiceContact || !validPayment"
-                @click="step++"
+                  class="input-button-primary"
+                  :disabled="!validInvoiceContact || !validPayment"
+                  @click="step++"
               >
                 {{ $t('reviewOrder') }}
               </button>
@@ -307,15 +333,15 @@
             </div>
             <div class="buttons">
               <button
-                class="input-button-payment"
-                @click="step--"
+                  class="input-button-payment"
+                  @click="step--"
               >
                 {{ $t('back') }}
               </button>
               <button v-if="paymentMethod==='1'"
-                class="input-button-payment"
-                :disabled="loading"
-                @click="redirectToPayrexxCheckout()"
+                      class="input-button-payment"
+                      :disabled="loading"
+                      @click="redirectToPayrexxCheckout()"
               >
                 {{ $t('toPaymentProcess') }}
               </button>
@@ -346,16 +372,16 @@
                       <input v-model="giftCardCode" class="form-item" disabled> <font-awesome-icon icon="info-circle"/>
                     </div>
                     <div class="image">
-                    <img src="~/assets/img/icons/gg-logo-icon.svg" width="50">
+                      <img src="~/assets/img/icons/gg-logo-icon.svg" width="50">
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="login-reminder">
-                <div><font-awesome-icon icon="info-circle"/> {{ $t('registerToRedeemGiftCard') }}</div>
-                <div>{{ $t('ifNotAMemberGoAndRegister') }}
+                <div class="login-reminder">
+                  <div><font-awesome-icon icon="info-circle"/> {{ $t('registerToRedeemGiftCard') }}</div>
+                  <div>{{ $t('ifNotAMemberGoAndRegister') }}
+                  </div>
+                  <br>
                 </div>
-                <br>
-              </div>
                 <div class="buttons">
                   <button
                       class="input-button-primary"
@@ -364,11 +390,11 @@
                     {{ $t('back') }}
                   </button>
                 </div>
-            </div>
+              </div>
             </div>
             <div v-if="user !== null" >
               <div class="card">
-              <div class="input-redeem-card">
+                <div class="input-redeem-card">
                 <span class="span">
                 Gutschein</span>
                   <div class="redeem-card-bottom">
@@ -403,7 +429,7 @@
                 </div>
               </div>
             </div>
-            </div>
+          </div>
         </template>
       </template>
     </transition>
@@ -621,6 +647,10 @@ export default {
           return 50
         case '722':
           return 100
+        case '923':
+          return 150
+        case '924':
+          return 400
       }
     }
   }
@@ -790,6 +820,7 @@ a:hover {
     justify-content: space-between;
     padding-left: 3vw;
     padding-top: 0.5vh;
+    margin-left: 7%;
     .image {
       padding-top: 0.6vh;
     }
@@ -812,10 +843,10 @@ a:hover {
   border-radius: 0.3em;
   font-size: 24px;
   width: 350px;
+  }
   @include media-breakpoint-down(sm) {
     width: 80vw;
   }
-}
 
 ///////////PAYMENT-DETAILS//////////////////////////////////////////////////////////
 .payment-methods {
@@ -942,8 +973,7 @@ a:hover {
   flex-flow: column;
 }
 .display-item:hover .buy-redeem-button {
-  border-top: 2px solid white;
-  background: $color-orange;
+  background: black !important;
 }
 .headline {
   padding-left: 21vw;
