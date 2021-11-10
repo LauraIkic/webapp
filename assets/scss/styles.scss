@@ -280,6 +280,13 @@ h3 {
   border-color: $color-primary-border;
 }
 
+.alert-info {
+  color: white;
+  opacity: .8;
+  background-color: $color-primary;
+  border-color: $color-primary-border;
+}
+
 .alert-secondary {
   color: white;
   background-color: $color-secondary;
@@ -311,4 +318,9 @@ input:focus {
   outline: none !important;
   border: 2px solid rgba(30, 30, 30, 0.87);
   border-radius: 2px;
+}
+
+// Font
+.text-center {
+  text-align: center;
 }

@@ -152,27 +152,24 @@
       <div v-if="step == 1">
         <h2> {{ $t('confirmation') }}</h2>
 
-        <div
-          v-if="isFree"
-          class="confirmation"
-        >
+        <div v-if="isFree" class="confirmation">
           {{ $t('bindingRegistrationText') }} <a href="mailto:events@grandgarage.eu">{{ $t('eventEmailAddress') }}</a>
         </div>
         <div
           v-else
-          class="confirmation"
+          class="alert alert-info" role="alert"
         >
           <div v-if="useRemainingCredits">
-            {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR{{ $t('deducted') }}
+            <font-awesome-icon icon="info-circle"/> {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR{{ $t('deducted') }}
           </div>
           <div v-if="paymentMethod === 1">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('invoiced') }}</strong>
+            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('invoiced') }}</strong>
           </div>
           <div v-if="paymentMethod === 2">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill') }}</strong>
+            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill') }}</strong>
           </div>
           <div v-if="paymentMethod === 3">
-            {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('fromYourCredits') }} ({{ credits }}EUR) {{ $t('deducted') }}
+            <font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('fromYourCredits') }} ({{ credits }}EUR) {{ $t('deducted') }}
           </div>
         </div>
 
@@ -205,13 +202,14 @@
           color="black"
         />
       </div>
-      <div v-if="step == 4">
-        {{ $t('workshopBooked') }}<br>
+      <div v-if="step == 4" >
+        <div class="alert alert-success text-center" role="alert">{{ $t('workshopBooked') }}</div>
+          <br>
         <button
           class="input-button-primary"
           @click="$router.push('workshopBookings')"
         >
-          {{ $t('displayMyWorkshops') }}
+         {{ $t('displayMyWorkshops') }}
         </button>
       </div>
       <div v-if="step == 99">

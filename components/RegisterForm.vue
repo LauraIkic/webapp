@@ -323,9 +323,6 @@ export default {
 
 <style lang="scss">
 @import "/assets/scss/styles.scss";
-.red {
-  outline: 1px solid red !important;
-}
 .register-form {
   padding: 5vw;
   background-color: $color-bright-bg;
