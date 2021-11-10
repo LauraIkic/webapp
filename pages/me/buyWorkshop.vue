@@ -160,16 +160,16 @@
           class="alert alert-info" role="alert"
         >
           <div v-if="useRemainingCredits">
-            <font-awesome-icon icon="info-circle"/> {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR{{ $t('deducted') }}
+            <font-awesome-icon icon="info-circle"/> {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }} € {{ $t('deducted') }}
           </div>
           <div v-if="paymentMethod === 1">
-            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('invoiced') }}</strong>
+            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }} € {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('invoiced') }}</strong>
           </div>
           <div v-if="paymentMethod === 2">
-            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill') }}</strong>
+            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }} € {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill') }}</strong>
           </div>
           <div v-if="paymentMethod === 3">
-            <font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('fromYourCredits') }} ({{ credits }}EUR) {{ $t('deducted') }}
+            <font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }} € {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('fromYourCredits') }} ({{ credits }} €) {{ $t('deducted') }}
           </div>
         </div>
 

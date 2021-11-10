@@ -279,7 +279,7 @@ export default {
         if (e.code) {
           switch (e.code) {
             case 'user_exists':
-              this.errorMessage = 'Der User Existiert bereits'
+              this.errorMessage = 'Ein User mit dieser Email Adresse existiert bereits'
               break
             case 'invalid_password':
               this.errorMessage = 'Das Passwort ist zu schwach.'

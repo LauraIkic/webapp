@@ -1,16 +1,11 @@
 <template href="http://www.w3.org/1999/html">
   <div class="gift-card-body">
     <h2 v-if="action" class="gift-page-headline">
-      {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
+      {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }} <loading-spinner  v-if="loading" class="loading-spinner"/>
     </h2>
     <h2 v-else class="gift-page-headline">
-      {{ $t('giftCard') }}
+      {{ $t('giftCard') }} <loading-spinner v-if="loading" class="loading-spinner"/>
     </h2>
-    <loading-spinner
-        v-if="loading"
-        color="#333"
-        style="margin-left: 0.5em;"
-    />
     <template v-if="!action">
       <div class="items">
         <section class="display-item">
@@ -354,8 +349,12 @@
               </button>
             </div>
           </div>
-          <div v-if="step === 3">
-            {{ $t('purchaseCompleted') }}  {{ $t('receiptAndGiftCardViaMail') }}
+          <div v-if="step === 3" class="success-container">
+            <div style="margin: 2em 0;"><img width="80px" src="~/assets/img/icons/thumbs-up.svg" class="decorator"></div>
+            <h2 style="margin: 0;"> {{ $t('purchaseCompleted') }}</h2>
+            <p class="text">
+              {{ $t('receiptAndConfirmationViaMail') }}
+            </p>
           </div>
         </template>
 
@@ -659,16 +658,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
-/*
-a {
-  color: $color-orange;
+.success-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
-a:hover {
-  text-decoration: underline;
+.loading-spinner {
+  margin-left: 0.5em;
+  display: inline;
+  font-size: 0.8em;
+  color: #333;
 }
-*/
 
 .image-spacer {
   background-size: cover;
