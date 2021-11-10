@@ -164,13 +164,14 @@
               <h2 class="headline"> {{ $t('billingAddress') }}</h2>
               <div  class="logged-out-payment">
                 <div v-if="user === null">
-                  <div class="input gg-card" @click="paymentMethod='1'">
+                  <div class="input gg-card disabled">
                     <input
+                      disabled
                         v-model="paymentMethod"
                         type="radio"
                         name="paymentMethod"
                         value="1"
-                    > Kreditkarte / PayPal
+                    > Kreditkarte (Coming soon)
                   </div>
                 </div>
                 <div class="spacer"></div>
