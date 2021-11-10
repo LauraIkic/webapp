@@ -143,13 +143,11 @@
               <div v-if="user !== null">
                 <h2 class="headline">Zahlungsmethode</h2>
                 <div class="payment-methods">
-                  <div class="input gg-card" @click="paymentMethod='1'">
-                    <input
-                        v-model="paymentMethod"
+                  <div class="input disabled">
+                    <input disabled
                         type="radio"
-                        name="paymentMethod"
-                        value="1">
-                    Kreditkarte / PayPal
+                        name="paymentMethod">
+                    Kreditkarte (coming soon)
                     <div v-if="invoiceContact.sepa_mandate_agreed"></div>
                   </div>
                   <div class="spacer"></div>

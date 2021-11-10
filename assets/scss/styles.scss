@@ -187,6 +187,10 @@ $grid-breakpoints: (
   cursor: pointer;
 }
 
+.disabled {
+  color: grey;
+}
+
 .gg-card:hover {
   background-color: black;
   color: white;
