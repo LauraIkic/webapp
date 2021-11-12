@@ -17,7 +17,7 @@
               {{ $t('buyGiftCard') }}
             </div>
             <div class="buy-redeem-button"
-                 @click="$router.push('gift?action=buy')">
+                 @click="$router.push('/gift?action=buy')">
               {{ $t('buy') }}
             </div>
           </div>
@@ -33,7 +33,7 @@
               {{ $t('redeemGiftCard') }}
             </div>
             <div class="buy-redeem-button"
-                 @click="$router.push('gift?action=redeem')">
+                 @click="$router.push('/gift?action=redeem')">
               {{ $t('redeem') }}
             </div>
           </div>
@@ -435,11 +435,9 @@
 </template>
 
 <script>
-import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 import { helpers } from '../utils/helper'
 
 export default {
-  mixins: [storyblokLivePreview],
   asyncData (context) {
     const path = '/members/shop'
     return context.store.dispatch('loadPage', path).catch((e) => {
@@ -493,6 +491,7 @@ export default {
     }
   },
   mounted () {
+    this.getQuery(this.$route.query)
   },
   methods: {
     loadUserData () {
