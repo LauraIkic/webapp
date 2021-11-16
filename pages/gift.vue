@@ -197,7 +197,10 @@
                       type="radio"
                       name="paymentMethod"
                       value="1"
-                    > Kreditkarte (Coming soon)
+                    > Kreditkarte <br>
+                    <span class="silent-info ml-2">
+                      <font-awesome-icon icon="info-circle"/> coming soon
+                    </span>
                   </div>
                 </div>
                 <div class="spacer"></div>
