@@ -159,17 +159,31 @@
                     <input disabled
                            type="radio"
                            name="paymentMethod">
-                    Kreditkarte (coming soon)
+                    Kreditkarte <br>
+                    <span class="silent-info ml-2">
+                      <font-awesome-icon icon="info-circle"/> coming soon
+                    </span>
                     <div v-if="invoiceContact.sepa_mandate_agreed"></div>
                   </div>
                   <div class="spacer"></div>
-                  <div class="input gg-card" @click="paymentMethod='2'">
+                  <div v-if="sepaActive && hasIban" class="input gg-card" @click="paymentMethod='2'">
                     <input
                       v-model="paymentMethod"
                       type="radio"
                       name="paymentMethod"
                       value="2">
-                    SEPA-Rechnung
+                    {{ $t('sepaBill') }}
+                  </div>
+                  <div v-else class="input disabled">
+                    <input
+                      disabled
+                      type="radio"
+                      name="paymentMethod"
+                      value="0">
+                    {{ $t('sepaBill') }} <br>
+                    <span class="silent-link ml-2" @click="$router.push('/wizard/onboarding')">
+                      <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -479,7 +493,9 @@ export default {
       connectorInvoiceContact: null,
       sepa_active: false,
       shippingstreet: [],
-      loading: false
+      loading: false,
+      sepaActive: false,
+      hasIban: false
     }
   },
   computed: {
@@ -501,6 +517,9 @@ export default {
     },
     validPayment () {
       return this.paymentMethod !== 0
+    },
+    validSepa () {
+      return 2
     }
   },
   watch: {
@@ -518,6 +537,7 @@ export default {
         .then((data) => {
           this.invoiceContact = data.data.invoice_contact
           this.sepaActive = data.data.sepa_active
+          this.hasIban = data.data.has_iban
         })
         .catch((error) => {
           console.log(error.response.status, error.response.data.msg)
@@ -692,7 +712,15 @@ h2 {
 }
 
 .ml-1 {
-  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+
+.mr-2 {
+  margin-right: 1em;
+}
+
+.ml-2 {
+  margin-left: 1em;
 }
 
 .svg-icon, .svg-h2 {
@@ -705,6 +733,18 @@ h2 {
   display: inline;
   font-size: 0.8em;
   color: #333;
+}
+
+.silent-link, .silent-info {
+  font-size: 0.6em;
+}
+
+.silent-link {
+  cursor: pointer;
+}
+
+.silent-link:hover {
+  text-decoration: underline;
 }
 
 .image-spacer {

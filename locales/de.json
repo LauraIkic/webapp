@@ -150,6 +150,7 @@
   "sepaMonthlyBill": "SEPA-Monatsrechnung",
   "continue": "Weiter",
   "confirmation": "Bestätigung",
+  "sepaBill": "SEPA Rechnung",
 
   "bindingRegistrationText": "Deine Anmeldung ist verbindlich. Solltest du doch nicht teilnehmen können, gib uns bitte umgehend Bescheid unter",
   "eventEmailAddress": "events@grandgarage.eu",
