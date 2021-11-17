@@ -356,11 +356,21 @@
             </div>
           </div>
           <div v-if="step === 2  && invoiceContact">
-            <div class="headline">
-              <h2>{{ $t('confirmation') }}:</h2>
-              <ul>
-                <li> {{ $t('giftCard') }} {{ getGiftCardValue(selectedProductId) }}€</li>
-              </ul>
+            <div class="headline" style="text-decoration: none;">
+              <h2 style="text-decoration: underline;">{{ $t('confirmation') }}:</h2>
+              <div class="alert alert-info ml-2" role="alert">
+                <strong>
+                  <font-awesome-icon icon="info-circle"/>
+                  {{ getGiftCardValue(selectedProductId) }}€
+                  {{ getGiftCardValue(selectedProductId) === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill')
+                  }}</strong>
+              </div>
+              <div class="ml-2">
+                <h3>Bestellung</h3>
+                <ul>
+                  <li> {{ $t('giftCard') }} {{ getGiftCardValue(selectedProductId) }}€</li>
+                </ul>
+              </div>
             </div>
             <div class="buttons">
               <button
