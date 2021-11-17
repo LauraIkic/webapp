@@ -105,15 +105,22 @@
         <div>
           <div class="info-row option">
             <div class="info-block">
-              <div class="col info disabled">
+              <div class="col info">
                 <input
-                  disabled
                   id="payment_provider"
                   type="radio"
                   name="payment"
                   value="payment_provider"
+                  @click="paymentMethod = PAYMENT_METHODS.payment_provider"
                 >
-                <label for="payment_provider">{{ $t('creditCard') }} (coming soon)</label><br>
+                <label for="payment_provider">{{ $t('paymentProvider') }} <br>
+                  <span class="silent-info ml-4">
+                      <div class="icon svg-icon paypal-icon"></div>
+                      <div class="icon svg-icon mastercard-icon"></div>
+                      <div class="icon svg-icon visa-icon"></div>
+                      <div class="icon svg-icon apple-pay-icon"></div>
+                    </span>
+                </label><br>
               </div>
             </div>
           </div>
@@ -342,6 +349,52 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/styles.scss';
+
+.icon {
+  width: 26px;
+  height: 26px;
+}
+
+.svg-icon, .svg-h2 {
+  vertical-align: middle;
+  display: inline-grid;
+}
+
+.paypal-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+}
+
+.mastercard-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+}
+
+.visa-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+}
+
+.apple-pay-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+}
+
+.silent-link, .silent-info {
+  font-size: 0.6em;
+}
+
+.silent-link {
+  cursor: pointer;
+}
+
+.silent-link:hover {
+  text-decoration: underline;
+}
 
 .workshop-overview {
   color: #000;

@@ -1,22 +1,22 @@
 <template href="http://www.w3.org/1999/html">
   <div class="gift-card-body">
     <h2 v-if="action" class="gift-page-headline">
-      <span class="svg-icon mr-1">
+      <span class="svg-icon mr-05">
         <img width="50px" src="~/assets/img/icons/gift-card-icon.svg" class="decorator">
       </span>
       <span class="svg-h2">
         {{ $t('giftCard') }} {{ action === 'buy' ? 'kaufen' : 'einlösen' }}
       </span>
-      <loading-spinner v-if="loading" class="loading-spinner ml-1"/>
+      <loading-spinner v-if="loading" class="loading-spinner ml-05"/>
     </h2>
     <h2 v-else class="gift-page-headline">
-      <span class="svg-icon mr-1">
+      <span class="svg-icon mr-05">
         <img width="50px" src="~/assets/img/icons/gift-card-icon.svg" class="decorator">
       </span>
       <span class="svg-h2">
         {{ $t('giftCards') }}
       </span>
-      <loading-spinner v-if="loading" class="loading-spinner ml-1"/>
+      <loading-spinner v-if="loading" class="loading-spinner ml-05"/>
     </h2>
     <template v-if="!action">
       <div class="items">
@@ -155,13 +155,18 @@
               <div v-if="user !== null">
                 <h2 class="headline">Zahlungsmethode</h2>
                 <div class="payment-methods">
-                  <div class="input disabled">
-                    <input disabled
-                           type="radio"
-                           name="paymentMethod">
-                    Kreditkarte <br>
+                  <div class="input  gg-card" @click="paymentMethod='1'">
+                    <input
+                      v-model="paymentMethod"
+                      type="radio"
+                      name="paymentMethod"
+                      value="1">
+                    {{ $t('paymentProvider') }} <br>
                     <span class="silent-info ml-2">
-                      <font-awesome-icon icon="info-circle"/> coming soon
+                      <div class="icon svg-icon paypal-icon"></div>
+                      <div class="icon svg-icon mastercard-icon"></div>
+                      <div class="icon svg-icon visa-icon"></div>
+                      <div class="icon svg-icon apple-pay-icon"></div>
                     </span>
                     <div v-if="invoiceContact.sepa_mandate_agreed"></div>
                   </div>
@@ -181,7 +186,7 @@
                       name="paymentMethod"
                       value="0">
                     {{ $t('sepaBill') }} <br>
-                    <span class="silent-link ml-2" @click="$router.push('/wizard/onboarding')">
+                    <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
                       <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
                     </span>
                   </div>
@@ -196,9 +201,13 @@
                       type="radio"
                       name="paymentMethod"
                       value="0"
-                    > Kreditkarte <br>
+                    >
+                    {{ $t('paymentProvider') }} <br>
                     <span class="silent-info ml-2">
-                      <font-awesome-icon icon="info-circle"/> coming soon
+                      <div class="icon svg-icon paypal-icon"></div>
+                      <div class="icon svg-icon mastercard-icon"></div>
+                      <div class="icon svg-icon visa-icon"></div>
+                      <div class="icon svg-icon apple-pay-icon"></div>
                     </span>
                   </div>
                 </div>
@@ -709,20 +718,16 @@ h2 {
   width: 100%;
 }
 
-.mr-1 {
-  margin-right: 0.5em;
-}
-
-.ml-1 {
+.loading-spinner {
   margin-left: 0.5em;
+  display: inline;
+  font-size: 0.8em;
+  color: #333;
 }
 
-.mr-2 {
-  margin-right: 1em;
-}
-
-.ml-2 {
-  margin-left: 1em;
+.icon {
+  width: 26px;
+  height: 26px;
 }
 
 .svg-icon, .svg-h2 {
@@ -730,11 +735,28 @@ h2 {
   display: inline-grid;
 }
 
-.loading-spinner {
-  margin-left: 0.5em;
-  display: inline;
-  font-size: 0.8em;
-  color: #333;
+.paypal-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+}
+
+.mastercard-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+}
+
+.visa-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+}
+
+.apple-pay-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
 }
 
 .silent-link, .silent-info {

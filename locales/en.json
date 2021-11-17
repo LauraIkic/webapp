@@ -152,6 +152,7 @@
   "continue": "Continue",
   "confirm": "Confirmation",
   "sepaBill": "SEPA Rechnung",
+  "paymentProvider": "Payment Provider",
 
   "bindingRegistrationText": "Your registration is binding. Should you not be able to participate, please inform us immediately at",
   "eventEmailAddress": "events@grandgarage.eu",
