@@ -195,12 +195,12 @@
               <h2 class="headline"> {{ $t('billingAddress') }}</h2>
               <div class="logged-out-payment">
                 <div v-if="user === null">
-                  <div class="input disabled">
+                  <div class="input  gg-card" @click="paymentMethod='1'">
                     <input
-                      disabled
+                      v-model="paymentMethod"
                       type="radio"
                       name="paymentMethod"
-                      value="0"
+                      value="1"
                     >
                     {{ $t('paymentProvider') }} <br>
                     <span class="silent-info ml-2">
