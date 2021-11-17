@@ -358,7 +358,7 @@
           <div v-if="step === 2  && invoiceContact">
             <div class="headline" style="text-decoration: none;">
               <h2 style="text-decoration: underline;">{{ $t('confirmation') }}:</h2>
-              <div class="alert alert-info ml-2" role="alert">
+              <div v-if="paymentMethod === '2'" class="alert alert-info ml-2" role="alert">
                 <strong>
                   <font-awesome-icon icon="info-circle"/>
                   {{ getGiftCardValue(selectedProductId) }}€
