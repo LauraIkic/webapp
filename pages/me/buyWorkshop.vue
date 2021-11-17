@@ -139,7 +139,7 @@
                 value="sepa"
                 @click="paymentMethod = PAYMENT_METHODS.sepa"
               >
-              <label for="sepa"> {{ $t('sepaMonthlyBill') }}</label><br>
+              <label for="sepa"> {{ $t('sepaBill') }}</label><br>
             </div>
           </div>
         </div>
