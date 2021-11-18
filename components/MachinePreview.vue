@@ -58,9 +58,9 @@ export default {
   justify-content: flex-start;
 
   .machine-preview {
-    padding: 20px;
+    padding: 10px;
     width: 300px;
-    height: 25vh;
+    height: 500px;
     @include media-breakpoint-down(xs) {
       height:auto;
     }
@@ -81,7 +81,7 @@ export default {
       }
 
       .banner {
-        height: 200px;
+        height: 250px;
         background-size: cover;
         background-position: center;
       }

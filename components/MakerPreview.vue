@@ -106,10 +106,10 @@ export default {
   .banner {
     display:flex;
     justify-content: center;
-    width: 30%;
+    width: 250px;
     background-position: center;
     background-repeat: no-repeat;
-    height: 20vh;
+    height: 250px;
   }
 
   .name {
