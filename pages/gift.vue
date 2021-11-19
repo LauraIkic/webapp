@@ -713,7 +713,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+@import '/assets/scss/styles';
 
 .success-container {
   display: flex;
@@ -844,7 +844,7 @@ h2 {
       color: white;
 
       .top-image {
-        background-image: url(assets/img/icons/gg-logo-icon.svg);
+        background-image: url(../assets/img/icons/gg-logo-icon.svg);
         background-size: contain;
         background-position: 50%;
         background-repeat: no-repeat;
@@ -856,7 +856,7 @@ h2 {
         }
 
         &:hover {
-          background-image: url(assets/img/icons/gg-logo.svg);
+          background-image: url(../assets/img/icons/gg-logo.svg);
         }
       }
 
@@ -911,7 +911,7 @@ h2 {
     &:hover {
       .top {
         .top-image {
-          background-image: url(assets/img/icons/gg-logo.svg);
+          background-image: url(../assets/img/icons/gg-logo.svg);
           height: 5vh;
         }
       }

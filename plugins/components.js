@@ -87,6 +87,7 @@ import PressContact from '../components/PressContact'
 import PressImageSlider from '../components/PressImageSlider'
 import PressPostPreview from '../components/PressPostPreview'
 import PressPost from '../components/PressPost'
+import GiftPage from '../components/GiftPage'
 
 Vue.component('page', Page)
 Vue.component('general-header', GeneralHeader)
@@ -179,3 +180,4 @@ Vue.component('press-contact', PressContact)
 Vue.component('press-image-slider', PressImageSlider)
 Vue.component('press-post-preview', PressPostPreview)
 Vue.component('press-overview', PressPost)
+Vue.component('gift-page', GiftPage)
