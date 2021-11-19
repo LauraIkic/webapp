@@ -99,6 +99,7 @@ export default {
   width: inherit;
   @include media-breakpoint-down(md) {
     margin-top:47%;
+    transition: none;
   }
 }
 .image-title {
@@ -118,6 +119,7 @@ export default {
     flex-flow: column;
     align-items: center;
     margin-bottom: 4%;
+    transition: none;
   }
 }
 
@@ -217,10 +219,15 @@ export default {
           transition-delay: 0s, .4s;
           box-shadow: 0px -40px 71px rgba(0, 0, 0, 0.44);
           transition-property: all;
+          @include media-breakpoint-down(md){
+            transition: none;
+          }
         }
         .image-title{
-          font-size: 1.5rem;
-          opacity:1;
+          @include media-breakpoint-up(md){
+            font-size: 1.5rem;
+            opacity:1;
+          }
         }
       }
     }
