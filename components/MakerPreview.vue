@@ -95,6 +95,9 @@ export default {
 .description {
   overflow: hidden;
   text-overflow: '...';
+  @include media-breakpoint-down(sm) {
+     font-size: 15px;
+  }
 }
 
 .display-maker {
@@ -103,6 +106,12 @@ export default {
   justify-content: space-between;
   align-content: space-between;
   font-size: 1.3rem;
+  max-width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+  &:hover {
+    background-color: lighten($color-bright-bg, 3);
+  }
   .banner {
     display:flex;
     justify-content: center;
@@ -110,6 +119,10 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     height: 250px;
+    @include media-breakpoint-down(md) {
+      height: 200px;
+      width: 200px;
+    }
   }
 
   .name {
@@ -119,6 +132,15 @@ export default {
 
   .maker-information {
     width: 70%;
+    @include media-breakpoint-down(md) {
+      width: 350px;
+    }
+    @include media-breakpoint-down(sm) {
+      width: 65% !important;
+      display: flex;
+      flex-flow: column;
+      align-self: center;
+    }
   }
 
   @include media-breakpoint-down(sm) {
@@ -158,7 +180,17 @@ export default {
 
   .maker-preview {
     width: 100%;
-
+    @include media-breakpoint-down(md) {
+      width: 600px;
+      .display-maker{
+        font-size: 18px;
+        @include media-breakpoint-down(sm) {
+          background-color: white;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+      }
+    }
     .loading {
     }
 
@@ -169,11 +201,6 @@ export default {
       cursor: pointer;
       text-decoration: none;
       color: #000;
-
-      &:hover {
-        background-color: lighten($color-bright-bg, 3);
-      }
-
       .name {
         margin: 1em 0 0.2em 0;
         font-weight: normal;

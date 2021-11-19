@@ -49,6 +49,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
+
+.display-machine{
+  @include media-breakpoint-down(sm) {
+    background: white;
+    padding: 16px;
+  }
+}
+
 .preview-wrapper{
   height: inherit;
 }
@@ -61,8 +69,9 @@ export default {
     padding: 10px;
     width: 300px;
     height: 500px;
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       height:auto;
+      margin-left: 5%;
     }
 
     .loading {
@@ -84,6 +93,9 @@ export default {
         height: 250px;
         background-size: cover;
         background-position: center;
+        @include media-breakpoint-down(sm) {
+         height: 200px;
+        }
       }
 
       .title {
@@ -91,6 +103,9 @@ export default {
         font-weight: normal;
         font-size: 1.5rem;
         font-family: $font-secondary;
+        @include media-breakpoint-down(sm) {
+          font-size: 1.2rem;
+        }
       }
 
       .subtitle {

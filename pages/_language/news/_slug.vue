@@ -293,6 +293,11 @@ export default {
   padding-left: 4vw;
   font-family: Chakra Petch;
   margin-top: 5vh;
+  @include media-breakpoint-down(md) {
+    padding-left: 0vw;
+    display: flex;
+    justify-content: center;
+  }
   @include media-breakpoint-down(sm) {
     font-size: 1.9rem;
   }
@@ -375,20 +380,25 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-top: 2vh;
-  @include media-breakpoint-down(sm) {
-    margin-bottom: 15vh;
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
     flex-flow: column;
     margin-bottom: 1vh;
   }
 }
 
 .display-makers {
-  margin-top: 2vh;
+  margin-top: 5vh;
   display: flex;
   flex-flow: column;
   @include media-breakpoint-down(sm) {
+    margin-top: auto;
     display: flex;
     justify-content: center;
   }
