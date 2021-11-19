@@ -98,8 +98,9 @@ export default {
   transition: 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
   width: inherit;
   @include media-breakpoint-down(md) {
-    margin-top:47%;
+    margin-top: 119%;
     transition: none;
+    height: 0px;
   }
 }
 .image-title {
@@ -120,6 +121,7 @@ export default {
     align-items: center;
     margin-bottom: 4%;
     transition: none;
+    font-size: 16px;
   }
 }
 
