@@ -1,5 +1,5 @@
 <template href="http://www.w3.org/1999/html">
-  <div v-ediitable="blok" class="gift-page">
+  <div v-editable="blok" class="gift-page">
     <div class="gift-card-body">
       <h2 v-if="action" class="gift-page-headline">
       <span class="svg-icon mr-05">
@@ -30,7 +30,7 @@
                 {{ $t('buyGiftCard') }}
               </div>
               <div class="buy-redeem-button"
-                   @click="$router.push('/gift?action=buy')">
+                   @click="$router.push('gift?action=buy')">
                 {{ $t('buy') }}
               </div>
             </div>
@@ -46,7 +46,7 @@
                 {{ $t('redeemGiftCard') }}
               </div>
               <div class="buy-redeem-button"
-                   @click="$router.push('/gift?action=redeem')">
+                   @click="$router.push('gift?action=redeem')">
                 {{ $t('redeem') }}
               </div>
             </div>
@@ -138,15 +138,15 @@
               </div>
               <div class="buttons">
                 <button
-                    class="input-button-primary"
-                    @click="$router.push('gift')"
+                  class="input-button-primary"
+                  @click="$router.push('gift')"
                 >
                   {{ $t('back') }}
                 </button>
                 <button
-                    class="input-button-primary"
-                    :disabled="!selectedProductId"
-                    @click="step++">
+                  class="input-button-primary"
+                  :disabled="!selectedProductId"
+                  @click="step++">
                   {{ $t('continue') }}
                 </button>
               </div>
@@ -158,10 +158,10 @@
                   <div class="payment-methods">
                     <div class="input  gg-card" @click="paymentMethod='1'">
                       <input
-                          v-model="paymentMethod"
-                          type="radio"
-                          name="paymentMethod"
-                          value="1">
+                        v-model="paymentMethod"
+                        type="radio"
+                        name="paymentMethod"
+                        value="1">
                       {{ $t('paymentProvider') }} <br>
                       <span class="silent-info ml-2">
                       <div class="icon svg-icon paypal-icon"></div>
@@ -174,18 +174,18 @@
                     <div class="spacer"></div>
                     <div v-if="sepaActive && hasIban" class="input gg-card" @click="paymentMethod='2'">
                       <input
-                          v-model="paymentMethod"
-                          type="radio"
-                          name="paymentMethod"
-                          value="2">
+                        v-model="paymentMethod"
+                        type="radio"
+                        name="paymentMethod"
+                        value="2">
                       {{ $t('sepaBill') }}
                     </div>
                     <div v-else class="input disabled">
                       <input
-                          disabled
-                          type="radio"
-                          name="paymentMethod"
-                          value="0">
+                        disabled
+                        type="radio"
+                        name="paymentMethod"
+                        value="0">
                       {{ $t('sepaBill') }} <br>
                       <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
                       <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
@@ -196,12 +196,12 @@
                 <h2 class="headline"> {{ $t('billingAddress') }}</h2>
                 <div class="logged-out-payment">
                   <div v-if="user === null">
-                    <div class="input  gg-card" @click="paymentMethod='1'">
+                    <div class="input gg-card" @click="paymentMethod='1'">
                       <input
-                          v-model="paymentMethod"
-                          type="radio"
-                          name="paymentMethod"
-                          value="1"
+                        v-model="paymentMethod"
+                        type="radio"
+                        name="paymentMethod"
+                        value="1"
                       >
                       {{ $t('paymentProvider') }} <br>
                       <span class="silent-info ml-2">
@@ -222,20 +222,20 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.company_name"
-                              class="input-text"
-                              type="text"
-                              name=""
+                            v-model="invoiceContact.company_name"
+                            class="input-text"
+                            type="text"
+                            name=""
                           >
                         </th>
                         <th v-if="invoiceContact.company_name">
                           Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
                           <input
-                              v-model="invoiceContact.uid"
-                              class="input-text"
-                              required
-                              type="text"
-                              name=""
+                            v-model="invoiceContact.uid"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
                           >
                         </th>
                       </tr>
@@ -245,11 +245,11 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.firstname"
-                              class="input-text"
-                              required
-                              type="text"
-                              name=""
+                            v-model="invoiceContact.firstname"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
                           >
                         </th>
                       </tr>
@@ -259,11 +259,11 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.lastname"
-                              class="input-text"
-                              required
-                              type="text"
-                              name=""
+                            v-model="invoiceContact.lastname"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
                           >
                         </th>
                       </tr>
@@ -273,11 +273,11 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.email"
-                              class="input-text"
-                              required
-                              type="email"
-                              name=""
+                            v-model="invoiceContact.email"
+                            class="input-text"
+                            required
+                            type="email"
+                            name=""
                           >
                         </th>
                       </tr>
@@ -287,11 +287,11 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.street"
-                              class="input-text"
-                              required
-                              type="text"
-                              name=""
+                            v-model="invoiceContact.street"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
                           >
                         </th>
                       </tr>
@@ -301,10 +301,10 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.street_additional"
-                              class="input-text"
-                              type="text"
-                              name=""
+                            v-model="invoiceContact.street_additional"
+                            class="input-text"
+                            type="text"
+                            name=""
                           >
                         </th>
                       </tr>
@@ -314,11 +314,11 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.zip"
-                              class="input-text"
-                              type="text"
-                              required
-                              name=""
+                            v-model="invoiceContact.zip"
+                            class="input-text"
+                            type="text"
+                            required
+                            name=""
                           >
                         </th>
                       </tr>
@@ -328,11 +328,11 @@
                         </th>
                         <th>
                           <input
-                              v-model="invoiceContact.city"
-                              class="input-text"
-                              required
-                              type="text"
-                              name=""
+                            v-model="invoiceContact.city"
+                            class="input-text"
+                            required
+                            type="text"
+                            name=""
                           >
                         </th>
                       </tr>
@@ -342,29 +342,37 @@
               </div>
               <div class="buttons">
                 <button
-                    class="input-button-primary"
-                    @click="step--"
+                  class="input-button-primary"
+                  @click="step--"
                 >
                   {{ $t('back') }}
                 </button>
                 <button
-                    class="input-button-primary"
-                    :disabled="!validInvoiceContact || !validPayment"
-                    @click="step++"
+                  class="input-button-primary"
+                  :disabled="!validInvoiceContact || !validPayment"
+                  @click="step++"
                 >
                   {{ $t('reviewOrder') }}
                 </button>
               </div>
             </div>
             <div v-if="step === 2  && invoiceContact">
-              <div class="headline" style="text-decoration: none;">
-                <h2 style="text-decoration: underline;">{{ $t('confirmation') }}:</h2>
-                <div v-if="paymentMethod === '2'" class="alert alert-info ml-2" role="alert">
+              <div class="headline container-box" style="text-decoration: none;">
+                <h2 style="text-decoration: underline;">{{ $t('confirmation') }}</h2>
+                <div v-if="paymentMethod === '1'" class="alert alert-info ml-2" role="alert">
                   <strong>
                     <font-awesome-icon icon="info-circle"/>
                     {{ getGiftCardValue(selectedProductId) }}€
-                    {{ getGiftCardValue(selectedProductId) === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill')
-                    }}</strong>
+                    {{ getGiftCardValue(selectedProductId) === 1 ? 'wird' : 'werden' }} {{ $t('invoiced') }}
+                  </strong>
+                </div>
+                <div v-else-if="paymentMethod === '2'" class="alert alert-info ml-2" role="alert">
+                  <strong>
+                    <font-awesome-icon icon="info-circle"/>
+                    {{ getGiftCardValue(selectedProductId) }}€
+                    {{ getGiftCardValue(selectedProductId) === 1 ? 'wird' : 'werden' }}
+                    {{ $t('includedInYourMonthlyBill') }}
+                  </strong>
                 </div>
                 <div class="ml-2">
                   <h3>Bestellung</h3>
@@ -375,8 +383,8 @@
               </div>
               <div class="buttons">
                 <button
-                    class="input-button-payment"
-                    @click="step--"
+                  class="input-button-payment"
+                  @click="step--"
                 >
                   {{ $t('back') }}
                 </button>
@@ -435,8 +443,8 @@
                   </div>
                   <div class="buttons">
                     <button
-                        class="input-button-primary"
-                        @click="$router.push('gift')"
+                      class="input-button-primary"
+                      @click="$router.push('gift')"
                     >
                       {{ $t('back') }}
                     </button>
@@ -452,8 +460,8 @@
                       <div class=" code">
                         <span class="code-span"> Code: </span>
                         <input
-                            v-model="giftcardCode"
-                            class="form-item"
+                          v-model="giftcardCode"
+                          class="form-item"
                         >
                       </div>
                       <div class="image">
@@ -464,15 +472,15 @@
                   </div>
                   <div class="buttons">
                     <button
-                        class="input-button-payment"
-                        @click="$router.push('gift')"
+                      class="input-button-payment"
+                      @click="$router.push('gift')"
                     >
                       {{ $t('back') }}
                     </button>
                     <button
-                        class="input-button-payment"
-                        :disabled="!giftcardCode"
-                        @click="redeem"
+                      class="input-button-payment"
+                      :disabled="!giftcardCode"
+                      @click="redeem"
                     >
                       Einlösen
                     </button>
@@ -729,6 +737,19 @@ export default {
 h2 {
   display: table;
   width: 100%;
+}
+
+.alert-info {
+  width: 50%;
+  @include media-breakpoint-down(md) {
+    width: 80%;
+  }
+  @include media-breakpoint-down(sm) {
+    width: 80%;
+  }
+  @include media-breakpoint-down(xs) {
+    width: 80%;
+  }
 }
 
 .loading-spinner {
@@ -1161,6 +1182,22 @@ h2 {
     cursor: pointer;
     border-radius: 0.2em;
     border: 1px solid $color-secondary-border;
+  }
+}
+.container-box{
+  margin-left: auto;
+  margin-right: auto;
+  @include media-breakpoint-down(md) {
+    margin: 40px;
+    padding: 30px;
+  }
+  @include media-breakpoint-down(sm) {
+    margin: 30px;
+    padding: 20px;
+  }
+  @include media-breakpoint-down(xs) {
+    margin: 20px;
+    padding: 19px;
   }
 }
 </style>

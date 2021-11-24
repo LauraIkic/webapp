@@ -195,7 +195,6 @@ module.exports = {
     disabled: () => {
       // eslint-disable-next-line no-unused-vars
       const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedAnalyticsCookie')
-      console.log('has accepted?: ', hasAcceptedAnalyticsCookie)
       if (hasAcceptedAnalyticsCookie === 'true') {
         return false
       } else {
