@@ -814,6 +814,9 @@ h2 {
 .spacer {
   width: 2em;
   height: 2vh;
+  @include media-breakpoint-down(sm) {
+    width: 0px;
+  }
 }
 
 //////////FIRST-PAGE//////////////////////////////////////////
@@ -1005,6 +1008,9 @@ h2 {
   align-content: center;
   align-items: center;
   justify-content: center;
+  @include media-breakpoint-down(sm) {
+   flex-flow: column;
+  }
 }
 
 .logged-out-payment {
