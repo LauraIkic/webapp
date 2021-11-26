@@ -99,6 +99,7 @@ export default {
         email: this.email,
         password: this.password
       }
+      localStorage.setItem('pathToLoadAfterLogin', this.$router.currentRoute.fullPath)
       this.$store.dispatch('loginUser', data).then((r) => {
       }).catch((e) => {
         this.errorMessage = e.description || e.error || e.code

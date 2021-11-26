@@ -16,7 +16,7 @@
         </span>
         <button
           class="input-button-primary creditsButton"
-          @click="$router.push(`giftcards?action=redeem`)"
+          @click="$router.push('/de/gift?action=redeem')"
         >
           {{ $t('redeemGiftCard') }}
         </button>

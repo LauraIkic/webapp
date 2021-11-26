@@ -86,7 +86,7 @@ export default {
     background: white;
   }
   @include media-breakpoint-down(md) {
-    margin-right: 7%;
+    margin-right: 5%;
     width: 90%;
     margin-top: 4vh;
     display: flex;

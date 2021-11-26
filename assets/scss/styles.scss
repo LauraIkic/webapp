@@ -142,6 +142,105 @@ $grid-breakpoints: (
   }
 }
 
+// Default classes
+.mr-05 {
+  margin-right: 0.5em;
+}
+
+.ml-05 {
+  margin-left: 0.5em;
+}
+
+.mr-1 {
+  margin-right: 1em;
+}
+
+.ml-1 {
+  margin-left: 1em;
+}
+
+.mr-2 {
+  margin-right: 2em;
+}
+
+.ml-2 {
+  margin-left: 2em;
+}
+
+.mr-3 {
+  margin-right: 3em;
+}
+
+.ml-3 {
+  margin-left: 3em;
+}
+
+.mr-4 {
+  margin-right: 4em;
+}
+
+.ml-4 {
+  margin-left: 4em;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+.content-card, .list-item {
+  background-color: white;
+}
+.content-card:hover, .list-item:hover {
+  -webkit-box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
+}
+
+.top-header-inner img:hover {
+  filter: invert(1);
+}
+
+// Workshops
+.workshop-button:hover {
+  opacity: 0.5;
+}
+
+// Machines
+.machine-teaser {
+  background-color: white;
+}
+
+// main navigation
+.main-nav-item:hover {
+  color: #E69140 !important;
+}
+
+.login-button button:hover {
+  background-color: black !important;
+}
+
+.dropdown .child a:hover {
+  color: #E69140 !important;
+}
+
+// cards
+.gg-card {
+  cursor: pointer;
+}
+
+.disabled {
+  color: grey;
+}
+
+.gg-card:hover {
+  background-color: black;
+  color: white;
+  opacity: 0.8;
+}
+
+.gg-card:hover img:not(:hover) {
+  filter: invert(1);
+}
+
 // layout margins
 @mixin margin-page-wide() {
   margin-left: 4%;
@@ -157,6 +256,22 @@ $grid-breakpoints: (
   margin-left: 12%;
   margin-right: 9%;
 }
+
+//text
+.info-text-subtle{
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  padding-top: 15px;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #808080c4;
+}
+.info-text-subtle:hover {
+  color:white;
+}
+
 
 // Buttons
 .input-button-primary:hover {
@@ -176,6 +291,7 @@ $grid-breakpoints: (
   align-self: center;
   margin-top: 20px;
 }
+
 
 .input-button-primary:disabled {
   cursor: default;
@@ -224,6 +340,13 @@ h3 {
   border-color: $color-primary-border;
 }
 
+.alert-info {
+  color: white;
+  opacity: .8;
+  background-color: $color-primary;
+  border-color: $color-primary-border;
+}
+
 .alert-secondary {
   color: white;
   background-color: $color-secondary;
@@ -243,4 +366,21 @@ h3 {
 .fade {
   opacity: 0;
   transition: opacity .15s linear;
+}
+
+
+input:invalid {
+  background-color: rgba(231, 166, 100, 0);
+  border: 2px solid #e69140;
+  border-radius: 1.7px;
+}
+input:focus {
+  outline: none !important;
+  border: 2px solid rgba(30, 30, 30, 0.87);
+  border-radius: 2px;
+}
+
+// Font
+.text-center {
+  text-align: center;
 }

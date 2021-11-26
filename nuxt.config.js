@@ -44,7 +44,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Ein Makerspace in der Tabakfabrik Linz. Von der Schweißwerkstatt über CNC-Fräsen bis hin zu 3D-Druckern ist alles in unserer Werkstatt vorhanden.' }
     ],
     script: [
-      { hid: 'stripe', src: 'https://js.stripe.com/v3/', defer: true }
+      { hid: 'stripe', src: 'https://js.stripe.com/v3/', defer: true } //TODO deprecated
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
@@ -195,7 +195,6 @@ module.exports = {
     disabled: () => {
       // eslint-disable-next-line no-unused-vars
       const hasAcceptedAnalyticsCookie = localStorage.getItem('hasAcceptedAnalyticsCookie')
-      console.log('has accepted?: ', hasAcceptedAnalyticsCookie)
       if (hasAcceptedAnalyticsCookie === 'true') {
         return false
       } else {

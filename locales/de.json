@@ -99,7 +99,7 @@
   "belongs": "gehört",
   "toUsAll": "uns allen",
 
-  "allCourses": "Alles Kurse",
+  "allCourses": "Alle Kurse",
 
 
   "membersOnly": "Nur Members",
@@ -144,20 +144,22 @@
   "remainingCredits": "Restliche Credits",
   "deduct": "abziehen",
   "deducted": "abgezogen",
-  "redeemGiftCard": "Gutschein einlösen",
   "credits": "Credits",
-  "currentState": "aktueller Stand: ",
+  "currentStatus": "aktueller Stand: ",
   "creditCard": "Kreditkarte",
   "sepaMonthlyBill": "SEPA-Monatsrechnung",
-  "continue": "Weiter...",
+  "continue": "Weiter",
   "confirmation": "Bestätigung",
+  "sepaBill": "Bankeinzug",
+  "paymentProvider": "Zahlungsanbieter",
 
   "bindingRegistrationText": "Deine Anmeldung ist verbindlich. Solltest du doch nicht teilnehmen können, gib uns bitte umgehend Bescheid unter",
   "eventEmailAddress": "events@grandgarage.eu",
 
   "debitedFromCreditCard":  " von deiner Kreditkarte abgebucht.",
+  "invoiced":  " verrechnet.",
   "includedInYourMonthlyBill": "via SEPA-Monatsrechnung eingezogen.",
-  "fromYourCredits":"von deinen Credits.",
+  "fromYourCredits":"von deinen Credits",
   "bookFreeOfCharge": "Termin kostenlos buchen",
   "bookWorkshopLiableToPayTheCosts": "Workshop kostenpflichtig buchen",
   "workshopBooked": "Workshop gebucht!",
@@ -170,22 +172,32 @@
   "credit": "Gutschrift",
   "buyGiftCard": "Gutschein kaufen",
   "redeemGiftCard": "Gutschein einlösen",
-
+  "buy": "kaufen",
 
   "giftCardValue": "Gutschein-Wert:",
+  "giftCardNoticeYearlyDiscounted": "entspricht einer ermäßigten jährlichen Mitgliedschaft",
+  "giftCardNoticeYearlyRegular": "entspricht einer regulären jährlichen Mitgliedschaft",
   "extras": "Extras:",
   "free": "Gratis",
   "standardShipping": "Versand-Standard",
   "deluxeBox": "Deluxe-Box",
   "billingAddress": "Rechnungsadresse",
-  "reviewOrder": "Bestellung prüfen...",
+  "reviewOrder": "Bestellung prüfen",
+
 
   "redeem": "Einlösen",
   "buyLiableToPayTheCosts": "Kostenpflichtig bestellen",
+  "toPaymentProcess": "Weiter zum Zahlungsvorgang",
+  "payWithSepa": "mit SEPA-Einzug bezahlen",
   "purchaseCompleted":"Kauf abgeschlossen.",
   "receiptAndGiftCardViaMail": "Die Rechnung und deinen Gutschein erhältst du per Mail.",
   "giftCardCode": "Gutschein Code:",
   "phone": "Telefon",
+  "registerToRedeemGiftCard": "Bitte logge dich ein um deinen Gutschein einlösen zu könnnen!",
+  "ifNotAMemberGoAndRegister": "Solltest du noch kein Member sein kannst du dich jetzt unverbindlich\n auf unserer Webseite registrieren!",
+
+
+
 
   "contactDetails": "Kontaktdaten",
   "save": "Speichern",
@@ -201,14 +213,13 @@
   "myWorkshops": "Meine Workshops",
 
 
-  "firstRead": "Lies dir zuerst",
+  "firstRead": "Lies dir zuerst ",
   "andAnswerTheQuestions": "durch und beantworte dann die Fragen:",
   "pdfWithCourseInformation": "PDF mit Kursunterlagen",
 
   "letsStart": "Los geht's",
   "youHaveAnsweredAllQuestions": "Du hast alle Fragen beantwortet!",
   "sendAnswers": "Antworten absenden",
-
 
   "congrats": "Gratuliere!",
   "youHavePassedTheTest": "Du hast den Test bestanden!",
@@ -219,15 +230,14 @@
   "ohYouDidNotPassTheTest": "Oje, das hat leider nicht geklappt.",
   "pleaseReadTheSlidesAgain": "Bitte lies dir nochmal die Unterlagen durch.",
 
-
-
   "youHaveToConfirmYourEmailForRegistration": "Du musst zuerst deine E-Mail bestätigen um dich anmelden zu können.",
   "anotherVerificationEmailHasBeenSentTo": "Eine erneute Bestätigungs E-Mail wurde soeben an deine angegebene E-Mail Adresse gesandt.",
   "anErrorHasOccurred": "Ein Fehler ist aufgetreten:",
 
-  "purchaseFailedOrWasAborted": "Kauf fehlgeschlagen oder abgebrochen.",
-  "youCanFindOurContactInformation": "You can find our contact information",
-
+  "purchaseFailed": "Zahlungsvorgang fehlgeschlagen",
+  "purchaseFailedOrWasAborted": "Kauf fehlgeschlagen oder wurde abgebrochen.",
+  "thereIsNoPurchase": "Es wurde keine Abbuchung getätigt.",
+  "youCanFindOurContactInformation": "Bei Problemen kontaktiere uns",
 
   "openSafetyTraining": "Offene Sicherheitsschulungen",
   "myProfile": "Mein Profil",
@@ -236,7 +246,6 @@
   "receiptAndConfirmationViaMail": "Die Rechnung und eine Bestätigung erhältst du per Mail.",
   "becomeAMemberIn4simpleSteps":"In 4 Schritten zu deiner Mitgliedschaft!",
   "startSafetyTraining": "Sicherheits-Unterweisung starten",
-
 
   "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "Der erste Schritt zum GRAND GARAGE Membership ist geschafft!",
   "toCompleteOnboardingStartSafetyTraining": "Um deine Mitgliedschaft abzuschließen kannst du jetzt die allgemeine Sicherheitsunterweisung abschließen.",
@@ -291,5 +300,8 @@
   "yourContact": "Ihr Kontakt",
   "pressImages": "PRESSEBILDER",
   "download": "Herunterladen"
+
+
+
 
 }

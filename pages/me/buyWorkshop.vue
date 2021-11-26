@@ -4,7 +4,14 @@
       v-if="workshopDate != null"
       class="left-content"
     >
-      <h1>{{ $t('workshopBooking') }}</h1>
+    <span class="flex-center" style="margin-top: 2em;">
+      <h1 style="padding-right: 0.5em;">{{ $t('workshopBooking') }}</h1>
+      <loading-spinner
+        v-if="!userMetadata || !workshopDate"
+        color="#333"
+        style="display: contents;"
+      />
+    </span>
 
       <workshop-preview
         :id="workshopDate.content.workshop.uuid"
@@ -17,7 +24,7 @@
         :hide-register="true"
       />
 
-      <div class="spacer" />
+      <div class="spacer"/>
 
       <div v-if="step === 0 && userMetadata != null">
         <div>
@@ -39,7 +46,7 @@
             <div :class="['col', 'info', 'creditsOption']">
               <div class="first">
                 <input
-                  id="sepa"
+                  id="sepa_not_enough"
                   type="checkbox"
                   name="payment"
                   value="credits"
@@ -54,7 +61,7 @@
               </div>
               <button
                 class="input-button-primary creditsButton"
-                @click="$router.push(`giftcards?action=redeem&origin=${$route.query.uuid}`)"
+                @click="$router.push(`/de/gift?action=redeem&origin=${$route.query.uuid}`)"
               >
                 {{ $t('redeemGiftCard') }}
               </button>
@@ -71,7 +78,7 @@
             <div :class="['col', 'info', 'creditsOption', { disabled: !memberHasEnoughCredits }]">
               <div class="first">
                 <input
-                  id="sepa"
+                  id="sepa_credits"
                   type="radio"
                   :disabled="!memberHasEnoughCredits"
                   name="payment"
@@ -87,7 +94,7 @@
               </div>
               <button
                 class="input-button-primary creditsButton"
-                @click="$router.push(`giftcards?action=redeem&origin=${$route.query.uuid}`)"
+                @click="$router.push(`/de/gift?action=redeem&origin=${$route.query.uuid}`)"
               >
                 {{ $t('redeemGiftCard') }}
               </button>
@@ -100,13 +107,20 @@
             <div class="info-block">
               <div class="col info">
                 <input
-                  id="stripe"
+                  id="payment_provider"
                   type="radio"
                   name="payment"
-                  value="stripe"
-                  @click="paymentMethod = PAYMENT_METHODS.stripe"
+                  value="payment_provider"
+                  @click="paymentMethod = PAYMENT_METHODS.payment_provider"
                 >
-                <label for="stripe"> {{ $t('creditCard') }}</label><br>
+                <label for="payment_provider">{{ $t('paymentProvider') }} <br>
+                  <span class="silent-info ml-4">
+                      <div class="icon svg-icon paypal-icon"></div>
+                      <div class="icon svg-icon mastercard-icon"></div>
+                      <div class="icon svg-icon visa-icon"></div>
+                      <div class="icon svg-icon apple-pay-icon"></div>
+                    </span>
+                </label><br>
               </div>
             </div>
           </div>
@@ -125,11 +139,11 @@
                 value="sepa"
                 @click="paymentMethod = PAYMENT_METHODS.sepa"
               >
-              <label for="sepa"> {{ $t('sepaMonthlyBill') }}</label><br>
+              <label for="sepa"> {{ $t('sepaBill') }}</label><br>
             </div>
           </div>
         </div>
-        <div class="spacer" />
+        <div class="spacer"/>
 
         <div class="buttons">
           <button
@@ -145,27 +159,24 @@
       <div v-if="step == 1">
         <h2> {{ $t('confirmation') }}</h2>
 
-        <div
-          v-if="isFree"
-          class="confirmation"
-        >
+        <div v-if="isFree" class="confirmation">
           {{ $t('bindingRegistrationText') }} <a href="mailto:events@grandgarage.eu">{{ $t('eventEmailAddress') }}</a>
         </div>
         <div
           v-else
-          class="confirmation"
+          class="alert alert-info" role="alert"
         >
           <div v-if="useRemainingCredits">
-            {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }}EUR{{ $t('deducted') }}
+            <font-awesome-icon icon="info-circle"/> {{ $t('fromYourCredits') }} {{ credits === 1 ? 'wird' : 'werden' }} {{ credits }} € {{ $t('deducted') }}
           </div>
           <div v-if="paymentMethod === 1">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('debitedFromCreditCard') }}</strong>
+            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }} € {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('invoiced') }}</strong>
           </div>
           <div v-if="paymentMethod === 2">
-            <strong>{{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('includedInYourMonthlyBill') }}</strong>
+            <strong><font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }} € {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('includedInYourMonthlyBill') }}</strong>
           </div>
           <div v-if="paymentMethod === 3">
-            {{ finalWorkshopPrice }}EUR {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }}  {{ $t('fromYourCredits') }} ({{ credits }}EUR) {{ $t('deducted') }}
+            <font-awesome-icon icon="info-circle"/> {{ finalWorkshopPrice }} € {{ finalWorkshopPrice === 1 ? 'wird' : 'werden' }} {{ $t('fromYourCredits') }} ({{ credits }} €) {{ $t('deducted') }}
           </div>
         </div>
 
@@ -185,7 +196,8 @@
              {{ $t('bookFreeOfCharge') }}
             </template>
             <template v-else>
-              {{ $t('bookWorkshopLiableToPayTheCosts') }}
+              <span v-if="paymentMethod === 1">{{ $t('toPaymentProcess') }}</span>
+              <span v-else>{{ $t('bookWorkshopLiableToPayTheCosts') }}</span>
             </template>
           </button>
         </div>
@@ -197,13 +209,14 @@
           color="black"
         />
       </div>
-      <div v-if="step == 4">
-        {{ $t('workshopBooked') }}<br>
+      <div v-if="step == 4" >
+        <div class="alert alert-success text-center" role="alert">{{ $t('workshopBooked') }}</div>
+          <br>
         <button
           class="input-button-primary"
           @click="$router.push('workshopBookings')"
         >
-          {{ $t('displayMyWorkshops') }}
+         {{ $t('displayMyWorkshops') }}
         </button>
       </div>
       <div v-if="step == 99">
@@ -216,11 +229,12 @@
 <script>
 const PAYMENT_METHODS = {
   free: 0,
-  stripe: 1,
+  payment_provider: 1,
   sepa: 2,
   credits: 3
 }
 export default {
+  scrollToTop: true,
   name: 'BuyWorkshop',
   props: {},
   data () {
@@ -287,44 +301,47 @@ export default {
           break
       }
     },
-    redirect: function (data) {
-      // eslint-disable-next-line no-undef
-      const stripe = Stripe('pk_live_XCUCaJMt8kMEpedQdvmtMu4Z00rNP9VDun')
-      stripe.redirectToCheckout({
-        sessionId: data.session_id
-      })
-    },
-
     pay: function () {
       if (this.isFree) {
         this.paymentMethod = PAYMENT_METHODS.free
       }
+
       const data = {
         workshop_date_id: this.workshopDate.uuid,
         payment_method: this.paymentMethod,
         use_remaining_credits: this.useRemainingCredits
       }
-      this.$store.dispatch('bookWorkshop', data).then((data) => {
-        if (data.status >= 200 && data.status <= 300) {
+
+      this.$store.dispatch('bookWorkshop', data)
+        .then((response) => {
           switch (this.paymentMethod) {
-            case PAYMENT_METHODS.stripe:
-              this.redirect(data)
+            case PAYMENT_METHODS.payment_provider:
+              if (response.data.redirect_link) {
+                if (response.data.invoice_contact) {
+                  this.connectorInvoiceContact = response.data.invoice_contact
+                }
+                // Redirect to payrexx screen
+                window.location.href = response.data.redirect_link
+              } else {
+                console.log('Error: No payrexx redirect_link returned!', response.data)
+                throw new Error('No payrexx redirect_link returned!')
+              }
               break
             default:
               this.step = 4
               this.getWorkshop()
               this.reloadKey++
-              this.$toast.show('Der Workshop wurde erfolgreich gebucht!', {
-                className: 'goodToast'
-              })
+              break
           }
-        } else {
-          this.$sentry.captureException(new Error(data))
-
-          this.error = 'Leider ist ein Fehler aufgetreten.'
+        })
+        .catch((error) => {
+          console.log('error', error.response.data)
+          this.$sentry.captureException(new Error(error))
+          this.$toast.show(error.response.data.msg, {
+            theme: 'bubble'
+          })
           this.step = 99
-        }
-      })
+        })
     }
   }
 }
@@ -332,6 +349,52 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/styles.scss';
+
+.icon {
+  width: 26px;
+  height: 26px;
+}
+
+.svg-icon, .svg-h2 {
+  vertical-align: middle;
+  display: inline-grid;
+}
+
+.paypal-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+}
+
+.mastercard-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+}
+
+.visa-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+}
+
+.apple-pay-icon {
+  background-color: grey; /* defines the background color of the image */
+  mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+  -webkit-mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+}
+
+.silent-link, .silent-info {
+  font-size: 0.6em;
+}
+
+.silent-link {
+  cursor: pointer;
+}
+
+.silent-link:hover {
+  text-decoration: underline;
+}
 
 .workshop-overview {
   color: #000;
@@ -471,27 +534,34 @@ export default {
     }
   }
 }
+
 .creditsOption {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+
   & .creditsButton {
     margin: 0;
   }
+
   & .first {
     display: flex;
+
     & label {
       margin-left: 0.6em;
     }
   }
 }
+
 .disabled {
   color: grey;
 }
+
 .spinner {
   margin-top: 2em;
 }
+
 .confirmation {
   & div {
     padding: 0.2em 0em;
