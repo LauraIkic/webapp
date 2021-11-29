@@ -975,6 +975,9 @@ h2 {
       padding-top: 0.6vh;
     }
   }
+  .bottom-gift-card option{
+    display: contents;
+  }
 
   .headline {
     padding-left: 15vw;
