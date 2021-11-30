@@ -100,7 +100,7 @@ export default {
   data () {
     return {
       loading: false,
-      steps: ['index', 'contact', 'payment', 'done', 'confirmation'],
+      steps: ['index', 'contact', 'done', 'confirmation'],
       onboardingData: {
         /* paymentType: null,
         paymentFrequency: null, */
@@ -114,11 +114,11 @@ export default {
           birthdate: null,
           company: null
         },
-        sepaAccepted: false,
+        /*       sepaAccepted: false,
         payment: {
           iban: null
         },
-        ibanIsValid: false,
+        ibanIsValid: false,*/
         referrer: ''
       }
     }
@@ -136,8 +136,8 @@ export default {
           const requiredKeys = ['address', 'city', 'zip', 'phone', 'birthdate']
           return !!requiredKeys.filter(k => !data.profile[k]).length
         }
-        case 'payment':
-          return !(data.ibanIsValid && data.sepaAccepted)
+        /*      case 'payment':
+          return !(data.ibanIsValid && data.sepaAccepted)*/
         default:
           return false
       }

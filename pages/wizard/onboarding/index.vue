@@ -25,7 +25,7 @@
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
       <label for="checkbox">{{ $t('iHaveReadThe') }} <a
           href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
-          target="new">{{ $t('factoryRules') }}</a> {{ $t(' andAcceptTheTermsAndConditions') }}</label>
+          target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>
     </div>
   </div>
 </template>
