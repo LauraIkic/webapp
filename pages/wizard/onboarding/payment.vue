@@ -1,4 +1,3 @@
-<!--<script src="../../../utils/helper.js"></script>-->
 <template>
   <div class="section onboarding-wizard">
     <h2>{{ $t('howWouldYouPreferToPay') }}</h2>
@@ -45,8 +44,7 @@
 </template>
 
 <script>
-import { helpers } from '../../../utils/helper'
-
+import IBAN from 'iban'
 const FREQS = {
   monthly: 1,
   annually: 2
@@ -74,7 +72,11 @@ export default {
   },
   methods: {
     validate (iban) {
-      const isValid = helpers.validateIban(iban)
+      if (!iban) {
+        return
+      }
+      iban = iban.replace(/\s/g, '') // Remove spaces
+      const isValid = IBAN.isValid(iban)
       this.mutableOnBoarding.ibanIsValid = isValid
       return isValid
     }
