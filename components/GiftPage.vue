@@ -172,7 +172,7 @@
                       <div v-if="invoiceContact.sepa_mandate_agreed"></div>
                     </div>
                     <div class="spacer"></div>
-                    <div v-if="sepaActive && hasIban" class="input gg-card" @click="paymentMethod='2'">
+                    <div v-if="sepaActive && ibanIsValid" class="input gg-card" @click="paymentMethod='2'">
                       <input
                         v-model="paymentMethod"
                         type="radio"
@@ -526,8 +526,7 @@ export default {
       sepa_active: false,
       shippingstreet: [],
       loading: false,
-      sepaActive: false,
-      hasIban: false
+      sepaActive: false
     }
   },
   computed: {
@@ -550,8 +549,8 @@ export default {
     validPayment () {
       return this.paymentMethod !== 0
     },
-    validSepa () {
-      return 2
+    ibanIsValid () {
+      return helpers.validateIban(this.invoiceContact.iban)
     }
   },
   watch: {
@@ -569,7 +568,6 @@ export default {
         .then((data) => {
           this.invoiceContact = data.data.invoice_contact
           this.sepaActive = data.data.sepa_active
-          this.hasIban = data.data.has_iban
         })
         .catch((error) => {
           console.log(error.response.status, error.response.data.msg)
