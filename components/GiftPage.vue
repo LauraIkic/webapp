@@ -61,6 +61,9 @@
             <div v-if="step === 0" class="giftcardForm">
               <div class="gift-card-body">
                 <section class="buy-gift-cards">
+                  <div class="description-gift-card">
+                    <markdown :value="blok.Title" />
+                  </div>
                   <div class="input gg-card" @click="selectedProductId='719'">
                     <input type="radio" value="719" v-model="selectedProductId">
                     <span> {{ $t('giftCardValue') }} </span>
@@ -551,6 +554,9 @@ export default {
     },
     ibanIsValid () {
       return helpers.validateIban(this.invoiceContact.iban)
+    },
+     images () {
+       return this.blok.Images
     }
   },
   watch: {
@@ -960,6 +966,14 @@ h2 {
   justify-content: space-around;
   padding-left: 11vw;
   padding-right: 11vw;
+
+  .description-gift-card {
+    height: 100%;
+    width: 100%;
+    @media screen and (min-width: 1000px) {
+      width: 86%;
+    }
+  }
 
   .bottom-gift-card {
     display: flex;
