@@ -183,12 +183,23 @@
                         value="2">
                       {{ $t('sepaBill') }}
                     </div>
+                    <div v-else-if="sepaActive && !ibanIsValid" class="input disabled">
+                      <input
+                          disabled
+                          type="radio"
+                          name="paymentMethod"
+                          value="0">
+                      {{ $t('sepaBill') }} <br>
+                      <span class="silent-info ml-1">
+                      <font-awesome-icon icon="exclamation-triangle"/> {{ $t('invalidOrMissingIban') }}
+                      </span>
+                    </div>
                     <div v-else class="input disabled">
                       <input
-                        disabled
-                        type="radio"
-                        name="paymentMethod"
-                        value="0">
+                          disabled
+                          type="radio"
+                          name="paymentMethod"
+                          value="0">
                       {{ $t('sepaBill') }} <br>
                       <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
                       <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
