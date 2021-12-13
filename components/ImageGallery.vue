@@ -1,7 +1,7 @@
 <template>
   <div v-editable="blok" class="image-gallery">
     <div
-        v-for="s in blok.block"
+        v-for="s in blok.Images"
         :key="s._uid"
         class="image-row"
         :style="{ 'background-image': 'url(' + $resizeImage(s.image, '450x500') + ')', 'width': '350px'}" />
