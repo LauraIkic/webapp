@@ -61,6 +61,9 @@
             <div v-if="step === 0" class="giftcardForm">
               <div class="gift-card-body">
                 <section class="buy-gift-cards">
+                  <div class="description-gift-card">
+                    <markdown :value="blok.Title" />
+                  </div>
                   <div class="input gg-card" @click="selectedProductId='719'">
                     <input type="radio" value="719" v-model="selectedProductId">
                     <span> {{ $t('giftCardValue') }} </span>
@@ -172,7 +175,7 @@
                       <div v-if="invoiceContact.sepa_mandate_agreed"></div>
                     </div>
                     <div class="spacer"></div>
-                    <div v-if="sepaActive && hasIban" class="input gg-card" @click="paymentMethod='2'">
+                    <div v-if="sepaActive && ibanIsValid" class="input gg-card" @click="paymentMethod='2'">
                       <input
                         v-model="paymentMethod"
                         type="radio"
@@ -526,8 +529,7 @@ export default {
       sepa_active: false,
       shippingstreet: [],
       loading: false,
-      sepaActive: false,
-      hasIban: false
+      sepaActive: false
     }
   },
   computed: {
@@ -550,8 +552,11 @@ export default {
     validPayment () {
       return this.paymentMethod !== 0
     },
-    validSepa () {
-      return 2
+    ibanIsValid () {
+      return helpers.validateIban(this.invoiceContact.iban)
+    },
+     images () {
+       return this.blok.Images
     }
   },
   watch: {
@@ -569,7 +574,6 @@ export default {
         .then((data) => {
           this.invoiceContact = data.data.invoice_contact
           this.sepaActive = data.data.sepa_active
-          this.hasIban = data.data.has_iban
         })
         .catch((error) => {
           console.log(error.response.status, error.response.data.msg)
@@ -814,6 +818,9 @@ h2 {
 .spacer {
   width: 2em;
   height: 2vh;
+  @include media-breakpoint-down(sm) {
+    width: 0px;
+  }
 }
 
 //////////FIRST-PAGE//////////////////////////////////////////
@@ -960,6 +967,14 @@ h2 {
   padding-left: 11vw;
   padding-right: 11vw;
 
+  .description-gift-card {
+    height: 100%;
+    width: 100%;
+    @media screen and (min-width: 1000px) {
+      width: 86%;
+    }
+  }
+
   .bottom-gift-card {
     display: flex;
     flex-flow: row;
@@ -971,6 +986,9 @@ h2 {
     .image {
       padding-top: 0.6vh;
     }
+  }
+  .bottom-gift-card option{
+    display: contents;
   }
 
   .headline {
@@ -1005,6 +1023,9 @@ h2 {
   align-content: center;
   align-items: center;
   justify-content: center;
+  @include media-breakpoint-down(sm) {
+   flex-flow: column;
+  }
 }
 
 .logged-out-payment {
