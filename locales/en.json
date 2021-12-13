@@ -61,6 +61,7 @@
   "yearly": "Yearly",
   "registerNow": "Register now",
   "joinNow": "Join now",
+  "invalidOrMissingIban": "Iban is missing or invalid",
 
   "discounted": " Discounted",
   "p.m.": "p.m.",
