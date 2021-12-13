@@ -191,7 +191,7 @@
                           value="0">
                       {{ $t('sepaBill') }} <br>
                       <span class="silent-info ml-1">
-                      <font-awesome-icon icon="exclamation-triangle"/> {{ $t('ibanExclamation') }}
+                      <font-awesome-icon icon="exclamation-triangle"/> {{ $t('invalidOrMissingIban') }}
                       </span>
                     </div>
                     <div v-else class="input disabled">
