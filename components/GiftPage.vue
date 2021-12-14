@@ -20,39 +20,42 @@
         <loading-spinner v-if="loading" class="loading-spinner ml-05"/>
       </h2>
       <template v-if="!action">
-        <div class="items">
-          <section class="display-item">
-            <div class="top">
-              <div class="top-image"></div>
-            </div>
-            <div class="bottom">
-              <div class="bottom-text">
-                {{ $t('buyGiftCard') }}
+          <div class="description-gift-card">
+            <markdown :value="blok.Title" />
+          </div>
+          <div class="items">
+            <section class="display-item">
+              <div class="top">
+                <div class="top-image"></div>
               </div>
-              <div class="buy-redeem-button"
-                   @click="$router.push('gift?action=buy')">
-                {{ $t('buy') }}
+              <div class="bottom">
+                <div class="bottom-text">
+                  {{ $t('buyGiftCard') }}
+                </div>
+                <div class="buy-redeem-button"
+                     @click="$router.push('gift?action=buy')">
+                  {{ $t('buy') }}
+                </div>
               </div>
-            </div>
-          </section>
-          <div class="spacer"></div>
-          <br>
-          <section class="display-item">
-            <div class="top">
-              <div class="top-image"></div>
-            </div>
-            <div class="bottom">
-              <div class="bottom-text">
-                {{ $t('redeemGiftCard') }}
+            </section>
+            <div class="spacer"></div>
+            <br>
+            <section class="display-item">
+              <div class="top">
+                <div class="top-image"></div>
               </div>
-              <div class="buy-redeem-button"
-                   @click="$router.push('gift?action=redeem')">
-                {{ $t('redeem') }}
+              <div class="bottom">
+                <div class="bottom-text">
+                  {{ $t('redeemGiftCard') }}
+                </div>
+                <div class="buy-redeem-button"
+                     @click="$router.push('gift?action=redeem')">
+                  {{ $t('redeem') }}
+                </div>
               </div>
-            </div>
-          </section>
-          <br>
-        </div>
+            </section>
+            <br>
+          </div>
       </template>
 
       <transition name="fade">
@@ -60,10 +63,10 @@
           <template v-if="action === 'buy'">
             <div v-if="step === 0" class="giftcardForm">
               <div class="gift-card-body">
+                <div class="description-gift-card">
+                  <markdown :value="blok.Title" />
+                </div>
                 <section class="buy-gift-cards">
-                  <div class="description-gift-card">
-                    <markdown :value="blok.Title" />
-                  </div>
                   <div class="input gg-card" @click="selectedProductId='719'">
                     <input type="radio" value="719" v-model="selectedProductId">
                     <span> {{ $t('giftCardValue') }} </span>
@@ -857,6 +860,7 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 10vh;
+  margin-top: 2em;
 
   .display-item {
     border-radius: 15px;
@@ -966,14 +970,6 @@ h2 {
   justify-content: space-around;
   padding-left: 11vw;
   padding-right: 11vw;
-
-  .description-gift-card {
-    height: 100%;
-    width: 100%;
-    @media screen and (min-width: 1000px) {
-      width: 86%;
-    }
-  }
 
   .bottom-gift-card {
     display: flex;
@@ -1219,6 +1215,18 @@ h2 {
   @include media-breakpoint-down(xs) {
     margin: 20px;
     padding: 19px;
+  }
+}
+.description-gift-card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  @include media-breakpoint-up(md) {
+    width: 92%;
+  }
+  @include media-breakpoint-down(sm) {
+    padding: 0 11vw;
   }
 }
 </style>
