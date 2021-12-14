@@ -639,6 +639,20 @@ const createStore = () => {
           this.$sentry.captureException(res)
         })
       },
+      loadWorkshops ({ state }) {
+        return this.$storyapi.get('cdn/stories', {
+          filter_query: {
+            component: {
+              in: 'workshops'
+            }
+          },
+          per_page: 50,
+          version: version,
+          cv: state.cacheVersion
+        }).then((res) => {
+          return res.data
+        })
+      },
       findWorkshops ({ state }, filters) {
         return this.$storyapi.get('cdn/stories', {
           ...filters,
