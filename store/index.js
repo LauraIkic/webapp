@@ -643,7 +643,7 @@ const createStore = () => {
         return this.$storyapi.get('cdn/stories', {
           filter_query: {
             component: {
-              in: 'workshops'
+              in: 'workshop'
             }
           },
           per_page: 50,

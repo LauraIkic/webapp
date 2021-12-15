@@ -146,12 +146,17 @@ export default {
     }
   },
   async asyncData  (context) {
-    const workshops = await context.store.dispatch('findWorkshops').then((data) => {
-      if (data) {
-        return { workshops: data }
-      }
-      return { workshops: [] }
-    })
+    const workshops = await context.store
+        .dispatch('loadWorkshops')
+        .catch(e => {
+          context.error({
+            statusCode: e.response.status,
+            message: e.response.statusText
+          })
+        })
+        .then(res => {
+          return { workshops: res.stories }
+        })
     return { ...workshops }
   }
 }
