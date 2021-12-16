@@ -646,9 +646,10 @@ const createStore = () => {
               in: 'workshop'
             }
           },
-          per_page: 50,
+          per_page: 100,
           version: version,
-          cv: state.cacheVersion
+          cv: state.cacheVersion,
+          sort_by: 'content.title:asc'
         }).then((res) => {
           return res.data
         })
