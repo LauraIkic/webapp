@@ -2,55 +2,6 @@
   <section class="workshop-overview">
     <div class="workshop-filters">
       <div class="filters">
-        <!--
-        <div class="tags">
-          <div class="headline">Themen</div>
-          <div class="tag-list">
-            <div v-for="t in tags" :key="t.key" class="tag">
-              <checkbox
-                v-model="t.value"
-                class="tag"
-                theme="white"
-                >{{t.name}}</checkbox>
-            </div>
-          </div>
-          <div class="headline">Options</div>
-          <div class="tag-list">
-            <div class="tag">
-              <checkbox
-                v-model="filter.members_only"
-                class="tag"
-                theme="white"
-                >Members only</checkbox>
-            </div>
-            <div class="tag">
-              <checkbox
-                v-model="filter.free_only"
-                class="tag"
-                theme="white"
-                >freie Plätze</checkbox>
-            </div>
-          </div>
-          <div class="headline">Kategorie</div>
-          <div class="tag-list">
-            <div v-for="c in categories" :key="c.key" class="tag">
-              <checkbox
-                v-model="c.value"
-                class="tag"
-                theme="white"
-                >{{c.name}}</checkbox>
-            </div>
-          </div>
-        </div>
-        <div class="calendar">
-          <date-pick v-model="date" :hasInputElement="false"></date-pick>
-          <div class="reset">
-            <div v-if="date != ''" class="all" @click="resetDate()">
-              <span>Alle anzeigen</span>
-            </div>
-          </div>
-        </div>
-        -->
       </div>
       <!--      <CovidInfobox />-->
       <div class="search">
@@ -58,17 +9,6 @@
       </div>
       <loading class="loading" v-if="loading"></loading>
     </div>
-    <!--
-      <div class="workshop-orders">
-      <div class="headline">
-      Sortieren nach:
-      </div>
-      <div class="order-list">
-      <div class="order-item" v-for="o in orders">
-      </div>
-      </div>
-      </div>
-    -->
     <div class="workshop-list-wrapper">
       <div v-if="workshops && workshops.length > 0" class="workshop-list">
         <transition-group name="list">
@@ -241,17 +181,6 @@ export default {
           color: #FFF;
           user-select: none;
           cursor: pointer;
-          /* input[type=checkbox] {
-             outline: none;
-             -webkit-appearance: none;
-             padding: 5px;
-             border: 1px solid #FFF;
-             border-radius: 3px;
-             position: relative;
-             top: 0;
-             &:checked {
-               background-color: #FFF;
-             }*/
         }
       }
     }
