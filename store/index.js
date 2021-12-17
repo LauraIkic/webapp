@@ -660,7 +660,7 @@ const createStore = () => {
           version: version,
           cv: state.cacheVersion,
           resolve_relations: 'workshop',
-          sort_by: 'content.starttime:asc',
+          sort_by: 'content.starttime:desc',
           per_page: 100
         }).then((res) => {
           const workshopdates = res.data.stories.reverse()
