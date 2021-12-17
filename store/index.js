@@ -646,9 +646,10 @@ const createStore = () => {
               in: 'workshop'
             }
           },
-          per_page: 50,
+          per_page: 100,
           version: version,
-          cv: state.cacheVersion
+          cv: state.cacheVersion,
+          sort_by: 'content.title:asc'
         }).then((res) => {
           return res.data
         })
@@ -659,7 +660,7 @@ const createStore = () => {
           version: version,
           cv: state.cacheVersion,
           resolve_relations: 'workshop',
-          sort_by: 'content.starttime:asc',
+          sort_by: 'content.starttime:desc',
           per_page: 100
         }).then((res) => {
           const workshopdates = res.data.stories.reverse()
@@ -684,7 +685,7 @@ const createStore = () => {
           ...filters,
           version: version,
           cv: state.cacheVersion,
-          sort_by: 'content.starttime:asc',
+          sort_by: 'content.starttime:desc',
           per_page: 100
         }).then((res) => {
           return res.data.stories
