@@ -20,39 +20,42 @@
         <loading-spinner v-if="loading" class="loading-spinner ml-05"/>
       </h2>
       <template v-if="!action">
-        <div class="items">
-          <section class="display-item">
-            <div class="top">
-              <div class="top-image"></div>
-            </div>
-            <div class="bottom">
-              <div class="bottom-text">
-                {{ $t('buyGiftCard') }}
+          <div class="description-gift-card">
+            <markdown :value="blok.Title" />
+          </div>
+          <div class="items">
+            <section class="display-item">
+              <div class="top">
+                <div class="top-image"></div>
               </div>
-              <div class="buy-redeem-button"
-                   @click="$router.push('gift?action=buy')">
-                {{ $t('buy') }}
+              <div class="bottom">
+                <div class="bottom-text">
+                  {{ $t('buyGiftCard') }}
+                </div>
+                <div class="buy-redeem-button"
+                     @click="$router.push('gift?action=buy')">
+                  {{ $t('buy') }}
+                </div>
               </div>
-            </div>
-          </section>
-          <div class="spacer"></div>
-          <br>
-          <section class="display-item">
-            <div class="top">
-              <div class="top-image"></div>
-            </div>
-            <div class="bottom">
-              <div class="bottom-text">
-                {{ $t('redeemGiftCard') }}
+            </section>
+            <div class="spacer"></div>
+            <br>
+            <section class="display-item">
+              <div class="top">
+                <div class="top-image"></div>
               </div>
-              <div class="buy-redeem-button"
-                   @click="$router.push('gift?action=redeem')">
-                {{ $t('redeem') }}
+              <div class="bottom">
+                <div class="bottom-text">
+                  {{ $t('redeemGiftCard') }}
+                </div>
+                <div class="buy-redeem-button"
+                     @click="$router.push('gift?action=redeem')">
+                  {{ $t('redeem') }}
+                </div>
               </div>
-            </div>
-          </section>
-          <br>
-        </div>
+            </section>
+            <br>
+          </div>
       </template>
 
       <transition name="fade">
@@ -60,6 +63,9 @@
           <template v-if="action === 'buy'">
             <div v-if="step === 0" class="giftcardForm">
               <div class="gift-card-body">
+                <div class="description-gift-card">
+                  <markdown :value="blok.Title" />
+                </div>
                 <section class="buy-gift-cards">
                   <div class="input gg-card" @click="selectedProductId='719'">
                     <input type="radio" value="719" v-model="selectedProductId">
@@ -172,25 +178,40 @@
                       <div v-if="invoiceContact.sepa_mandate_agreed"></div>
                     </div>
                     <div class="spacer"></div>
-                    <div v-if="sepaActive && hasIban" class="input gg-card" @click="paymentMethod='2'">
-                      <input
-                        v-model="paymentMethod"
-                        type="radio"
-                        name="paymentMethod"
-                        value="2">
-                      {{ $t('sepaBill') }}
-                    </div>
-                    <div v-else class="input disabled">
-                      <input
-                        disabled
-                        type="radio"
-                        name="paymentMethod"
-                        value="0">
-                      {{ $t('sepaBill') }} <br>
-                      <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
-                      <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
+                    <span v-if="sepaActive">
+                        <div v-if="ibanIsValid" class="input gg-card" @click="paymentMethod='2'">
+                          <input
+                            v-model="paymentMethod"
+                            type="radio"
+                            name="paymentMethod"
+                            value="2">
+                          {{ $t('sepaBill') }}
+                        </div>
+                        <div v-else class="input disabled">
+                          <input
+                            disabled
+                            type="radio"
+                            name="paymentMethod"
+                            value="0">
+                          {{ $t('sepaBill') }} <br>
+                          <span class="silent-info ml-1">
+                          <font-awesome-icon icon="exclamation-triangle"/> {{ $t('invalidOrMissingIban') }}
+                          </span>
+                        </div>
+                      </span>
+                    <span v-else>
+                      <div class="input disabled">
+                        <input
+                          disabled
+                          type="radio"
+                          name="paymentMethod"
+                          value="0">
+                        {{ $t('sepaBill') }} <br>
+                        <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
+                        <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
+                      </span>
+                      </div>
                     </span>
-                    </div>
                   </div>
                 </div>
                 <h2 class="headline"> {{ $t('billingAddress') }}</h2>
@@ -526,8 +547,7 @@ export default {
       sepa_active: false,
       shippingstreet: [],
       loading: false,
-      sepaActive: false,
-      hasIban: false
+      sepaActive: false
     }
   },
   computed: {
@@ -550,8 +570,11 @@ export default {
     validPayment () {
       return this.paymentMethod !== 0
     },
-    validSepa () {
-      return 2
+    ibanIsValid () {
+      return helpers.validateIban(this.invoiceContact.iban)
+    },
+    images () {
+      return this.blok.Images
     }
   },
   watch: {
@@ -569,7 +592,6 @@ export default {
         .then((data) => {
           this.invoiceContact = data.data.invoice_contact
           this.sepaActive = data.data.sepa_active
-          this.hasIban = data.data.has_iban
         })
         .catch((error) => {
           console.log(error.response.status, error.response.data.msg)
@@ -853,6 +875,7 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 10vh;
+  margin-top: 2em;
 
   .display-item {
     border-radius: 15px;
@@ -976,6 +999,10 @@ h2 {
     }
   }
 
+  .bottom-gift-card option {
+    display: contents;
+  }
+
   .headline {
     padding-left: 15vw;
     margin-top: 2em;
@@ -1009,7 +1036,7 @@ h2 {
   align-items: center;
   justify-content: center;
   @include media-breakpoint-down(sm) {
-   flex-flow: column;
+    flex-flow: column;
   }
 }
 
@@ -1190,7 +1217,8 @@ h2 {
     border: 1px solid $color-secondary-border;
   }
 }
-.container-box{
+
+.container-box {
   margin-left: auto;
   margin-right: auto;
   @include media-breakpoint-down(md) {
@@ -1204,6 +1232,18 @@ h2 {
   @include media-breakpoint-down(xs) {
     margin: 20px;
     padding: 19px;
+  }
+}
+.description-gift-card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  @include media-breakpoint-up(md) {
+    width: 92%;
+  }
+  @include media-breakpoint-down(sm) {
+    padding: 0 11vw;
   }
 }
 </style>

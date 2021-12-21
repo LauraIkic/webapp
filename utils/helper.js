@@ -1,3 +1,5 @@
+import IBAN from 'iban'
+
 export const helpers = {
 
   /**
@@ -19,5 +21,12 @@ export const helpers = {
       }
       const regex = /^(([^<>()[\],;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
       return regex.test(String(email).toLowerCase())
+    },
+    validateIban (iban) {
+        if (!iban) {
+            return false
+        }
+        iban = iban.replace(/\s/g, '') // Remove spaces
+        return IBAN.isValid(iban)
     }
 }

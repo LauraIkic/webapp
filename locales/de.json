@@ -60,6 +60,7 @@
   "yearly": "Jährlich",
   "registerNow": "Jetzt registrieren",
   "joinNow": "Jetzt Mitglied werden",
+  "invalidOrMissingIban": "Iban fehlt oder ist ungültig",
 
   "discounted": " Ermäßigt",
   "p.m.": "p.m.",

@@ -3,6 +3,7 @@
     <div class="workshop-filters">
       <div class="filters">
       </div>
+      <!--      <CovidInfobox />-->
       <div class="search">
         <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
@@ -84,24 +85,18 @@ export default {
       }
     }
   },
-  async asyncData (context) {
-    // let tags = await context.store.dispatch("loadTags");
-    const filters = {
-      filter_query: {
-        component: {
-          in: 'workshop-date'
-        },
-        starttime: {
-          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
-        }
-      }
-    }
-    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
-      if (data) {
-        return { workshops: data }
-      }
-      return { workshops: [] }
-    })
+  async asyncData  (context) {
+    const workshops = await context.store
+        .dispatch('loadWorkshops')
+        .catch(e => {
+          context.error({
+            statusCode: e.response.status,
+            message: e.response.statusText
+          })
+        })
+        .then(res => {
+          return { workshops: res.stories }
+        })
     return { ...workshops }
   }
 }
@@ -186,17 +181,6 @@ export default {
           color: #FFF;
           user-select: none;
           cursor: pointer;
-          /* input[type=checkbox] {
-             outline: none;
-             -webkit-appearance: none;
-             padding: 5px;
-             border: 1px solid #FFF;
-             border-radius: 3px;
-             position: relative;
-             top: 0;
-             &:checked {
-               background-color: #FFF;
-             }*/
         }
       }
     }
