@@ -1,6 +1,7 @@
 <template>
   <div class="section">
     <h2>{{ $t('contactDetails') }}</h2>
+    {{invoiceContact}}
       <form class="form">
       <!--
       <div class="form-item">
@@ -33,7 +34,7 @@
         <input class="input-text" type="number" v-model="onboardingData.profile.zip" name="" id="onboarding_zip"/>
       </div>
       <div class="form-item">
-        <span class="label">{{ $t('city') }} <span class="red">*</span></span>
+        <span class="label">{{ $t('city/location') }} <span class="red">*</span></span>
         <input class="input-text" type="text" v-model="onboardingData.profile.city" name="" id="onboarding_city"/>
       </div>
       <div class="form-item">
@@ -55,13 +56,33 @@ export default {
   },
   data () {
     return {
-      loading: false
+      loading: false,
+      invoiceContact: {}
     }
   },
+
   mounted () {
     this.$refs.firstInput.focus()
   },
-  computed: {
+  methods: {
+    loadUserData () {
+      this.loading = true
+      this.$store.dispatch('getUserMetadata')
+        .then((data) => {
+          this.invoiceContact = data.data.invoice_contact
+          this.sepaActive = data.data.sepa_active
+          this.hasIban = data.data.has_iban
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.data.msg)
+          this.$toast.show('Ein Fehler ist aufgetreten', {
+            theme: 'bubble'
+          })
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    }
   }
 }
 </script>

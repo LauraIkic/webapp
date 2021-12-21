@@ -21,6 +21,12 @@
         <li>{{ $t('specialConditions') }}</li>
       </ul>
     </div>
+    <div class="membership-information">
+      Bei einer jährlichen Zahlung schenken wir dir zwei Monate Mitgliedschaft GRATIS!
+      Dein Mitgliedsbeitrag sowie zusätzlich anfallende Kosten (Materialkosten, Getränke, etc.) werden von meinem Konto per SEPA-Lastschrift abgebucht.
+    </div>
+    <br>
+    <br>
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
       <label for="checkbox">{{ $t('iHaveReadThe') }} <a
@@ -76,6 +82,11 @@ export default {
     max-width: 60%;
     margin-left: auto;
     margin-right: auto;
+  }
+  .membership-information{
+    display:flex;
+    max-width: 1000px;
+    text-align:center;
   }
   .name {
     font-weight: bolder;

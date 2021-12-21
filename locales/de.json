@@ -82,6 +82,7 @@
   "address": "Adresse",
   "streetAndHouseNumber": "Straße und Hausnummer",
   "city": "Stadt",
+  "city/location": "Stadt/Ort",
   "zipCode": "PLZ",
   "yourPassword": "Dein Passwort",
   "reenterPassword": "Passwort (wiederholen)",

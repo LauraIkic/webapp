@@ -31,7 +31,6 @@
   "thankYouForFeedback": "Thank you for your feedback!",
   "back": "Back",
 
-
   "name": "Name",
   "yourName": "Your name",
   "e-mailAddress": "E-mail address",
@@ -83,6 +82,7 @@
   "address": "Address",
   "streetAndHouseNumber": "Street and house number",
   "city": "City",
+  "city/location": "City/location",
   "zipCode": "ZIP-code",
   "yourPassword": "Your password",
   "reenterPassword": "Reenter password",
@@ -95,7 +95,6 @@
 
   "sentConfirmationLink": "We have sent you an email with a confirmation link.",
   "onceAccountConfirmed": "Once you have confirmed your account, you can get started.",
-
 
   "theFuture": "The future",
   "belongs": "belongs",
@@ -120,7 +119,6 @@
   "machinesForProject": "Machines used for this project",
   "personBehindTheProject": "The person behind the project",
 
-
   "blog": "BLOG",
   "toBlog": "To Blog",
 
@@ -136,7 +134,6 @@
   "more": "more",
   "date": "Date",
   "time": "Time",
-
 
   "invoice": "Invoice",
 
@@ -165,7 +162,6 @@
   "bookWorkshopLiableToPayTheCosts": "Book workshops liable to pay the costs",
   "workshopBooked": "Workshop booked!",
   "displayMyWorkshops": "Display my workshops",
-
 
   "myCredits": "My credits:",
   "giftCard": "Gift card",
@@ -201,8 +197,6 @@
   "phone": "Phone",
   "registerToRedeemGiftCard": "In order to redeem a gift card you have to be logged into your user account!",
   "ifNotAMemberGoAndRegister": "If have not created a user profile yet, you can do so by registering now!",
-
-
 
   "contactDetails": "Contact details",
   "save": "Save",
@@ -258,7 +252,6 @@
 
   "howDidYouLearnAboutUs": "How did you learn about us?",
 
-
   "welcomeToTheGG": "Welcome to the GRAND GARAGE!",
 
   "memberBenefitsText":"By signing up for a membership you become a part of our vibrant community, which will not only enable you access to our machines and devices, but also offer free WIFI and a personalized member card ",
@@ -268,7 +261,6 @@
   "ifYouHaveAnyQuestionsRegardingYourMembership": "If you have any questions regarding your membership",
   "doNotHesitateToAskOurFrontdeskTeam": "do not hesitate to ask our frontdesk team!",
   "#makersgonnamake": "#MAKERSGONNAMAKE",
-
 
   "differentCardListing": "4you card, student-ID, apprentices (under the age of 28), disability card",
   "pleaseBringAccordingID": "Please bring the according ID along, when visiting us for the first time",
@@ -293,7 +285,6 @@
   "necessaryCookies": "Necessary cookies",
   "analyticsCookies": "Analytics cookies",
   "adjustCookiePreferences": "You can always change your cookie-settings - to do so, go to your browser settings and select \"Cookie-settings\".",
-
 
   "press": "Press",
   "pressReleases": "Press releases",
