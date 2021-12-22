@@ -1,8 +1,8 @@
 <template>
   <div class="section">
-    <h2>{{ $t('contactDetails') }}</h2>
-    {{invoiceContact}}
-      <form class="form">
+      <h2>{{ $t('signupMakerSpace') }}</h2>
+      <p>{{ $t('beforeYouCanStart') }}</p>
+    <form class="form">
       <!--
       <div class="form-item">
         <span class="label">Vorname</span>
@@ -15,7 +15,8 @@
       -->
       <div class="form-item">
         <span class="label">{{ $t('dateOfBirth') }}<span class="red">*</span></span>
-        <input class="input-text" ref="firstInput" type="date" v-model="onboardingData.profile.birthdate" name="" id="onboarding_birthdate"/>
+        <input class="input-text" ref="firstInput" type="date" v-model="onboardingData.profile.birthdate" name=""
+               id="onboarding_birthdate"/>
       </div>
       <div class="form-item">
         <span class="label">{{ $t('phone') }} <span class="red">*</span></span>
@@ -27,7 +28,8 @@
       </div>
       <div class="form-item">
         <span></span>
-        <input class="input-text" type="text" v-model="onboardingData.profile.address2" name="" id="onboarding_address2"/>
+        <input class="input-text" type="text" v-model="onboardingData.profile.address2" name=""
+               id="onboarding_address2"/>
       </div>
       <div class="form-item">
         <span class="label">{{ $t('zipCode') }} <span class="red">*</span></span>
@@ -46,6 +48,8 @@
 </template>
 
 <script>
+import { helpers } from '../../../utils/helper'
+
 export default {
   middleware: 'authenticated',
   props: {
@@ -64,14 +68,23 @@ export default {
   mounted () {
     this.$refs.firstInput.focus()
   },
+  computed: {
+    user () {
+      if (this.$store.state.user) {
+        this.loadUserData()
+      }
+      return this.$store.state.user
+    },
+    invoice () {
+      return this.invoiceContact
+    }
+  },
   methods: {
     loadUserData () {
       this.loading = true
       this.$store.dispatch('getUserMetadata')
         .then((data) => {
           this.invoiceContact = data.data.invoice_contact
-          this.sepaActive = data.data.sepa_active
-          this.hasIban = data.data.has_iban
         })
         .catch((error) => {
           console.log(error.response.status, error.response.data.msg)
@@ -89,13 +102,22 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
+
 .form {
   margin-left: -6em;
+  @include media-breakpoint-down(md) {
+    margin-left: 0em;
+  }
 }
+
 .red {
   color: $color-red;
 }
+
 .form-item {
   min-width: 27em;
+  @include media-breakpoint-down(md) {
+    min-width: auto;
+  }
 }
 </style>

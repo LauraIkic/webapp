@@ -120,7 +120,8 @@ export default {
         },
         ibanIsValid: false,*/
         referrer: ''
-      }
+      },
+      invoiceContact: {}
     }
   },
   computed: {
@@ -153,6 +154,22 @@ export default {
     this.getData()
   },
   methods: {
+    loadUserData () {
+      this.loading = true
+      this.$store.dispatch('getUserMetadata')
+        .then((data) => {
+          this.invoiceContact = data.data.invoice_contact
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.data.msg)
+          this.$toast.show('Ein Fehler ist aufgetreten', {
+            theme: 'bubble'
+          })
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
     getData () {
       if (sessionStorage.getItem('onboardingData')) {
         this.onboardingData = JSON.parse(sessionStorage.getItem('onboardingData'))

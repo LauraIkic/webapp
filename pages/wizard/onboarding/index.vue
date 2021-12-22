@@ -22,8 +22,7 @@
       </ul>
     </div>
     <div class="membership-information">
-      Bei einer jährlichen Zahlung schenken wir dir zwei Monate Mitgliedschaft GRATIS!
-      Dein Mitgliedsbeitrag sowie zusätzlich anfallende Kosten (Materialkosten, Getränke, etc.) werden von meinem Konto per SEPA-Lastschrift abgebucht.
+      {{ $t('additionalInformationPayment') }}
     </div>
     <br>
     <br>
@@ -79,14 +78,17 @@ export default {
   .our-rates {
     margin-top:5%;
     margin-bottom: 5%;
-    max-width: 60%;
     margin-left: auto;
     margin-right: auto;
+    @include media-breakpoint-up(md) {
+      max-width: 60%;
+    }
   }
   .membership-information{
     display:flex;
     max-width: 1000px;
     text-align:center;
+    margin-bottom: 10%;
   }
   .name {
     font-weight: bolder;

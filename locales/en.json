@@ -93,6 +93,9 @@
   "conditionsOfParticipation": "Conditions of participation",
   "dataPrivacyPolicy": "Data privacy policy",
   "register": "Register",
+  "additionalInformationPayment": "By selecting a yearly membership you get 2 months for FREE!\n ",
+  "signupMakerSpace": "Sign up for a membership",
+  "beforeYouCanStart": "",
 
   "sentConfirmationLink": "We have sent you an email with a confirmation link.",
   "onceAccountConfirmed": "Once you have confirmed your account, you can get started.",
