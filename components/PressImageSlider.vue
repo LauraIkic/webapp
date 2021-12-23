@@ -91,10 +91,9 @@ export default {
 .slide-image-title{
   display: flex;
   flex-flow: column;
-  height: 150px;
+  height: inherit;
   align-content: initial;
   justify-content: end;
-  margin-top:40%;
   transition: 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
   width: inherit;
   @include media-breakpoint-down(md) {
@@ -105,7 +104,7 @@ export default {
 }
 .image-title {
   transition: 0.5s cubic-bezier(.02,-0.15,.74,.05);
-  transform: translate(18%, -200%);
+  transform: translate(18%, -15%);
   opacity: 0;
   color: white;
   display: flex;
@@ -134,6 +133,7 @@ export default {
     flex-flow: row;
     height: 3vh;
     width: 400px;
+    margin-top: 3%;
     justify-content: center;
     .download-text{
       display: flex;
