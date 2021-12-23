@@ -59,14 +59,6 @@
           />
         </div>
       </div>
-      <!--              <div class="blogFeed-detail">
-                      <div :key="i" v-for="i in item.content.contentBloks" class="right-content">
-                          <span v-if="item.content.contentBloks">
-                            <span v-if="i.text" class="content-text"><vue-markdown>{{ i.text }}</vue-markdown></span>
-                            <span v-if="i.image" class="img"><img :src="$resizeImage(i.image, '600x0')" alt=""/></span>
-                          </span>
-                      </div>
-                    </div>-->
       <div class="maker" v-if="(person != null && person.length !=0) || (member != null && member.length !=0)">
         <div class="name"> {{ $t('personBehindTheProject') }}</div>
         <div class="display-makers">
@@ -82,45 +74,8 @@
           />
         </div>
       </div>
-      <!--        <div v-if="item.content.links && item.content.links.length != 0">
-                <links-slideshow :blok="links"></links-slideshow>
-              </div>-->
     </div><div class="foot-spacer"></div>
     </div>
-    <!--      <div v-else>
-            <div class="header">
-              <div class="header-image" :style="{ 'background-image': 'url(' + item.image + ')' }"></div>
-              <div class="header-title">
-                <h4>{{ item.title }}</h4>
-                <voting-button v-if="item.content.voting" is-on-detail="true" :uuid="item.uuid"></voting-button>
-
-              </div>
-            </div>
-            <div class="blogFeed-detail">
-              <div class="left-content">
-                <span class="info-block">{{ item.datetime | date }}</span>
-                {{ item }}
-                &lt;!&ndash;<a v-if="item.link.url && item.link.url != ''" :href="item.link.url" class="info-block"><img v-if="item.source.length != 0" class="source-img" :src="`/icons/${item.source}.png`"></a>&ndash;&gt;
-              </div>
-              <div class="right-content">
-                <div class="teaser">
-                  {{ item.teaser }}
-                </div>
-                <div>
-                  {{ item.text }}
-                </div>
-
-              </div>
-            </div>
-            <div class="images" v-if="item.images && item.images.length != 0">
-              <image-slideshow :blok="images"></image-slideshow>
-            </div>
-
-            </div>
-            <div v-if="item.links && item.links.length != 0">
-              <links-slideshow :blok="links"></links-slideshow>
-            </div>
-      </div>-->
 </template>
 
 <script>
@@ -338,6 +293,11 @@ export default {
   padding-left: 4vw;
   font-family: Chakra Petch;
   margin-top: 5vh;
+  @include media-breakpoint-down(md) {
+    padding-left: 0vw;
+    display: flex;
+    justify-content: center;
+  }
   @include media-breakpoint-down(sm) {
     font-size: 1.9rem;
   }
@@ -417,26 +377,28 @@ export default {
 }
 
 .display-machines {
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-top: 2vh;
-  margin-bottom: 20vh;
-  @include media-breakpoint-down(sm) {
-    margin-bottom: 15vh;
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
     flex-flow: column;
     margin-bottom: 1vh;
   }
 }
 
 .display-makers {
-  margin-top: 2vh;
+  margin-top: 5vh;
   display: flex;
   flex-flow: column;
   @include media-breakpoint-down(sm) {
+    margin-top: auto;
     display: flex;
     justify-content: center;
   }

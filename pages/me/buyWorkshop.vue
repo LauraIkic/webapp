@@ -61,7 +61,7 @@
               </div>
               <button
                 class="input-button-primary creditsButton"
-                @click="$router.push(`/gift?action=redeem&origin=${$route.query.uuid}`)"
+                @click="$router.push(`/de/gift?action=redeem&origin=${$route.query.uuid}`)"
               >
                 {{ $t('redeemGiftCard') }}
               </button>
@@ -94,7 +94,7 @@
               </div>
               <button
                 class="input-button-primary creditsButton"
-                @click="$router.push(`/gift?action=redeem&origin=${$route.query.uuid}`)"
+                @click="$router.push(`/de/gift?action=redeem&origin=${$route.query.uuid}`)"
               >
                 {{ $t('redeemGiftCard') }}
               </button>
