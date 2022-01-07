@@ -85,7 +85,6 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
 .workshop-item {
   max-width: 100%;
   flex-direction: column;
