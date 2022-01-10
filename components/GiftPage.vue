@@ -178,36 +178,40 @@
                       <div v-if="invoiceContact.sepa_mandate_agreed"></div>
                     </div>
                     <div class="spacer"></div>
-                    <div v-if="sepaActive && ibanIsValid" class="input gg-card" @click="paymentMethod='2'">
-                      <input
-                        v-model="paymentMethod"
-                        type="radio"
-                        name="paymentMethod"
-                        value="2">
-                      {{ $t('sepaBill') }}
-                    </div>
-                    <div v-else-if="sepaActive && !ibanIsValid" class="input disabled">
-                      <input
-                          disabled
-                          type="radio"
-                          name="paymentMethod"
-                          value="0">
-                      {{ $t('sepaBill') }} <br>
-                      <span class="silent-info ml-1">
-                      <font-awesome-icon icon="exclamation-triangle"/> {{ $t('invalidOrMissingIban') }}
+                    <span v-if="sepaActive">
+                        <div v-if="ibanIsValid" class="input gg-card" @click="paymentMethod='2'">
+                          <input
+                            v-model="paymentMethod"
+                            type="radio"
+                            name="paymentMethod"
+                            value="2">
+                          {{ $t('sepaBill') }}
+                        </div>
+                        <div v-else class="input disabled">
+                          <input
+                            disabled
+                            type="radio"
+                            name="paymentMethod"
+                            value="0">
+                          {{ $t('sepaBill') }} <br>
+                          <span class="silent-info ml-1">
+                          <font-awesome-icon icon="exclamation-triangle"/> {{ $t('invalidOrMissingIban') }}
+                          </span>
+                        </div>
                       </span>
-                    </div>
-                    <div v-else class="input disabled">
-                      <input
+                    <span v-else>
+                      <div class="input disabled">
+                        <input
                           disabled
                           type="radio"
                           name="paymentMethod"
                           value="0">
-                      {{ $t('sepaBill') }} <br>
-                      <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
-                      <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
+                        {{ $t('sepaBill') }} <br>
+                        <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
+                        <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
+                      </span>
+                      </div>
                     </span>
-                    </div>
                   </div>
                 </div>
                 <h2 class="headline"> {{ $t('billingAddress') }}</h2>
@@ -569,8 +573,8 @@ export default {
     ibanIsValid () {
       return helpers.validateIban(this.invoiceContact.iban)
     },
-     images () {
-       return this.blok.Images
+    images () {
+      return this.blok.Images
     }
   },
   watch: {
@@ -994,7 +998,8 @@ h2 {
       padding-top: 0.6vh;
     }
   }
-  .bottom-gift-card option{
+
+  .bottom-gift-card option {
     display: contents;
   }
 
@@ -1031,7 +1036,7 @@ h2 {
   align-items: center;
   justify-content: center;
   @include media-breakpoint-down(sm) {
-   flex-flow: column;
+    flex-flow: column;
   }
 }
 
@@ -1212,7 +1217,8 @@ h2 {
     border: 1px solid $color-secondary-border;
   }
 }
-.container-box{
+
+.container-box {
   margin-left: auto;
   margin-right: auto;
   @include media-breakpoint-down(md) {
