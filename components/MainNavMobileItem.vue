@@ -155,6 +155,7 @@ export default {
       bottom: 0;
       background: $color-blue;
       color: #fff;
+      z-index: 1;
       .level-header {
         display: flex;
         justify-content: space-between;
