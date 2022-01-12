@@ -247,12 +247,16 @@
   "receiptAndConfirmationViaMail": "You will receive the invoice and the confirmation by mail.",
   "becomeAMemberIn4simpleSteps":"Become a member in 4 simple steps!",
   "startSafetyTraining": "Start your safety training",
+  "nextStepsAfterASU": "Please visit our frontdesk team after finishing the general safety quiz. There we will complete your onboarding process and a personal member card will be handed to you",
+  "ourOpeningHours": "Our opening hours",
+  "weAreLookingForwardToWelcomeYou":"We are looking forward to seeing you!",
 
   "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "You made the first steps towards becoming a GRAND GARAGE member!",
   "toCompleteOnboardingStartSafetyTraining":"In order to complete your registration process you can start the safety training now.",
 
   "dateOfBirth": "Date of birth",
   "company": "company",
+  "cooperation": "Cooperation",
 
   "howDidYouLearnAboutUs": "How did you learn about us?",
 
@@ -274,6 +278,7 @@
   "factoryRules": "Factory rules",
   "monthlyPayment": "monthly payment",
   "yearlyPayment": "yearly payment",
+  "inOrderToWorkSafely": "In order to use our equipment safely we advice you to read our factory rules!",
 
   "twoMonthsForFree": "Hint: By choosing a yearly membership you get 2 months for free!",
   "howWouldYouPreferToPay": "How would you prefer to pay?",

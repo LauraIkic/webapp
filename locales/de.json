@@ -257,14 +257,18 @@
   "activities": "Aktivitäten",
 
   "receiptAndConfirmationViaMail": "Die Rechnung und eine Bestätigung erhältst du per Mail.",
-  "becomeAMemberIn4simpleSteps":"In 4 Schritten zu deiner Mitgliedschaft!",
+  "becomeAMemberIn4simpleSteps":"In wenigen Schritten zu deiner Mitgliedschaft!",
   "startSafetyTraining": "Sicherheits-Unterweisung starten",
+  "nextStepsAfterASU": "Bitte komm nach absolvierter online-ASU zum Frontdesk, um dein Onboarding persönlich abzuschließen und dir deine Membercard abzuholen. ",
+  "ourOpeningHours": "Unsere Öffnungszeiten",
+  "weAreLookingForwardToWelcomeYou":"Wir freuen uns auf dich in der offenen Werkstätte GRAND GARAGE! ",
 
   "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "Wir freuen uns, dass du nun Teil des Makerspace GRAND GARAGE bist! Wir wünschen dir viel Spaß mit deinen Projekten und stehen dir gerne mit Rat & Tat zur Seite!",
   "toCompleteOnboardingStartSafetyTraining": "Im nächsten Schritt, bitten wir dich mit der Allgemeinen Sicherheitsunterweisung (ASU) zu starten:",
 
   "dateOfBirth": "Geburtsdatum",
   "company": "Firma",
+  "cooperation": "Kooperation über",
 
   "howDidYouLearnAboutUs": "Wie hast du von uns erfahren?",
 
@@ -291,6 +295,7 @@
   "factoryRules": "Werkstattordnung",
   "monthlyPayment": "monatliche Zahlung",
   "yearlyPayment": "jährliche Zahlung",
+  "inOrderToWorkSafely": "Um sicher in unseren Werkstätten arbeiten zu können ist es erforderlich, dass du die folgende Werkstattordung ließt!!",
 
   "twoMonthsForFree": "Tipp: Bei jährlicher Zahlung bekommst du 2 Monate geschenkt.",
   "howWouldYouPreferToPay": "Wie möchtest du zahlen?",

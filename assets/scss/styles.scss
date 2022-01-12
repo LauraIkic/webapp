@@ -186,6 +186,7 @@ $grid-breakpoints: (
 .flex-center {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .content-card, .list-item {
   background-color: white;

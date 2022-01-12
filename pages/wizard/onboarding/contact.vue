@@ -40,7 +40,7 @@
         <input class="input-text" type="text" v-model="onboardingData.profile.city" name="" id="onboarding_city"/>
       </div>
       <div class="form-item">
-        <span class="label">{{ $t('company') }}</span>
+        <span class="label">{{ $t('cooperation') }}</span>
         <input class="input-text" type="text" v-model="onboardingData.profile.company" name="" id="onboarding_company"/>
       </div>
     </form>
@@ -67,6 +67,13 @@ export default {
 
   mounted () {
     this.$refs.firstInput.focus()
+    this.onboardingData.profile.address2 = 'Wuhu test3'
+  },
+  updated () {
+    this.onboardingData.profile.address = this.user.profile.address
+    this.onboardingData.profile.address2 = this.user.profile.address2
+    this.onboardingData.profile.zip = this.user.profile.zip
+    this.onboardingData.profile.city = this.user.profile.city
   },
   computed: {
     user () {

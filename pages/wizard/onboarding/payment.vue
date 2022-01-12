@@ -35,7 +35,6 @@
         </div>
       </div>
     </form>
-
     <div class="wizard-checkbox">
       <input id="checkbox" type="checkbox" name="checkbox" v-model="mutableOnBoarding.sepaAccepted">
       <label for="checkbox">{{ $t('sepaAgreementFormText') }}</label>

@@ -24,6 +24,7 @@
     <div class="membership-information">
       {{ $t('additionalInformationPayment') }}
     </div>
+    <div> {{ $t('inOrderToWorkSafely') }}</div>
     <br>
     <br>
     <div>
