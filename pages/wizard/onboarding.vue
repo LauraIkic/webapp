@@ -88,20 +88,20 @@
             </button>
           </div>
         </div>
-        <p v-if="activeStep === 'confirmation'" class="confirmation-footer">
+        <div v-if="activeStep === 'confirmation'" class="confirmation-footer">
           {{ $t('nextStepsAfterASU') }}
           <br>
-          {{ $t('ourOpeningHours') }}
-          Öffnungszeiten
-          <br>
-          Do und Fr, 14:00 - 20:00 Uhr
-          <br>
-          Sa, 10:00 - 20:00 Uhr
-          <br>
-          Feiertags geschlossen
-          <br>
+          <p style="font-weight: bold">{{ $t('ourOpeningHours') }}
+            <br>
+            Do und Fr, 14:00 - 20:00 Uhr
+            <br>
+            Sa, 10:00 - 20:00 Uhr
+            <br>
+            Feiertags geschlossen
+            <br>
+          </p>
           {{ $t('weAreLookingForwardToWelcomeYou') }}
-        </p>
+        </div>
       </div>
     </div>
   </div>
@@ -346,10 +346,15 @@ export default {
       }
     }
   }
-  .confirmation-footer{
+  .confirmation-footer {
     display: flex;
     max-width: 1000px;
     text-align: center;
+    flex-flow: column;
+    @include media-breakpoint-down(sm) {
+      max-width: 90%;
+      margin-left: 5%;
+    }
   }
   .input-button-primary:disabled {
     cursor: default;
