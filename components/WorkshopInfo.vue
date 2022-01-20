@@ -105,8 +105,8 @@ export default {
     position: relative;
     display: flex;
     align-items: flex-start;
-    @include media-breakpoint-up(md) {
-      margin-left: 25%;
+    @include media-breakpoint-up(lg) {
+      margin-left: 10%;
     }
     .workshop-dates {
       width: 100%;

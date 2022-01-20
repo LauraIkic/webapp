@@ -522,6 +522,7 @@ export default {
 <style lang="scss">
 .preview {
   pointer-events: none;
+  padding: 1em;
 
   .preview-wrapper {
     .workshop-preview {
