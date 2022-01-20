@@ -20,14 +20,14 @@
           <div class="col info">
             <icon name="clock"/>
             <span>{{ formatTime(d.content.starttime) }}</span>
-            <span v-if="d.content.endtime"> {{ $t('until') }}{{ formatTime(d.content.endtime) }}</span>
+            <span v-if="d.content.endtime"> {{ $t('until')+' ' }}{{ formatTime(d.content.endtime) }}</span>
             <span>{{ $t('oClock') }}</span>
 
             <div v-if="d.content.endtime2">
               <br>
               <icon name="clock"/>
               <span>{{ formatTime(d.content.starttime2) }}</span>
-              <span v-if="d.content.endtime2"> {{ $t('until') }} {{ formatTime(d.content.endtime2) }}</span>
+              <span v-if="d.content.endtime2"> {{ $t('until'+' ') }} {{ formatTime(d.content.endtime2) }}</span>
               <span>{{ $t('oClock') }}</span>
             </div>
           </div>
@@ -48,7 +48,7 @@
             v-if="metadata != null && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col"
           >
-            <span>{{ $t('price') }}{{ metadata[d.uuid].price }}EUR</span>
+            <span>{{ $t('price')+' ' }}{{ metadata[d.uuid].price+'&nbsp;'}}EUR</span>
           </div>
 
           <div
@@ -181,6 +181,9 @@ export default {
     margin-top: 4px;
     padding: 10px;
     background-color: #FFF;
+    @media (max-width: 700px) {
+      margin-bottom: 10px;
+    }
 
     &.soldOut {
       color: #666;
@@ -194,17 +197,16 @@ export default {
     }
 
     .info-row {
-      @include media-breakpoint-down(md) {
-        flex-direction: column;
-      }
       line-height: 1.6;
       font-family: $font-mono;
       font-size: 0.9rem;
       font-weight: bold;
       margin: -8px;
-      display: flex;
 
       .info-block {
+        @media (max-width: 700px) {
+          flex-direction: column;
+        }
         flex: 1;
         flex-direction: row;
         display: flex;
@@ -213,6 +215,7 @@ export default {
       .col {
         padding: 4px;
         align-items: center;
+        margin-right: 45px;
 
         &.soldOut {
           color: $color-orange;
@@ -222,6 +225,10 @@ export default {
         &.register {
           display: flex;
           background-color: $color-orange;
+          margin: 0 5px 5px 0;
+          @media (max-width: 700px) {
+            align-self: flex-start;
+          }
 
           a {
             color: #FFF;
