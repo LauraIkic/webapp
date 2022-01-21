@@ -1,31 +1,34 @@
 <template>
   <div>
-    <div class="preview-wrapper">
-      <div class="member-preview">
-        <nuxt-link
-          v-if="story"
-          class="story"
-          :to="'/' + story.full_slug"
-        >
-          <h2 class="name">
+    <nuxt-link
+        v-if="story"
+        :to="'/' +story.full_slug"
+    >
+      <div class="member-list-item">
+        <div class="imageMember">
+          <img
+              v-if="member.image"
+              class="pictureMember"
+              :src="$resizeImage(member.image, '450x450')"
+              alt=""
+          >
+          <img
+              v-if="member.image_alt"
+              :src="$resizeImage(member.image_alt, '450x450')"
+              alt=""
+              class="pictureMember image-alt"
+          >
+        </div>
+        <div class="body">
+          <div class="name">
             {{ member.name }}
-          </h2>
-          <div class="info">
-            <p class="title">
-              {{ member.title }}
-            </p>
-
-            <div
-              v-if="member.email"
-              class="email"
-            >
-              <img src="~/assets/img/icons/envelope.svg">
-              <p>{{ member.email }}</p>
-            </div>
           </div>
-        </nuxt-link>
+          <div class="title">
+            {{member.title}}
+          </div>
+        </div>
       </div>
-    </div>
+    </nuxt-link>
   </div>
 </template>
 
@@ -35,6 +38,9 @@ export default {
   computed: {
     member () {
       return this.story.content
+    },
+    tags () {
+      return this.story.tag_list
     }
   },
   methods: {
@@ -45,89 +51,58 @@ export default {
 <style lang="scss" scoped>
 @import "/assets/scss/styles.scss";
 
-.preview-wrapper {
-  width: 100%;
+a {
+  text-decoration: none;
+  color: #000;
+  &:active,
+  &:focus {
+    color: #000;
+  }
+}
+
+.member-list-item {
   display: flex;
-  justify-content: center;
-  @include media-breakpoint-up(md) {
-    min-height: 130px;
-  }
-  .phone, .email {
-    display: none;
-  }
-
-  .member-preview {
-    width: 100%;
+  flex-direction: column;
+  margin-bottom: 25px;
+  .imageMember {
     position: relative;
-    @include media-breakpoint-down(sm) {
-
-      padding: 3vh 0;
-      border-bottom: 1px dashed #aaa;
-      &:before {
-        content: "";
-        position: absolute;
-        border-top: #000 0.15em solid;
-        border-right: #000 0.15em solid;
-        transform: rotateZ(45deg);
-        transform-origin: top right;
-        height: .3em;
-        width: .3em;
-        right: 2%;
-        top: 50%;
+    flex: 1;
+    padding-top: 1.4em;
+    display: block;
+    width: 100%;
+    &:hover {
+      .image-alt {
+        display: inline;
+        padding-top: 1.4em;
       }
     }
-
-    .phone, .email {
-      img {
-        margin: 7px 15px 0 0;
-        width: auto;
-        height: .9em;
-      }
+    .image-alt {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 99;
     }
-
-    .story {
-      display: block;
-      cursor: pointer;
-      text-decoration: none;
-      color: #000;
-
-      @include media-breakpoint-up(md) {
-        padding: 30px;
-      }
-
-      .banner {
-        height: 200px;
-        background-size: cover;
-        background-position: center;
-      }
-
-      .name {
-        margin: 0 0 20px 0;
-        font-size: 1.5rem;
-        font-family: $font-secondary;
-      }
-
-      .info {
-        p {
-          margin: 6px 0 0 0;
-        }
-
-        font-size: 1rem;
-        font-family: $font-mono;
-      }
+    .pictureMember {
+      width: 100%;
     }
   }
-  @include media-breakpoint-up(md) {
-    .member-preview:hover {
-      background-color: $color-yellow;
-
-      .title {
-        display: none;
-      }
-
-      .phone, .email {
-        display: flex;
-      }
+  .body {
+    flex: 2;
+    padding: 20px 0;
+    .name {
+      font-family: $font-secondary;
+      font-size: 1.2rem;
+      margin-bottom: .4em;
+    }
+    .title {
+      font-size: 0.9rem;
+      color: $color-blue;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+      letter-spacing: 0.05em;
+      font-weight: 400;
+      word-wrap: break-word;
     }
   }
 }

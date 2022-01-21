@@ -15,7 +15,7 @@
           <div class="title">
             {{ content.title }}
           </div>
-          <div class="tags">
+          <div class="machine-tags">
             <span :key="tag.id" v-for="(tag, index) in tags">
               {{ tag }}<span v-if="index+1 < tags.length">, </span>
             </span>
@@ -40,7 +40,7 @@
         <div class="title">
           {{ content.title }}
         </div>
-        <div class="tags">
+        <div class="machine-tags">
           <span :key="tag.id" v-for="(tag, index) in tags">
             {{ tag }}<span v-if="index+1 < tags.length">, </span>
           </span>
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
+@import "/assets/scss/styles.scss";
 a {
   text-decoration: none;
   color: #000;
@@ -98,7 +98,7 @@ a {
       font-size: 1.2rem;
       margin-bottom: .4em;
     }
-    .tags {
+    .machine-tags {
       font-size: 0.9rem;
       color: $color-blue;
       text-transform: uppercase;
