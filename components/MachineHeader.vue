@@ -8,7 +8,7 @@
       v-if="machine.title"
       class="header-title"
     >
-      <div class="tags">
+      <div class="machine-tags">
         <span :key="tag.id" v-for="(tag, index) in tags">
           {{ tag }}<span v-if="index+1 < tags.length">, </span>
         </span>
@@ -86,7 +86,7 @@ export default {
     background-color: #FFF;
     padding: 7vh;
     min-width: 60%;
-    .tags {
+    .machine-tags {
       color: $color-blue;
       text-transform: uppercase;
       margin-bottom: .8rem;
