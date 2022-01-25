@@ -126,11 +126,11 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .team-wrapper {
-  padding: 45% 10% 0 10%;
+  padding: 10% 10% 0% 10%;
   position: relative;
 
   @media (max-width: $mobile-small) {
-    padding-top: 200px;
+    padding-top: 100px;
   }
 
   .image {
@@ -171,11 +171,11 @@ export default {
 
     .subline {
       font-family: $font-mono;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       margin-bottom: 80px;
       line-height: 1.5;
       @include media-breakpoint-down(sm) {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
       }
     }
   }
@@ -183,6 +183,7 @@ export default {
 
 .tags {
   padding: 8vh 0;
+  margin-top: 2%;
   @include media-breakpoint-down(sm) {
     padding: 4vh 0;
   }
