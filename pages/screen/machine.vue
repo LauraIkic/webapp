@@ -66,7 +66,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findMachines', this.filters).then((data) => {
+      this.$store.dispatch('findItems', this.filters).then((data) => {
         this.loading = false
         this.machines = data.stories
       })
