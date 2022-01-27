@@ -75,6 +75,7 @@ export default {
 .team-image-slider {
   color: $color-blue;
   .text {
+    @include margin-page-wide;
     padding: 5rem 0 0;
     @include media-breakpoint-down(sm) {
       padding: 5rem 0 1rem;
@@ -83,9 +84,7 @@ export default {
     font-family: $font-secondary;
     line-height: 1.4;
     letter-spacing: 1.4px;
-    @include media-breakpoint-down(lg) {
-      margin-left: 4%;
-    }
+    margin-bottom: 30px;
   }
   .swiper-container {
     height: 40vh;
@@ -110,15 +109,14 @@ export default {
     background-size: 12px;
   }
   .reference {
+    @include margin-page-wide;
     font-family: $font-mono;
     font-size: 1.4rem;
     @include media-breakpoint-down(sm) {
       font-size: 1.2rem;
     }
     color: black;
-    @include media-breakpoint-down(lg) {
-      margin-left: 4%;
-    }
+    margin-top: 30px;
   }
 }
 </style>

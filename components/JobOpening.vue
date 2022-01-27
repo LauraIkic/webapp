@@ -160,6 +160,7 @@ export default {
     }
     .inner-content {
       padding: 0 20px 20px 20px;
+      line-height: 1.5;
     }
   }
 }

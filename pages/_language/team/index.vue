@@ -147,7 +147,7 @@ export default {
   .team {
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: 40px 40px 0;
     background-color: #f2f3ee;
 
     @media (max-width: $mobile-small) {
@@ -172,7 +172,7 @@ export default {
     .subline {
       font-family: $font-mono;
       font-size: 0.9rem;
-      margin-bottom: 80px;
+      margin-bottom: 10px;
       line-height: 1.5;
       @include media-breakpoint-down(sm) {
         font-size: 0.7rem;
