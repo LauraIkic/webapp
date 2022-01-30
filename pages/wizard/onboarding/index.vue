@@ -4,6 +4,8 @@
     <p class="text">
       {{ $t('memberBenefitsText') }}
       <br>
+      {{ $t('niceToSeeYouHere') }}
+      <br><br>
       {{ $t('memberPerksText') }}
       <br><br>
       {{ $t('ifYouHaveAnyQuestionsRegardingYourMembership') }}
@@ -16,8 +18,8 @@
       <h3>{{ $t('ourRates') }}</h3>
       <ul>
         <li>{{ $t('regular/month') }}</li>
-        <li>{{ $t('discounted/month') }}</li>
-        <li>{{ $t('differentCardListing') }}{{ $t('pleaseBringAccordingID') }} </li>
+        <li>{{ $t('discounted/month') }} <br> * {{ $t('differentCardListing') }}{{ $t('pleaseBringAccordingID') }} </li>
+
         <li>{{ $t('specialConditions') }}</li>
       </ul>
     </div>
@@ -89,7 +91,7 @@ export default {
     display:flex;
     max-width: 1000px;
     text-align:center;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
   }
   .name {
     font-weight: bolder;
