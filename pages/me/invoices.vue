@@ -25,8 +25,10 @@
           #{{ invoice.human_readable_id }}
         </div>
         <div class="status">
-          Status: <span :class="[[4, 5].includes(invoice.status) ? 'green' : 'yellow']">{{ getStatus(invoice.status)
-          }}</span>
+          Status:
+          <span :class="[[4, 5, 11].includes(invoice.status) ? 'green' : 'noStatus']">{{ getStatus(invoice.status) }}</span>
+          <span :class="[[2, 3, 8].includes(invoice.status) ? 'yellow' : 'noStatus']">{{ getStatus(invoice.status) }}</span>
+          <span :class="[[6, 10].includes(invoice.status) ? 'red' : 'noStatus']">{{ getStatus(invoice.status) }}</span>
         </div>
         <div
           v-if="invoice.has_attachment"
@@ -45,7 +47,7 @@ export default {
   data () {
     return {
       invoices: null,
-      statuses: ['In Bearbeitung', 'Bestellt', 'Versendet', 'Bezahlt', 'Bezahlt', 'Abbuchung wurde noch nicht durchgeführt', 'Noch nicht Bezahlt'],
+      statuses: ['In Bearbeitung', 'Bestellt', 'Versendet', 'Bezahlt', 'Bezahlt', 'Abbuchung wurde noch nicht durchgeführt', 'Kein Eingang gefunden', 'Sepa-Auftrag erstelt', 'Gratis', 'Storno', 'Gut geschrieben'],
       highlightedId: null
     }
   },
@@ -143,8 +145,16 @@ export default {
       color: green;
     }
 
+    & .red {
+      color: red;
+    }
+
     & .yellow {
       color: $color-orange;
+    }
+
+    & .noStatus {
+      display: none;
     }
 
     & .status {
