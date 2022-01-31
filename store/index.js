@@ -464,8 +464,25 @@ const createStore = () => {
           this.$sentry.captureException(err)
         })
       },
-      loadTags ({ state }) {
-        return this.$storyapi.get('cdn/tags', {}).then((res) => {
+      loadTagsMachine ({ state }) {
+        return this.$storyapi.get('cdn/tags', {
+          filter_query: {
+            component: {
+              in: 'machine'
+            }
+          }
+        }).then((res) => {
+          return res.data.tags
+        })
+      },
+      loadTagsTeam ({ state }) {
+        return this.$storyapi.get('cdn/tags', {
+          filter_query: {
+            component: {
+              in: 'team-member'
+            }
+          }
+        }).then((res) => {
           return res.data.tags
         })
       },
@@ -616,7 +633,7 @@ const createStore = () => {
           this.$sentry.captureException(res)
         })
       },
-      findMachines ({ state }, filters) {
+      findItems ({ state }, filters) {
         return this.$storyapi.get('cdn/stories', {
           ...filters,
           version: version,

@@ -11,50 +11,113 @@
         <div class="subline">
           <markdown :value="story.content.introduction"></markdown>
         </div>
-        <div class="member-grid">
-          <team-member-preview :key="m.id" v-for="m in members" :story="m"></team-member-preview>
+      </div>
+    </div>
+    <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
+      <div class="expander" @click="toggleTags()">
+      </div>
+      <div class="headline">
+        {{ $t('departments') }}
+      </div>
+      <div class="tag-list">
+        <div v-for="t in tags" :key="t.key" class="tag">
+          <checkbox
+              v-model="t.value"
+              class="tag"
+              theme="white"
+          >{{t.name}}</checkbox>
         </div>
       </div>
     </div>
-    <div
-      class="image-footer"
-      :style="{ 'background-image': 'url(' + $resizeImage(story.content.footerImage, '1600x0') + ')' }"
-    ></div>
-    <!--
-    <component v-if="story && story.content && story.content.component" :key="story.content._uid" :blok="story.content" :is="story.content.component" />
-    -->
+    <div class="member-list-wrapper">
+      <div v-if="members && members.length > 0" class="member-list">
+        <transition-group name="list">
+          <team-member-preview :key="item.id" v-for="item in members" :story="item" class="list-item"></team-member-preview>
+        </transition-group>
+      </div>
+      <div v-else class="member-list-none">
+     </div>
+    </div>
+    <div>
+      <team-image-slider :story="footer"></team-image-slider>
+    </div>
   </section>
 </template>
 
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+import Checkbox from '~/components/Checkbox.vue'
 
 export default {
-  data () {
-    return {
-      story: null
-    }
+  components: {
+    Checkbox
   },
   mixins: [storyblokLivePreview],
+  data () {
+    return {
+      story: null,
+      tagsCollapsed: true
+    }
+  },
+  created () {
+    this.$watch('tags', (newVal, oldVal) => {
+      this.update()
+    }, { deep: true })
+  },
+  methods: {
+    toggleTags () {
+      this.tagsCollapsed = !this.tagsCollapsed
+    },
+    update () {
+      this.$store.dispatch('findItems', this.filters).then((data) => {
+        this.members = data.stories
+      })
+    }
+  },
+  computed: {
+    footer () {
+      return this.story.content.footer
+    },
+    filters () {
+      return {
+        filter_query: {
+          component: {
+            in: 'team-member'
+          }
+        },
+        with_tag: this.filterTags.join(',')
+      }
+    },
+    filterTags () {
+      return this.tags.filter((t) => {
+        return t.value
+      }).map((t) => {
+        return t.name
+      })
+    }
+  },
   async asyncData (context) {
-    const team = await context.store
-      .dispatch('loadTeam')
-      .catch(e => {
-        context.error({
-          statusCode: e.response.status,
-          message: e.response.statusText
-        })
-      })
-      .then(res => {
-        return { members: res.stories }
-      })
+    const tags = await context.store.dispatch('loadTagsTeam')
+    const filters = {
+      filter_query: {
+        component: {
+          in: 'team-member'
+        }
+      }
+    }
+    const team = await context.store.dispatch('findItems', filters).then((data) => {
+      if (data.stories) {
+        return { members: data.stories }
+      }
+      return { members: [] }
+    })
     const page = await context.store.dispatch('loadPage', '/team').catch(e => {
       context.error({
         statusCode: e.response.status,
         message: e.response.statusText
       })
     })
-    return { ...team, ...page }
+    return { tags, ...team, ...page }
   }
 }
 </script>
@@ -63,13 +126,11 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .team-wrapper {
-  padding-left: 15%;
-  padding-top: 15%;
+  padding: 10% 10% 0% 10%;
   position: relative;
 
   @media (max-width: $mobile-small) {
-    padding-left: 0;
-    padding-top: 200px;
+    padding-top: 100px;
   }
 
   .image {
@@ -87,7 +148,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 40px;
-    background-color: #fff;
+    background-color: #f2f3ee;
 
     @media (max-width: $mobile-small) {
       padding: 20px;
@@ -96,71 +157,174 @@ export default {
     .headline {
       font-weight: bold;
       margin-bottom: 20px;
-      font-size: 3.2rem;
+      font-size: 3.0rem;
       text-transform: uppercase;
+
       .strike {
         text-decoration: line-through;
       }
 
-      @media (max-width: $mobile-small) {
-        font-size: 2.5rem;
+      @include media-breakpoint-down(sm) {
+        font-size: 2rem;
       }
     }
 
     .subline {
       font-family: $font-mono;
-      font-size: 1.2rem;
+      font-size: 0.9rem;
       margin-bottom: 80px;
       line-height: 1.5;
-    }
-
-    .member-filters {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      margin: 10px;
-
-      .department-label {
-        margin: 0 5px;
-        background-color: #eee;
-        padding: 2px 5px;
-
-        label {
-          display: block;
-          user-select: none;
-          padding: 10px;
-        }
-
-        input {
-          display: none;
-        }
-
-        &.active {
-          background-color: $color-orange;
-          color: #fff;
-        }
-      }
-    }
-
-    .member-grid {
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 20px;
-
-      .member-item {
-        width: 100%;
-      }
-
-      @media (min-width: $mobile-large) {
-        display: grid;
+      @include media-breakpoint-down(sm) {
+        font-size: 0.7rem;
       }
     }
   }
 }
 
-.image-footer {
-  height: 50vh;
-  background-size: cover;
-  background-position: center;
+.tags {
+  padding: 8vh 0;
+  margin-top: 2%;
+  @include media-breakpoint-down(sm) {
+    padding: 4vh 0;
+  }
+
+  .headline {
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1.8rem;
+    @include margin-page-wide();
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    @include media-breakpoint-down(sm) {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+  }
+  .tag-list {
+    @include margin-page-wide();
+    display: grid;
+    max-width: 70em;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: 1fr 1fr;
+      font-size: .85em;
+    }
+    @include media-breakpoint-down(xs) {
+      grid-template-columns: 1fr;
+    }
+    grid-gap: 15px 20px;
+    > .tag {
+      font-family: $font-mono;
+      color: #FFF;
+      user-select: none;
+      cursor: pointer;
+      input[type=checkbox] {
+        outline: none;
+        -webkit-appearance: none;
+        padding: 5px;
+        border: 1px solid #FFF;
+        border-radius: 3px;
+        position: relative;
+        top: 0;
+        &:checked {
+          background-color: #FFF;
+        }
+      }
+    }
+  }
+  background-color: $color-blue;
+  @include media-breakpoint-down(sm) {
+    overflow: hidden;
+    position: relative;
+    max-height: 1000px;
+    transition: all .3s linear;
+    padding-bottom: 30px;
+    .expander {
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 20px;
+      transition: all .3s linear;
+      &:after {
+        transition: all .3s linear;
+        content: "";
+        position: absolute;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        bottom: 8px;
+        border-bottom: 2px solid #fff;
+        border-right: 2px solid #fff;
+        margin-left: -13px;
+        transform: rotate(225deg);
+        transform-origin: center center;
+      }
+    }
+    &.collapsed {
+      max-height: 17vh;
+      .expander {
+        height: 70px;
+        background: linear-gradient(rgba(0, 0, 0, 0), $color-blue 80%);
+        &:after {
+          transform: rotate(45deg);
+          bottom: 18px;
+        }
+      }
+    }
+  }
+}
+
+.member-list-wrapper {
+  display: flex;
+  margin-top: 3em;
+  @include margin-page-wide ();
+  .member-list {
+    > span {
+      display: grid;
+      @include media-breakpoint-up(sm) {
+        grid-template-columns: 1fr 1fr;
+      }
+      @include media-breakpoint-up(md) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      @include media-breakpoint-up(xl) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+      grid-column-gap: 2vw;
+      grid-row-gap: 2vw;
+    }
+
+    flex: 3;
+    .list-item {
+      min-width: 150px;
+      padding: 0 30px;
+      @include media-breakpoint-up(lg) {
+        min-width: 200px;
+      }
+    }
+    .list-enter-active, .list-leave-active {
+      transition: all 0.5s;
+    }
+    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
+    {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+  }
+
+  .member-list-none {
+    flex: 1;
+    text-align: center;
+  }
 }
 
 </style>

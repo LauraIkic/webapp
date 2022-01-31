@@ -85,8 +85,17 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
 .workshop-item {
-  max-width: 50%;
+  max-width: 100%;
+  flex-direction: column;
+  position: relative;
+  background-color: #fafafa;
+  margin: 1em 0;
+  border: 1px solid grey;
+  border-radius: 0.3em;
+  box-shadow: 10px 5px 5px rgba(0,0,0,0.14118);
+}
+.workshop-dates {
+  padding: 0 1em 1em 1em;
 }
 </style>

@@ -6,7 +6,7 @@
         <div class="expander" @click="toggleTags()">
         </div>
         <div class="headline">
-          {{ $t('Area') }}
+          {{ $t('area') }}
         </div>
         <div class="tag-list">
           <div v-for="t in tags" :key="t.key" class="tag">
@@ -62,7 +62,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findMachines', this.filters).then((data) => {
+      this.$store.dispatch('findItems', this.filters).then((data) => {
         this.loading = false
         this.machines = data.stories
       })
@@ -92,7 +92,7 @@ export default {
     }
   },
   async asyncData (context) {
-    const tags = await context.store.dispatch('loadTags')
+    const tags = await context.store.dispatch('loadTagsMachine')
     const filters = {
       filter_query: {
         component: {
@@ -100,7 +100,7 @@ export default {
         }
       }
     }
-    const machines = await context.store.dispatch('findMachines', filters).then((data) => {
+    const machines = await context.store.dispatch('findItems', filters).then((data) => {
       if (data.stories) {
         return { machines: data.stories }
       }
