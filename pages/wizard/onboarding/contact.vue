@@ -15,7 +15,7 @@
       -->
       <div class="form-item">
         <span class="label">{{ $t('dateOfBirth') }}<span class="red">*</span></span>
-        <input class="input-text" ref="firstInput" type="date" v-model="onboardingData.profile.birthdate" name=""
+        <input class="input-text" ref="firstInput" type="date" v-model="user.profile.birthdate" name=""
                id="onboarding_birthdate"/>
       </div>
       <div class="form-item">
@@ -24,7 +24,7 @@
       </div>
       <div class="form-item">
         <span class="label">{{ $t('address') }} <span class="red">*</span></span>
-        <input class="input-text" type="text" v-model="onboardingData.profile.address" name="" id="onboarding_address"/>
+        <input class="input-text" type="text" v-model="onboardingData.profile.address" name="" contenteditable="true" id="onboarding_address"/>
       </div>
       <div class="form-item">
         <span></span>
@@ -67,14 +67,15 @@ export default {
 
   mounted () {
     this.$refs.firstInput.focus()
-    this.onboardingData.profile.address2 = 'Wuhu test3'
   },
+  /*
   updated () {
     this.onboardingData.profile.address = this.user.profile.address
     this.onboardingData.profile.address2 = this.user.profile.address2
     this.onboardingData.profile.zip = this.user.profile.zip
     this.onboardingData.profile.city = this.user.profile.city
   },
+*/
   computed: {
     user () {
       if (this.$store.state.user) {
@@ -92,6 +93,14 @@ export default {
       this.$store.dispatch('getUserMetadata')
         .then((data) => {
           this.invoiceContact = data.data.invoice_contact
+          console.log('now TEST')
+          console.log(this.invoiceContact)
+          this.onboardingData.profile.address = this.invoiceContact.street
+          this.onboardingData.profile.address2 = this.invoiceContact.street_additional
+          this.onboardingData.profile.zip = this.invoiceContact.zip
+          this.onboardingData.profile.city = this.invoiceContact.city
+
+          console.log(this.onboardingData.profile)
         })
         .catch((error) => {
           console.log(error.response.status, error.response.data.msg)
