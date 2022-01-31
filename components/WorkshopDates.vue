@@ -16,6 +16,11 @@
               <icon name="calendar"/>
               {{ formatDate(d.content.starttime2) }}
             </div>
+            <div v-if="d.content.starttime3">
+              <br>
+              <icon name="calendar"/>
+              {{ formatDate(d.content.starttime3) }}
+            </div>
           </div>
           <div class="col info">
             <icon name="clock"/>
@@ -27,7 +32,14 @@
               <br>
               <icon name="clock"/>
               <span>{{ formatTime(d.content.starttime2) }}</span>
-              <span v-if="d.content.endtime2"> {{ $t('until'+' ') }} {{ formatTime(d.content.endtime2) }}</span>
+              <span v-if="d.content.endtime2"> {{ $t('until')+' ' }} {{ formatTime(d.content.endtime2) }}</span>
+              <span>{{ $t('oClock') }}</span>
+            </div>
+            <div v-if="d.content.endtime3">
+              <br>
+              <icon name="clock"/>
+              <span>{{ formatTime(d.content.starttime3) }}</span>
+              <span v-if="d.content.endtime3"> {{ $t('until')+' ' }} {{ formatTime(d.content.endtime3) }}</span>
               <span>{{ $t('oClock') }}</span>
             </div>
           </div>

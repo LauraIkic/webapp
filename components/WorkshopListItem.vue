@@ -56,6 +56,11 @@
                     <font-awesome-icon class="grey" icon="plus"/>
                     {{ d.content.starttime2 | date }}
                   </div>
+                  <div v-if="d.content.starttime3">
+                    <br>
+                    <font-awesome-icon class="grey" icon="plus"/>
+                    {{ d.content.starttime3 | date }}
+                  </div>
                 </div>
                 <div class="col info">
                   <icon name="clock" />
@@ -67,6 +72,13 @@
                     <icon name="clock" />
                     <span>{{ d.content.starttime2 | time }}</span>
                     <span v-if="d.content.endtime2"> bis {{ d.content.endtime2 | time }}</span>
+                    <span>Uhr</span>
+                  </div>
+                  <div v-if="d.content.starttime3">
+                    <br>
+                    <icon name="clock" />
+                    <span>{{ d.content.starttime3 | time }}</span>
+                    <span v-if="d.content.endtime3"> bis {{ d.content.endtime3 | time }}</span>
                     <span>Uhr</span>
                   </div>
                 </div>
@@ -261,7 +273,7 @@ export default {
 .workshop-dates {
   margin-top: 20px;
   .workshop-date {
-    &:nth-child(even) {
+    &:nth-child(odd) {
       background-color: rgba(242, 243, 238,0.9);
     }
     margin: 5px;
