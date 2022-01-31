@@ -18,10 +18,11 @@
       <h3>{{ $t('ourRates') }}</h3>
       <ul>
         <li>{{ $t('regular/month') }}</li>
-        <li>{{ $t('discounted/month') }} <br> * {{ $t('differentCardListing') }}{{ $t('pleaseBringAccordingID') }} </li>
+        <li>{{ $t('discounted/month') }} <br> </li>
 
         <li>{{ $t('specialConditions') }}</li>
       </ul>
+      * {{ $t('differentCardListing') }}<br>{{ $t('pleaseBringAccordingID') }}
     </div>
     <div class="membership-information">
       {{ $t('additionalInformationPayment') }}
