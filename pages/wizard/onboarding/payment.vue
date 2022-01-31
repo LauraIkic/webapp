@@ -4,7 +4,7 @@
     <h2>{{ $t('howWouldYouPreferToPay') }}</h2>
     <div class="options">
       <div :class="['option', { selected: mutableOnBoarding.paymentFrequency === FREQS.monthly }]"
-        @click="mutableOnBoarding.paymentFrequency = FREQS.monthly">
+           @click="mutableOnBoarding.paymentFrequency = FREQS.monthly">
         <b>{{ $t('monthlyPayment') }}</b>
         <p>
           <template v-if="mutableOnBoarding.paymentType === 1">40</template>
@@ -14,7 +14,7 @@
         </p>
       </div>
       <div :class="['option', { selected: mutableOnBoarding.paymentFrequency === FREQS.annually }]"
-        @click="mutableOnBoarding.paymentFrequency = FREQS.annually">
+           @click="mutableOnBoarding.paymentFrequency = FREQS.annually">
         <b>{{ $t('yearlyPayment') }}</b>
         <p>
           <template v-if="mutableOnBoarding.paymentType === 1">400</template>
@@ -35,7 +35,6 @@
         </div>
       </div>
     </form>
-
     <div class="wizard-checkbox">
       <input id="checkbox" type="checkbox" name="checkbox" v-model="mutableOnBoarding.sepaAccepted">
       <label for="checkbox">{{ $t('sepaAgreementFormText') }}</label>

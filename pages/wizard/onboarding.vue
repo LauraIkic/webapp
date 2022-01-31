@@ -88,6 +88,20 @@
             </button>
           </div>
         </div>
+        <div v-if="activeStep === 'confirmation'" class="confirmation-footer">
+          {{ $t('nextStepsAfterASU') }}
+          <br>
+          <p style="font-weight: bold">{{ $t('ourOpeningHours') }}
+            <br>
+            Do und Fr, 14:00 - 20:00 Uhr
+            <br>
+            Sa, 10:00 - 20:00 Uhr
+            <br>
+            Feiertags geschlossen
+            <br>
+          </p>
+          {{ $t('weAreLookingForwardToWelcomeYou') }}
+        </div>
       </div>
     </div>
   </div>
@@ -100,10 +114,10 @@ export default {
   data () {
     return {
       loading: false,
-      steps: ['index', 'contact', 'payment', 'done', 'confirmation'],
+      steps: ['index', 'contact', 'done', 'confirmation'],
       onboardingData: {
-        paymentType: null,
-        paymentFrequency: null,
+        /* paymentType: null,
+        paymentFrequency: null, */
         rulesAccepted: false,
         profile: {
           address: null,
@@ -114,13 +128,14 @@ export default {
           birthdate: null,
           company: null
         },
-        sepaAccepted: false,
+        /*       sepaAccepted: false,
         payment: {
           iban: null
         },
-        ibanIsValid: false,
+        ibanIsValid: false,*/
         referrer: ''
-      }
+      },
+      invoiceContact: {}
     }
   },
   computed: {
@@ -131,13 +146,13 @@ export default {
       const data = this.onboardingData
       switch (this.activeStep) {
         case 'index':
-          return !(data.paymentType && data.rulesAccepted)
+          return !(data.rulesAccepted)
         case 'contact': {
           const requiredKeys = ['address', 'city', 'zip', 'phone', 'birthdate']
           return !!requiredKeys.filter(k => !data.profile[k]).length
         }
-        case 'payment':
-          return !(data.ibanIsValid && data.sepaAccepted && data.paymentFrequency)
+        /*      case 'payment':
+          return !(data.ibanIsValid && data.sepaAccepted)*/
         default:
           return false
       }
@@ -153,6 +168,22 @@ export default {
     this.getData()
   },
   methods: {
+    loadUserData () {
+      this.loading = true
+      this.$store.dispatch('getUserMetadata')
+        .then((data) => {
+          this.invoiceContact = data.data.invoice_contact
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.data.msg)
+          this.$toast.show('Ein Fehler ist aufgetreten', {
+            theme: 'bubble'
+          })
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
     getData () {
       if (sessionStorage.getItem('onboardingData')) {
         this.onboardingData = JSON.parse(sessionStorage.getItem('onboardingData'))
@@ -315,7 +346,16 @@ export default {
       }
     }
   }
-
+  .confirmation-footer {
+    display: flex;
+    max-width: 1000px;
+    text-align: center;
+    flex-flow: column;
+    @include media-breakpoint-down(sm) {
+      max-width: 90%;
+      margin-left: 5%;
+    }
+  }
   .input-button-primary:disabled {
     cursor: default;
     background-color: grey;

@@ -4,6 +4,8 @@
     <p class="text">
       {{ $t('memberBenefitsText') }}
       <br>
+      {{ $t('niceToSeeYouHere') }}
+      <br><br>
       {{ $t('memberPerksText') }}
       <br><br>
       {{ $t('ifYouHaveAnyQuestionsRegardingYourMembership') }}
@@ -12,18 +14,22 @@
       <br><br>
       {{ $t('#makersgonnamake') }}
     </p>
-    <div class="options">
-      <div :class="['option', { selected: onboardingData.paymentType === TYPES.regular }]"
-           @click="onboardingData.paymentType = TYPES.regular">
-        <span class="name">{{ $t('regular') }} 40{{ $t('euro/month') }}</span>
-      </div>
-      <div :class="['option', { selected: onboardingData.paymentType === TYPES.reduced }]"
-           @click="onboardingData.paymentType = TYPES.reduced">
-        <span class="name">{{ $t('discounted') }}15{{ $t('euro/month') }}</span>
-        <span class="description">{{ $t('differentCardListing') }}</span>
-        <span class="description">{{ $t('pleaseBringAccordingID') }}</span>
-      </div>
+    <div class="our-rates">
+      <h3>{{ $t('ourRates') }}</h3>
+      <ul>
+        <li>{{ $t('regular/month') }}</li>
+        <li>{{ $t('discounted/month') }} <br> </li>
+
+        <li>{{ $t('specialConditions') }}</li>
+      </ul>
+      * {{ $t('differentCardListing') }}<br>{{ $t('pleaseBringAccordingID') }}
     </div>
+    <div class="membership-information">
+      {{ $t('additionalInformationPayment') }}
+    </div>
+    <div> {{ $t('inOrderToWorkSafely') }}</div>
+    <br>
+    <br>
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
       <label for="checkbox">{{ $t('iHaveReadThe') }} <a
@@ -34,10 +40,10 @@
 </template>
 
 <script>
-const TYPES = {
-  regular: 1,
-  reduced: 2
-}
+// const TYPES = {
+//   regular: 1,
+//   reduced: 2
+// }
 export default {
   middleware: 'authenticated',
   props: {
@@ -48,7 +54,7 @@ export default {
   },
   data () {
     return {
-      TYPES,
+      /*      TYPES, */
       loading: false
     }
   },
@@ -67,38 +73,27 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .onboarding-wizard {
+  line-height: 1.7;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .options {
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-around;
-    margin: 0 -10px;
-    width: 80%;
-
-    .option {
-      margin: 10px;
-      flex: 1;
-      cursor: pointer;
-      padding: 25px;
-      background-color: #FFF;
-      border: 2px solid #FFF;
-      display: flex;
-      flex-direction: column;
-
-      &:hover {
-        border: 2px solid $color-orange;
-      }
-    }
-
-    .description {
-      color: grey;
+  .our-rates {
+    margin-top:5%;
+    margin-bottom: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    @include media-breakpoint-up(md) {
+      max-width: 60%;
     }
   }
-
+  .membership-information{
+    display:flex;
+    max-width: 1000px;
+    text-align:center;
+    margin-bottom: 5%;
+  }
   .name {
     font-weight: bolder;
     margin-bottom: 1em;

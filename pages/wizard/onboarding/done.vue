@@ -1,13 +1,38 @@
 <template>
   <div class="section">
     <h2>{{ $t('howDidYouLearnAboutUs') }}</h2>
-    <no-ssr>
-      <form class="form" name="signup" @submit.prevent="handleSubmit" data-netlify="true" netlify-honeypot="bot-field">
-        <label class="hidden"><input name="bot-field" /></label>
-        <div data-netlify-recaptcha="true"></div>
-        <textarea class="textarea" type="referrer" name="referrer" v-model="onboardingData.referrer" placeholder="" />
-      </form>
-    </no-ssr>
+    <section class="questionnaireAnswer">
+      <div class="answerOption" @click="onboardingData.referrer='online'">
+        <input type="radio" value='online' v-model="onboardingData.referrer">
+        <span> {{ $t('onlineSearch') }} </span>
+      </div>
+      <br>
+      <div class="answerOption" @click="onboardingData.referrer='social-media'">
+        <input type="radio" value="social-media" v-model="onboardingData.referrer">
+        <span>  {{ $t('socialMedia') }} </span>
+      </div>
+      <br>
+      <div class="answerOption" @click="onboardingData.referrer='website'">
+        <input type="radio" value="website" v-model="onboardingData.referrer">
+        <span>   {{ $t('website') }}   </span>
+      </div>
+      <br>
+      <div class="answerOption" @click="onboardingData.referrer='print'">
+        <input type="radio" value="print" v-model="onboardingData.referrer">
+        <span> {{ $t('printMedia') }} </span>
+      </div>
+      <br>
+      <div class="answerOption" @click="onboardingData.referrer='friends'">
+        <input type="radio" value="friends" v-model="onboardingData.referrer">
+        <span> {{ $t('friends') }} </span>
+      </div>
+      <br>
+      <div class="answerOption" @click="onboardingData.referrer='partner'">
+        <input type="radio" value="partner" v-model="onboardingData.referrer">
+        <span> {{ $t('partners') }}</span>
+      </div>
+      <br>
+    </section>
   </div>
 </template>
 <script>
@@ -22,10 +47,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.textarea {
-  width: 40em;
-  height: 13em;
-  margin-top: 1em;
+.answerOption{
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  border: 0.8px solid black;
+  &:hover{
+    background-color: #000000d1 !important;
+    color: white !important;
+  }
 }
 .hidden {
   display: none;
