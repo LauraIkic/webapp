@@ -14,7 +14,7 @@
       </div>
       <div class="form-item">
         <span class="label">{{ $t('address') }} <span class="red">*</span></span>
-        <input class="input-text" type="text" v-model="onboardingData.profile.address" name="" contenteditable="true" id="onboarding_address"/>
+        <input class="input-text" type="text" v-model="onboardingData.profile.address" name="" id="onboarding_address"/>
       </div>
       <div class="form-item">
         <span></span>
