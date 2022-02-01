@@ -1,21 +1,11 @@
 <template>
   <div class="section">
-      <h2>{{ $t('signupMakerSpace') }}</h2>
+      <h2>{{ $t('signupMakerSpace') }} <br><br>MEMBER #{{this.user.profile.memberNumber}}</h2>
       <p>{{ $t('beforeYouCanStart') }}</p>
     <form class="form">
-      <!--
-      <div class="form-item">
-        <span class="label">Vorname</span>
-        <input class="input-text" disabled type="text" v-model="onboardingData.profile.firstName" name="" id=""/>
-      </div>
-      <div class="form-item">
-        <span class="label">Nachname</span>
-        <input class="input-text" disabled type="text" v-model="onboardingData.profile.lastName" name="" id=""/>
-      </div>
-      -->
       <div class="form-item">
         <span class="label">{{ $t('dateOfBirth') }}<span class="red">*</span></span>
-        <input class="input-text" ref="firstInput" type="date" v-model="user.profile.birthdate" name=""
+        <input class="input-text"  ref="firstInput" type="date" v-model="onboardingData.profile.birthdate" name=""
                id="onboarding_birthdate"/>
       </div>
       <div class="form-item">
@@ -48,7 +38,8 @@
 </template>
 
 <script>
-import { helpers } from '../../../utils/helper'
+
+import moment from 'moment'
 
 export default {
   middleware: 'authenticated',
@@ -64,18 +55,9 @@ export default {
       invoiceContact: {}
     }
   },
-
   mounted () {
     this.$refs.firstInput.focus()
   },
-  /*
-  updated () {
-    this.onboardingData.profile.address = this.user.profile.address
-    this.onboardingData.profile.address2 = this.user.profile.address2
-    this.onboardingData.profile.zip = this.user.profile.zip
-    this.onboardingData.profile.city = this.user.profile.city
-  },
-*/
   computed: {
     user () {
       if (this.$store.state.user) {
@@ -93,14 +75,10 @@ export default {
       this.$store.dispatch('getUserMetadata')
         .then((data) => {
           this.invoiceContact = data.data.invoice_contact
-          console.log('now TEST')
-          console.log(this.invoiceContact)
-          this.onboardingData.profile.address = this.invoiceContact.street
-          this.onboardingData.profile.address2 = this.invoiceContact.street_additional
-          this.onboardingData.profile.zip = this.invoiceContact.zip
-          this.onboardingData.profile.city = this.invoiceContact.city
-
-          console.log(this.onboardingData.profile)
+          this.onboardingData.profile.address = this.user.profile.address
+          this.onboardingData.profile.address2 = this.user.profile.address2
+          this.onboardingData.profile.zip = this.user.profile.zip
+          this.onboardingData.profile.city = this.user.profile.city
         })
         .catch((error) => {
           console.log(error.response.status, error.response.data.msg)
