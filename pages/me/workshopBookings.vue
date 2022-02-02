@@ -7,7 +7,7 @@
     >
       <div
         v-for="workshopDate in bookings"
-        :key="workshopDate.content.workshop.uuid + '-div'"
+        :key="workshopDate.content.workshop.uuid"
         class="workshop-item"
       >
         <workshop-preview
@@ -44,7 +44,9 @@ export default {
     this.$store.dispatch('getBookedWorkshops').then(data => {
       data.forEach(uuid => {
         this.$store.dispatch('loadStoryByUUid', uuid).then(data => {
-          this.bookings.push(data.story)
+          if (data.story.content.workshop !== null) {
+            this.bookings.push(data.story)
+          }
         })
       })
     })
