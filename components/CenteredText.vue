@@ -19,7 +19,7 @@ export default {
 .centered-text {
   padding: 5rem;
   font-family: 'Chakra Petch';
-  color: #0069aa;
+  color: $color-blue;
   font-size: 2rem;
   line-height: 1.5;
   @include media-breakpoint-down(sm) {

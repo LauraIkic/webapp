@@ -483,7 +483,8 @@ const createStore = () => {
             }
           }
         }).then((res) => {
-          return res.data.tags
+          const tagRes = res.data.tags
+          return [...tagRes].reverse()
         })
       },
       loadTeam ({ state }) {
