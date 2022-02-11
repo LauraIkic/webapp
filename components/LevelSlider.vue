@@ -54,7 +54,9 @@ export default {
 @import "@/assets/scss/styles.scss";
 
 .level-slider {
-  margin: 0 4%;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   border: 6px solid #000;
   overflow: hidden;
 

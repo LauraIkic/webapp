@@ -57,14 +57,14 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-left: 3vw;
+    padding-left: 4vw;
   }
   .headline-title {
     font-size: 3rem;
-    @include media-breakpoint-down(md) {
-      font-size: 1.2rem;
+    @include media-breakpoint-down(sm) {
+      font-size: 2rem;
     }
-    font-family: $font-secondary;
+    font-family: $font-mono;
     line-height: 1.4;
     letter-spacing: 1.4px;
     color: #FFFFFF;

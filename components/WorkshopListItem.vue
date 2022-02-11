@@ -56,6 +56,16 @@
                     <font-awesome-icon class="grey" icon="plus"/>
                     {{ d.content.starttime2 | date }}
                   </div>
+                  <div v-if="d.content.starttime3">
+                    <br>
+                    <font-awesome-icon class="grey" icon="plus"/>
+                    {{ d.content.starttime3 | date }}
+                  </div>
+                  <div v-if="d.content.starttime4">
+                    <br>
+                    <font-awesome-icon class="grey" icon="plus"/>
+                    {{ d.content.starttime4 | date }}
+                  </div>
                 </div>
                 <div class="col info">
                   <icon name="clock" />
@@ -67,6 +77,20 @@
                     <icon name="clock" />
                     <span>{{ d.content.starttime2 | time }}</span>
                     <span v-if="d.content.endtime2"> bis {{ d.content.endtime2 | time }}</span>
+                    <span>Uhr</span>
+                  </div>
+                  <div v-if="d.content.starttime3">
+                    <br>
+                    <icon name="clock" />
+                    <span>{{ d.content.starttime3 | time }}</span>
+                    <span v-if="d.content.endtime3"> bis {{ d.content.endtime3 | time }}</span>
+                    <span>Uhr</span>
+                  </div>
+                  <div v-if="d.content.starttime4">
+                    <br>
+                    <icon name="clock" />
+                    <span>{{ d.content.starttime4 | time }}</span>
+                    <span v-if="d.content.endtime4"> bis {{ d.content.endtime4 | time }}</span>
                     <span>Uhr</span>
                   </div>
                 </div>
@@ -139,25 +163,22 @@ export default {
       padding: 0.9em;
     }
   }
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     flex-direction: column;
     margin-right: 4%;
   }
   .image {
     @include media-breakpoint-down(sm) {
       overflow: hidden;
-      margin-left: 2%;
     }
     img {
-      @include media-breakpoint-down(sm) {
-        margin: -2vh 0;
-      }
       @include media-breakpoint-down(xs) {
         width: 100%;
       }
       max-height: calc(40vh - 65px);
       max-width: 100%;
       display: block;
+      padding: 1em;
     }
   }
   br {
@@ -172,9 +193,6 @@ export default {
     flex-direction: column;
     background-color: #FFF;
     padding: 1.8rem;
-    @include media-breakpoint-down(sm) {
-      margin-left: 2%;
-    }
     .icon {
       position: absolute;
       top: 0;
@@ -224,7 +242,7 @@ export default {
         width: 100%;
       }
     }
-    .trainer {
+    .trainer, membersOnly {
       line-height: 1.6;
       font-family: $font-mono;
       font-size: 0.9rem;
@@ -261,7 +279,7 @@ export default {
 .workshop-dates {
   margin-top: 20px;
   .workshop-date {
-    &:nth-child(even) {
+    &:nth-child(odd) {
       background-color: rgba(242, 243, 238,0.9);
     }
     margin: 5px;
@@ -296,6 +314,8 @@ export default {
       }
       .col {
         padding: 8px;
+        margin-right: 10px;
+        width: max-content;
         &.soldOut {
           color: $color-orange;
           text-transform: uppercase;

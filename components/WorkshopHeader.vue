@@ -26,10 +26,10 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .header {
-  margin: 0 4%;
-
-  height: calc(72vh - 64px);
-
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
+  height: calc(50vh - 89px);
   position: relative;
   .header-image {
     height: 100%;
@@ -41,12 +41,15 @@ export default {
     right: 0;
     bottom: 0;
     background-color: #FFF;
-    padding: 75px;
+    padding: 4vh;
     min-width: 50%;
+    @include media-breakpoint-up(md) {
+      max-width: 70%;
+    }
     h4 {
       margin: 0;
       font-size: 3rem;
-      font-family: 'Chakra Petch';
+      font-family: $font-secondary;
       font-weight: bold;
     }
   }
@@ -59,7 +62,6 @@ export default {
     .header-title {
       position: relative;
       padding: 5%;
-      text-align: right;
       h4 {
         font-size: 2rem;
       }

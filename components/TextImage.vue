@@ -31,7 +31,9 @@ export default {
 
 .text-image {
   min-height: 80vh;
-  margin: 0 4%;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   margin-top: 3rem;
   display: flex;
   flex-direction: column;

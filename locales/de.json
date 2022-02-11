@@ -83,6 +83,7 @@
   "address": "Adresse",
   "streetAndHouseNumber": "Straße und Hausnummer",
   "city": "Stadt",
+  "city/location": "Stadt/Ort",
   "zipCode": "PLZ",
   "yourPassword": "Dein Passwort",
   "reenterPassword": "Passwort (wiederholen)",
@@ -92,6 +93,9 @@
   "conditionsOfParticipation": "Teilnahmebedingungen / AGB",
   "dataPrivacyPolicy": "Datenschutzerklärung",
   "register": "Registrieren",
+  "additionalInformationPayment": "Bei einer jährlichen Zahlung schenken wir dir zwei Monate Mitgliedschaft GRATIS!\n      Dein Mitgliedsbeitrag sowie zusätzlich anfallende Kosten (Materialkosten, Getränke, etc.) werden von meinem Konto per SEPA-Lastschrift abgebucht.",
+  "signupMakerSpace": "Anmeldung zum Makerspace GRAND GARAGE",
+  "beforeYouCanStart": "Bevor du in unseren Werkstätten loslegen kannst, brauchen wir noch weitere Infos von dir:",
 
   "sentConfirmationLink": "Wir haben dir eine Mail mit einem Bestätigungslink geschickt.",
   "onceAccountConfirmed": "Wenn du deinen Account bestätigt hast kannst du voll durchstarten.",
@@ -176,6 +180,14 @@
   "redeemGiftCard": "Gutschein einlösen",
   "buy": "kaufen",
 
+  "onlineSearch": "Online Suche",
+  "socialMedia": "Social Media",
+  "website": "Webseite",
+  "printMedia": "Printmedien",
+  "friends": "Freun:innen & Bekannte",
+  "partners": "Partner:innen-Netzwerk",
+
+
   "giftCardValue": "Gutschein-Wert:",
   "giftCardNoticeYearlyDiscounted": "entspricht einer ermäßigten jährlichen Mitgliedschaft",
   "giftCardNoticeYearlyRegular": "entspricht einer regulären jährlichen Mitgliedschaft",
@@ -246,34 +258,46 @@
   "activities": "Aktivitäten",
 
   "receiptAndConfirmationViaMail": "Die Rechnung und eine Bestätigung erhältst du per Mail.",
-  "becomeAMemberIn4simpleSteps":"In 4 Schritten zu deiner Mitgliedschaft!",
+  "becomeAMemberIn4simpleSteps":"In wenigen Schritten zu deiner Mitgliedschaft!",
   "startSafetyTraining": "Sicherheits-Unterweisung starten",
+  "nextStepsAfterASU": "Bitte komm nach absolvierter online-ASU mit einem Ausweis zum Frontdesk, um dein Onboarding persönlich abzuschließen und dir deine Membercard abzuholen. ",
+  "ourOpeningHours": "Unsere Öffnungszeiten",
+  "weAreLookingForwardToWelcomeYou":"Wir freuen uns auf dich in der offenen Werkstätte GRAND GARAGE! ",
 
-  "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "Der erste Schritt zum GRAND GARAGE Membership ist geschafft!",
-  "toCompleteOnboardingStartSafetyTraining": "Um deine Mitgliedschaft abzuschließen kannst du jetzt die allgemeine Sicherheitsunterweisung abschließen.",
+  "youMadeTheFirstStepsTowardsBecomingA-GG-Member": "Wir freuen uns, dass du nun Teil des Makerspace GRAND GARAGE bist! Wir wünschen dir viel Spaß mit deinen Projekten und stehen dir gerne mit Rat & Tat zur Seite!",
+  "toCompleteOnboardingStartSafetyTraining": "Im nächsten Schritt, bitten wir dich mit der Allgemeinen Sicherheitsunterweisung (ASU) zu starten:",
 
   "dateOfBirth": "Geburtsdatum",
   "company": "Firma",
+  "cooperation": "Kooperation über",
 
   "howDidYouLearnAboutUs": "Wie hast du von uns erfahren?",
 
   "welcomeToTheGG": "Willkommen in der GRAND GARAGE!",
-  "memberBenefitsText": "Als Mitglied in unserem Makerspace bekommst du, neben der Nutzung der Maschinen und Geräte, eine lebendige Community sowie kostenfreies WLAN und eine persönliche Membercard obendrauf!",
-  "memberPerksText": "Außerdem erhältst du eine Ermäßigung auf alle Workshops sowie die Möglichkeit, Materialien und Arbeitskleidung zum Einkaufspreis zu kaufen.",
+  "memberBenefitsText": "Hallo und herzlich willkommen in der GRAND GARAGE!",
+  "niceToSeeYouHere": "Schön, dass du eine Mitgliedschaft in unserer Innovationswerkstatt abschließen möchtest.",
+  "memberPerksText": " Als Mitglied in unserem Makerspace bekommst du Zugang zu unseren Werkstätten mit einer Vielfalt an Maschinen und Geräten, kannst kostenfrei unser W-Lan nutzen, vergünstigt an Workshops teilnehmen und Materialien zum Selbstkostenpreis erhalten. Möglich macht das deine Member-Card!",
+
 
   "ifYouHaveAnyQuestionsRegardingYourMembership": "Solltest du noch Fragen zu deiner Mitgliedschaft haben,",
-  "doNotHesitateToAskOurFrontdeskTeam": "melde dich einfach beim Frontdesk Team oder schreib uns eine Nachricht!",
+  "doNotHesitateToAskOurFrontdeskTeam": " melde dich bei uns unter +43 (0) 732 99 74 97 oder scheibe uns eine E-Mail an frontdesk@grandgarage.eu",
   "#makersgonnamake": "#MAKERSGONNAMAKE",
+  "ourRates": "Unsere Tarife:",
+  "regular/month": "Regulär 40€ pro Monat ",
+  "discounted/month": "Ermäßigt* 15€ pro Monat ",
+  "differentCardListing": "Für 4youCard-Besitzer, Schüler:innen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass",
+  "pleaseBringAccordingID": "(BITTE NIMM EINEN ENTSPRECHENDEN AUSWEIS BEI DEINEM ERSTEN TERMIN MIT)",
+  "specialConditions": "Spezielle Konditionen für Kooperations- & Bildungspartner:innen",
+  "yearlyMembersGetADiscount": "Bei einer jährlichen Zahlung schenken wir dir zwei Monate Mitgliedschaft GRATIS! \n\nDein Mitgliedsbeitrag sowie zusätzlich anfallende Kosten (Materialkosten, Getränke, etc.) werden von meinem Konto per SEPA-Lastschrift abgebucht. ",
 
 
-  "differentCardListing": "4you card, SchülerInnen, Studierende, Lehrlinge bis 28 Jahre, Behindertenpass",
-  "pleaseBringAccordingID": "Bitte entsprechenden Ausweis beim ersten Besuch mitnehmen!",
   "euro": "EUR",
   "euro/month": "EUR/ MONAT",
   "euro/year": "EUR/ JAHR",
   "factoryRules": "Werkstattordnung",
   "monthlyPayment": "monatliche Zahlung",
   "yearlyPayment": "jährliche Zahlung",
+  "inOrderToWorkSafely": "Um sicher in unseren Werkstätten arbeiten zu können ist es erforderlich, dass du die folgende Werkstattordung ließt!!",
 
   "twoMonthsForFree": "Tipp: Bei jährlicher Zahlung bekommst du 2 Monate geschenkt.",
   "howWouldYouPreferToPay": "Wie möchtest du zahlen?",

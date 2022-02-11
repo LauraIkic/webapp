@@ -1,8 +1,8 @@
 <template>
   <div
-    v-if="value"
-    v-html="renderedMarkdown"
-  />
+        v-if="value"
+        v-html="renderedMarkdown"
+    />
 </template>
 
 <script>

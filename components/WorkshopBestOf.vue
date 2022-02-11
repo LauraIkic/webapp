@@ -52,9 +52,10 @@ export default {
     text-transform: uppercase;
     letter-spacing: 0.03em;
     flex: 1;
-    font-family: $font-secondary;
+    font-family: $font-mono;
     @include media-breakpoint-down(sm) {
-      max-width: 90%;
+      max-width: 50%;
+      font-size: 2rem;
       }
     }
     .subline {
