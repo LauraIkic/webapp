@@ -28,7 +28,10 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .extras-grid-wrapper {
-  margin: 0 4% 2em 4%;
+  margin: 2em 0;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   .headline {
     margin-bottom: 1em;
     position: relative;

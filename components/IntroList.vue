@@ -92,16 +92,18 @@ export default {
   background-size: 30vh;
   background-position: bottom -8vw left -14vw;
   @include media-breakpoint-up(lg) {
-    background-size: 40vh;
+    background-size: 27%;
     background-position: bottom left -6vw;
-    margin-top: -87vh;
+    margin-top: -604px;
   }
 
   .content {
     display: flex;
     align-items: flex-start;
     position: relative;
-    @include margin-page-wide();
+    //@include media-breakpoint-down(lg) {
+    //  @include margin-page-wide;
+    //}
 
     .primary-col, .secondary-col {
       flex-grow: 1;
@@ -126,14 +128,14 @@ export default {
         flex-direction: column;
         justify-content: flex-end;
         padding: 5%;
-        height: 50vh;
+        height: 318px;
 
         .headline-text {
           text-transform: uppercase;
           margin: 0;
-          font-size: 4vw;
+          font-size: 2.8em;
           line-height: 1.3;
-          width: 40vw;
+          width: 300px;
         }
 
         @include media-breakpoint-down(md) {
@@ -143,13 +145,19 @@ export default {
           .headline-text {
             font-size: 2rem;
             letter-spacing: .05rem;
+            width: 38%;
+          }
+        }
+        @include media-breakpoint-down(xs) {
+          .headline-text {
+            width: 45%;
           }
         }
 
       }
 
       .intro-items {
-        margin: 10vh 0 30vh 13vw;
+        margin: 2vh 0 20vh 13vw;
         @include media-breakpoint-down(md) {
           margin: 0;
           padding: 5vh 0 5vh 20%;
@@ -165,7 +173,7 @@ export default {
           letter-spacing: 0.03em;
           transition: color .3s linear;
           @include media-breakpoint-up(lg) {
-            font-size: 1.5vw;
+            font-size: 1.1em;
             .arrow {
               transition: all .3s linear;
               border-top: 0.12vw solid $color-blue-intro;
@@ -254,8 +262,8 @@ export default {
     .secondary-col {
       position: relative;
       @include media-breakpoint-up(lg) {
-        margin-top: 27vh;
-        height: 60vh;
+        margin-top: 20vh;;
+        height: 450px;
       }
       display: flex;
       align-items: stretch;
@@ -295,7 +303,7 @@ export default {
           position: absolute;
           padding: 0 15%;
           line-height: 1.5;
-          font-size: 1.6vw;
+          font-size: 1.3em;
           @include media-breakpoint-down(md) {
             font-size: 1em;
             padding: 0 5% 0 22%;

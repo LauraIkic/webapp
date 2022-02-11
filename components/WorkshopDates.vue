@@ -21,6 +21,11 @@
               <icon name="calendar"/>
               {{ formatDate(d.content.starttime3) }}
             </div>
+            <div v-if="d.content.starttime4">
+              <br>
+              <icon name="calendar"/>
+              {{ formatDate(d.content.starttime4) }}
+            </div>
           </div>
           <div class="col info">
             <icon name="clock"/>
@@ -42,16 +47,16 @@
               <span v-if="d.content.endtime3"> {{ $t('until')+' ' }} {{ formatTime(d.content.endtime3) }}</span>
               <span>{{ $t('oClock') }}</span>
             </div>
+            <div v-if="d.content.endtime4">
+              <br>
+              <icon name="clock"/>
+              <span>{{ formatTime(d.content.starttime4) }}</span>
+              <span v-if="d.content.endtime4"> {{ $t('until')+' ' }} {{ formatTime(d.content.endtime4) }}</span>
+              <span>{{ $t('oClock') }}</span>
+            </div>
           </div>
         </div>
         <div class="info-block">
-          <div
-            v-if="d.content.members_only && !d.content.without_registration "
-            class="col"
-          >
-            <icon name="user"/>
-            <span>{{ $t('membersOnly') }}</span>
-          </div>
           <!--<div class="col soldOut" v-if="d.content.sold_out">
             <span>ausgebucht</span>
           </div>-->
@@ -75,7 +80,7 @@
           >
             {{ $t('inOrderToBookAWorkshopYouHaveToBeLoggedIn') }} {{ $t('thankYou') }}
           </div>
-          <div class="spacer"/>
+<!--          <div class="spacer"/>-->
 
           <div
             v-if="metadata != null &&metadata[d.uuid].occupancy >= 100 || d.content.sold_out && !d.content.without_registration"
@@ -89,9 +94,16 @@
           >
             <span>{{ $t('currentOccupancyRate') }} {{ Math.round(metadata[d.uuid].occupancy) }}%</span>
           </div>
+          <div
+              v-if="d.content.members_only && !d.content.without_registration "
+              class="col"
+          >
+            <icon name="user"/>
+            <span>{{ $t('membersOnly') }}</span>
+          </div>
           <div class="spacer"/>
           <div
-            v-if="metadata && hideRegister !== true && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
+            v-if="metadata && hideRegister !== true && metadata[d.uuid].occupancy < 100 && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
             class="col register workshop-button"
           >
             <NuxtLink
@@ -104,7 +116,7 @@
           </div>
           <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
               {{ $t('toRegistration') }}
-            </span>
+          </span>
           <div
             v-if="hideRegister != true && d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out"
             class="col register workshop-button"
@@ -227,7 +239,7 @@ export default {
       .col {
         padding: 4px;
         align-items: center;
-        margin-right: 45px;
+        margin-right: 76px;
 
         &.soldOut {
           color: $color-orange;

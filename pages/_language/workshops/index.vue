@@ -245,7 +245,9 @@ export default {
 
   .search {
     display: flex;
-    margin: 0 4%;
+    @include media-breakpoint-down(lg) {
+      @include margin-page-wide;
+    }
     padding-top: 1rem;
     margin-bottom: 2em;
     @include media-breakpoint-down(xs) {
@@ -274,7 +276,9 @@ export default {
   }
 }
 .workshop-list-wrapper {
-  margin: 0 4%;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   display: flex;
 
   .workshop-list {

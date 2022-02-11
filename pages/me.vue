@@ -79,8 +79,9 @@ export default {
 
 .profile {
   min-height: 60vh;
-  margin-left: 4%;
-  margin-right: 4%;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
 
   .header {
     margin: 2em 0;

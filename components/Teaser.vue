@@ -31,8 +31,9 @@ export default {
 
 .teaser-item {
   .header {
-    margin-left: 4%;
-    margin-right: 4%;
+    @include media-breakpoint-down(lg) {
+      @include margin-page-wide;
+    }
     .headline {
       font-size: 3rem;
       @include media-breakpoint-down(sm) {

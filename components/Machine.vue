@@ -135,6 +135,9 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @include media-breakpoint-down(lg) {
+      @include margin-page-wide;
+    }
 
     .title {
       text-transform: uppercase;
@@ -142,31 +145,28 @@ export default {
 
     .body {
       display: flex;
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(xs) {
         flex-direction: column;
       }
 
       .text {
-        flex: 2;
+        flex: 1.5;
+        @include media-breakpoint-down(md) {
+          flex: 1;
+        }
         display: flex;
-        padding: 0 3em;
+        padding: 0 2em;
         line-height: 1.5;
-        font-size: 1rem;
+        font-size: 0.9rem;
         @include media-breakpoint-down(sm) {
-          padding: 0;
-          font-size: 1rem;
+          padding-left: 1em;
           line-height: 1.4;
         }
       }
 
       .image {
-        padding: 0 3em;
         flex: 1;
-        @include media-breakpoint-down(md) {
-          margin-top: 1em;
-          padding-left: 0;
-        }
-        padding-right: 0;
+        padding: 1em;
 
         img {
           margin: auto;
@@ -180,8 +180,6 @@ export default {
 
   .body {
     font-family: $font-mono;
-    margin: 0 4%;
-    margin-bottom: 1em;
 
     .headline {
       text-transform: uppercase;
@@ -200,7 +198,6 @@ export default {
     .description {
       font-size: .9rem;
       line-height: 2.2;
-      margin-bottom: 4vh;
     }
 
     .inner-body {
@@ -211,7 +208,7 @@ export default {
       }
 
       .machine-list {
-        margin-top: 3em;
+        margin: 3em 0;
         flex: 1;
         display: flex;
         flex-direction: row;
@@ -229,11 +226,21 @@ export default {
         }
       }
     }
-
+    .blue {
+      @include media-breakpoint-down(lg) {
+        @include margin-page-wide;
+      }
+      @include media-breakpoint-down(xs) {
+        margin: 1em 4% 0;
+      }
+    }
     .link-list {
       color: $color-blue;
       display: block;
-      margin: 0;
+      margin: 0 0 1em;
+      @include media-breakpoint-down(lg) {
+        @include margin-page-wide;
+      }
       padding: 1em;
       padding-left: 0;
       max-width: 80em;
