@@ -43,9 +43,6 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Ein Makerspace in der Tabakfabrik Linz. Von der Schweißwerkstatt über CNC-Fräsen bis hin zu 3D-Druckern ist alles in unserer Werkstatt vorhanden.' }
     ],
-    script: [
-      { hid: 'stripe', src: 'https://js.stripe.com/v3/', defer: true } //TODO deprecated
-    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
       {

@@ -35,10 +35,12 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .location-description {
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   @include media-breakpoint-up(lg) {
     display: flex;
     flex-direction: row;
-    @include margin-page-middle();
     margin-top: 2em;
     line-height: 1.7;
     .col-left {
@@ -65,7 +67,6 @@ export default {
     display: flex;
     flex-direction: column;
     line-height: 1.7;
-    @include margin-page-middle();
     .headline {
       font-size: 3em;
       margin: 1em 0 .3em;

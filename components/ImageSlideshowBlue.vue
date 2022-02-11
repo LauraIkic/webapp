@@ -78,12 +78,12 @@ export default {
       font-size: 1.2rem;
       padding: 2vh 4vw;
     }
-    font-family: $font-secondary;
+    font-family: $font-mono;
     line-height: 1.4;
     letter-spacing: 1.4px;
   }
   .swiper-container {
-    height: 50vh;
+    height: 30vh;
     .swiper-slide {
       display: block;
       background-size: contain;

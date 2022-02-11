@@ -251,8 +251,11 @@ export default {
     .machine-list {
       > span {
         display: grid;
-        @include media-breakpoint-up(lg) {
+        @include media-breakpoint-up(sm) {
           grid-template-columns: 1fr 1fr;
+        }
+        @include media-breakpoint-up(md) {
+          grid-template-columns: 1fr 1fr 1fr;
         }
 
         @include media-breakpoint-up(xl) {
