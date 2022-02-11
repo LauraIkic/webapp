@@ -11,7 +11,7 @@
     <div class="tab-section">
       <div class="tab-section-menu">
         <MenuLink to="/me/" icon="user">{{ $t('myProfile') }}</MenuLink>
-        <MenuLink v-if="isMember" to="/me/packages" icon="cube">{{ $t('packages') }}</MenuLink>
+<!--        <MenuLink v-if="isMember" to="/me/packages" icon="cube">{{ $t('packages') }}</MenuLink> TODO uncomment after finishing ticket https://grandgarage.atlassian.net/browse/HP-111 -->
         <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
             class="fat">{{ $t('joinNow') }}</span></MenuLink>
           <MenuLink v-if="hasCompletedOnboarding" to="/me/trainings" icon="graduation-cap" style="color: white !important;">
