@@ -114,7 +114,10 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .membership-grid {
-  margin: 10vh 4% 10vh 4%;
+  margin: 10vh 0;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   display: flex;
   @include media-breakpoint-down(md) {
     flex-direction: column;

@@ -70,10 +70,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '../assets/scss/styles.scss';
 
 .about-teaser {
-  // height: 100vh;
   color: #000;
   display: flex;
   flex-direction: row;
@@ -86,29 +85,29 @@ export default {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    background-image: url(~assets/img/about-teaser-bg1.svg);
-    background-repeat: repeat-y;
-    background-position: 71% -10px;
-    background-size: 1.8vw;
     @include media-breakpoint-up(lg) {
-      padding-bottom: 85vh;
+      padding-bottom: 568px;
     }
-    @include media-breakpoint-down(sm) {
-      background-size: 12px;
+    @include media-breakpoint-down(md) {
+      background-size: 0.8em;
+      background-position: 70% -10px;
+    }
+    @include media-breakpoint-down(xs) {
+      background-position: 65% -10px;
     }
 
     .col-start {
       display: flex;
       align-items: flex-start;
-      margin: 15vh 8vw 0;
+      margin: 50px 70px 0;
       .headline {
-        font-size: 1.2em;
+        font-size: 1.4em;
         @include media-breakpoint-up(lg) {
-          width: 45vw;
-          font-size: 2.8vw;
+          width: 600px;
+          font-size: 2.7em;
         }
         position: relative;
-        margin: 0 3vw;
+        margin: 0 4%;
         letter-spacing: 2px;
         line-height: 1.5;
         font-weight: 600;
@@ -116,10 +115,20 @@ export default {
         .circle {
           position: absolute;
           stroke: $color-yellow;
-          left: -4.4vw;
-          top: -5vw;
-          width: 10vw;
-          height: 10vw;
+          left: -75px;
+          top: -84px;
+          width: 160px;
+          height: 160px;
+          @include media-breakpoint-down(md) {
+            width: 140px;
+            height: 140px;
+          }
+          @include media-breakpoint-down(xs) {
+            width: 100px;
+            height: 100px;
+            top: -65px;
+            left: -57px;
+          }
           z-index: -1;
         }
       }
@@ -130,20 +139,20 @@ export default {
       justify-content: flex-end;
       .text {
         @include media-breakpoint-up(lg) {
-          width: 35vw;
-          margin-right: 10vw;
+          width: 550px;
+          margin-right: 10%;
           margin-bottom: 10%;
         }
         @include media-breakpoint-down(md) {
-          margin: 3vh 15% 10vh;
-          font-size: 1rem;
+          margin: 3% 15% 10%;
+          font-size: 0.9em;
           line-height: 1.6;
         }
         margin-top: 0;
         font-weight: normal;
         font-family: $font-primary;
         line-height: 1.6;
-        font-size: 1.4vw;
+        font-size: 1.1em;
         letter-spacing: .03em;
       }
     }
@@ -168,13 +177,21 @@ export default {
     */
   }
   .start-down-arrow {
-    width: 18vh;
-    max-width: 20vw;
-    height: 18vh;
-    max-height: 20vw;
+    width: 9rem;
+    @include media-breakpoint-down(md) {
+      width: 6rem;
+      margin-top: -4%;
+    }
+    @include media-breakpoint-down(xs) {
+      width: 4rem;
+      margin-top: -9%;
+    }
+    max-width: 10rem;
+    height: 8rem;
+    max-height: 9rem;
     position: absolute;
-    right: 13%;
-    margin-top: -2vh;
+    right: 10%;
+    margin-top: -2%;
     cursor: pointer;
   }
 }

@@ -82,16 +82,15 @@ export default {
   flex-direction: column;
   flex: 1;
   justify-content: center;
-  @include margin-page-wide();
-  @include media-breakpoint-up(md) {
-    margin: 0 100px;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
   }
   .left-content {
     .headline {
       position: relative;
       @include media-breakpoint-up(md) {
         max-width: 50%;
-        font-size: 2.8rem;
+        font-size: 2.2rem;
       }
       @include media-breakpoint-down(sm) {
         margin: 3vh 5%;
@@ -105,9 +104,6 @@ export default {
     position: relative;
     display: flex;
     align-items: flex-start;
-    @include media-breakpoint-up(lg) {
-      margin-left: 10%;
-    }
     .workshop-dates {
       width: 100%;
       @include media-breakpoint-down(sm) {
@@ -121,7 +117,7 @@ export default {
       line-height: 1.8;
       font-size: 1.1rem;
       @include media-breakpoint-down(sm) {
-        line-height: 1.4;
+        line-height: 1.7;
         font-size: 1rem;
         margin: 0 0 0 5%
       }

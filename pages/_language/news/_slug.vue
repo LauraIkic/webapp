@@ -160,12 +160,10 @@ export default {
   font-weight: normal;
   font-family: $font-primary;
   line-height: 1.8;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   @include media-breakpoint-down(md) {
-    line-height: 1.4;
-    font-size: 1.2rem;
-    margin: 0 0 20px 5%;
-    margin-right: 4%;
+    font-size: 1rem;
+    margin: 1em 0 20px 3%;
   }
   @include media-breakpoint-down(xs) {
     margin-left: 6%;
@@ -175,17 +173,13 @@ export default {
 }
 
 .body {
-  max-width: 1264px;
-  width: 100%;
-  background: none;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  flex-flow: column;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
 }
 
 .header {
-  height: calc(35vh - 64px);
+  height: calc(50vh - 89px);
   position: relative;
 }
 
@@ -193,6 +187,9 @@ export default {
   height: 100%;
   background-size: cover;
   background-position: center;
+  @include media-breakpoint-down(sm) {
+    height: 33vh;
+  }
 }
 
 .header-title {
@@ -213,7 +210,7 @@ export default {
   h4 {
     margin: 0;
     font-size: 3rem;
-    font-family: Chakra Petch;
+    font-family: $font-secondary;
     font-weight: 700;
     @include media-breakpoint-down(sm) {
       font-size: 1.6rem;
@@ -239,10 +236,10 @@ export default {
   margin-bottom: 7%;
   @include media-breakpoint-down(md) {
     flex-flow: column;
-    margin-left: 10%;
+    margin-left: 5%;
   }
   @include media-breakpoint-down(xs) {
-    margin-top: 25%;
+    margin-top: 15%;
     font-size: 18px;
   }
   /*  @include margin-page-wide();
@@ -291,10 +288,10 @@ export default {
   font-weight: bold;
   padding-top: 3vh;
   padding-left: 4vw;
-  font-family: Chakra Petch;
+  font-family: $font-secondary;
   margin-top: 5vh;
   @include media-breakpoint-down(md) {
-    padding-left: 0vw;
+    padding-left: 0;
     display: flex;
     justify-content: center;
   }

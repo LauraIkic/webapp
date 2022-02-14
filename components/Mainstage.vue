@@ -48,16 +48,18 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '../assets/scss/styles.scss';
 
 .mainstage {
-  height: calc(72vh - 64px); // 100vh - top-header height
+  height: calc(30em - 64px);
   @include media-breakpoint-down(sm) {
-    height: 60vh;
+    height: 25em;
   }
 
   position: relative;
-  @include margin-page-wide();
+  //@include media-breakpoint-down(lg) {
+  //  @include margin-page-wide;
+  //}
   z-index: 3;
 
   .placeholder {
@@ -87,25 +89,25 @@ export default {
         flex-direction: column;
         align-items: flex-start;
         color: #000;
-        padding-bottom: 3vw;
+        padding-bottom: 3%;
         @include media-breakpoint-down(sm) {
-          padding-bottom: 6vw;
+          padding-bottom: 6%;
         }
         .teaser {
-          font-size: 1.5em;
+          font-size: 1.5rem;
           line-height: 1.3;
           font-family: $font-mono;
           @include media-breakpoint-down(sm) {
-            font-size: 2.0vh;
+            font-size: 1.2rem;
           }
         }
         .title {
           word-break: break-word !important;
           hyphens: auto;
-          font-size: 6em;
+          font-size: 5rem;
           z-index: 9;
-          @include media-breakpoint-down(sm) {
-            font-size: 6vh;
+          @include media-breakpoint-down(md) {
+            font-size: 3rem;
           }
         }
         .teaser,
