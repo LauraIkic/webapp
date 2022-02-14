@@ -1,18 +1,22 @@
 <template>
-  <div
-    v-if="packageItem"
-    class="package-item"
-  >
-    <div class="body">
-      {{packageItem.name}}
-    </div>
-    <div class="footer">
-      <span>Von: {{ fromDate }}</span>
-      <span v-if="userPackage.untilDate">Bis: {{ untilDate }}</span>
-      <span v-else>Bis: -</span>
-      <!--<span>Bezahlt bis: {{chargedDate}}</span>-->
+  <div>
+    HUHU
+    <div
+        v-if="packageItem"
+        class="package-item"
+    >
+      <div class="body"> Package
+        <!--      {{packageItem.name}}-->
+      </div>
+      <!--    <div class="footer">
+            <span>Von: {{ fromDate }}</span>
+            <span v-if="userPackage.untilDate">Bis: {{ untilDate }}</span>
+            <span v-else>Bis: -</span>
+            &lt;!&ndash;<span>Bezahlt bis: {{chargedDate}}</span>&ndash;&gt;
+          </div>-->
     </div>
   </div>
+
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 <template>
   <div class="section">
     <h2>{{ $t('packages') }}</h2>
+    {{user.packages}}
     <ul
       v-if="user && user.packages && user.packages.length > 0"
       class="item-list"
