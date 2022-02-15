@@ -1,24 +1,15 @@
 <template>
   <div class="section">
     <h2>{{ $t('packages') }}</h2>
-    {{user.packages}}
+    {{user.packages.recurringFeePeriod}}
+    <package  :user-package="activePackageItem" />
     <ul
       v-if="user && user.packages && user.packages.length > 0"
       class="item-list"
     >
-        <package :user-package="p" />
     </ul>
     <div v-else>
       <code>{{ $t('noMembershipConcluded') }}</code>
-      <!--
-      <div class="link-with-arrow">
-        <div class="link-text">
-          <div class="link-arrow">
-          </div>
-          <Nuxt-Link to="/wizard/onboarding/">Mitglied werden</Nuxt-Link>
-        </div>
-      </div>
-      -->
     </div>
   </div>
 </template>
@@ -32,6 +23,12 @@ export default {
   computed: {
     user () {
       return this.$store.state.user
+    },
+    activePackageItem () {
+      let packageSize = this.$store.state.user.packages.length
+      packageSize = packageSize - 1
+      // active element = last element
+      return this.$store.state.user.packages[packageSize]
     }
   },
   created () {
