@@ -222,6 +222,12 @@
 
   "packages": "Pakete",
   "noMembershipConcluded": "Keine Mitgliedschaft abgeschlossen",
+  "membership": "Mitgliedschaft",
+  "monthly-abo": "Monats-Abo",
+  "yearly-abo": "Jahres-Abo",
+  "no end": "Kein Ende",
+  "interval": "Intervall: ",
+
 
   "trainings": "Unterweisungen",
   "myWorkshops": "Meine Workshops",

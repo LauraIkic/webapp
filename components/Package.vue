@@ -5,7 +5,13 @@
         <font-awesome-icon icon="cube"/>
       </div>
       <div class="body">
-        <div class="title"> Paket</div>
+        <div class="title">
+          <div v-if="userPackage.recurringFeePeriod == 'month'" class="interval">
+            {{ $t('monthly-abo') }}
+          </div>
+          <div v-if="userPackage.recurringFeePeriod == 'year'" class="interval">
+            {{ $t('yearly-abo') }}
+          </div></div>
         <div class="package">
           <div class="package-date">
             {{fromDate}}
@@ -13,12 +19,12 @@
             {{untilDate}}<div v-if="untilDate== null">Kein Ende</div>
           </div>
           <div v-if="userPackage.recurringFeePeriod == 'month'" class="interval">
-            Interval: monatlich
+            {{ $t('interval') }} {{ $t('monthly') }}
           </div>
           <div v-if="userPackage.recurringFeePeriod == 'year'" class="interval">
-            Interval: jährlich
+            {{ $t('interval') }}{{ $t('yearly') }}
           </div>
-          Preis: {{userPackage.recurringFee}} Euro
+          {{ $t('price') }} {{userPackage.recurringFee}}  {{ $t('euro') }}
         </div>
       </div>
     </div>
@@ -63,7 +69,7 @@ export default {
   .title{
     font-weight: bold;
     padding-bottom: 10px;
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
   .body{
     margin-left: 25px;
