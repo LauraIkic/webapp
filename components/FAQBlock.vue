@@ -40,7 +40,9 @@ export default {
     flex-direction: column-reverse;
   }
   align-items: flex-start;
-  @include margin-page-middle();
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   .downloads {
     padding: 25px;
     flex: 1;

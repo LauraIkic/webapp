@@ -133,7 +133,9 @@ export default {
 <style lang="scss">
 @import '@/assets/scss/styles.scss';
 .map {
-  @include margin-page-wide();
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   .gmaps {
     width: 100%;
     height: 70vh;

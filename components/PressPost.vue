@@ -11,11 +11,11 @@
   <br>
   <div class="press-text">
     <div class="teaser">
-      {{blok.Teaser}}
+      <markdown :value="blok.Teaser" />
     </div>
     <br>
     <div class="text">
-      {{blok.Text}}
+      <markdown :value="blok.Text" />
     </div>
   </div>
 </div>

@@ -347,45 +347,4 @@ export default {
     display: flex;
   }
 }
-
-.general-header {
-  margin-left: 4%;
-  margin-right: 4%;
-  height: calc(50vh - 89px);
-  position: relative;
-
-  .header-image {
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-  }
-
-  .header-title {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    background-color: #FFF;
-    padding: 8vh 75px;
-    min-width: 50%;
-
-    h4 {
-      margin: 0;
-      font-size: 3rem;
-      font-family: 'Chakra Petch';
-      font-weight: bold;
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    height: auto;
-    .header-title {
-      position: relative;
-      padding: 5%;
-
-      h4 {
-        font-size: 2rem;
-      }
-    }
-  }
-}
 </style>

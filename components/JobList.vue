@@ -20,9 +20,12 @@ export default {
 </script>
 
 <style lang="scss">
+@import "/assets/scss/styles.scss";
+
 .job-list {
-  margin-left: 4%;
-  margin-right: 4%;
   margin-top: 6em;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
 }
 </style>

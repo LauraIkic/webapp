@@ -57,35 +57,37 @@ export default {
 @import '/assets/scss/styles.scss';
 
 .machine-header {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: stretch;
-  align-content: stretch;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
+  height: calc(50vh - 89px);
   position: relative;
-  @include margin-page-wide();
-  background-color: #555;
   margin-bottom: 10vh;
   .header-image {
-    min-height: calc(50vh);
-    @include media-breakpoint-down(xs) {
-      min-height: calc(30vh);
-    }
-    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
-    opacity: .9;
+  }
+  @include media-breakpoint-down(sm) {
+    height: auto;
+    .header-image {
+      height: 20vh;
+    }
   }
   .header-title {
-    position: relative;
-    @include media-breakpoint-up(md) {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-    }
+    position: absolute;
+    right: 0;
+    bottom: 0;
     background-color: #FFF;
-    padding: 7vh;
-    min-width: 60%;
+    padding: 4vh;
+    min-width: 50%;
+    @include media-breakpoint-up(md) {
+      max-width: 70%;
+    }
+    @include media-breakpoint-down(sm) {
+      position: relative;
+      padding: 5%;
+    }
     .machine-tags {
       color: $color-blue;
       text-transform: uppercase;

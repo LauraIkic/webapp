@@ -26,8 +26,9 @@ export default {
 @import "/assets/scss/styles.scss";
 
 .general-header {
-  margin-left: 4%;
-  margin-right: 4%;
+  @include media-breakpoint-down(lg) {
+    @include margin-page-wide;
+  }
   height: calc(50vh - 89px);
   position: relative;
   .header-image {
@@ -40,12 +41,12 @@ export default {
     right: 0;
     bottom: 0;
     background-color: #FFF;
-    padding: 8vh 75px;
+    padding: 4vh;
     min-width: 50%;
     h4 {
       margin: 0;
       font-size: 3rem;
-      font-family: 'Chakra Petch';
+      font-family: $font-secondary;
       font-weight: bold;
     }
   }

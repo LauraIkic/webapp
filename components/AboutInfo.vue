@@ -37,14 +37,12 @@ export default {
 
 .about-info {
   display: flex;
-  padding-top: 5rem;
   @include media-breakpoint-down(md) {
     padding-top: 5vh;
     flex-direction: column;
   }
-  min-height: 100vh;
   position: relative;
-  margin: 0 0 0 15%;
+  margin: 0 0 0 12%;
   .col-start {
     flex: 1;
     z-index: 2;
@@ -52,8 +50,9 @@ export default {
       color: $color-blue;
       font-weight: bold;
       @include media-breakpoint-up(lg) {
-        padding: 0 3.4vw 10vh;
-        font-size: 3.5vw;
+        padding: 0 10% 10% 29%;
+        font-size: 2.5em;
+        width: 85%;
       }
       @include media-breakpoint-down(md) {
         padding: 0 3.4vw 2vh;
@@ -67,18 +66,20 @@ export default {
     .list {
       background: #fff;
       padding: 5%;
-      margin: 0 12%;
+      margin: 0 3% 0 20%;
       font-weight: bold;
       color: $color-blue;
-      font-size: 1.6vw;
+      font-size: 1.3em;
       @include media-breakpoint-down(md) {
         font-size: 1.1em;
         margin: 0 0 0 5%;
         padding: 2%;
+        width: 100%;
       }
       letter-spacing: .02em;
       font-variant-ligatures: no-common-ligatures;
       line-height: 1.2;
+      width: 70%;
       ul {
         li {
           margin-bottom: 1.3em;
@@ -92,12 +93,13 @@ export default {
     .content {
       position: relative;
       z-index: 1;
-      padding: 0 7vw 0 0;
+      padding: 0 35% 0 0;
       margin-top: 7vh;
-      margin-bottom: -3%;
-      font-size: 1.3vw;
+      font-size: 1.1em;
       @include media-breakpoint-down(md) {
         font-size: 1em;
+        margin-bottom: 5%;
+        padding: 0 9% 0 0;
       }
       letter-spacing: .03em;
       line-height: 1.6;

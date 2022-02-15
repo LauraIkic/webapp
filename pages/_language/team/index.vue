@@ -13,22 +13,22 @@
         </div>
       </div>
     </div>
-    <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
-      <div class="expander" @click="toggleTags()">
-      </div>
-      <div class="headline">
-        {{ $t('departments') }}
-      </div>
-      <div class="tag-list">
-        <div v-for="t in tags" :key="t.key" class="tag">
-          <checkbox
-              v-model="t.value"
-              class="tag"
-              theme="white"
-          >{{t.name}}</checkbox>
-        </div>
-      </div>
-    </div>
+<!--    <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">-->
+<!--      <div class="expander" @click="toggleTags()">-->
+<!--      </div>-->
+<!--      <div class="headline">-->
+<!--        {{ $t('departments') }}-->
+<!--      </div>-->
+<!--      <div class="tag-list">-->
+<!--        <div v-for="t in tags" :key="t.key" class="tag">-->
+<!--          <checkbox-->
+<!--              v-model="t.value"-->
+<!--              class="tag"-->
+<!--              theme="white"-->
+<!--          >{{t.name}}</checkbox>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="member-list-wrapper">
       <div v-if="members && members.length > 0" class="member-list">
         <transition-group name="list">
@@ -50,7 +50,7 @@ import Checkbox from '~/components/Checkbox.vue'
 
 export default {
   components: {
-    Checkbox
+    //Checkbox
   },
   mixins: [storyblokLivePreview],
   data () {
