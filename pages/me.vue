@@ -4,17 +4,17 @@
       <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
       <code class="number">#{{ user.profile.memberNumber }}</code>
     </div>
-    <div v-if="hasCompletedOnboarding && !hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
+    <div v-if="!hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
       <font-awesome-icon icon="info-circle"/>
       {{ $t('openSafetyTraining') }}
     </div>
     <div class="tab-section">
       <div class="tab-section-menu">
         <MenuLink to="/me/" icon="user">{{ $t('myProfile') }}</MenuLink>
-        <MenuLink v-if="isMember" to="/me/packages" icon="cube">{{ $t('packages') }}</MenuLink>
+        <MenuLink v-if="isMember" to="/me/packages" icon="cube">{{ $t('membership') }}</MenuLink>
         <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
             class="fat">{{ $t('joinNow') }}</span></MenuLink>
-          <MenuLink v-if="hasCompletedOnboarding" to="/me/trainings" icon="graduation-cap" style="color: white !important;">
+          <MenuLink to="/me/trainings" icon="graduation-cap" style="color: white !important;">
             <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> {{ $t('trainings') }}
           </MenuLink>
         <MenuLink to="/me/workshopBookings" icon="hammer">{{ $t('myWorkshops') }}</MenuLink>
@@ -79,9 +79,8 @@ export default {
 
 .profile {
   min-height: 60vh;
-  @include media-breakpoint-down(lg) {
-    @include margin-page-wide;
-  }
+  margin-left: 4%;
+  margin-right: 4%;
 
   .header {
     margin: 2em 0;

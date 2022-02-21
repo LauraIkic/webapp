@@ -211,6 +211,12 @@
 
   "packages": "Packages",
   "noMembershipConcluded": "No membership concluded",
+  "membership": "membership",
+  "monthly-abo": "Monthly-Abo",
+  "yearly-abo": "Yearly-Abo",
+  "no end": "No end",
+  "interval": "Interval: ",
+
 
   "trainings": "Trainings",
   "myWorkshops": "My workshops",
