@@ -639,7 +639,8 @@ const createStore = () => {
           ...filters,
           version: version,
           cv: state.cacheVersion,
-          per_page: 150
+          per_page: 150,
+          sort_by: 'content.title:asc'
         }).then((res) => {
           return res.data
         }).catch((res) => {

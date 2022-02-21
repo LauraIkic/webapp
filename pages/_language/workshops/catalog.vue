@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 
 export default {
   data () {
@@ -42,8 +41,7 @@ export default {
       ],
       loading: false,
       search: '',
-      workshops: [],
-      tags: []
+      workshops: []
     }
   },
   created () {
@@ -56,9 +54,9 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findWorkshops', this.filters).then(data => {
+      this.$store.dispatch('findItems', this.filters).then((data) => {
         this.loading = false
-        this.workshops = data
+        this.workshops = data.stories
       })
     }
   },
@@ -71,32 +69,30 @@ export default {
       })
     },
     filters () {
-      const filterQuery = {
-        component: {
-          in: 'workshop-date'
-        },
-        starttime: {
-          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
-        }
-      }
       return {
-        filterQuery,
+        filter_query: {
+          component: {
+            in: 'workshop'
+          }
+        },
         search_term: this.search
       }
     }
   },
   async asyncData  (context) {
-    const workshops = await context.store
-        .dispatch('loadWorkshops')
-        .catch(e => {
-          context.error({
-            statusCode: e.response.status,
-            message: e.response.statusText
-          })
-        })
-        .then(res => {
-          return { workshops: res.stories }
-        })
+    const filters = {
+      filter_query: {
+        component: {
+          in: 'workshop'
+        }
+      }
+    }
+    const workshops = await context.store.dispatch('loadWorkshops', filters).then((data) => {
+      if (data.stories) {
+        return { workshops: data.stories }
+      }
+      return { workshops: [] }
+    })
     return { ...workshops }
   }
 }
