@@ -37,6 +37,13 @@
         <div class="trainer">
           {{ content.trainer }}
         </div>
+        <div
+            v-if="content.members_only"
+            class="member"
+        >
+          <icon name="user" />
+          <span>{{ $t('membersOnly') }}</span>
+        </div>
         <div class="workshop-dates">
           <div
               v-for="(d) in dates" :key="d.id"
@@ -96,13 +103,6 @@
                 </div>
               </div>
               <div class="info-block">
-                <div
-                    v-if="d.content.members_only"
-                    class="col"
-                >
-                  <icon name="user" />
-                  <span>{{ $t('membersOnly') }}</span>
-                </div>
                 <div
                     v-if="d.content.sold_out"
                     class="col soldOut"
@@ -242,7 +242,7 @@ export default {
         width: 100%;
       }
     }
-    .trainer, membersOnly {
+    .trainer, .member {
       line-height: 1.6;
       font-family: $font-mono;
       font-size: 0.9rem;

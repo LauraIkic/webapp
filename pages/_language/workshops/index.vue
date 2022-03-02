@@ -55,7 +55,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findWorkshops', this.filters).then(data => {
+      this.$store.dispatch('findWorkshops', this.filters).then((data) => {
         this.loading = false
         this.workshops = data
       })
@@ -70,16 +70,15 @@ export default {
       })
     },
     filters () {
-      const filterQuery = {
-        component: {
-          in: 'workshop-date'
-        },
-        starttime: {
-          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
-        }
-      }
       return {
-        filterQuery,
+        filter_query: {
+          component: {
+            in: 'workshop-date'
+          },
+          starttime: {
+          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+          }
+        },
         search_term: this.search
       }
     }
