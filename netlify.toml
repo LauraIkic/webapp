@@ -1,8 +1,25 @@
 [Settings]
 [build]
+  # Directory to change to before starting a build.
+  # This is where we will look for package.json/.nvmrc/etc.
+  # If not set, defaults to the root directory.
   publish = "dist"
   command = "npm run generate"
   functions = "functions/"
+
+# Production context: all deploys from the Production branch
+# set in your site’s Branches settings in the UI
+# will inherit these settings.
+[context.production]
+  command = "echo '#### production'"
+  environment = { NUXT_ENV_API = "production", NUXT_ENV_DOMAIN = "https://connector.grandgarage.eu" }
+
+
+# Specific branch context: all deploys from
+# this specific branch will inherit these settings.
+[context.staging] # “staging” is a branch name
+  command = "echo '#### staging'"
+  environment = { NUXT_ENV_API = "staging", NUXT_ENV_DOMAIN = "https://staging-connector.in.grandgarage.eu" }
 
 [context.branch-deploy]
   [context.production.environment]
