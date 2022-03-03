@@ -18,9 +18,9 @@
   environment = { NUXT_ENV_API = "staging", NUXT_ENV_DOMAIN = "https://staging-connector.in.grandgarage.eu" }
   functions = "functions/"
 
-[context.branch-deploy]
-  [context.staging.environment]
-    environment = { NUXT_ENV_API = "staging", NUXT_ENV_DOMAIN = "https://staging-connector.in.grandgarage.eu" }
+# [context.branch-deploy]
+#   [context.production.environment]
+#     ORIGIN = "https://staging.grandgarage.eu"
 
 # [[redirects]]
 #   from = "/de/workshops/covid"
