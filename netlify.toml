@@ -7,7 +7,7 @@
 # set in your site’s Branches settings in the UI
 # will inherit these settings.
 [context.production]
-  command = "npm run generate-prod"
+  command = "npm run generate"
 
 # Specific branch context: all deploys from
 # this specific branch will inherit these settings.
