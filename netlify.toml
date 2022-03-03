@@ -6,7 +6,7 @@
 # will inherit these settings.
 [context.production]
   publish = "dist"
-  command = "npm run generate"
+  command = "npm run generate NUXT_ENV_DOMAIN=https://connector.grandgarage.eu"
   environment = { NUXT_ENV_API = "production", NUXT_ENV_DOMAIN = "https://connector.grandgarage.eu" }
   functions = "functions/"
 
@@ -14,13 +14,13 @@
 # this specific branch will inherit these settings.
 [context.staging] # “staging” is a branch name
   publish = "dist"
-  command = "npm run generate"
+  command = "npm run generate NUXT_ENV_DOMAIN=https://staging-connector.in.grandgarage.eu"
   environment = { NUXT_ENV_API = "staging", NUXT_ENV_DOMAIN = "https://staging-connector.in.grandgarage.eu" }
   functions = "functions/"
 
-# [context.branch-deploy]
-#   [context.production.environment]
-#     ORIGIN = "https://staging.grandgarage.eu"
+[context.branch-deploy]
+  [context.staging.environment]
+    NUXT_ENV_DOMAIN = "https://staging-connector.in.grandgarage.eu"
 
 # [[redirects]]
 #   from = "/de/workshops/covid"
