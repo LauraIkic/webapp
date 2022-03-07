@@ -128,7 +128,12 @@ module.exports = {
   router: {
     middleware: 'router'
   },
+  // env: {
+  //   baseUrl:
+  //     process.env.NUXT_ENV_API === 'local' ? 'https://connector.dev.grandgarage.eu nuxt' : 'https://staging-connector.grandgarage.eu nuxt'
+  // },
   generate: {
+    target: 'static',
     routes: function (callback) {
       const token = storyblokToken
       const perPage = 100

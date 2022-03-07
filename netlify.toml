@@ -13,12 +13,3 @@
 # this specific branch will inherit these settings.
 [context.staging] # “staging” is a branch name
   command = "npm run generate-staging"
-
-# [context.branch-deploy]
-#   [context.production.environment]
-#     ORIGIN = "https://staging.grandgarage.eu"
-
-# [[redirects]]
-#   from = "/de/workshops/covid"
-#   to = "/de/covid"
-#   status = 301
