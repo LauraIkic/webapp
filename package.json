@@ -4,7 +4,7 @@
     "dev": "nuxt",
     "dev-local": "NUXT_ENV_API=local NUXT_ENV_DOMAIN=https://connector.dev.grandgarage.eu nuxt",
     "generate": "nuxt generate",
-    "generate-staging": "NUXT_ENV_API=staging NUXT_ENV_DOMAIN=https://staging-connector.grandgarage.eu nuxt",
+    "generate-staging": "NUXT_ENV_API=staging NUXT_ENV_DOMAIN=https://staging-connector.grandgarage.eu nuxt generate",
     "lambda": "netlify-lambda serve lambda"
   },
   "dependencies": {
