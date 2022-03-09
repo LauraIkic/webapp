@@ -42,13 +42,10 @@ export default {
     onChange (e) {
       const file = e.target.files[0]
       this.image = file
-      //console.log(this.onboardingData.image)
       this.imageUrl = URL.createObjectURL(file)
-      //console.log(this.onboardingData.imageUrl)
       const reader = new FileReader()
       reader.onloadend = () => {
         this.onboardingData.image64 = reader.result
-        //console.log(this.onboardingData.image64)
       }
       this.onboardingData.image64 = reader.readAsDataURL(file)
     }
