@@ -2,7 +2,7 @@
   <div class="profile" v-if="user !== null">
     <div class="header">
       <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
-      <h2>STAGING</h2>
+      <h2 style="display: none;">STAGING</h2>
       <code class="number">#{{ user.profile.memberNumber }}</code>
     </div>
     <div v-if="!hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
