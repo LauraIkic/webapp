@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="postItemSlug">
+  <nuxt-link :to="localePath('/de/press/' +postItemSlug)">
     <div class="press-post-preview">
       <div class="date">
         {{ postItemDate }}
@@ -33,7 +33,7 @@ export default {
       return null
     },
     postItemSlug () {
-      return 'press/' + this.story.slug
+      return this.story.slug
     }
   }
 }
