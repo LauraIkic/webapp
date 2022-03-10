@@ -21,6 +21,8 @@ let connector
 
 const version = process.env.CONNECTOR_API_URL
 
+const cultureCard = 'https://api.demo.linz.citycardsolutions.com/v1.1/coupon/validate/'
+
 const createStore = () => {
   return new Vuex.Store({
     state: {
@@ -110,6 +112,21 @@ const createStore = () => {
       }
     },
     actions: {
+      getCultureCard ({ context }) {
+        const request = new XMLHttpRequest()
+        request.open('GET', cultureCard + context)
+        request.send()
+        request.onload = () => {
+          console.log(request)
+          if (request.status === 200) {
+            console.log(JSON.parse(request.response))
+          //  return JSON.parse(request.response)
+          } else {
+            console.log('error')
+          }
+        }
+        //
+      },
       nuxtServerInit ({ state }, context) {
       },
       init ({ state, dispatch }, context) {
