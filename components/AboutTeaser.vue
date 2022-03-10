@@ -114,7 +114,7 @@ export default {
         font-family: $font-secondary;
         .circle {
           position: absolute;
-          stroke: $color-yellow;
+          stroke: $color-orange;
           left: -75px;
           top: -84px;
           width: 160px;
