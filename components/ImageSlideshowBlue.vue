@@ -3,12 +3,10 @@
     v-editable="blok"
     class="image-slideshow-blue"
   >
-    <div
-      v-if="blok.text"
+    <markdown
+      :value="blok.text"
       class="text"
-    >
-      {{ blok.text }}
-    </div>
+    />
     <div v-swiper:swiper="swiperOption">
       <div class="swiper-wrapper">
         <div
@@ -63,11 +61,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import '../assets/scss/styles.scss';
 
 .image-slideshow-blue {
   position: relative; // needed for z-index (blue dashed stripe)
-  margin: 0 -20px;
   padding: 30px;
   background-color: $color-blue-intro;
   color: #FFF;
@@ -81,6 +78,10 @@ export default {
     font-family: $font-mono;
     line-height: 1.4;
     letter-spacing: 1.4px;
+
+    p {
+      margin: 0;
+    }
   }
   .swiper-container {
     height: 30vh;

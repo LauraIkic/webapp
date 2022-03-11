@@ -4,7 +4,8 @@
         v-for="s in blok.Images"
         :key="s._uid"
         class="image-row"
-        :style="{ 'background-image': 'url(' + $resizeImage(s.image, '450x500') + ')', 'width': '350px'}" />
+        :style="{ 'background-image': 'url(' + $resizeImage(s.image, '450x500') + ')', 'width': '350px'}">
+    </div>
   </div>
 </template>
 

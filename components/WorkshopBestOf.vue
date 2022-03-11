@@ -61,6 +61,9 @@ export default {
     .subline {
       color: $color-orange;
       display: flex;
+      @include media-breakpoint-up(md) {
+        margin-right: 13%;
+      }
       @include media-breakpoint-down(sm) {
         flex-direction: column;
         .link {
@@ -72,7 +75,6 @@ export default {
         flex: 1;
       }
       .link {
-        padding-right: 8vw;
         font-size: 1.3rem;
         font-family: $font-secondary;
         text-decoration: none;
