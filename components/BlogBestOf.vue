@@ -2,7 +2,7 @@
   <div class="blog-best-of">
     <div class="headline">
       <h1 class="headline-title">{{ $t('blog')}}</h1>
-      <nuxt-link :to="localePath('/news' +'/ ')">
+      <nuxt-link class="blog-link" :to="localePath('/news' +'/ ')">
         <div class="arrow"></div>
         {{ $t('toBlog') }}
       </nuxt-link>
@@ -68,6 +68,11 @@ export default {
     line-height: 1.4;
     letter-spacing: 1.4px;
     color: #FFFFFF;
+  }
+  .blog-link {
+    @include media-breakpoint-up(md) {
+      margin-right: 12%;
+    }
   }
   .blogItems {
     display: flex;

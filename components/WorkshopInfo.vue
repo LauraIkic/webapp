@@ -12,12 +12,11 @@
       </h2>
     </div>
     <div class="right-content">
-      <div
+      <markdown
         v-if="blok.teaser"
+        :value="blok.teaser"
         class="teaser"
-      >
-        {{ blok.teaser }}
-      </div>
+      />
       <markdown
         v-if="blok.facts"
         :value="blok.facts"
@@ -104,6 +103,10 @@ export default {
     position: relative;
     display: flex;
     align-items: flex-start;
+    margin: 0 9%;
+    @include media-breakpoint-down(lg) {
+      margin: 0;
+    }
     .workshop-dates {
       width: 100%;
       @include media-breakpoint-down(sm) {
