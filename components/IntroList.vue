@@ -3,13 +3,14 @@
       v-editable="blok"
       class="intro-list"
   >
+    <div class="headline">
+      <h3 class="headline-text">
+        {{ blok.headline }}
+      </h3>
+    </div>
     <div class="content">
       <div class="primary-col">
-        <div class="headline">
-          <h3 class="headline-text">
-            {{ blok.headline }}
-          </h3>
-        </div>
+
         <div class="intro-items">
           <div
               :key="i._uid"
@@ -94,9 +95,42 @@ export default {
   @include media-breakpoint-up(lg) {
     background-size: 27%;
     background-position: bottom left -6vw;
-    margin-top: -604px;
+    margin-top: -580px;
   }
+  .headline {
+    background: $color-blue-intro;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2% 4%;
+    height: 150px;
 
+    .headline-text {
+      text-transform: uppercase;
+      margin: 0;
+      font-size: 2.3em;
+      line-height: 1.3;
+      //width: 300px;
+    }
+
+    @include media-breakpoint-down(md) {
+      height: inherit;
+      min-height: 20vh;
+      padding: 5%;
+      .headline-text {
+        font-size: 2rem;
+        letter-spacing: .05rem;
+        width: 38%;
+      }
+    }
+    @include media-breakpoint-down(xs) {
+      .headline-text {
+        width: 50%;
+      }
+    }
+
+  }
   .content {
     display: flex;
     align-items: flex-start;
@@ -121,43 +155,9 @@ export default {
     }
 
     .primary-col {
-      .headline {
-        background: $color-blue-intro;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 5%;
-        height: 318px;
-
-        .headline-text {
-          text-transform: uppercase;
-          margin: 0;
-          font-size: 2.8em;
-          line-height: 1.3;
-          width: 300px;
-        }
-
-        @include media-breakpoint-down(md) {
-          height: inherit;
-          min-height: 20vh;
-          padding: 5%;
-          .headline-text {
-            font-size: 2rem;
-            letter-spacing: .05rem;
-            width: 38%;
-          }
-        }
-        @include media-breakpoint-down(xs) {
-          .headline-text {
-            width: 45%;
-          }
-        }
-
-      }
 
       .intro-items {
-        margin: 2vh 0 20vh 13vw;
+        margin: 18% 0 20% 45%;
         @include media-breakpoint-down(md) {
           margin: 0;
           padding: 5vh 0 5vh 20%;
@@ -262,7 +262,6 @@ export default {
     .secondary-col {
       position: relative;
       @include media-breakpoint-up(lg) {
-        margin-top: 20vh;;
         height: 450px;
       }
       display: flex;

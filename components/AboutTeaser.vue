@@ -48,7 +48,7 @@
             fill="none"
             stroke-width=".5"
           /></svg>
-          {{ blok.headline }}
+          <markdown :value="blok.headline" />
         </h2>
       </div>
       <div class="col-end">
@@ -58,6 +58,11 @@
         >
           <markdown :value="blok.text" />
         </p>
+      </div>
+      <div class="video" v-if="blok.video">
+        <iframe width="900" height="515" :src="blok.video" title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -78,6 +83,7 @@ export default {
   flex-direction: row;
   flex: 1;
   justify-content: center;
+
   .teaser-content {
     max-width: 100%;
     position: relative;
@@ -86,7 +92,7 @@ export default {
     flex-direction: column;
     flex-grow: 1;
     @include media-breakpoint-up(lg) {
-      padding-bottom: 568px;
+      padding-bottom: 655px;
     }
     @include media-breakpoint-down(md) {
       background-size: 0.8em;
@@ -100,6 +106,7 @@ export default {
       display: flex;
       align-items: flex-start;
       margin: 50px 70px 0;
+
       .headline {
         font-size: 1.4em;
         @include media-breakpoint-up(lg) {
@@ -112,6 +119,11 @@ export default {
         line-height: 1.5;
         font-weight: 600;
         font-family: $font-secondary;
+
+        p {
+          margin: 0;
+        }
+
         .circle {
           position: absolute;
           stroke: $color-orange;
@@ -133,15 +145,16 @@ export default {
         }
       }
     }
+
     .col-end {
       flex: 1;
       display: flex;
-      justify-content: flex-end;
+      align-self: center;
+
       .text {
         @include media-breakpoint-up(lg) {
-          width: 550px;
-          margin-right: 10%;
-          margin-bottom: 10%;
+          width: 900px;
+          margin: 2% 0 2% 0;
         }
         @include media-breakpoint-down(md) {
           margin: 3% 15% 10%;
@@ -156,6 +169,7 @@ export default {
         letter-spacing: .03em;
       }
     }
+
     /*
     .link {
       font-family: Helvetia, Arial;
@@ -176,6 +190,7 @@ export default {
     }
     */
   }
+
   .start-down-arrow {
     width: 9rem;
     @include media-breakpoint-down(md) {
@@ -193,6 +208,25 @@ export default {
     right: 10%;
     margin-top: -2%;
     cursor: pointer;
+  }
+
+  .video {
+    width: inherit;
+    display: flex;
+    align-self: center;
+
+    & * {
+      @include media-breakpoint-down(md) {
+        height: 32vh;
+        width: 69vw;
+        margin-bottom: 10%;
+      }
+      @include media-breakpoint-down(xs) {
+        height: 25vh;
+        width: 100%;
+        margin-bottom: 10%;
+      }
+    }
   }
 }
 </style>
