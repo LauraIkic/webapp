@@ -126,7 +126,7 @@ export default {
 
         .circle {
           position: absolute;
-          stroke: $color-orange;
+          stroke: $color-yellow;
           left: -75px;
           top: -84px;
           width: 160px;
