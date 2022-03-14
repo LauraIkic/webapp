@@ -14,7 +14,7 @@ const webAuth = new auth0.WebAuth({
   redirectUri: origin + '/auth'
 })
 
-const baseUrl = process.env.NUXT_ENV_API === 'local' ? process.env.NUXT_ENV_DOMAIN : 'https://connector.grandgarage.eu'
+const baseUrl = process.env.NUXT_ENV_DOMAIN ? process.env.NUXT_ENV_DOMAIN : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
 
 let connector
@@ -639,8 +639,7 @@ const createStore = () => {
           ...filters,
           version: version,
           cv: state.cacheVersion,
-          per_page: 150,
-          sort_by: 'content.title:asc'
+          per_page: 150
         }).then((res) => {
           return res.data
         }).catch((res) => {

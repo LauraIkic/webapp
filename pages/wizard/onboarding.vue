@@ -114,11 +114,12 @@ export default {
   data () {
     return {
       loading: false,
-      steps: ['index', 'contact', 'done', 'confirmation'],
+      steps: ['index', 'contact', 'image', 'done', 'confirmation'],
       onboardingData: {
-        /* paymentType: null,
-        paymentFrequency: null, */
         rulesAccepted: false,
+        //image: null,
+        image64: null,
+        //imageUrl: null,
         profile: {
           address: null,
           address2: null,
@@ -128,11 +129,6 @@ export default {
           birthdate: null,
           company: null
         },
-        /*       sepaAccepted: false,
-        payment: {
-          iban: null
-        },
-        ibanIsValid: false,*/
         referrer: ''
       },
       invoiceContact: {}
@@ -151,8 +147,12 @@ export default {
           const requiredKeys = ['address', 'city', 'zip', 'phone', 'birthdate']
           return !!requiredKeys.filter(k => !data.profile[k]).length
         }
-        /*      case 'payment':
-          return !(data.ibanIsValid && data.sepaAccepted)*/
+        case 'image': {
+          return false
+        }
+        case 'done': {
+          return data.referrer === ''
+        }
         default:
           return false
       }
@@ -232,7 +232,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 
 .wizard {
@@ -356,10 +356,28 @@ export default {
       margin-left: 5%;
     }
   }
+
+  .button-row {
+    text-align: right;
+    .input-button-primary {
+      cursor: pointer;
+      background-color: $color-orange;
+      color: #FFF;
+      min-width: 30%;
+      border: 1px solid lighten($color-orange, 10);
+      padding: 7px 12px 8px;
+      line-height: 1;
+      outline: none;
+      //&:focus {
+      //  background-color: $color-orange;
+      //}
+    }
+  }
   .input-button-primary:disabled {
     cursor: default;
     background-color: grey;
     border: 1px solid darkgrey;
   }
+
 }
 </style>

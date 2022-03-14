@@ -1,14 +1,15 @@
 [Settings]
 [build]
   publish = "dist"
-  command = "npm run generate"
   functions = "functions/"
 
-[context.branch-deploy]
-  [context.production.environment]
-    ORIGIN = "https://staging.grandgarage.eu"
+# Production context: all deploys from the Production branch
+# set in your site’s Branches settings in the UI
+# will inherit these settings.
+[context.production]
+  command = "npm run generate"
 
-[[redirects]]
-  from = "/de/workshops/covid"
-  to = "/de/covid"
-  status = 301
+# Specific branch context: all deploys from
+# this specific branch will inherit these settings.
+[context.staging] # “staging” is a branch name
+  command = "npm run generate-staging"
