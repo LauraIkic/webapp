@@ -21,7 +21,7 @@
         </div>
         <div class="right-content">
           <div class="teaser">
-            {{ item.content.text }}
+            <markdown :value="item.content.text" />
           </div>
           <br>
           <div v-if="item.content.materials">
@@ -43,11 +43,7 @@
         </div>
       </div>
       <div class="teaser">
-        <div :key="i" v-for="i in item.content.contentBloks">
-                          <span v-if="item.content.contentBloks">
-                            <span v-if="i.text" class="teaser"><vue-markdown>{{ i.text }}</vue-markdown></span>
-                          </span>
-        </div>
+        <component v-for="i in item.content.contentBloks" :blok="i" :is="i.component" :key="i.uid" />
       </div>
       <div class="machine" v-if="machine != null && machine.length != 0">
         <div class="name">  {{ $t('machinesForProject') }}</div>
@@ -161,7 +157,7 @@ export default {
   font-family: $font-primary;
   line-height: 1.8;
   font-size: 1.2rem;
-  @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(md) {
     font-size: 1rem;
     margin: 1em 0 20px 3%;
   }
@@ -169,6 +165,9 @@ export default {
     margin-left: 6%;
 
     font-size: 1rem;
+  }
+  p {
+    margin: 0;
   }
 }
 

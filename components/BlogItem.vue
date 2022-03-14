@@ -6,6 +6,7 @@
         <div class="background-square"></div>
         <div class="title-head">
           <code class="title">{{ blog.content.title }}</code>
+          <code class="teaser">{{ blog.content.teaser }}</code>
           <p class="date" v-if="blog.content.datetime">{{ blog.content.datetime | date }}</p>
         </div>
       </section>
@@ -39,6 +40,17 @@ export default {
 }
 .title {
   font-size: 1.8rem;
+  font-family: $font-secondary;
+  line-height: 1.4;
+  letter-spacing: 1.4px;
+  display: flex;
+  width: 20vw;
+  @include media-breakpoint-down(lg) {
+    width: 50vw;
+  }
+}
+.teaser {
+  font-size: 1.3rem;
   font-family: $font-secondary;
   line-height: 1.4;
   letter-spacing: 1.4px;
