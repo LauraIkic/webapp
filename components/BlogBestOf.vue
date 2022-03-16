@@ -47,7 +47,7 @@ export default {
 @import '/assets/scss/styles.scss';
 .blog-best-of {
   background: black;
-  margin: 0 -10px;
+  margin-top: 10%;
   padding: 30px;
   color: #FFF;
   z-index: 2;

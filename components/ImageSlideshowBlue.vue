@@ -100,6 +100,7 @@ export default {
     border-radius: 50%;
     background-color: $color-yellow;
     background-size: 12px;
+    margin-top: -50px;
   }
 }
 </style>

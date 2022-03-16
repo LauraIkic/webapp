@@ -35,14 +35,11 @@ export default {
   background-color: $color-bright-bg;
   position: relative;
   .header {
-    padding-bottom: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 2vh;
-    padding-top: 4vh;
-    padding-left: 4vw;
+    padding: 6% 0 2% 7%;
     }
   .headline {
     margin: 0;
@@ -62,7 +59,7 @@ export default {
       color: $color-orange;
       display: flex;
       @include media-breakpoint-up(md) {
-        margin-right: 13%;
+        margin-right: 8%;
       }
       @include media-breakpoint-down(sm) {
         flex-direction: column;
@@ -111,7 +108,7 @@ export default {
     }
 
   .grid {
-    padding: 0 10% 0 5%;
+    padding: 0 5% 0 5%;
     @include media-breakpoint-down(sm) {
       padding: 0 10% 0 3%;
     }

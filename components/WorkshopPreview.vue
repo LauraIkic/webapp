@@ -78,9 +78,10 @@ export default {
       cursor: pointer;
       text-decoration: none;
       color: #000;
+      background-color: white;
 
       &:hover {
-        background-color: lighten($color-bright-bg, 3);
+        box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2);
       }
 
       .banner {
