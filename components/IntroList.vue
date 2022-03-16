@@ -95,7 +95,7 @@ export default {
   @include media-breakpoint-up(lg) {
     background-size: 27%;
     background-position: bottom left -6vw;
-    margin-top: -580px;
+    margin-top: 3%;
   }
   .headline {
     background: $color-blue-intro;

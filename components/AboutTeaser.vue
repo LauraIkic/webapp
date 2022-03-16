@@ -91,9 +91,6 @@ export default {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    @include media-breakpoint-up(lg) {
-      padding-bottom: 655px;
-    }
     @include media-breakpoint-down(md) {
       background-size: 0.8em;
       background-position: 70% -10px;
