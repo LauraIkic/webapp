@@ -1,17 +1,13 @@
 <template>
   <div
-      v-editable="blok"
-      class="material-prices"
+    v-editable="blok"
+    class="material-prices"
   >
-    <div
-        v-for="material of materials"
-        :key="material.id"
-        class="material"
-    >
-      <div class="name">
+    <ul id="matierial-prices-list">
+      <li v-for="material in materials" :key="material.id" class="material">
         {{ material.internal_name }}
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -26,7 +22,6 @@ export default {
   },
   async mounted () {
     this.materials = await this.$store.dispatch('getMaterials')
-    console.log(this.materials)
   }
 }
 </script>
@@ -44,8 +39,6 @@ export default {
 
   .material {
     background-color: deeppink;
-    height: 100vh;
-    width: 100vw;
   }
 }
 </style>
