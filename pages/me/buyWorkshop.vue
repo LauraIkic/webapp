@@ -23,9 +23,25 @@
         class="workshop-dates"
         :hide-register="true"
       />
-
       <div class="spacer"/>
+      HAST DU EINE LINZ KULTURKARTE?
+      <br>
+      <!-- Linz culture card -->
 
+      <div>
+        <input
+            v-model="cultureCard"
+            class="input"
+            :placeholder= "cultureCard"
+        >
+        <button
+            class="input-button-primary creditsButton"
+            @click="validateCultureCard"
+        >
+         Kulturkarte einlösen
+        </button>
+      </div>
+      <div class="spacer"/>
       <div v-if="step === 0 && userMetadata != null">
         <div>
           <div class="info-row payment">
@@ -68,7 +84,6 @@
             </div>
           </div>
         </div>
-
         <!-- User has enough credits for workshop, or has zero credits (in which case the option will be visible but disabled) -->
         <div
           v-if="!memberHasCredits || memberHasEnoughCredits"
@@ -247,7 +262,8 @@ export default {
       userMetadata: null,
       error: null,
       credits: 0,
-      useRemainingCredits: false
+      useRemainingCredits: false,
+      cultureCard: 0
     }
   },
   computed: {
@@ -283,6 +299,9 @@ export default {
     window.scrollTo(0, 0) // Scroll to top
   },
   methods: {
+    validateCultureCard () {
+      console.log('test', this.cultureCard)
+    },
     back () {
       this.step = 0
       this.paymentMethod = null
