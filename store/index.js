@@ -393,6 +393,11 @@ const createStore = () => {
           }
         })
       },
+      getMaterials ({ state }, id) {
+        return axios.get(connectorBaseUrl + '/products/materials').then((result) => {
+          return result.data
+        })
+      },
       async startOnboarding ({ commit }, data) {
         const res = await connector.post('/member/startOnboarding', data)
         return res.data

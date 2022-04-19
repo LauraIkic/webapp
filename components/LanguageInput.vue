@@ -23,8 +23,6 @@ export default {
   }),
   watch: {
     language: function (to) {
-      console.log('change', to)
-      console.log(this.$route)
       this.$router.push('/' + to)
     }
   },
