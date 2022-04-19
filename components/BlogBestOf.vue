@@ -2,7 +2,7 @@
   <div class="blog-best-of">
     <div class="headline">
       <h1 class="headline-title">{{ $t('blog')}}</h1>
-      <nuxt-link class="blog-link" :to="localePath('/news' +'/ ')">
+      <nuxt-link class="blog-link" :to="localePath('/de/news')">
         <div class="arrow"></div>
         {{ $t('toBlog') }}
       </nuxt-link>
