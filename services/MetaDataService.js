@@ -73,7 +73,7 @@ function getMetaTagsForMachine (machine) {
 }
 
 function getMetaTagsForBlog (item) {
-  const image = item.content.image
+  const image = 'https:' + item.content.image
   const ogTitle = 'GRAND GARAGE - ' + item.name
   const ogDescription = item.content.text
   return {
