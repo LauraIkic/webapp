@@ -1,4 +1,4 @@
-export { getMetaTagsForWorkshop, getMetaTagsForMachine }
+export { getMetaTagsForWorkshop, getMetaTagsForMachine, getMetaTagsForBlog }
 /**
    * get Meta Tags for title and description for Workshop if available,
    * otherwise build title like  "GRAND GARAGE - SUBTITLE" and description like "GRAND GARAGE - TEASER"
@@ -68,6 +68,21 @@ function getMetaTagsForMachine (machine) {
     title: metaTitle,
     meta: [
       { hid: 'description', name: 'description', content: metaDescription }
+    ]
+  }
+}
+
+function getMetaTagsForBlog (item) {
+  const image = item.content.image
+  const ogTitle = 'GRAND GARAGE - ' + item.name
+  const ogDescription = item.content.text
+  return {
+    title: ogTitle,
+    meta: [
+      { hid: 'description', name: 'description', content: ogDescription },
+      { hid: 'og:description', name: 'og:description', content: ogDescription },
+      { hid: 'og:image', property: 'og:image', content: image },
+      { hid: 'og:title', property: 'og:title', content: ogTitle }
     ]
   }
 }
