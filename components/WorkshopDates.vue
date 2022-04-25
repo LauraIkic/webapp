@@ -103,11 +103,14 @@
           </div>
           <div class="spacer"/>
           <div
-            v-if="metadata && hideRegister !== true && metadata[d.uuid].occupancy < 100 && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
+            v-if="metadata && hideRegister !== true && metadata[d.uuid].occupancy < 100 &&
+            !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') &&
+            !d.content.without_registration && checkMemberRestrictions(d.content.members_only)"
             class="col register workshop-button"
           >
             <NuxtLink
-              :event="metadata == null || metadata[d.uuid].occupancy >= 100|| metadata[d.uuid].already_booked == true ? '': 'click'"
+              :event="metadata == null || metadata[d.uuid].occupancy >= 100||
+               metadata[d.uuid].already_booked == true || !checkMemberRestrictions(d.content.members_only) ? '': 'click'"
               :to="{ path: '/me/buyWorkshop', query: { uuid: d.uuid }}"
               class="link"
             >
@@ -153,6 +156,9 @@ export default {
   computed: {
     content () {
       return this.date.content
+    },
+    isMember () {
+      return this.$store.state.user.packages.length > 0
     }
   },
   mounted () {
@@ -164,6 +170,13 @@ export default {
 
   },
   methods: {
+      checkMemberRestrictions (membersOnly) {
+      if (membersOnly) {
+        return this.isMember
+      } else {
+        return true
+      }
+    },
     formatDate: function (value) {
       return moment(value).format('DD.MM.YYYY')
     },
