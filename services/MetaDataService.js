@@ -1,4 +1,4 @@
-export { getMetaTagsForWorkshop, getMetaTagsForMachine, getMetaTagsForBlog }
+export { getMetaTagsForWorkshop, getMetaTagsForMachine, getMetaTagsForBlog, getMetaTagsForPress }
 /**
    * get Meta Tags for title and description for Workshop if available,
    * otherwise build title like  "GRAND GARAGE - SUBTITLE" and description like "GRAND GARAGE - TEASER"
@@ -7,30 +7,38 @@ export { getMetaTagsForWorkshop, getMetaTagsForMachine, getMetaTagsForBlog }
 function getMetaTagsForWorkshop (workshop) {
   let metaTitle = ''
   let metaDescription = ''
-  if (!(workshop.metadata.title === '')) {
-    metaTitle = workshop.metadata.title
+  const image = 'https:' + workshop.image
+  if (typeof (workshop.metadata) === 'undefined') {
+    metaTitle = 'GRAND GARAGE - ' + workshop.subtitle
   } else {
-    // subtitle should be available, since it is a required field in storyblok
-    if (workshop.subtitle !== '') {
-      metaTitle = 'GRAND GARAGE - ' + workshop.subtitle
+    if (!(workshop.metadata.title === '')) {
+      metaTitle = 'GRAND GARAGE - ' + workshop.metadata.title
     } else {
-      metaDescription = 'GRAND GARAGE'
+      // subtitle should be available, since it is a required field in storyblok
+      if (workshop.title !== '') {
+        metaTitle = 'GRAND GARAGE - ' + workshop.title
+      } else {
+        metaTitle = 'GRAND GARAGE'
+      }
     }
-  }
-  if (!(workshop.metadata.description === '')) {
-    metaDescription = workshop.metadata.description
-  } else {
-    // teaser should be available, since it is a required field in storyblok
-    if (workshop?.teaser !== '') {
-      metaDescription = workshop.teaser
+    if (!(workshop.metadata.description === '')) {
+      metaDescription = workshop.metadata.description
     } else {
-      metaDescription = 'GRAND GARAGE - Workshop'
+      // subtitle should be available, since it is a required field in storyblok
+      if (workshop.teaser !== '') {
+        metaDescription = workshop.teaser
+      } else {
+        metaDescription = 'GRAND GARAGE - Workshop'
+      }
     }
   }
   return {
     title: metaTitle,
     meta: [
-      { hid: 'description', name: 'description', content: metaDescription }
+      { hid: 'description', name: 'description', content: metaDescription },
+      { hid: 'og:image', property: 'og:image', content: image },
+      { hid: 'og:description', name: 'og:description', content: metaDescription },
+      { hid: 'og:title', property: 'og:title', content: metaTitle }
     ]
   }
 }
@@ -46,28 +54,36 @@ function getMetaTagsForWorkshop (workshop) {
 function getMetaTagsForMachine (machine) {
   let metaTitle = ''
   let metaDescription = ''
-  if (!(machine.metadata.title === '')) {
-    metaTitle = machine.metadata.title
+  const image = 'https:' + machine.image
+  if (typeof (machine.metadata) === 'undefined') {
+    metaTitle = 'GRAND GARAGE - ' + machine.title
   } else {
-    if (machine.title !== '') {
-      metaTitle = 'GRAND GARAGE - ' + machine.title
+    if (!(machine.metadata.title === '')) {
+      metaTitle = 'GRAND GARAGE - ' + machine.metadata.title
     } else {
-      metaDescription = 'GRAND GARAGE'
+      if (machine.title !== '') {
+        metaTitle = 'GRAND GARAGE - ' + machine.title
+      } else {
+        metaTitle = 'GRAND GARAGE'
+      }
     }
-  }
-  if (!(machine.metadata.description === '')) {
-    metaDescription = machine.metadata.description
-  } else {
-    if (machine?.title !== '') {
-      metaDescription = machine.title
+    if (!(machine.metadata.description === '')) {
+      metaDescription = machine.metadata.description
     } else {
-      metaDescription = 'Machine'
+      if (machine.teaser !== '') {
+        metaDescription = machine.teaser
+      } else {
+        metaDescription = 'GRAND GARAGE - Maschine'
+      }
     }
   }
   return {
     title: metaTitle,
     meta: [
-      { hid: 'description', name: 'description', content: metaDescription }
+      { hid: 'description', name: 'description', content: metaDescription },
+      { hid: 'og:image', property: 'og:image', content: image },
+      { hid: 'og:description', name: 'og:description', content: metaDescription },
+      { hid: 'og:title', property: 'og:title', content: metaTitle }
     ]
   }
 }
@@ -76,6 +92,21 @@ function getMetaTagsForBlog (item) {
   const image = 'https:' + item.content.image
   const ogTitle = 'GRAND GARAGE - ' + item.name
   const ogDescription = item.content.text
+  return {
+    title: ogTitle,
+    meta: [
+      { hid: 'description', name: 'description', content: ogDescription },
+      { hid: 'og:description', name: 'og:description', content: ogDescription },
+      { hid: 'og:image', property: 'og:image', content: image },
+      { hid: 'og:title', property: 'og:title', content: ogTitle }
+    ]
+  }
+}
+
+function getMetaTagsForPress (story) {
+  const image = 'https:' + story.content.Image
+  const ogTitle = 'GRAND GARAGE - ' + story.content.Title
+  const ogDescription = story.content.Teaser
   return {
     title: ogTitle,
     meta: [
