@@ -4,7 +4,7 @@
       class="material-prices"
   >
     <div class="machine-filters">
-      <code class="loading" v-if="loading">{{ $t('Loading') }}</code>
+<!--      <code class="loading" v-if="loading">{{ $t('Loading') }}</code>-->
       <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
         <div class="expander" @click="toggleTags()">
         </div>
@@ -13,34 +13,94 @@
         </div>
         <div class="tag-list">
           <div v-for="tag in tags" :key="tag.id" class="tag">
-            <input :id="tag.id" type="checkbox" :value="tag.value" v-model="selectedMaterial">
-            {{tag.name}}
+            <label class="checkbox">
+              <span class="checkmark"/>
+              <input :id="tag.id"
+                     type="checkbox"
+                     :value="tag.value"
+                     v-model="selectedTag">
+              {{tag.name}}
+            </label>
           </div>
         </div>
       </div>
       <div class="search">
-        <input type="text" :placeholder="[[ $t('searchMachines') ]]" v-model="search" name="" id=""/>
+<!--        <input type="text" :placeholder="[[ $t('searchMachines') ]]" v-model="search" name="" id=""/>-->
       </div>
     </div>
     <div class="material-prices-list">
-      <div v-for="material in filteredMaterials" :key="material.id" class="material content-card">
-        <div v-if="material.department === '2'" class="title">
-          <span>Metallwerkstatt</span>
-          <table>
-            <tr>
-              <th>Maschine</th>
-              <th>Kosten in €</th>
-            </tr>
-            <tr>
-              <td>{{material.internal_name}}</td>
-            </tr>
-          </table>
+      <div v-for="items in selectedTag" class="body content-card" :key="items.id">
+        <div v-for="(names, i) in tags" :key="names.id">
+           <span v-if="tags[i].value === items" class="department">{{tags[i].name}}</span>
         </div>
-        <div v-if="material.department === '3'" class="title">
-          <span>Digitallabor</span>
+        <div class="material-header">
+          <div class="header">
+            <div class="title">
+              Maschine
+            </div>
+
+            <div class="title">
+              Kosten in €
+            </div>
+          </div>
         </div>
-        <table>
-        </table>
+        <div class="material-prices">
+           <div
+               v-for="material in materials" :key="material.id"
+               class="material-price"
+               v-show="visible(material.department)"
+           >
+            <div
+                class="info-row"
+            >
+              <div class="info-block">
+                <div class="col info">
+                  {{material.external_name}}
+                </div>
+                <div class="col info">
+                  {{material.price_sell}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="selectedTag.length < 1">
+        <div v-for="items in [2,3] " class="body content-card" :key="items.id">
+          <div v-for="(names, i) in tags" :key="names.id">
+             <span v-if="tags[i].value === items" class="department">{{tags[i].name}}</span>
+          </div>
+          <div class="material-header">
+            <div class="header">
+              <div class="title">
+                Maschine
+              </div>
+              <div class="title">
+                Kosten in €
+              </div>
+            </div>
+          </div>
+          <div class="material-prices">
+            <div
+                v-for="material in materials" :key="material.id"
+                class="material-price"
+                v-show="visible(material.department)"
+            >
+              <div
+                  class="info-row"
+              >
+                <div class="info-block" v-for="(department, index) in material" :key="department.id">
+                  <div class="col info">
+                    {{material.external_name}}
+                  </div>
+                  <div class="col info">
+                    {{material.price_sell}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -53,12 +113,11 @@ export default {
   data () {
     return {
       materials: [],
-      loading: false,
-      search: '',
       tags: [
         { id: 1, name: 'Metallwerkstatt', value: 2 },
         { id: 2, name: 'Digitallabor', value: 3 }
       ],
+      selectedTag: [],
       selectedMaterial: [],
       tagsCollapsed: true
     }
@@ -67,36 +126,26 @@ export default {
     this.materials = await this.$store.dispatch('getMaterials')
   },
   // watch: {
-  //   search () {
-  //     this.update()
-  //   }
-  // },
-  // methods: {
-  //   update () {
-  //     this.loading = true
-  //     this.$store.dispatch('getMaterials', this.filters).then((data) => {
-  //       this.loading = false
-  //       this.materials = data
-  //     })
-  //   }
-  //   toggleTags () {
-  //     this.tagsCollapsed = !this.tagsCollapsed
+  //   selectedMaterial: function (to) {
+  //     console.log('hu')
   //   }
   // },
   computed: {
-    filteredMaterials () {
-      if (this.selectedMaterial.length === 0) {
-        return this.materials.filter((item) => item.department)
+    // filteredMaterials () {
+    // }
+  },
+  methods: {
+    toggleTags () {
+      this.tagsCollapsed = !this.tagsCollapsed
+    },
+    visible (department) {
+      const arrMaterial = [department, this.selectedMaterial]
+      const materials = this.selectedMaterial.length ? arrMaterial.reduce((a, b) => a.filter(c => b.includes(c))).length : true
+      if (materials) {
+        return true
+      } else {
+        return false
       }
-      return this.materials.filter((material) => {
-        let result = false
-        this.selectedMaterial.forEach(checkedItem => {
-          if (parseInt(checkedItem) === parseInt(material.department)) {
-            result = true
-          }
-        })
-        return result
-      })
     }
   }
 }
@@ -105,12 +154,12 @@ export default {
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
 .machine-filters {
-  flex: 1;
   .loading {
     position: absolute;
   }
   .tags {
     padding: 8vh 0;
+    margin-top: 4%;
     @include media-breakpoint-down(sm) {
       padding: 4vh 0;
     }
@@ -151,18 +200,38 @@ export default {
         color: #FFF;
         user-select: none;
         cursor: pointer;
-        input[type=checkbox] {
-          outline: none;
-          -webkit-appearance: none;
-          padding: 5px;
-          border: 1px solid #FFF;
-          border-radius: 3px;
+        .checkbox {
           position: relative;
-          top: 0;
-          &:checked {
-            background-color: #FFF;
+          margin-bottom: 12px;
+          cursor: pointer;
+          font-size: 1em;
+          height: 25px;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          display: flex;
+          align-items: center;
+          input[type=checkbox] {
+            outline: none;
+            -webkit-appearance: none;
+            width: 1.3em;
+            height: 1.3em;
+            border: 2px solid #FFF;
+            border-radius: 2px;
+            margin-right: 10px;
+            position: relative;
+            &:checked {
+              background-color: #FFF;
+            }
           }
-        }
+          &:hover {
+            .checkmark {
+              background-color: #FFF;
+              border: none;
+            }
+          }
+       }
       }
     }
     background-color: $color-blue;
@@ -235,14 +304,73 @@ export default {
     }
   }
 }
-.title {
+.body {
   position: relative;
   z-index: 1;
-  font-family: $font-mono;
-  font-size: 0.9rem;
-  letter-spacing: .1em;
-  margin-bottom: .3rem;
-  text-transform: uppercase;
-  color: $color-blue;
+  margin-bottom: 4%;
+  width: 100%;
+  padding: 5%;
+  .department {
+    font-family: $font-mono;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: .1em;
+    padding: 2% 0 2% 2%;
+    text-transform: uppercase;
+    color: $color-blue;
+  }
+  .material-header {
+    margin-top: 20px;
+    .header {
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+      }
+      line-height: 1.6;
+      font-family: $font-mono;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin: -8px;
+      display: flex;
+      .title {
+        flex: 1;
+        flex-direction: row;
+        display: flex;
+      }
+    }
+  }
+  .material-prices {
+    margin-top: 20px;
+    .material-price {
+      &:nth-child(odd) {
+        background-color: rgba(242, 243, 238,0.9);
+      }
+      margin: 5px;
+      @include media-breakpoint-down(xs) {
+        border: .11em solid #f2f3ee;
+        padding:7px;
+      }
+      .info-row {
+        @include media-breakpoint-down(md) {
+          flex-direction: column;
+        }
+        line-height: 1.6;
+        font-family: $font-mono;
+        font-size: 0.9rem;
+        margin: -8px;
+        display: flex;
+        .info-block {
+          flex: 1;
+          flex-direction: row;
+          display: flex;
+        }
+        .col {
+          padding: 8px;
+          margin-right: 10px;
+          width: 50%;
+
+        }
+      }
+    }
+  }
 }
 </style>
