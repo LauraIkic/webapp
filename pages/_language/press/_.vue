@@ -6,6 +6,7 @@
 
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+import { getMetaTagsForPress } from '@/services/MetaDataService'
 
 export default {
   computed: {
@@ -20,9 +21,14 @@ export default {
   },
   mixins: [storyblokLivePreview],
   asyncData (context) {
-    return context.store.dispatch('loadFullPage', context.route.fullPath).catch((e) => {
+    return context.store.dispatch('loadFullPage', context.route.fullPath).then(data => {
+     return { story: data.story }
+    }).catch((e) => {
       context.error({ statusCode: e.response.status, message: e.response.statusText })
     })
+  },
+  head () {
+    return getMetaTagsForPress(this.story)
   }
 }
 </script>

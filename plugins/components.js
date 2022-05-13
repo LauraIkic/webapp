@@ -89,7 +89,9 @@ import PressPostPreview from '../components/PressPostPreview'
 import PressPost from '../components/PressPost'
 import GiftPage from '../components/GiftPage'
 import TeamImageSlider from '../components/TeamImageSlider'
+import MaterialPrices from '../components/MaterialPrices'
 
+Vue.component('material-prices', MaterialPrices)
 Vue.component('page', Page)
 Vue.component('general-header', GeneralHeader)
 Vue.component('teaser', Teaser)
