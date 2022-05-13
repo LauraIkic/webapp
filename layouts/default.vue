@@ -11,10 +11,6 @@
     <div class="login-spacer" v-if="isAuthenticated"></div>
     <div class="layout-container">
       <top-header/>
-      <div class="banner-registration">
-        <div class="flex-center">
-        </div>
-      </div>
       <div v-if="this.$route.path ==='/de/datenschutzerklaerung' || !modalVisible">
       <div class="main-body">
         <main id="main" role="main">
@@ -72,10 +68,6 @@ export default {
 
 <style lang="scss">
 @import '../assets/scss/styles.scss';
-banner-registration {
-  height: 30px;
-  background: $color-secondary;
-}
 body {
   background-color: $color-bright-bg;
   width: 100%;
