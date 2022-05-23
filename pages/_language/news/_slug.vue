@@ -59,11 +59,6 @@
         <div class="name"> {{ $t('personBehindTheProject') }}</div>
         <div class="display-makers">
           <maker-preview
-              v-for="p in person"
-              :id="p"
-              :key="p"
-          />
-          <maker-preview
               v-for="p in member"
               :id="p"
               :key="p"

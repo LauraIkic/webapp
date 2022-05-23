@@ -523,7 +523,7 @@ export default {
 .preview {
   pointer-events: none;
   padding: 1em;
-
+  background: #ffffff;
   .preview-wrapper {
     .workshop-preview {
       width: 100% !important;

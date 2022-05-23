@@ -3,7 +3,11 @@
     v-editable="blok"
     class="feedback-form"
   >
-    <no-ssr>
+    <a href="mailto:frontdesk@grandgarage.eu?subject=eine%20Mail%20von%20deiner%20Web-Seite">
+      frontdesk@grandgarage.eu
+    </a>
+
+<!--    <no-ssr>
       <div
         v-if="loading"
         class="msg"
@@ -98,7 +102,7 @@
           </button>
         </div>
       </form>
-    </no-ssr>
+    </no-ssr>-->
   </div>
 </template>
 
