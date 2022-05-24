@@ -117,186 +117,187 @@
               {{ metadata != null && metadata[d.uuid].already_booked === true ? 'Bereits gebucht' : 'Zur Anmeldung' }}
             </NuxtLink>
           </div>
+          <!--
           <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
-              {{ $t('toRegistration') }}
-          </span>
-          <div
-            v-if="hideRegister != true && d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out"
-            class="col register workshop-button"
-          >
-            <a
-              :href="d.content.link.cached_url"
-              class="link"
-              target="_blank"
-            > {{ $t('toRegistration') }}</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
+                      {{ $t('toRegistration') }}
+          </span> -->
+                   <div
+                     v-if="hideRegister != true && d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out"
+                     class="col register workshop-button"
+                   >
+                     <a
+                       :href="d.content.link.cached_url"
+                       class="link"
+                       target="_blank"
+                     > {{ $t('toRegistration') }}</a>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </template>
 
-<script>
+         <script>
 
-import moment from 'moment'
+         import moment from 'moment'
 
-export default {
-  props: {
-    dates: Array,
-    date: Array,
-    hideRegister: Boolean,
-    noMetadata: Boolean
-  },
-  data () {
-    return {
-      metadata: null,
-      logged_in: null
-    }
-  },
-  computed: {
-    content () {
-      return this.date.content
-    },
-    isMember () {
-      return this.$store.state.user.packages.length > 0
-    }
-  },
-  mounted () {
-    if (this.noMetadata !== true) {
-      this.loadMetaData()
-    }
-  },
-  created () {
+         export default {
+           props: {
+             dates: Array,
+             date: Array,
+             hideRegister: Boolean,
+             noMetadata: Boolean
+           },
+           data () {
+             return {
+               metadata: null,
+               logged_in: null
+             }
+           },
+           computed: {
+             content () {
+               return this.date.content
+             },
+             isMember () {
+               return this.$store.state.user.packages.length > 0
+             }
+           },
+           mounted () {
+             if (this.noMetadata !== true) {
+               this.loadMetaData()
+             }
+           },
+           created () {
 
-  },
-  methods: {
-      checkMemberRestrictions (membersOnly) {
-      if (membersOnly) {
-        return this.isMember
-      } else {
-        return true
-      }
-    },
-    formatDate: function (value) {
-      return moment(value).format('DD.MM.YYYY')
-    },
-    formatTime: function (value) {
-      return moment(value).format('HH:mm')
-    },
-    loadMetaData: function () {
-      const body = {
-        workshop_date_uuids: []
-      }
+           },
+           methods: {
+               checkMemberRestrictions (membersOnly) {
+               if (membersOnly) {
+                 return this.isMember
+               } else {
+                 return true
+               }
+             },
+             formatDate: function (value) {
+               return moment(value).format('DD.MM.YYYY')
+             },
+             formatTime: function (value) {
+               return moment(value).format('HH:mm')
+             },
+             loadMetaData: function () {
+               const body = {
+                 workshop_date_uuids: []
+               }
 
-      for (const date of this.dates) {
-        body.workshop_date_uuids.push(date.uuid)
-      }
-      this.$store.dispatch('checkAuth').then((isLoggedIn) => {
-        if (isLoggedIn !== false) {
-          this.$store.dispatch('getWorkshopDateMetadata', body).then((data) => {
-            this.metadata = data
-          }).catch((err) => {
-            console.log(err)
-          })
-        } else {
-          this.logged_in = false
-        }
-      })
-    }
-  }
-}
-</script>
+               for (const date of this.dates) {
+                 body.workshop_date_uuids.push(date.uuid)
+               }
+               this.$store.dispatch('checkAuth').then((isLoggedIn) => {
+                 if (isLoggedIn !== false) {
+                   this.$store.dispatch('getWorkshopDateMetadata', body).then((data) => {
+                     this.metadata = data
+                   }).catch((err) => {
+                     console.log(err)
+                   })
+                 } else {
+                   this.logged_in = false
+                 }
+               })
+             }
+           }
+         }
+         </script>
 
-<style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+         <style lang="scss" scoped>
+         @import '/assets/scss/styles.scss';
 
-.workshop-dates {
-  width: 100%;
-  margin-top: 20px;
+         .workshop-dates {
+           width: 100%;
+           margin-top: 20px;
 
-  .workshop-date {
-    margin-top: 4px;
-    padding: 10px;
-    background-color: #FFF;
-    @media (max-width: 700px) {
-      margin-bottom: 10px;
-    }
+           .workshop-date {
+             margin-top: 4px;
+             padding: 10px;
+             background-color: #FFF;
+             @media (max-width: 700px) {
+               margin-bottom: 10px;
+             }
 
-    &.soldOut {
-      color: #666;
-      fill: #666;
+             &.soldOut {
+               color: #666;
+               fill: #666;
 
-      .col {
-        &.info {
-          text-decoration: line-through;
-        }
-      }
-    }
+               .col {
+                 &.info {
+                   text-decoration: line-through;
+                 }
+               }
+             }
 
-    .info-row {
-      line-height: 1.6;
-      font-family: $font-mono;
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin: -8px;
+             .info-row {
+               line-height: 1.6;
+               font-family: $font-mono;
+               font-size: 0.9rem;
+               font-weight: bold;
+               margin: -8px;
 
-      .info-block {
-        @media (max-width: 700px) {
-          flex-direction: column;
-        }
-        flex: 1;
-        flex-direction: row;
-        display: flex;
-      }
+               .info-block {
+                 @media (max-width: 700px) {
+                   flex-direction: column;
+                 }
+                 flex: 1;
+                 flex-direction: row;
+                 display: flex;
+               }
 
-      .col {
-        padding: 4px;
-        align-items: center;
-        margin-right: 76px;
+               .col {
+                 padding: 4px;
+                 align-items: center;
+                 margin-right: 76px;
 
-        &.soldOut {
-          color: $color-orange;
-          text-transform: uppercase;
-        }
+                 &.soldOut {
+                   color: $color-orange;
+                   text-transform: uppercase;
+                 }
 
-        &.register {
-          display: flex;
-          background-color: $color-orange;
-          margin: 0 5px 5px 0;
-          @media (max-width: 700px) {
-            align-self: flex-start;
-          }
+                 &.register {
+                   display: flex;
+                   background-color: $color-orange;
+                   margin: 0 5px 5px 0;
+                   @media (max-width: 700px) {
+                     align-self: flex-start;
+                   }
 
-          a {
-            color: #FFF;
-          }
-        }
-      }
+                   a {
+                     color: #FFF;
+                   }
+                 }
+               }
 
-      .spacer {
-        flex: 1;
-      }
+               .spacer {
+                 flex: 1;
+               }
 
-      svg {
-        height: 1em;
-        width: 1em;
-      }
-    }
-  }
+               svg {
+                 height: 1em;
+                 width: 1em;
+               }
+             }
+           }
 
-  .disabled {
-    background-color: lightgray !important;
-    pointer-events: none;
-  }
+           .disabled {
+             background-color: lightgray !important;
+             pointer-events: none;
+           }
 
-  .link {
-    cursor: pointer;
-    color: white;
-  }
+           .link {
+             cursor: pointer;
+             color: white;
+           }
 
-  br {
-    display: block;
-    margin: 4px;
-  }
-}
-</style>
+           br {
+             display: block;
+             margin: 4px;
+           }
+         }
+         </style>
