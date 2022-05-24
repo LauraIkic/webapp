@@ -1,2 +1,2 @@
-/protected/*
-    Basic-Auth: username:password
+/*
+    Basic-Auth: login:password
