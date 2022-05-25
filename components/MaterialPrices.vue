@@ -1,13 +1,13 @@
 <template>
-  <div
-    v-editable="blok"
-    class="material-prices"
-  >
-    <ul id="matierial-prices-list">
-      <li v-for="material in materials" :key="material.id" class="material">
-        {{ material.internal_name }}
-      </li>
-    </ul>
+  <div>
+<!--    v-editable="blok"-->
+<!--    class="material-prices"-->
+<!--  >-->
+<!--    <ul id="matierial-prices-list">-->
+<!--      <li v-for="material in materials" :key="material.id" class="material">-->
+<!--        {{ material.internal_name }}-->
+<!--      </li>-->
+<!--    </ul>-->
   </div>
 </template>
 
