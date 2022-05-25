@@ -117,9 +117,11 @@
               {{ metadata != null && metadata[d.uuid].already_booked === true ? 'Bereits gebucht' : 'Zur Anmeldung' }}
             </NuxtLink>
           </div>
+          <!--
           <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
               {{ $t('toRegistration') }}
           </span>
+          -->
           <div
             v-if="hideRegister != true && d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out"
             class="col register workshop-button"

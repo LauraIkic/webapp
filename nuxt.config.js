@@ -1,8 +1,18 @@
+import path from 'path'
+import fs from 'fs'
+
 const axios = require('axios')
 const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
 const googleId = 'UA-202640934-1'
 
 module.exports = {
+  // used for HTTPS support. Check out how to creates ssl certificate here https://grandgarage.atlassian.net/wiki/spaces/ITINT/pages/2127532975/Docker#Docker-SSL
+  // server: {
+  //   https: {
+  //     key: fs.readFileSync(path.resolve(__dirname, 'ggwebsite.key')),
+  //     cert: fs.readFileSync(path.resolve(__dirname, 'ggwebsite.crt'))
+  //   }
+  // },
   i18n: {
     locales: [
       {

@@ -6,13 +6,27 @@ import moment from 'moment'
 
 const origin = process.client ? window.location.origin : process.env.ORIGIN
 
-const webAuth = new auth0.WebAuth({
-  domain: 'auth.grandgarage.eu',
-  clientID: 'lwqb_LrkbU8b2rHfbC05C87xqM4bSfms',
-  audience: 'https://api.grandgarage.eu/',
-  responseType: 'token id_token',
-  redirectUri: origin + '/auth'
-})
+let tmpAuth = null
+
+if (process.env.NUXT_ENV_API === 'staging' || process.env.NUXT_ENV_API === 'local') {
+  tmpAuth = new auth0.WebAuth({
+    domain: 'gg-staging.eu.auth0.com',
+    clientID: 'LsZ4ug7c87ae1SAq1Q3nW4FjvJsQXb7T',
+    audience: 'https://api.grandgarage.eu/',
+    responseType: 'token id_token',
+    redirectUri: origin + '/auth'
+  })
+} else {
+  tmpAuth = new auth0.WebAuth({
+    domain: 'auth.grandgarage.eu',
+    clientID: 'lwqb_LrkbU8b2rHfbC05C87xqM4bSfms',
+    audience: 'https://api.grandgarage.eu/',
+    responseType: 'token id_token',
+    redirectUri: origin + '/auth'
+  })
+}
+
+const webAuth = tmpAuth
 
 const baseUrl = process.env.NUXT_ENV_DOMAIN ? process.env.NUXT_ENV_DOMAIN : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
@@ -391,6 +405,11 @@ const createStore = () => {
           if (r.data.success) {
             return r.data.data
           }
+        })
+      },
+      getMaterials ({ state }, id) {
+        return axios.get(connectorBaseUrl + '/products/materials').then((result) => {
+          return result.data
         })
       },
       async startOnboarding ({ commit }, data) {
