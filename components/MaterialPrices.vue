@@ -18,7 +18,7 @@
               <input :id="tag.id"
                      type="checkbox"
                      :value="tag.value"
-                     v-model="selectedTag">
+                     v-model="selectedMaterial">
               {{tag.name}}
             </label>
           </div>
@@ -29,28 +29,17 @@
       </div>
     </div>
     <div class="material-prices-list">
-      <div v-for="items in selectedTag" class="body content-card" :key="items.id">
+      <div v-for="items in selectedMaterial" class="body content-card" :key="items.id">
         <div v-for="(names, i) in tags" :key="names.id">
            <span v-if="tags[i].value === items" class="department">{{tags[i].name}}</span>
-        </div>
-        <div class="material-header">
-          <div class="header">
-            <div class="title">
-              Maschine
-            </div>
-
-            <div class="title">
-              Kosten in €
-            </div>
-          </div>
         </div>
         <div class="material-prices">
            <div
                v-for="material in materials" :key="material.id"
                class="material-price"
-               v-show="visible(material.department)"
            >
             <div
+                v-if="material.department === items.toString()"
                 class="info-row"
             >
               <div class="info-block">
@@ -65,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div v-if="selectedTag.length < 1">
+      <div v-if="selectedMaterial.length < 1">
         <div v-for="items in [2,3] " class="body content-card" :key="items.id">
           <div v-for="(names, i) in tags" :key="names.id">
              <span v-if="tags[i].value === items" class="department">{{tags[i].name}}</span>
@@ -84,12 +73,12 @@
             <div
                 v-for="material in materials" :key="material.id"
                 class="material-price"
-                v-show="visible(material.department)"
             >
               <div
+                  v-if="material.department === items.toString()"
                   class="info-row"
               >
-                <div class="info-block" v-for="(department, index) in material" :key="department.id">
+                <div class="info-block">
                   <div class="col info">
                     {{material.external_name}}
                   </div>
@@ -117,7 +106,6 @@ export default {
         { id: 1, name: 'Metallwerkstatt', value: 2 },
         { id: 2, name: 'Digitallabor', value: 3 }
       ],
-      selectedTag: [],
       selectedMaterial: [],
       tagsCollapsed: true
     }
@@ -130,22 +118,9 @@ export default {
   //     console.log('hu')
   //   }
   // },
-  computed: {
-    // filteredMaterials () {
-    // }
-  },
   methods: {
     toggleTags () {
       this.tagsCollapsed = !this.tagsCollapsed
-    },
-    visible (department) {
-      const arrMaterial = [department, this.selectedMaterial]
-      const materials = this.selectedMaterial.length ? arrMaterial.reduce((a, b) => a.filter(c => b.includes(c))).length : true
-      if (materials) {
-        return true
-      } else {
-        return false
-      }
     }
   }
 }
