@@ -91,22 +91,13 @@ export default {
 
 <style lang="scss" scoped>
 @import '/assets/scss/styles.scss';
-
-.description {
-  overflow: hidden;
-  text-overflow: '...';
-  @include media-breakpoint-down(sm) {
-     font-size: 15px;
-  }
-}
-
 .display-maker {
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
   justify-content: space-between;
   align-content: space-between;
   font-size: 1.3rem;
-  max-width: 950px;
+  max-width: 250px;
   margin-left: auto;
   margin-right: auto;
   &:hover {
@@ -119,21 +110,14 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     height: 250px;
-    @include media-breakpoint-down(md) {
-      height: 200px;
-      width: 200px;
-    }
   }
-
   .name {
     text-transform: uppercase;
     margin-top: 3%;
   }
-
   .maker-information {
     width: 70%;
     @include media-breakpoint-down(md) {
-      width: 350px;
     }
     @include media-breakpoint-down(sm) {
       width: 65% !important;
@@ -142,15 +126,9 @@ export default {
       align-self: center;
     }
   }
-
   @include media-breakpoint-down(sm) {
     width: 90%;
     margin-left: 3%;
-    .banner{
-      width: 40%;
-      height: 20vh;
-      align-self: center;
-    }
     .maker-information {
       width: 100%;
     }
@@ -168,24 +146,18 @@ export default {
     }
   }
 }
-
 .link {
   color: black;
 }
-
 .preview-wrapper {
-  width: 100%;
   display: flex;
   justify-content: center;
-
   .maker-preview {
-    width: 100%;
     @include media-breakpoint-down(md) {
-      width: 600px;
       .display-maker{
         font-size: 18px;
         @include media-breakpoint-down(sm) {
-          background-color: white;
+          width: 100%;
           padding-top: 20px;
           padding-bottom: 20px;
         }
@@ -193,7 +165,6 @@ export default {
     }
     .loading {
     }
-
     .loading,
     .story {
       display: block;
@@ -207,14 +178,12 @@ export default {
         font-size: 1.5rem;
         font-family: $font-secondary;
       }
-
       .subtitle {
         margin-bottom: 0.5em;
         font-weight: normal;
         font-size: 1rem;
         font-family: $font-mono;
       }
-
       .teaser {
         font-size: 1rem;
         font-family: $font-mono;
