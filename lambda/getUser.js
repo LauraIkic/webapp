@@ -28,9 +28,22 @@ exports.handler = function (event, context, callback) {
     })
   }
 
-  const client = jwksClient({
-    jwksUri: 'https://grandgarage.eu.auth0.com/.well-known/jwks.json'
-  })
+  let tmpClient = null
+
+  if (process.env.NUXT_ENV_API === 'production') {
+    console.log('#### PRODUCTION')
+    tmpClient = jwksClient({
+      jwksUri: 'https://grandgarage.eu.auth0.com/.well-known/jwks.json'
+    })
+  } else {
+    console.log('#### STAGING')
+    tmpClient = jwksClient({
+      jwksUri: 'https://gg-staging.eu.auth0.com/.well-known/jwks.json'
+    })
+  }
+
+  const client = tmpClient
+
   function getKey (header, callback) {
     client.getSigningKey(header.kid, function (err, key) {
       const signingKey = key.publicKey || key.rsaPublicKey

@@ -6,7 +6,8 @@
     "dev-staging": "NUXT_ENV_API=staging NUXT_ENV_DOMAIN=https://connector.staging.grandgarage.eu nuxt",
     "generate": "nuxt generate",
     "generate-staging": "NUXT_ENV_API=staging NUXT_ENV_DOMAIN=https://connector.staging.grandgarage.eu nuxt generate",
-    "lambda": "netlify-lambda serve lambda"
+    "lambda": "NUXT_ENV_API=production netlify-lambda serve lambda",
+    "lambda-staging": "NUXT_ENV_API=staging netlify-lambda serve lambda"
   },
   "dependencies": {
     "@nuxtjs/eslint-module": "^3.0.2",
