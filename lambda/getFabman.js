@@ -1,11 +1,20 @@
 const axios = require('axios')
-
+const jwksClient = require('jwks-rsa')
 const baseURL = 'https://fabman.io/api/v1/'
+
+// Environment settings
+let tmpFabmanToken
+if (process.env.NUXT_ENV_API === 'production') {
+  tmpFabmanToken = process.env.FABMAN_TOKEN
+} else {
+  tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+}
+const fabmanToken = tmpFabmanToken
 
 exports.handler = function (event, context, callback) {
   const instance = axios.create({
     baseURL,
-    headers: { Authorization: `Bearer ${process.env.FABMAN_TOKEN}` }
+    headers: { Authorization: 'Bearer ' + fabmanToken }
   })
 
   const p = instance.get('packages').then(r => r.data.map((p) => {
@@ -40,8 +49,8 @@ exports.handler = function (event, context, callback) {
       statusCode: 200,
       body: JSON.stringify(data)
     })
-  }).catch((e) => {
-    console.log(e)
+  }).catch((err) => {
+    console.log(err)
     callback(null, {
       statusCode: 500,
       body: 'ERROR'

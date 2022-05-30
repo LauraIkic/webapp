@@ -2,8 +2,20 @@ const axios = require('axios')
 const cookieparser = require('cookieparser')
 const jwt = require('jsonwebtoken')
 const jwksClient = require('jwks-rsa')
-
 const baseURL = 'https://fabman.io/api/v1/'
+
+// Environment settings
+console.log('You are in #' + process.env.NUXT_ENV_API + '# environment')
+let tmpFabmanToken
+const client = jwksClient({
+  jwksUri: `${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+})
+if (process.env.NUXT_ENV_API === 'production') {
+  tmpFabmanToken = process.env.FABMAN_TOKEN
+} else {
+  tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+}
+const fabmanToken = tmpFabmanToken
 
 // TODO: a hell more of exception handling and general hardening
 exports.handler = function (event, context, callback) {
@@ -28,22 +40,6 @@ exports.handler = function (event, context, callback) {
     })
   }
 
-  let tmpClient = null
-
-  if (process.env.NUXT_ENV_API === 'production') {
-    console.log('#### PRODUCTION')
-    tmpClient = jwksClient({
-      jwksUri: 'https://grandgarage.eu.auth0.com/.well-known/jwks.json'
-    })
-  } else {
-    console.log('#### STAGING')
-    tmpClient = jwksClient({
-      jwksUri: 'https://gg-staging.eu.auth0.com/.well-known/jwks.json'
-    })
-  }
-
-  const client = tmpClient
-
   function getKey (header, callback) {
     client.getSigningKey(header.kid, function (err, key) {
       const signingKey = key.publicKey || key.rsaPublicKey
@@ -53,11 +49,11 @@ exports.handler = function (event, context, callback) {
 
   jwt.verify(token, getKey, function (err, decoded) {
     if (!err) {
-      const fabmanId = decoded['https://grandgarage.eu/fabmanId']
+      const fabmanId = decoded[`${process.env.URL}/fabmanId`]
 
       const instance = axios.create({
         baseURL,
-        headers: { Authorization: `Bearer ${process.env.FABMAN_TOKEN}` }
+        headers: { Authorization: 'Bearer ' + fabmanToken }
       })
 
       const payment = { iban: '' }
