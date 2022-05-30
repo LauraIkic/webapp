@@ -28,7 +28,7 @@ if (process.env.NUXT_ENV_API === 'staging' || process.env.NUXT_ENV_API === 'loca
 
 const webAuth = tmpAuth
 
-const baseUrl = process.env.NUXT_ENV_DOMAIN ? process.env.NUXT_ENV_DOMAIN : 'https://connector.grandgarage.eu'
+const baseUrl = process.env.CONNECTOR_DOMAIN ? process.env.CONNECTOR_DOMAIN : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
 
 let connector
