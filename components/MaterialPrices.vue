@@ -5,43 +5,50 @@
   >
     <div class="machine-filters">
 <!--      <code class="loading" v-if="loading">{{ $t('Loading') }}</code>-->
-      <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
-        <div class="expander" @click="toggleTags()">
-        </div>
-        <div class="headline">
-          {{ $t('area') }}
-        </div>
-        <div class="tag-list">
-          <div v-for="tag in tags" :key="tag.id" class="tag">
-            <label class="checkbox">
-              <span class="checkmark"/>
-              <input :id="tag.id"
-                     type="checkbox"
-                     :value="tag.value"
-                     v-model="selectedMaterial">
-              {{tag.name}}
-            </label>
-          </div>
-        </div>
-      </div>
+<!--      <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">-->
+<!--        <div class="expander" @click="toggleTags()">-->
+<!--        </div>-->
+<!--        <div class="headline">-->
+<!--          {{ $t('area') }}-->
+<!--        </div>-->
+<!--        <div class="tag-list">-->
+<!--          <div v-for="tag in tags" :key="tag.id" class="tag">-->
+<!--            <label class="checkbox">-->
+<!--              <span class="checkmark"/>-->
+<!--              <input :id="tag.id"-->
+<!--                     type="checkbox"-->
+<!--                     :value="tag.value"-->
+<!--                     v-model="selectedMaterial">-->
+<!--              {{tag.name}}-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="search">
-<!--        <input type="text" :placeholder="[[ $t('searchMachines') ]]" v-model="search" name="" id=""/>-->
+        <input type="text" :placeholder="[[ $t('searchMachines') ]]" v-model="search" name="" id=""/>
       </div>
     </div>
     <div class="material-prices-list">
-      <div v-for="items in selectedMaterial" class="body content-card" :key="items.id">
-        <div v-for="(names, i) in tags" :key="names.id">
-           <span v-if="tags[i].value === items" class="department">{{tags[i].name}}</span>
+      <div class="body content-card" >
+        <div>
+           <span class="department">Materialien</span>
+        </div>
+        <div class="material-header">
+          <div class="header">
+            <div class="title">
+              Maschine
+            </div>
+            <div class="title">
+              Kosten in €
+            </div>
+          </div>
         </div>
         <div class="material-prices">
-           <div
-               v-for="material in materials" :key="material.id"
-               class="material-price"
-           >
-            <div
-                v-if="material.department === items.toString()"
-                class="info-row"
-            >
+          <div
+              v-for="material in resultQuery" :key="material.id"
+              class="material-price"
+          >
+            <div class="info-row">
               <div class="info-block">
                 <div class="col info">
                   {{material.external_name}}
@@ -54,43 +61,43 @@
           </div>
         </div>
       </div>
-      <div v-if="selectedMaterial.length < 1">
-        <div v-for="items in [2,3] " class="body content-card" :key="items.id">
-          <div v-for="(names, i) in tags" :key="names.id">
-             <span v-if="tags[i].value === items" class="department">{{tags[i].name}}</span>
-          </div>
-          <div class="material-header">
-            <div class="header">
-              <div class="title">
-                Maschine
-              </div>
-              <div class="title">
-                Kosten in €
-              </div>
-            </div>
-          </div>
-          <div class="material-prices">
-            <div
-                v-for="material in materials" :key="material.id"
-                class="material-price"
-            >
-              <div
-                  v-if="material.department === items.toString()"
-                  class="info-row"
-              >
-                <div class="info-block">
-                  <div class="col info">
-                    {{material.external_name}}
-                  </div>
-                  <div class="col info">
-                    {{material.price_sell}}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div v-if="selectedMaterial.length < 1">-->
+<!--        <div v-for="items in [2,3] " class="body content-card" :key="items.id">-->
+<!--          <div v-for="(names, i) in tags" :key="names.id">-->
+<!--             <span v-if="tags[i].value === items" class="department">{{tags[i].name}}</span>-->
+<!--          </div>-->
+<!--          <div class="material-header">-->
+<!--            <div class="header">-->
+<!--              <div class="title">-->
+<!--                Maschine-->
+<!--              </div>-->
+<!--              <div class="title">-->
+<!--                Kosten in €-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="material-prices">-->
+<!--            <div-->
+<!--                v-for="material in materials" :key="material.id"-->
+<!--                class="material-price"-->
+<!--            >-->
+<!--              <div-->
+<!--                  v-if="material.department === items.toString()"-->
+<!--                  class="info-row"-->
+<!--              >-->
+<!--                <div class="info-block">-->
+<!--                  <div class="col info">-->
+<!--                    {{material.external_name}}-->
+<!--                  </div>-->
+<!--                  <div class="col info">-->
+<!--                    {{material.price_sell}}-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </section>
 </template>
@@ -102,27 +109,39 @@ export default {
   data () {
     return {
       materials: [],
-      tags: [
-        { id: 1, name: 'Metallwerkstatt', value: 2 },
-        { id: 2, name: 'Digitallabor', value: 3 }
-      ],
-      selectedMaterial: [],
-      tagsCollapsed: true
+      search: ''
+      // tags: [
+      //   { id: 1, name: 'Metallwerkstatt', value: 2 },
+      //   { id: 2, name: 'Digitallabor', value: 3 }
+      // ],
+      // selectedMaterial: [],
+      // tagsCollapsed: true
+    }
+  },
+  computed: {
+    resultQuery () {
+      if (this.search) {
+        return this.materials.filter((m) => {
+          return this.search.toLowerCase().split(' ').every((v) => m.external_name.toLowerCase().includes(v))
+        })
+      } else {
+        return this.materials
+      }
     }
   },
   async mounted () {
     this.materials = await this.$store.dispatch('getMaterials')
-  },
+  }
   // watch: {
   //   selectedMaterial: function (to) {
   //     console.log('hu')
   //   }
   // },
-  methods: {
-    toggleTags () {
-      this.tagsCollapsed = !this.tagsCollapsed
-    }
-  }
+  // methods: {
+  //   toggleTags () {
+  //     this.tagsCollapsed = !this.tagsCollapsed
+  //   }
+  // }
 }
 </script>
 
