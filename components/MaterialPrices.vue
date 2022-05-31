@@ -54,7 +54,7 @@
                   {{material.external_name}}
                 </div>
                 <div class="col info">
-                  {{material.price_sell}}
+                  {{material.price_sell}} / {{material.name}}
                 </div>
               </div>
             </div>
@@ -122,7 +122,11 @@ export default {
     resultQuery () {
       if (this.search) {
         return this.materials.filter((m) => {
-          return this.search.toLowerCase().split(' ').every((v) => m.external_name.toLowerCase().includes(v))
+          if (m.external_name === null) {
+            return this.search.toLowerCase().split(' ').every((v) => m.internal_name.toLowerCase().includes(v))
+          } else {
+            return this.search.toLowerCase().split(' ').every((v) => m.external_name.toLowerCase().includes(v))
+          }
         })
       } else {
         return this.materials
