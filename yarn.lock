@@ -29,7 +29,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.17.10.tgz#711dc726a492dfc8be8220028b1b92482362baab"
   integrity sha512-GZt/TCsG70Ms19gfZO1tM4CVnXsPgEPBCpJu+Qz3L0LUDsY5nZqFZglIoPC1kIYOtNBZlrnFT+klg12vFGZXrw==
 
-"@babel/core@^7.0.0", "@babel/core@^7.14.0":
+"@babel/core@^7.0.0", "@babel/core@^7.12.0", "@babel/core@^7.14.0":
   version "7.18.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.18.2.tgz#87b2fcd7cce9becaa7f5acebdc4f09f3dd19d876"
   integrity sha512-A8pri1YJiC5UnkdrWcmfZTJTV85b4UXTAfImGmCfYmax4TR9Cw8sDS0MOk++Gp2mE/BefVJ5nwy5yzqNJbP/DQ==
@@ -2438,6 +2438,11 @@ babel-plugin-polyfill-regenerator@^0.3.0:
   integrity sha512-Y2B06tvgHYt1x0yz17jGkGeeMr5FeKUu+ASJ+N6nB5lQ8Dapfg42i0OVrf8PNGJ3zKL4A23snMi1IRwrqqND7A==
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.3.1"
+
+babel-plugin-transform-inline-environment-variables@^0.4.3:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-inline-environment-variables/-/babel-plugin-transform-inline-environment-variables-0.4.4.tgz#974245008b3cbbd646bd81707af147aea3acca43"
+  integrity sha512-bJILBtn5a11SmtR2j/3mBOjX4K3weC6cq+NNZ7hG22wCAqpc3qtj/iN7dSe9HDiS46lgp1nHsQgeYrea/RUe+g==
 
 babel-runtime@6.x, babel-runtime@^6.26.0:
   version "6.26.0"
@@ -6634,6 +6639,14 @@ netlify-lambda@^1.6.3:
     toml "^2.3.3"
     webpack "^4.17.1"
     webpack-merge "^4.1.4"
+
+netlify-plugin-inline-functions-env@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/netlify-plugin-inline-functions-env/-/netlify-plugin-inline-functions-env-1.0.9.tgz#947b57c3f1fe8d50b42fd050f3ff558a2d48d87b"
+  integrity sha512-a3lfiWKuLYjbWuKSrHkpYLwfq2Um6ib/JJXaoxq0vvms6yQC1xtzKAYUt4jUN4UKeyujBpANH3dEKgkS1tyodg==
+  dependencies:
+    "@babel/core" "^7.12.0"
+    babel-plugin-transform-inline-environment-variables "^0.4.3"
 
 no-case@^2.2.0:
   version "2.3.2"

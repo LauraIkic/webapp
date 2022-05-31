@@ -5,31 +5,32 @@ const jwksClient = require('jwks-rsa')
 const baseURL = 'https://fabman.io/api/v1/'
 
 // Environment settings
-console.log('You are in ## ' + process.env.NUXT_ENV + ' ##')
-console.log('Auth0 domain: # ' + process.env.AUTH0_URL + ' #')
+console.log('You are in ## ' + process.env.NETLIFY_ENVIRONMENT + ' ##')
 let tmpFabmanToken
 let tmpClient
 let tmpOrigin
-if (process.env.NUXT_ENV === 'staging' || process.env.NUXT_ENV === 'local') {
+if (process.env.NETLIFY_ENVIRONMENT === 'staging' || process.env.NETLIFY_ENVIRONMENT === 'local') {
   tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
   tmpClient = jwksClient({
     jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
   })
   tmpOrigin = process.env.ORIGIN_STAGING
-  console.log('Fabman: # staging #')
-  console.log('Origin: # ' + tmpOrigin + ' #')
+  console.log('Fabman token: # ' + tmpFabmanToken + ' #')
 } else {
   tmpFabmanToken = process.env.FABMAN_TOKEN
   tmpClient = jwksClient({
     jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
   })
   tmpOrigin = process.env.ORIGIN
-  console.log('Fabman: # production #')
-  console.log('Origin: # ' + tmpOrigin + ' #')
+  console.log('## Fabman token: #production#')
 }
 const fabmanToken = tmpFabmanToken
 const client = tmpClient
 const origin = tmpOrigin
+
+console.log('## Origin: ' + origin)
+console.log('## Auth0 client:')
+console.log(tmpClient)
 
 // TODO: a hell more of exception handling and general hardening
 exports.handler = function (event, context, callback) {
@@ -88,7 +89,12 @@ exports.handler = function (event, context, callback) {
       const packages = instance.get(`members/${fabmanId}/packages`).then(r => r.data)
 
       Promise.all([profile, trainings, packages]).then(([profile, trainings, packages]) => {
-        const user = { profile, trainings, packages, payment }
+        const user = {
+          profile,
+          trainings,
+          packages,
+          payment
+        }
 
         callback(null, {
           statusCode: 200,

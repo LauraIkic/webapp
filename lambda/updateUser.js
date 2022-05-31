@@ -8,7 +8,7 @@ const baseURL = 'https://fabman.io/api/v1/'
 let tmpFabmanToken
 let tmpClient
 let tmpOrigin
-if (process.env.NUXT_ENV === 'staging' || process.env.NUXT_ENV === 'local') {
+if (process.env.NETLIFY_ENVIRONMENT === 'staging' || process.env.NETLIFY_ENVIRONMENT === 'local') {
   tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
   tmpClient = jwksClient({
     jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
