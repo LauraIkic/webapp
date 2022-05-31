@@ -8,3 +8,6 @@ dist
 .DS_Store
 /components/http-client.env.json
 /.eslintcache
+
+# Local Netlify folder
+.netlify

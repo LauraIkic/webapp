@@ -6,15 +6,24 @@ const baseURL = 'https://fabman.io/api/v1/'
 
 // Environment settings
 let tmpFabmanToken
-const client = jwksClient({
-  jwksUri: `${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
-})
+let tmpClient
+let tmpOrigin
 if (process.env.NUXT_ENV === 'staging' || process.env.NUXT_ENV === 'local') {
   tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+  tmpClient = jwksClient({
+    jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
+  })
+  tmpOrigin = process.env.ORIGIN_STAGING
 } else {
   tmpFabmanToken = process.env.FABMAN_TOKEN
+  tmpClient = jwksClient({
+    jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
+  })
+  tmpOrigin = process.env.ORIGIN
 }
 const fabmanToken = tmpFabmanToken
+const client = tmpClient
+const origin = tmpOrigin
 
 // TODO: a hell more of exception handling and general hardening
 exports.handler = function (event, context, callback) {
@@ -48,7 +57,7 @@ exports.handler = function (event, context, callback) {
 
   jwt.verify(token, getKey, function (err, decoded) {
     if (!err) {
-      const fabmanId = decoded[`${process.env.URL}/fabmanId`]
+      const fabmanId = decoded[origin + '/fabmanId']
 
       const instance = axios.create({
         baseURL,

@@ -4,10 +4,10 @@
     "dev": "nuxt",
     "dev-local": "NUXT_ENV=local CONNECTOR_DOMAIN=https://connector.dev.grandgarage.eu nuxt",
     "dev-staging": "NUXT_ENV=staging CONNECTOR_DOMAIN=https://connector.staging.grandgarage.eu nuxt",
-    "generate": "nuxt generate",
+    "generate": "NUXT_ENV=production nuxt generate",
     "generate-staging": "NUXT_ENV=staging CONNECTOR_DOMAIN=https://connector.staging.grandgarage.eu nuxt generate",
-    "lambda": "NUXT_ENV=production AUTH0_DOMAIN=https://grandgarage.eu.auth0.com URL=https://grandgarage.eu netlify-lambda serve lambda",
-    "lambda-staging": "NUXT_ENV=staging AUTH0_DOMAIN=https://gg-staging.eu.auth0.com URL=https://staging.grandgarage.eu netlify-lambda serve lambda"
+    "lambda": "NUXT_ENV=production AUTH0_URL=https://grandgarage.eu.auth0.com netlify-lambda serve lambda",
+    "lambda-staging": "NUXT_ENV=staging AUTH0_URL_STAGING=https://gg-staging.eu.auth0.com netlify-lambda serve lambda"
   },
   "dependencies": {
     "@nuxtjs/eslint-module": "^3.0.2",

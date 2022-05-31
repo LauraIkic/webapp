@@ -1,5 +1,4 @@
 const axios = require('axios')
-const jwksClient = require('jwks-rsa')
 const baseURL = 'https://fabman.io/api/v1/'
 
 // Environment settings
