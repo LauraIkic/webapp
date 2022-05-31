@@ -8,7 +8,10 @@
 # will inherit these settings.
 [context.production]
   command = "npm run generate"
-  environment = { NUXT_ENV = "production" }
+[context.production.environment]
+  NUXT_ENV = "production"
+  AUTH0_DOMAIN = "https://grandgarage.eu.auth0.com"
+  URL = "https://grandgarage.eu"
 
 # Specific branch context: all deploys from
 # this specific branch will inherit these settings.
@@ -16,3 +19,6 @@
   command = "npm run generate-staging && cp _branchdeploy_headers dist/_headers"
 [context.staging.environment]
   NUXT_ENV = "staging"
+  AUTH0_DOMAIN = "https://gg-staging.eu.auth0.com"
+  URL = "https://staging.grandgarage.eu"
+  CONNECTOR_DOMAIN = "https://connector.staging.grandgarage.eu"
