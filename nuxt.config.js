@@ -140,7 +140,7 @@ module.exports = {
   },
   // env: {
   //   baseUrl:
-  //     process.env.NUXT_ENV_API === 'local' ? 'https://connector.dev.grandgarage.eu nuxt' : 'https://staging-connector.grandgarage.eu nuxt'
+  //     process.env.NUXT_ENV === 'local' ? 'https://connector.dev.grandgarage.eu nuxt' : 'https://staging-connector.grandgarage.eu nuxt'
   // },
   generate: {
     target: 'static',

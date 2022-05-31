@@ -8,7 +8,7 @@ const origin = process.client ? window.location.origin : process.env.ORIGIN
 
 let tmpAuth = null
 
-if (process.env.NUXT_ENV_API === 'staging' || process.env.NUXT_ENV_API === 'local') {
+if (process.env.NUXT_ENV === 'staging' || process.env.NUXT_ENV === 'local') {
   tmpAuth = new auth0.WebAuth({
     domain: 'gg-staging.eu.auth0.com',
     clientID: 'LsZ4ug7c87ae1SAq1Q3nW4FjvJsQXb7T',

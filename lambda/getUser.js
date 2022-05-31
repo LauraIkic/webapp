@@ -5,12 +5,12 @@ const jwksClient = require('jwks-rsa')
 const baseURL = 'https://fabman.io/api/v1/'
 
 // Environment settings
-console.log('You are in #' + process.env.NUXT_ENV_API + '# environment')
+console.log('You are in #' + process.env.NUXT_ENV + '# environment')
 let tmpFabmanToken
 const client = jwksClient({
   jwksUri: `${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
 })
-if (process.env.NUXT_ENV_API === 'production') {
+if (process.env.NUXT_ENV === 'production') {
   tmpFabmanToken = process.env.FABMAN_TOKEN
 } else {
   tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING

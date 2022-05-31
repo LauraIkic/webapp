@@ -8,8 +8,11 @@
 # will inherit these settings.
 [context.production]
   command = "npm run generate"
+  environment = { NUXT_ENV = "production" }
 
 # Specific branch context: all deploys from
 # this specific branch will inherit these settings.
 [context.staging] # “staging” is a branch name
   command = "npm run generate-staging && cp _branchdeploy_headers dist/_headers"
+[context.staging.environment]
+  NUXT_ENV = "staging"

@@ -10,7 +10,7 @@ let tmpFabmanToken
 const client = jwksClient({
   jwksUri: `${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
 })
-if (process.env.NUXT_ENV_API === 'production') {
+if (process.env.NUXT_ENV === 'production') {
   tmpFabmanToken = process.env.FABMAN_TOKEN
 } else {
   tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
