@@ -34,6 +34,7 @@
     "marked": "^0.7.0",
     "moment": "^2.24.0",
     "netlify-plugin-inline-functions-env": "^1.0.9",
+    "node-sass": "^6.0.0",
     "nuxt": "^2.10.0",
     "nuxt-i18n": "^6.28.1",
     "querystring": "^0.2.0",
@@ -61,7 +62,6 @@
     "eslint": "^7.30.0",
     "eslint-plugin-promise": "^5.1.0",
     "netlify-lambda": "^1.6.3",
-    "sass": "^1.52.1",
     "sass-loader": "^10.0.0"
   }
 }
