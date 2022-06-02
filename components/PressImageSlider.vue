@@ -93,13 +93,13 @@ export default {
   flex-flow: column;
   height: inherit;
   align-content: initial;
-  justify-content: flex-end;
+  justify-content: end;
   transition: 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
   width: inherit;
   @include media-breakpoint-down(md) {
     margin-top: 119%;
     transition: none;
-    height: 0;
+    height: 0px;
   }
 }
 .image-title {

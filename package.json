@@ -2,12 +2,11 @@
   "name": "grandgarage-webapp",
   "scripts": {
     "dev": "nuxt",
-    "dev-local": "NUXT_ENV_ENVIRONMENT=local NUXT_ENV_CONNECTOR_URL=https://connector.dev.grandgarage.eu nuxt",
-    "dev-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt",
-    "generate": "NUXT_ENV_ENVIRONMENT=production nuxt generate",
-    "generate-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt generate",
-    "lambda": "NETLIFY_ENVIRONMENT=production AUTH0_URL=https://grandgarage.eu.auth0.com ORIGING=https://grandgarage.eu netlify-lambda serve lambda",
-    "lambda-staging": "NETLIFY_ENVIRONMENT=staging AUTH0_URL_STAGING=https://gg-staging.eu.auth0.com ORIGIN_STAGING=https://staging.grandgarage.eu netlify-lambda serve lambda"
+    "dev-local": "NUXT_ENV_API=local NUXT_ENV_DOMAIN=https://connector.dev.grandgarage.eu nuxt",
+    "dev-staging": "NUXT_ENV_API=staging NUXT_ENV_DOMAIN=https://connector.staging.grandgarage.eu nuxt",
+    "generate": "nuxt generate",
+    "generate-staging": "NUXT_ENV_API=staging NUXT_ENV_DOMAIN=https://connector.staging.grandgarage.eu nuxt generate",
+    "lambda": "netlify-lambda serve lambda"
   },
   "dependencies": {
     "@nuxtjs/eslint-module": "^3.0.2",
@@ -33,7 +32,6 @@
     "kalendar-vue": "^2.0.1",
     "marked": "^0.7.0",
     "moment": "^2.24.0",
-    "netlify-plugin-inline-functions-env": "^1.0.9",
     "node-sass": "^6.0.0",
     "nuxt": "^2.10.0",
     "nuxt-i18n": "^6.28.1",

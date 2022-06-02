@@ -3,20 +3,13 @@
   publish = "dist"
   functions = "functions/"
 
-[[plugins]]
-  package = "netlify-plugin-inline-functions-env"
-
 # Production context: all deploys from the Production branch
 # set in your site’s Branches settings in the UI
 # will inherit these settings.
 [context.production]
   command = "npm run generate"
-[context.production.environment]
-  NETLIFY_ENVIRONMENT = "production"
 
 # Specific branch context: all deploys from
 # this specific branch will inherit these settings.
 [context.staging] # “staging” is a branch name
-  command = "npm run generate-staging && cp _branchdeploy_headers dist/_headers  && echo 'You are in STAGING context'"
-[context.staging.environment]
-  NETLIFY_ENVIRONMENT = "staging"
+  command = "npm run generate-staging && cp _branchdeploy_headers dist/_headers"

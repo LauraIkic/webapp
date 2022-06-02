@@ -1,12 +1,12 @@
-// import path from 'path'
-// import fs from 'fs'
+import path from 'path'
+import fs from 'fs'
 
 const axios = require('axios')
 const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
 const googleId = 'UA-202640934-1'
 
 module.exports = {
-  // used for HTTPS support. Check out how to create ssl certificate here https://grandgarage.atlassian.net/wiki/spaces/ITINT/pages/2127532975/Docker#Docker-SSL
+  // used for HTTPS support. Check out how to creates ssl certificate here https://grandgarage.atlassian.net/wiki/spaces/ITINT/pages/2127532975/Docker#Docker-SSL
   // server: {
   //   https: {
   //     key: fs.readFileSync(path.resolve(__dirname, 'ggwebsite.key')),
@@ -140,7 +140,7 @@ module.exports = {
   },
   // env: {
   //   baseUrl:
-  //     process.env.NUXT_ENV_ENVIRONMENT === 'local' ? 'https://connector.dev.grandgarage.eu nuxt' : 'https://staging-connector.grandgarage.eu nuxt'
+  //     process.env.NUXT_ENV_API === 'local' ? 'https://connector.dev.grandgarage.eu nuxt' : 'https://staging-connector.grandgarage.eu nuxt'
   // },
   generate: {
     target: 'static',
