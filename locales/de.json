@@ -20,6 +20,7 @@
   "toRegistration": "Zur Anmeldung",
   "currentOccupancyRate": "aktuelle Auslastung:",
   "price": "Preis:",
+  "priceIn": "Kosten in €",
   "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " Für die Buchung eines Workshops musst du registriert und eingeloggt sein.",
   "thankYou": "Danke!",
   "until": "bis",
@@ -118,6 +119,8 @@
   "area": "Bereich",
   "searchMachines": "Maschinen suchen",
   "noSearchResults": "Keine Suchergebnisse",
+  "search": "Suche...",
+  "materials": "Materialien",
 
 
   "materialsUsed": "Verwendete Materialien:",

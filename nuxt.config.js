@@ -97,7 +97,8 @@ module.exports = {
         'faArrowCircleRight',
         'faSave',
         'faPlus',
-        'faExclamationTriangle'
+        'faExclamationTriangle',
+        'faSearch'
       ]
     }
   },
