@@ -1,25 +1,43 @@
-const axios = require('axios');
-const cookieparser = require('cookieparser');
-const jwt = require('jsonwebtoken');
-const jwksClient = require('jwks-rsa');
-import querystring from "querystring";
+const axios = require('axios')
+const cookieparser = require('cookieparser')
+const jwt = require('jsonwebtoken')
+const jwksClient = require('jwks-rsa')
+const baseURL = 'https://fabman.io/api/v1/'
 
-const baseURL = 'https://fabman.io/api/v1/';
+// Environment settings
+let tmpFabmanToken
+let tmpClient
+let tmpOrigin
+if (process.env.NETLIFY_ENVIRONMENT === 'staging' || process.env.NETLIFY_ENVIRONMENT === 'local') {
+  tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+  tmpClient = jwksClient({
+    jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
+  })
+  tmpOrigin = process.env.ORIGIN_STAGING
+} else {
+  tmpFabmanToken = process.env.FABMAN_TOKEN
+  tmpClient = jwksClient({
+    jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
+  })
+  tmpOrigin = process.env.ORIGIN
+}
+const fabmanToken = tmpFabmanToken
+const client = tmpClient
+const origin = tmpOrigin
 
 // TODO: a hell more of exception handling and general hardening
-exports.handler = function(event, context, callback) {
-
-  let token = null;
+exports.handler = function (event, context, callback) {
+  let token = null
   if (event.headers.cookie) {
     const parsed = cookieparser.parse(event.headers.cookie)
     try {
       token = parsed.jwt
     } catch (err) {
-      console.log(err);
+      console.log(err)
       return callback(null, {
         statusCode: 401,
         body: 'Unauthorized'
-      });
+      })
     }
   }
 
@@ -27,32 +45,29 @@ exports.handler = function(event, context, callback) {
     return callback(null, {
       statusCode: 401,
       body: 'Unauthorized'
-    });
+    })
   }
 
-  var client = jwksClient({
-    jwksUri: 'https://grandgarage.eu.auth0.com/.well-known/jwks.json'
-  });
-  function getKey(header, callback) {
-    client.getSigningKey(header.kid, function(err, key) {
-      let signingKey = key.publicKey || key.rsaPublicKey;
-      callback(null, signingKey);
-    });
+  function getKey (header, callback) {
+    client.getSigningKey(header.kid, function (err, key) {
+      const signingKey = key.publicKey || key.rsaPublicKey
+      callback(null, signingKey)
+    })
   }
 
-  jwt.verify(token, getKey, function(err, decoded) {
+  jwt.verify(token, getKey, function (err, decoded) {
     if (!err) {
-      let fabmanId = decoded['https://grandgarage.eu/fabmanId'];
+      const fabmanId = decoded[origin + '/fabmanId']
 
       const instance = axios.create({
         baseURL,
-        headers: {'Authorization': `Bearer ${process.env.FABMAN_TOKEN}`}
-      });
+        headers: { Authorization: 'Bearer ' + fabmanToken }
+      })
 
-      let data = JSON.parse(event.body);
+      const data = JSON.parse(event.body)
 
       instance.put(`members/${fabmanId}`, data).then((r) => {
-        let user = {
+        const user = {
           firstName: r.data.firstName,
           lastName: r.data.lastName,
           memberNumber: r.data.memberNumber,
@@ -61,26 +76,26 @@ exports.handler = function(event, context, callback) {
           address2: r.data.address2,
           city: r.data.city,
           zip: r.data.zip,
-          lockVersion: r.data.lockVersion,
+          lockVersion: r.data.lockVersion
         }
 
         callback(null, {
           statusCode: 200,
           body: JSON.stringify(user)
-        });
-      }).catch((e) => {
+        })
+      }).catch((err) => {
+        console.log(err)
         callback(null, {
           statusCode: 500,
           body: 'ERROR'
-        });
-      });
-
+        })
+      })
     } else {
-      console.log(err);
+      console.log(err)
       callback(null, {
         statusCode: 500,
         body: 'ERROR'
-      });
+      })
     }
-  });
-};
+  })
+}

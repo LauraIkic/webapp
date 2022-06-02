@@ -2,8 +2,35 @@ const axios = require('axios')
 const cookieparser = require('cookieparser')
 const jwt = require('jsonwebtoken')
 const jwksClient = require('jwks-rsa')
-
 const baseURL = 'https://fabman.io/api/v1/'
+
+// Environment settings
+console.log('You are in ## ' + process.env.NETLIFY_ENVIRONMENT + ' ##')
+let tmpFabmanToken
+let tmpClient
+let tmpOrigin
+if (process.env.NETLIFY_ENVIRONMENT === 'staging' || process.env.NETLIFY_ENVIRONMENT === 'local') {
+  tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+  tmpClient = jwksClient({
+    jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
+  })
+  tmpOrigin = process.env.ORIGIN_STAGING
+  console.log('Fabman token: # ' + tmpFabmanToken + ' #')
+} else {
+  tmpFabmanToken = process.env.FABMAN_TOKEN
+  tmpClient = jwksClient({
+    jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
+  })
+  tmpOrigin = process.env.ORIGIN
+  console.log('## Fabman token: #production#')
+}
+const fabmanToken = tmpFabmanToken
+const client = tmpClient
+const origin = tmpOrigin
+
+console.log('## Origin: ' + origin)
+console.log('## Auth0 client:')
+console.log(tmpClient)
 
 // TODO: a hell more of exception handling and general hardening
 exports.handler = function (event, context, callback) {
@@ -28,9 +55,6 @@ exports.handler = function (event, context, callback) {
     })
   }
 
-  const client = jwksClient({
-    jwksUri: 'https://grandgarage.eu.auth0.com/.well-known/jwks.json'
-  })
   function getKey (header, callback) {
     client.getSigningKey(header.kid, function (err, key) {
       const signingKey = key.publicKey || key.rsaPublicKey
@@ -40,11 +64,11 @@ exports.handler = function (event, context, callback) {
 
   jwt.verify(token, getKey, function (err, decoded) {
     if (!err) {
-      const fabmanId = decoded['https://grandgarage.eu/fabmanId']
+      const fabmanId = decoded[origin + '/fabmanId']
 
       const instance = axios.create({
         baseURL,
-        headers: { Authorization: `Bearer ${process.env.FABMAN_TOKEN}` }
+        headers: { Authorization: 'Bearer ' + fabmanToken }
       })
 
       const payment = { iban: '' }
@@ -65,7 +89,12 @@ exports.handler = function (event, context, callback) {
       const packages = instance.get(`members/${fabmanId}/packages`).then(r => r.data)
 
       Promise.all([profile, trainings, packages]).then(([profile, trainings, packages]) => {
-        const user = { profile, trainings, packages, payment }
+        const user = {
+          profile,
+          trainings,
+          packages,
+          payment
+        }
 
         callback(null, {
           statusCode: 200,
