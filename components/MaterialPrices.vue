@@ -43,6 +43,9 @@
         </div>
       </div>
     </div>
+    <div class="tax">
+      {{ $t('tax') }}
+    </div>
   </section>
 </template>
 
@@ -115,7 +118,7 @@ export default {
 .body {
   position: relative;
   z-index: 1;
-  margin-bottom: 4%;
+  margin-bottom: 3%;
   width: 100%;
   padding: 5%;
   .department {
@@ -175,5 +178,8 @@ export default {
       }
     }
   }
+}
+.tax {
+  margin-left: 30px;
 }
 </style>
