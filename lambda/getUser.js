@@ -15,22 +15,19 @@ if (process.env.NETLIFY_ENVIRONMENT === 'staging' || process.env.NETLIFY_ENVIRON
     jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
   })
   tmpOrigin = process.env.ORIGIN_STAGING
-  console.log('Fabman token: # ' + tmpFabmanToken + ' #')
+  console.log('## Auth0 url:' + process.env.AUTH0_URL_STAGING)
 } else {
   tmpFabmanToken = process.env.FABMAN_TOKEN
   tmpClient = jwksClient({
     jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
   })
   tmpOrigin = process.env.ORIGIN
-  console.log('## Fabman token: #production#')
+  console.log('## Auth0 url:' + process.env.AUTH0_URL)
 }
 const fabmanToken = tmpFabmanToken
 const client = tmpClient
 const origin = tmpOrigin
-
 console.log('## Origin: ' + origin)
-console.log('## Auth0 client:')
-console.log(tmpClient)
 
 // TODO: a hell more of exception handling and general hardening
 exports.handler = function (event, context, callback) {
