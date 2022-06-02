@@ -10,7 +10,7 @@
 # set in your site’s Branches settings in the UI
 # will inherit these settings.
 [context.production]
-  command = "npm run generate"
+  command = "yarn run generate"
 [context.production.environment]
   NETLIFY_ENVIRONMENT = "production"
 
