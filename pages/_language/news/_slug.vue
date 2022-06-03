@@ -99,7 +99,8 @@ export default {
         { name: 'twitter', key: 'tw', selected: false },
         { name: 'instagram', key: 'ig', selected: false }
       ],
-      item: null
+      item: null,
+      makersAsync: []
     }
   },
   asyncData (context) {
