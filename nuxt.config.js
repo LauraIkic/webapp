@@ -82,12 +82,13 @@ module.exports = {
   css: [
     '@/assets/scss/styles.scss',
     '@/assets/scss/vueDatePick.scss',
-    'swiper/dist/css/swiper.css'
+    'swiper/dist/css/swiper.css',
+    '@fortawesome/fontawesome-svg-core/styles.css'
   ],
   buildModules: [
     ['storyblok-nuxt', { accessToken: storyblokToken, cacheProvider: 'memory' }],
     '@nuxtjs/proxy',
-    ['@nuxtjs/fontawesome'],
+    // ['@nuxtjs/fontawesome'],
     ['@nuxtjs/google-analytics'],
     ['@nuxtjs/style-resources']
   ],
@@ -97,36 +98,12 @@ module.exports = {
       '@/assets/scss/vueDatePick.scss'
     ]
   },
-  fontawesome: {
-    icons: {
-      solid: [
-        'faUser',
-        'faCube',
-        'faCoins',
-        'faGift',
-        'faHammer',
-        'faDownload',
-        'faFileInvoice',
-        'faFilePdf',
-        'faLink',
-        'faGraduationCap',
-        'faUserFriends',
-        'faCheckCircle',
-        'faTimesCircle',
-        'faRunning',
-        'faAngleLeft',
-        'faTimes',
-        'faKey',
-        'faCircleNotch',
-        'faSignOutAlt',
-        'faInfoCircle',
-        'faArrowCircleRight',
-        'faSave',
-        'faPlus',
-        'faExclamationTriangle'
-      ]
-    }
-  },
+  // fontawesome: {
+  //   icons: {
+  //     solid: true,
+  //     brands: true
+  //   }
+  // },
   modules: [
     '@nuxtjs/sentry',
     '@nuxtjs/toast',
@@ -149,8 +126,12 @@ module.exports = {
     '~/plugins/map',
     '~/plugins/libs',
     '~/plugins/routersync',
+    '~/plugins/fontawesome.js',
     { src: '~/plugins/components-nossr', ssr: false }
   ],
+  purgeCSS: {
+    whitelistPatterns: [/svg.*/, /fa.*/]
+  },
   router: {
     middleware: 'router'
   },
