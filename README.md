@@ -22,6 +22,7 @@ This badly named repository contains the source code that powers the web applica
 3. **Use netlify functions**  (works only with valid token) <br>
    `yarn lambda-staging`
 <br>
+
 ### Prepare for Deployment
 
 **Generate static HTML**
