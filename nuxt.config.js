@@ -1,18 +1,8 @@
-// import path from 'path'
-// import fs from 'fs'
-
 const axios = require('axios')
 const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
 const googleId = 'UA-202640934-1'
 
 module.exports = {
-  // used for HTTPS support. Check out how to create ssl certificate here https://grandgarage.atlassian.net/wiki/spaces/ITINT/pages/2127532975/Docker#Docker-SSL
-  // server: {
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, 'ggwebsite.key')),
-  //     cert: fs.readFileSync(path.resolve(__dirname, 'ggwebsite.crt'))
-  //   }
-  // },
   i18n: {
     locales: [
       {
@@ -81,29 +71,20 @@ module.exports = {
    */
   css: [
     '@/assets/scss/styles.scss',
-    '@/assets/scss/vueDatePick.scss',
     'swiper/dist/css/swiper.css',
     '@fortawesome/fontawesome-svg-core/styles.css'
   ],
   buildModules: [
     ['storyblok-nuxt', { accessToken: storyblokToken, cacheProvider: 'memory' }],
     '@nuxtjs/proxy',
-    // ['@nuxtjs/fontawesome'],
     ['@nuxtjs/google-analytics'],
     ['@nuxtjs/style-resources']
   ],
   styleResources: {
     scss: [
-      '@/assets/scss/styles.scss',
-      '@/assets/scss/vueDatePick.scss'
+      '@/assets/scss/styles.scss'
     ]
   },
-  // fontawesome: {
-  //   icons: {
-  //     solid: true,
-  //     brands: true
-  //   }
-  // },
   modules: [
     '@nuxtjs/sentry',
     '@nuxtjs/toast',
