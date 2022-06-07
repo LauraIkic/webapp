@@ -22,7 +22,7 @@ export default {
   mixins: [storyblokLivePreview],
   asyncData (context) {
     return context.store.dispatch('loadFullPage', context.route.fullPath).then(data => {
-     return { story: data.story }
+      return { story: data.story }
     }).catch((e) => {
       context.error({ statusCode: e.response.status, message: e.response.statusText })
     })

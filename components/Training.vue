@@ -29,7 +29,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
 
 .training-item {
   margin-bottom: 5px;

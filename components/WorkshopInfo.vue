@@ -73,7 +73,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .workshop-info {
   color: #000;

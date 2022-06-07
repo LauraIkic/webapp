@@ -34,7 +34,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
 
 .download-item {
   margin-bottom: 1rem;

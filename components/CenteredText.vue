@@ -14,11 +14,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
 
 .centered-text {
   padding: 5rem;
-  font-family: 'Chakra Petch';
+  font-family: 'Chakra Petch',serif;
   color: $color-blue;
   font-size: 2rem;
   line-height: 1.5;

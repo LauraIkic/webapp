@@ -20,7 +20,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .covidInfobox {
   display: flex;

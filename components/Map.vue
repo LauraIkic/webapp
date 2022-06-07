@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+
 .map {
   @include media-breakpoint-down(lg) {
     @include margin-page-wide;

@@ -54,7 +54,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
 
 .machine-header {
   @include media-breakpoint-down(lg) {

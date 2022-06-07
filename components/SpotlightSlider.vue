@@ -70,7 +70,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
 
 .spotlight-slider {
   margin: -20px;

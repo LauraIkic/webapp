@@ -101,7 +101,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
 
 $faq-margin-left: 2em;
 

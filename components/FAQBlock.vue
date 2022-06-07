@@ -32,7 +32,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
 
 .faq-block {
   display: flex;

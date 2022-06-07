@@ -150,7 +150,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
 
 .blog-wrapper {
   padding-left: 15%;

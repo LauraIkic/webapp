@@ -113,7 +113,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .login-form {
   padding: 5vw;

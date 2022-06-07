@@ -123,7 +123,6 @@ export default {
 </script>
 
 <style lang="scss" >
-@import '/assets/scss/styles.scss';
 
 .team-wrapper {
   padding: 10% 10% 0% 10%;

@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
+
 .press-page{
   max-width: 1264px;
   width: 100%;

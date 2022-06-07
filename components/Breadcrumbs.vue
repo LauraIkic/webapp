@@ -48,7 +48,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
 
 .breadcrumbs {
   z-index: 900;

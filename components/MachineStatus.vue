@@ -80,7 +80,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
 
 .machine-status {
   padding: 10px;

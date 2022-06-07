@@ -348,7 +348,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/styles.scss';
 
 .icon {
   width: 26px;
