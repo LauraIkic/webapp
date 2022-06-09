@@ -60,10 +60,10 @@ export default {
 .preview-wrapper{
   height: inherit;
 }
-.display-machines {
+.preview-wrapper {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 
   .machine-preview {
     padding: 10px;
@@ -107,15 +107,6 @@ export default {
           font-size: 1.2rem;
         }
       }
-
-      .subtitle {
-        color: $color-orange;
-        margin-bottom: 0.5em;
-        font-weight: normal;
-        font-size: 1rem;
-        font-family: $font-mono;
-      }
-
       .teaser {
         font-size: 1rem;
         font-family: $font-mono;

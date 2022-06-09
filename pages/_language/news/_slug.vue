@@ -55,18 +55,13 @@
           />
         </div>
       </div>
-      <div class="maker" v-if="(person != null && person.length !=0) || (member != null && member.length !=0)">
+      <div class="maker" v-if="person !== null && person.length > 0">
         <div class="name"> {{ $t('personBehindTheProject') }}</div>
         <div class="display-makers">
           <maker-preview
               v-for="p in person"
               :id="p"
-              :key="p"
-          />
-          <maker-preview
-              v-for="p in member"
-              :id="p"
-              :key="p"
+              :key="p.id"
           />
         </div>
       </div>
@@ -136,12 +131,6 @@ export default {
     },
     person () {
       return this.item.content.person
-    },
-    member () {
-      if (this.item.content.member != null) {
-        return this.item.content.member
-      }
-      return null
     }
   },
   head () {
@@ -289,12 +278,11 @@ export default {
 .name {
   font-size: 2.5rem;
   font-weight: bold;
-  padding-top: 3vh;
-  padding-left: 4vw;
+  padding-top: 1vh;
+  padding-left: 0;
   font-family: $font-secondary;
   margin-top: 5vh;
   @include media-breakpoint-down(md) {
-    padding-left: 0;
     display: flex;
     justify-content: center;
   }
@@ -394,13 +382,22 @@ export default {
 }
 
 .display-makers {
-  margin-top: 5vh;
-  display: flex;
-  flex-flow: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 2vh;
+  @include media-breakpoint-down(lg) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   @include media-breakpoint-down(sm) {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
+    grid-template-columns: 1fr;
+    flex-flow: column;
+    margin-bottom: 1vh;
   }
 }
 
