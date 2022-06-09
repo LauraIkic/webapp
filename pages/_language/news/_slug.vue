@@ -151,7 +151,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+
 .foot-spacer{
   height: 15vh;
   width: 3vw;

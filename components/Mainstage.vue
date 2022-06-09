@@ -48,7 +48,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/styles.scss';
 
 .mainstage {
   height: calc(30em - 64px);

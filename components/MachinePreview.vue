@@ -48,7 +48,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .display-machine{
   @include media-breakpoint-down(sm) {

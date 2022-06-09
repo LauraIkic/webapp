@@ -172,7 +172,7 @@ export default {
 
   },
   methods: {
-      checkMemberRestrictions (membersOnly) {
+    checkMemberRestrictions (membersOnly) {
       if (membersOnly) {
         return this.isMember
       } else {
@@ -210,7 +210,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .workshop-dates {
   width: 100%;

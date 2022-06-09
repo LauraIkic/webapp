@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
+
 .package-item{
   font-size: 1rem;
   font-family: "Roboto Mono", monospace;

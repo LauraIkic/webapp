@@ -23,7 +23,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
 
 .general-header {
   @include media-breakpoint-down(lg) {

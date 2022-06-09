@@ -322,7 +322,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
+
 .register-form {
   padding: 5vw;
   background-color: $color-bright-bg;

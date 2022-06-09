@@ -6,7 +6,7 @@ import moment from 'moment'
 
 const origin = process.client ? window.location.origin : process.env.ORIGIN
 
-console.log('### My env is: ' + process.env.NUXT_ENV_ENVIRONMENT)
+console.log('### Nuxt environment is: ' + process.env.NUXT_ENV_ENVIRONMENT)
 
 let tmpAuth = new auth0.WebAuth({
   domain: 'auth.grandgarage.eu',

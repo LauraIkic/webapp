@@ -57,7 +57,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .preview-wrapper {
   width: 100%;

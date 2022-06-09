@@ -85,7 +85,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/styles.scss';
 
 .intro-list {
   background-image: url(~assets/img/intro-list-3d-object.svg);

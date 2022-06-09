@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/styles.scss';
+
 .slide-image-title{
   display: flex;
   flex-flow: column;

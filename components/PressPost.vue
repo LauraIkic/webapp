@@ -27,7 +27,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "/assets/scss/styles.scss";
+
 .press-overview{
   margin-top:1%;
   max-width: 1000px;

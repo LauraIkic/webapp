@@ -82,7 +82,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
 
 .onboarding-wizard {
   width: 100%;
