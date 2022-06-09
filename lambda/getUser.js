@@ -5,7 +5,7 @@ const jwksClient = require('jwks-rsa')
 const baseURL = 'https://fabman.io/api/v1/'
 
 // Environment settings
-console.log('You are in ## ' + process.env.NETLIFY_ENVIRONMENT + ' ##')
+console.log('### Netlify environment is: ' + process.env.NETLIFY_ENVIRONMENT)
 let tmpFabmanToken
 let tmpClient
 let tmpOrigin
