@@ -14,9 +14,6 @@ This badly named repository contains the source code that powers the web applica
    `yarn`
 
 2. **Run local dev Server**
-   `yarn run dev`
-
-   (optional) **Run local dev server with local api** <br>
    `yarn run dev-local`
 
 3. **Use netlify functions**  (works only with valid token) <br>
