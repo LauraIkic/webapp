@@ -33,7 +33,7 @@
     "jwks-rsa": "^1.6.0",
     "jwt-decode": "^2.2.0",
     "kalendar-vue": "^2.0.1",
-    "marked": "^4.0.10",
+    "marked": "^4.0.17",
     "moment": "^2.24.0",
     "netlify-plugin-inline-functions-env": "^1.0.9",
     "nuxt": "^2.10.0",
