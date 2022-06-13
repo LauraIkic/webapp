@@ -1,7 +1,6 @@
 {
   "name": "grandgarage-webapp",
   "scripts": {
-    "dev": "nuxt",
     "dev-local": "NUXT_ENV_ENVIRONMENT=local NUXT_ENV_CONNECTOR_URL=https://connector.dev.grandgarage.eu nuxt",
     "dev-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt",
     "generate": "NUXT_ENV_ENVIRONMENT=production nuxt generate",
