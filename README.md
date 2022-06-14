@@ -13,11 +13,15 @@ This badly named repository contains the source code that powers the web applica
 1. **Install Dependencies**
    `yarn`
 
-2. **Run local dev Server**
-   `yarn run dev-local`
+2. **Run local webserver** depending on used environment
+   1. `yarn run nuxt-develop`
+   2. `yarn run nuxt-staging`
+   3. `yarn run nuxt-production`
 
 3. **Use netlify functions**  (works only with valid token) <br>
-   `yarn lambda-staging`
+   1. `yarn lambda-develop`
+   2. `yarn lambda-staging`
+   3. `yarn lambda-production`
 <br>
 
 ### Prepare for Deployment
