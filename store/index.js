@@ -41,7 +41,6 @@ switch (process.env.NUXT_ENV_ENVIRONMENT) {
 }
 
 const webAuth = tmpAuth
-console.log(webAuth)
 
 const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNECTOR_URL : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'

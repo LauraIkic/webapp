@@ -38,7 +38,6 @@ exports.handler = function (event, context, callback) {
       token = parsed.jwt
     } catch (err) {
       console.log(err)
-      console.log('error 1 updateuser #####')
       return callback(null, {
         statusCode: 401,
         body: 'Unauthorized'
@@ -47,7 +46,6 @@ exports.handler = function (event, context, callback) {
   }
 
   if (!token) {
-    console.log('error 2 updateuser #####')
     return callback(null, {
       statusCode: 401,
       body: 'Unauthorized'

@@ -34,7 +34,6 @@ const fabmanToken = tmpFabmanToken
 const client = tmpClient
 const origin = tmpOrigin
 console.log('## Origin: ' + origin)
-console.log('## fabman token: ' + fabmanToken)
 
 // TODO: a hell more of exception handling and general hardening
 exports.handler = function (event, context, callback) {
@@ -69,13 +68,10 @@ exports.handler = function (event, context, callback) {
   jwt.verify(token, getKey, function (err, decoded) {
     if (!err) {
       const fabmanId = decoded[origin + '/fabmanId']
-      console.log(decoded)
       const instance = axios.create({
         baseURL,
         headers: { Authorization: 'Bearer ' + fabmanToken }
       })
-
-      console.log('------- origin: ' + fabmanId)
 
       const payment = { iban: '' }
       const profile = instance.get(`members/${fabmanId}`).then((r) => {
