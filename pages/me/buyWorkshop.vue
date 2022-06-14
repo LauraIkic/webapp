@@ -258,8 +258,11 @@ export default {
       return this.credits > 0
     },
     workshopPrice () {
-      // TODO are there workshops with price_external?
-      return this.workshopDate.content.workshop.content.price_internal
+      if (this.isMember) {
+        return this.workshopDate.content.workshop.content.price_internal
+      } else {
+        return this.workshopDate.content.workshop.content.price_external
+      }
     },
     isFree () {
       return parseInt(this.workshopPrice) === 0
@@ -269,6 +272,9 @@ export default {
         return this.workshopPrice - this.credits
       }
       return this.workshopPrice
+    },
+    isMember () {
+      return this.$store.state.user.packages.length > 0
     }
   },
   async mounted () {
