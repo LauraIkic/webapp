@@ -4,23 +4,27 @@ const jwt = require('jsonwebtoken')
 const jwksClient = require('jwks-rsa')
 const baseURL = 'https://fabman.io/api/v1/'
 
-// Environment settings
+// Define routes depending on your environment
 let tmpFabmanToken
 let tmpClient
 let tmpOrigin
-if (process.env.NETLIFY_ENVIRONMENT === 'staging' || process.env.NETLIFY_ENVIRONMENT === 'local') {
-  tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
-  tmpClient = jwksClient({
-    jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
-  })
-  tmpOrigin = process.env.ORIGIN_STAGING
-} else {
-  tmpFabmanToken = process.env.FABMAN_TOKEN
-  tmpClient = jwksClient({
-    jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
-  })
-  tmpOrigin = process.env.ORIGIN
+switch (process.env.NETLIFY_ENVIRONMENT) {
+  case 'develop':
+  case 'staging':
+    tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+    tmpClient = jwksClient({
+      jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
+    })
+    tmpOrigin = process.env.ORIGIN_STAGING
+    break
+  default: // production
+    tmpFabmanToken = process.env.FABMAN_TOKEN
+    tmpClient = jwksClient({
+      jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
+    })
+    tmpOrigin = process.env.ORIGIN
 }
+
 const fabmanToken = tmpFabmanToken
 const client = tmpClient
 const origin = tmpOrigin
@@ -34,6 +38,7 @@ exports.handler = function (event, context, callback) {
       token = parsed.jwt
     } catch (err) {
       console.log(err)
+      console.log('error 1 updateuser #####')
       return callback(null, {
         statusCode: 401,
         body: 'Unauthorized'
@@ -42,6 +47,7 @@ exports.handler = function (event, context, callback) {
   }
 
   if (!token) {
+    console.log('error 2 updateuser #####')
     return callback(null, {
       statusCode: 401,
       body: 'Unauthorized'

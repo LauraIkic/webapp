@@ -6,28 +6,35 @@ const baseURL = 'https://fabman.io/api/v1/'
 
 // Environment settings
 console.log('### Netlify environment is: ' + process.env.NETLIFY_ENVIRONMENT)
+
+// Define routes depending on your environment
 let tmpFabmanToken
 let tmpClient
 let tmpOrigin
-if (process.env.NETLIFY_ENVIRONMENT === 'staging' || process.env.NETLIFY_ENVIRONMENT === 'local') {
-  tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
-  tmpClient = jwksClient({
-    jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
-  })
-  tmpOrigin = process.env.ORIGIN_STAGING
-  console.log('## Auth0 url:' + process.env.AUTH0_URL_STAGING)
-} else {
-  tmpFabmanToken = process.env.FABMAN_TOKEN
-  tmpClient = jwksClient({
-    jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
-  })
-  tmpOrigin = process.env.ORIGIN
-  console.log('## Auth0 url:' + process.env.AUTH0_URL)
+switch (process.env.NETLIFY_ENVIRONMENT) {
+  case 'develop':
+  case 'staging':
+    tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+    tmpClient = jwksClient({
+      jwksUri: `${process.env.AUTH0_URL_STAGING}/.well-known/jwks.json`
+    })
+    tmpOrigin = process.env.ORIGIN_STAGING
+    console.log('## Auth0 url:' + process.env.AUTH0_URL_STAGING)
+    break
+  default: // production
+    tmpFabmanToken = process.env.FABMAN_TOKEN
+    tmpClient = jwksClient({
+      jwksUri: `${process.env.AUTH0_URL}/.well-known/jwks.json`
+    })
+    tmpOrigin = process.env.ORIGIN
+    console.log('## Auth0 url:' + process.env.AUTH0_URL)
 }
+
 const fabmanToken = tmpFabmanToken
 const client = tmpClient
 const origin = tmpOrigin
 console.log('## Origin: ' + origin)
+console.log('## fabman token: ' + fabmanToken)
 
 // TODO: a hell more of exception handling and general hardening
 exports.handler = function (event, context, callback) {
@@ -62,11 +69,13 @@ exports.handler = function (event, context, callback) {
   jwt.verify(token, getKey, function (err, decoded) {
     if (!err) {
       const fabmanId = decoded[origin + '/fabmanId']
-
+      console.log(decoded)
       const instance = axios.create({
         baseURL,
         headers: { Authorization: 'Bearer ' + fabmanToken }
       })
+
+      console.log('------- origin: ' + fabmanId)
 
       const payment = { iban: '' }
       const profile = instance.get(`members/${fabmanId}`).then((r) => {
