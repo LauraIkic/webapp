@@ -1,12 +1,14 @@
 {
   "name": "grandgarage-webapp",
   "scripts": {
-    "dev-local": "NUXT_ENV_ENVIRONMENT=local NUXT_ENV_CONNECTOR_URL=https://connector.dev.grandgarage.eu nuxt",
-    "dev-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt",
+    "nuxt-develop": "NUXT_ENV_ENVIRONMENT=develop NUXT_ENV_CONNECTOR_URL=https://connector.dev.grandgarage.eu nuxt",
+    "nuxt-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt",
+    "nuxt-production": "NUXT_ENV_ENVIRONMENT=production NUXT_ENV_CONNECTOR_URL=https://connector.grandgarage.eu nuxt",
     "generate": "NUXT_ENV_ENVIRONMENT=production nuxt generate",
     "generate-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt generate",
-    "lambda": "NETLIFY_ENVIRONMENT=production AUTH0_URL=https://grandgarage.eu.auth0.com ORIGIN=https://grandgarage.eu netlify-lambda serve lambda",
-    "lambda-staging": "NETLIFY_ENVIRONMENT=staging AUTH0_URL_STAGING=https://gg-staging.eu.auth0.com ORIGIN_STAGING=https://staging.grandgarage.eu netlify-lambda serve lambda"
+    "lambda-develop": "NETLIFY_ENVIRONMENT=develop AUTH0_URL_STAGING=https://gg-develop.eu.auth0.com ORIGIN_STAGING=https://staging.grandgarage.eu netlify-lambda serve lambda",
+    "lambda-staging": "NETLIFY_ENVIRONMENT=staging AUTH0_URL_STAGING=https://gg-staging.eu.auth0.com ORIGIN_STAGING=https://staging.grandgarage.eu netlify-lambda serve lambda",
+    "lambda-production": "NETLIFY_ENVIRONMENT=production AUTH0_URL=https://grandgarage.eu.auth0.com ORIGIN=https://grandgarage.eu netlify-lambda serve lambda"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
