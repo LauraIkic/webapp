@@ -55,7 +55,7 @@
           />
         </div>
       </div>
-      <div class="maker" v-if="person !== null && person.length > 0">
+      <div class="maker" v-if="(person != null && person.length !== 0)">
         <div class="name"> {{ $t('personBehindTheProject') }}</div>
         <div class="display-makers">
           <maker-preview
@@ -63,7 +63,13 @@
               :id="p"
               :key="p.id"
           />
+<!--          <maker-preview-->
+<!--              v-for="p in member"-->
+<!--              :id="p"-->
+<!--              :key="p.id"-->
+<!--          />-->
         </div>
+        <div>{{ item.content.member }}</div>
       </div>
     </div><div class="foot-spacer"></div>
     </div>
