@@ -55,13 +55,18 @@
           />
         </div>
       </div>
-      <div class="maker" v-if="person !== null && person.length > 0">
+      <div class="maker" v-if="(person != null && person.length !=0) || (member != null && member.length !=0)">
         <div class="name"> {{ $t('personBehindTheProject') }}</div>
         <div class="display-makers">
           <maker-preview
               v-for="p in person"
               :id="p"
-              :key="p.id"
+              :key="p"
+          />
+          <maker-preview
+              v-for="p in member"
+              :id="p"
+              :key="p"
           />
         </div>
       </div>
@@ -131,6 +136,12 @@ export default {
     },
     person () {
       return this.item.content.person
+    },
+    member () {
+      if (this.item.content.member != null) {
+        return this.item.content.member
+      }
+      return null
     }
   },
   head () {
