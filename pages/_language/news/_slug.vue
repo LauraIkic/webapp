@@ -55,7 +55,7 @@
           />
         </div>
       </div>
-      <div class="maker" v-if="person !== null && person.length > 0">
+      <div class="maker" v-if="(person != null && person.length !=0) || (member != null && member.length !=0)">
         <div class="name"> {{ $t('personBehindTheProject') }}</div>
         <div class="display-makers">
           <maker-preview
