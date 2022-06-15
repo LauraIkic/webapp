@@ -65,42 +65,25 @@ module.exports = {
       pathRewrite: { '^/.netlify/functions': '' }
     }
   },
+  /**
+   * Importing scss
+   * @see https://dev.to/nbhankes/using-sass-in-nuxt-js-4595
+   */
+  css: [
+    '@/assets/scss/styles.scss',
+    'swiper/dist/css/swiper.css',
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
   buildModules: [
     ['storyblok-nuxt', { accessToken: storyblokToken, cacheProvider: 'memory' }],
     '@nuxtjs/proxy',
-    ['@nuxtjs/fontawesome'],
-    ['@nuxtjs/google-analytics']
+    ['@nuxtjs/google-analytics'],
+    ['@nuxtjs/style-resources']
   ],
-  fontawesome: {
-    icons: {
-      solid: [
-        'faUser',
-        'faCube',
-        'faCoins',
-        'faGift',
-        'faHammer',
-        'faDownload',
-        'faFileInvoice',
-        'faFilePdf',
-        'faLink',
-        'faGraduationCap',
-        'faUserFriends',
-        'faCheckCircle',
-        'faTimesCircle',
-        'faRunning',
-        'faAngleLeft',
-        'faTimes',
-        'faKey',
-        'faCircleNotch',
-        'faSignOutAlt',
-        'faInfoCircle',
-        'faArrowCircleRight',
-        'faSave',
-        'faPlus',
-        'faExclamationTriangle',
-        'faSearch'
-      ]
-    }
+  styleResources: {
+    scss: [
+      '@/assets/scss/styles.scss'
+    ]
   },
   modules: [
     '@nuxtjs/sentry',
@@ -124,15 +107,15 @@ module.exports = {
     '~/plugins/map',
     '~/plugins/libs',
     '~/plugins/routersync',
+    '~/plugins/fontawesome.js',
     { src: '~/plugins/components-nossr', ssr: false }
   ],
+  purgeCSS: {
+    whitelistPatterns: [/svg.*/, /fa.*/]
+  },
   router: {
     middleware: 'router'
   },
-  // env: {
-  //   baseUrl:
-  //     process.env.NUXT_ENV_API === 'local' ? 'https://connector.dev.grandgarage.eu nuxt' : 'https://staging-connector.grandgarage.eu nuxt'
-  // },
   generate: {
     target: 'static',
     routes: function (callback) {
@@ -180,10 +163,6 @@ module.exports = {
       })
     }
   },
-  css: [
-    '@/assets/scss/styles.scss',
-    'swiper/dist/css/swiper.css'
-  ],
   /*
    ** Customize the progress bar color
    */

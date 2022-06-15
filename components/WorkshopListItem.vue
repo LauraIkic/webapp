@@ -148,7 +148,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+
 .workshop-list-item {
   color: #000;
   display: flex;

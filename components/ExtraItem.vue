@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+
 .content {
   background-color: #FFF;
   padding: 1.5em;

@@ -81,7 +81,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
 
 .job-opening {
   margin-bottom: 5px;

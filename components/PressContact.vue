@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/styles.scss';
+
 .background{
   background-color: white;
 }

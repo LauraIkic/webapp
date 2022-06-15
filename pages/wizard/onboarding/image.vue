@@ -12,7 +12,7 @@
         <span class="label">{{ $t('Upload-Image') }}</span>
         <input
             type="file"
-            accept="image/*"
+            accept=".png, .jpg, .jpeg"
             @change="onChange"
         />
       </div>
@@ -41,6 +41,10 @@ export default {
   methods: {
     onChange (e) {
       const file = e.target.files[0]
+      if (file.size > 20000000) {
+        alert('Es sind nur Bilddateien unter 20MB erlaubt')
+        return false
+      }
       this.image = file
       this.imageUrl = URL.createObjectURL(file)
       const reader = new FileReader()
@@ -54,7 +58,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .form {
   margin-left: -6em;

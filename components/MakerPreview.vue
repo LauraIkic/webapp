@@ -5,17 +5,8 @@
         <nuxt-link class="story" :to="makerlink">
           <div class="display-maker">
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(maker.image, '250x250') + ')' }"/>
-            <div class="spacer"></div>
-            <div class="maker-information">
-              <br>
-              <div class="name">
+             <div class="name">
                 {{ maker.name }}
-              </div>
-              <br>
-              <div class="description" v-if="maker.short_description">
-                <span>{{ maker.short_description| truncate(200, '...') }}</span>
-              </div>
-              <br>
             </div>
           </div>
         </nuxt-link>
@@ -27,18 +18,9 @@
       <div v-if="member" class="maker-preview">
           <div class="display-maker">
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(member.image, '250x250') + ')' }"/>
-            <div class="spacer"></div>
-            <div class="maker-information">
-              <br>
               <div class="name">
                 {{ member.title}}
               </div>
-              <br>
-              <div class="description" v-if="member.text">
-                <span>{{ member.text| truncate(200, '...') }}</span>
-              </div>
-              <br>
-            </div>
           </div>
       </div>
     </div>
@@ -90,107 +72,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
-.description {
-  overflow: hidden;
-  text-overflow: '...';
+.display-maker{
   @include media-breakpoint-down(sm) {
-     font-size: 15px;
+    background: white;
+    padding: 16px;
   }
-}
-
-.display-maker {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-  align-content: space-between;
-  font-size: 1.3rem;
-  max-width: 950px;
-  margin-left: auto;
-  margin-right: auto;
-  &:hover {
-    background-color: lighten($color-bright-bg, 3);
-  }
-  .banner {
-    display:flex;
-    justify-content: center;
-    width: 250px;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 250px;
-    @include media-breakpoint-down(md) {
-      height: 200px;
-      width: 200px;
-    }
-  }
-
-  .name {
-    text-transform: uppercase;
-    margin-top: 3%;
-  }
-
-  .maker-information {
-    width: 70%;
-    @include media-breakpoint-down(md) {
-      width: 350px;
-    }
-    @include media-breakpoint-down(sm) {
-      width: 65% !important;
-      display: flex;
-      flex-flow: column;
-      align-self: center;
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    width: 90%;
-    margin-left: 3%;
-    .banner{
-      width: 40%;
-      height: 20vh;
-      align-self: center;
-    }
-    .maker-information {
-      width: 100%;
-    }
-    .spacer{
-      width: 3%;
-    }
-  }
-  @include media-breakpoint-down(xs) {
-    flex-flow: column;
-    margin-top: 7%;
-    margin-left: 3%;
-    .banner {
-      width: 60vw;
-      height: 30vh;
-    }
-  }
-}
-
-.link {
-  color: black;
 }
 
 .preview-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
-
   .maker-preview {
-    width: 100%;
-    @include media-breakpoint-down(md) {
-      width: 600px;
-      .display-maker{
-        font-size: 18px;
-        @include media-breakpoint-down(sm) {
-          background-color: white;
-          padding-top: 20px;
-          padding-bottom: 20px;
-        }
-      }
+    padding: 10px;
+    width: 300px;
+    height: auto;
+    @include media-breakpoint-down(sm) {
+      margin-left: 5%;
     }
+
     .loading {
     }
 
@@ -201,23 +102,28 @@ export default {
       cursor: pointer;
       text-decoration: none;
       color: #000;
+
+      &:hover {
+        background-color: lighten($color-bright-bg, 3);
+      }
+
+      .banner {
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+        @include media-breakpoint-down(sm) {
+          height: 200px;
+        }
+      }
+
       .name {
         margin: 1em 0 0.2em 0;
         font-weight: normal;
         font-size: 1.5rem;
         font-family: $font-secondary;
-      }
-
-      .subtitle {
-        margin-bottom: 0.5em;
-        font-weight: normal;
-        font-size: 1rem;
-        font-family: $font-mono;
-      }
-
-      .teaser {
-        font-size: 1rem;
-        font-family: $font-mono;
+        @include media-breakpoint-down(sm) {
+          font-size: 1.2rem;
+        }
       }
     }
   }

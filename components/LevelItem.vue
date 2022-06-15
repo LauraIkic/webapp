@@ -36,7 +36,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '/assets/scss/styles.scss';
 
 .level-item {
   display: flex;

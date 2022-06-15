@@ -1,6 +1,6 @@
 <template>
   <div class="blog-item-display">
-    <nuxt-link :to="localePath('/news/'+blog.slug)" class="link">
+    <nuxt-link :to="localePath('/de/news/'+blog.slug)" class="link">
       <section class="header">
         <img class="image" :src="blog.content.image">
         <div class="background-square"></div>
@@ -15,6 +15,13 @@
 </template>
 <script>
 export default {
+  head () {
+    return {
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: 'testTitle' }
+      ]
+    }
+  },
   props: {
     blog: {
       type: Object,
@@ -25,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+
 .link {
   color: white;
 }

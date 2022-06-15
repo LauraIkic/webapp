@@ -50,7 +50,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
 
 .register-success-form {
   margin: 0 -10px;

@@ -390,8 +390,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
-//@import "node_modules/reveal.js/dist/reveal.css";
 
 .course-slug {
   margin-top: 80px;

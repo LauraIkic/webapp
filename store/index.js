@@ -6,15 +6,43 @@ import moment from 'moment'
 
 const origin = process.client ? window.location.origin : process.env.ORIGIN
 
-const webAuth = new auth0.WebAuth({
-  domain: 'auth.grandgarage.eu',
-  clientID: 'lwqb_LrkbU8b2rHfbC05C87xqM4bSfms',
-  audience: 'https://api.grandgarage.eu/',
-  responseType: 'token id_token',
-  redirectUri: origin + '/auth'
-})
+console.log('### Nuxt environment is: ' + process.env.NUXT_ENV_ENVIRONMENT)
 
-const baseUrl = process.env.NUXT_ENV_DOMAIN ? process.env.NUXT_ENV_DOMAIN : 'https://connector.grandgarage.eu'
+let tmpAuth = null
+
+// Define auth0 routes depending on your environment
+switch (process.env.NUXT_ENV_ENVIRONMENT) {
+  case 'develop':
+    tmpAuth = new auth0.WebAuth({
+      domain: 'gg-develop.eu.auth0.com',
+      clientID: 'kJfGQ92cUMcTWEhjYaYQ0NDBir6ByYs9',
+      audience: 'https://api.grandgarage.eu/',
+      responseType: 'token id_token',
+      redirectUri: origin + '/auth'
+    })
+    break
+  case 'staging':
+    tmpAuth = new auth0.WebAuth({
+      domain: 'gg-staging.eu.auth0.com',
+      clientID: 'LsZ4ug7c87ae1SAq1Q3nW4FjvJsQXb7T',
+      audience: 'https://api.grandgarage.eu/',
+      responseType: 'token id_token',
+      redirectUri: origin + '/auth'
+    })
+    break
+  default: // production
+    tmpAuth = new auth0.WebAuth({
+      domain: 'auth.grandgarage.eu',
+      clientID: 'lwqb_LrkbU8b2rHfbC05C87xqM4bSfms',
+      audience: 'https://api.grandgarage.eu/',
+      responseType: 'token id_token',
+      redirectUri: origin + '/auth'
+    })
+}
+
+const webAuth = tmpAuth
+
+const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNECTOR_URL : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
 
 let connector
@@ -218,14 +246,13 @@ const createStore = () => {
         return res.data
       },
       async getPDF ({ state }, id) {
-        const res = await connector.get('/member/invoice/' + id, {
+        return await connector.get('/member/invoice/' + id, {
           responseType: 'arraybuffer'
         }, {
           headers: {
             'Content-Type': 'application/pdf'
           }
         })
-        return res
       },
       getInvoiceDocument ({ commit, dispatch, state }, id) {
         if (state.auth || getUserFromLocalStorage()) {

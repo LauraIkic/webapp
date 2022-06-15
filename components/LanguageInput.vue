@@ -64,7 +64,7 @@ export default {
 
 </script>
  <style lang="scss" scoped>
- @import '/assets/scss/styles.scss';
+
  .dropbtn {
    background-color: #f2f3ee;
    padding: 16px;
