@@ -1,7 +1,7 @@
 <template>
   <div v-if="story">
     <div class="preview-wrapper">
-      <div v-if="maker" class="maker-preview">
+      <div v-if="(maker != null && maker.length !=0)" class="maker-preview">
         <nuxt-link class="story" :to="makerlink">
           <div class="display-maker">
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(maker.image, '250x250') + ')' }"/>
@@ -16,12 +16,14 @@
   <div v-else>
     <div class="preview-wrapper">
       <div v-if="member" class="maker-preview">
+        <div class="story">
           <div class="display-maker">
             <div class="banner" :style="{ 'background-image': 'url(' + $resizeImage(member.image, '250x250') + ')' }"/>
               <div class="name">
                 {{ member.title}}
               </div>
           </div>
+        </div>
       </div>
     </div>
   </div>

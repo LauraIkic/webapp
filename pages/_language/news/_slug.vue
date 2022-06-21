@@ -61,7 +61,12 @@
           <maker-preview
               v-for="p in person"
               :id="p"
-              :key="p.id"
+              :key="p"
+          />
+          <maker-preview
+              v-for="p in member"
+              :id="p"
+              :key="p._uid"
           />
         </div>
       </div>
@@ -131,6 +136,12 @@ export default {
     },
     person () {
       return this.item.content.person
+    },
+    member () {
+      if (this.item.content.member != null) {
+        return this.item.content.member
+      }
+      return null
     }
   },
   head () {
