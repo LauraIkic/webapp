@@ -20,6 +20,7 @@
   "toRegistration": "To registration",
   "currentOccupancyRate": "current occupancy rate:",
   "price": "Price:",
+  "priceIn": "Price in €",
   "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " In order to book a workshop you have to be registered and logged into your account",
   "thankYou": "Thank you!",
   "until": "until",
@@ -117,6 +118,9 @@
   "area": "Area",
   "searchMachines": "Search machines",
   "noSearchResults": "No search result",
+  "search": "Search...",
+  "materials": "Materials",
+  "tax": "All prices incl. taxes",
 
   "materialsUsed": "Materials used:",
   "steps": "Steps:",
