@@ -82,7 +82,6 @@ export default {
 .machine-filters {
   .search-bar {
     display: flex;
-    padding-top: 50px;
     position: relative;
     @include margin-page-wide();
     padding-bottom: 5vh;
@@ -108,7 +107,7 @@ export default {
     }
     .icon {
       left: 13px;
-      top: 59px;
+      top: 9px;
       padding: 10px 10px;
       color: $color-orange;
       position: absolute;

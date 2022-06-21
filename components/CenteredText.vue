@@ -16,7 +16,7 @@ export default {
 <style lang="scss">
 
 .centered-text {
-  padding: 5rem;
+  padding: 2rem;
   font-family: 'Chakra Petch',serif;
   color: $color-blue;
   font-size: 2rem;
