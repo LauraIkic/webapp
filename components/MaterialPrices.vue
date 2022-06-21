@@ -94,6 +94,13 @@ export default {
       font-family: $font-secondary;
       border: none;
       border-radius: 10px;
+      -webkit-box-shadow: 7px 7px 6px -2px rgba(0,0,0,0.08);
+      box-shadow: 7px 7px 6px -2px rgba(0,0,0,0.08);
+      font-size: 1.1rem;
+      &:hover {
+        -webkit-box-shadow: 7px 7px 6px -2px rgba(0,0,0,0.12);
+        box-shadow: 7px 7px 6px -2px rgba(0,0,0,0.12);
+      }
     }
     input[type=button] {
       font-size: 1.1rem;
