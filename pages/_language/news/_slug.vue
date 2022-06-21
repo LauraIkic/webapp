@@ -66,7 +66,7 @@
           <maker-preview
               v-for="p in member"
               :id="p"
-              :key="p"
+              :key="p._uid"
           />
         </div>
       </div>
