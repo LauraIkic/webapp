@@ -44,6 +44,7 @@
     </div>
     <div class="form-item button-row">
       <input
+        class="input-button-primary"
         type="submit"
         value="Login"
         @click="submit"
