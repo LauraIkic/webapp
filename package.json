@@ -2,7 +2,7 @@
   "name": "grandgarage-webapp",
   "scripts": {
     "nuxt-develop": "NUXT_ENV_ENVIRONMENT=develop NUXT_ENV_CONNECTOR_URL=https://connector.dev.grandgarage.eu nuxt",
-    "nuxt-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt",
+    "nuxt-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://staging.connector.grandgarage.eu nuxt",
     "nuxt-production": "NUXT_ENV_ENVIRONMENT=production NUXT_ENV_CONNECTOR_URL=https://connector.grandgarage.eu nuxt",
     "generate": "NUXT_ENV_ENVIRONMENT=production nuxt generate",
     "generate-staging": "NUXT_ENV_ENVIRONMENT=staging NUXT_ENV_CONNECTOR_URL=https://connector.staging.grandgarage.eu nuxt generate",
