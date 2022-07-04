@@ -37,7 +37,7 @@ export default {
       }).catch((err) => {
         if (err.errorDescription === 'verify-mail') {
           this.error = err
-          this.$router.replace('/auth')
+          this.$router.replace('/auth').catch(() => true)
         } else {
           this.$router.push('/')
         }
