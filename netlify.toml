@@ -25,5 +25,5 @@
 # this specific branch will inherit these settings.
 [context.develop] # “develop” is a branch name
 command = "yarn run generate-staging && cp _branchdeploy_headers dist/_headers  && echo 'You are in DEVELOP context'"
-[context.staging.environment]
+[context.develop.environment]
 NETLIFY_ENVIRONMENT = "staging"
