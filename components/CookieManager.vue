@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
+
 .select-buttons{
   display:flex;
   flex-flow: column;

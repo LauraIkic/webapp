@@ -61,7 +61,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/styles.scss';
 
 .image-slideshow-blue {
   position: relative; // needed for z-index (blue dashed stripe)

@@ -164,7 +164,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
 
 .link-slideshow {
   color: $color-blue;

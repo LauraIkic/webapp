@@ -20,7 +20,8 @@
   "toRegistration": "Zur Anmeldung",
   "currentOccupancyRate": "aktuelle Auslastung:",
   "price": "Preis:",
-  "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " Für die Buchung eines Workshops musst du registriert und eingeloggt sein.",
+  "priceIn": "Kosten in €",
+  "inOrderToBookAWorkshopYouHaveToBeLoggedIn": " Für die Buchung eines Workshops musst du dich kostenlos registrieren und eingeloggt sein.",
   "thankYou": "Danke!",
   "until": "bis",
   "oClock": "Uhr",
@@ -61,6 +62,9 @@
   "registerNow": "Jetzt registrieren",
   "joinNow": "Jetzt Mitglied werden",
   "invalidOrMissingIban": "Iban fehlt oder ist ungültig",
+  "alreadyRegistered": "Du bist bereits registriert? Dann kommst du direkt über das",
+  "startMembership": "zu deinem Profil und kannst dort deine Mitgliedschaft starten.",
+  "firstTime": "Du bist zum ersten Mal auf unserer Website? Dann registriere dich bitte zuerst kostenlos und logge dich danach in dein Profil ein:",
 
   "discounted": " Ermäßigt",
   "p.m.": "p.m.",
@@ -118,6 +122,9 @@
   "area": "Bereich",
   "searchMachines": "Maschinen suchen",
   "noSearchResults": "Keine Suchergebnisse",
+  "search": "Suche...",
+  "materials": "Materialien",
+  "tax": "Alle Preise inkl. MWSt.",
 
 
   "materialsUsed": "Verwendete Materialien:",

@@ -75,7 +75,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/styles.scss';
 
 .about-teaser {
   color: #000;

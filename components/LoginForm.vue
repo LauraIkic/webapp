@@ -44,6 +44,7 @@
     </div>
     <div class="form-item button-row">
       <input
+        class="input-button-primary"
         type="submit"
         value="Login"
         @click="submit"
@@ -113,7 +114,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .login-form {
   padding: 5vw;

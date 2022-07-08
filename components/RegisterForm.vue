@@ -169,7 +169,7 @@
         </div>
       </div>
       <div class="form-item button-row">
-        <button @click="submit">
+        <button class="input-button-primary" @click="submit">
           {{ $t('register') }}
         </button>
       </div>
@@ -227,34 +227,44 @@ export default {
       if (!this.formValid) {
         this.invalidFields.length = 0
         if (!this.emailValid) {
+          console.log('### NOT VALID1')
           this.invalidFields.push('email', true)
         }
         if (!this.firstName) {
+          console.log('### NOT VALID2')
           this.invalidFields.push('firstName', true)
         }
         if (!this.lastName) {
+          console.log('### NOT VALID3')
           this.invalidFields.push('lastName', true)
         }
         if (!this.address) {
+          console.log('### NOT VALID4')
           this.invalidFields.push('address', true)
         }
         if (!this.city) {
+          console.log('### NOT VALID5')
           this.invalidFields.push('city', true)
         }
         if (!this.zip) {
+          console.log('### NOT VALID6')
           this.invalidFields.push('zip', true)
         }
         if (!this.password) {
+          console.log('### NOT VALID7')
           this.invalidFields.push('password', true)
         }
         if (!this.agb) {
+          console.log('### NOT VALID8')
           this.invalidFields.push('agb', true)
         }
         if (!this.dsg) {
+          console.log('### NOT VALID9')
           this.invalidFields.push('dsg', true)
         }
         return
       }
+      console.log('### VALID')
       this.loading = true
       const data = {
         email: this.email,
@@ -322,7 +332,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
+
 .register-form {
   padding: 5vw;
   background-color: $color-bright-bg;
@@ -482,6 +492,10 @@ export default {
         }
       }
     }
+  }
+
+  .red {
+    border-color: red !important;
   }
 }
 </style>

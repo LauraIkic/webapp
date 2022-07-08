@@ -518,7 +518,7 @@
 </template>
 
 <script>
-import { helpers } from '../utils/helper'
+import { helpers } from '~/utils/helper'
 
 export default {
   props: ['blok'],
@@ -1021,10 +1021,10 @@ h2 {
   border-radius: 0.3em;
   font-size: 24px;
   width: 350px;
-}
 
-@include media-breakpoint-down(sm) {
-  width: 80vw;
+  @include media-breakpoint-down(sm) {
+    width: 80vw;
+  }
 }
 
 ///////////PAYMENT-DETAILS//////////////////////////////////////////////////////////

@@ -94,7 +94,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/styles.scss";
 
 .recover-form {
   padding: 5vw;

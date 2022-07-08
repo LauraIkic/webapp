@@ -20,7 +20,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/scss/styles.scss";
 
 .job-list {
   margin-top: 6em;

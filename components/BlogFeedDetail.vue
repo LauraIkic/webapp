@@ -54,7 +54,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import '@/assets/scss/styles.scss';
 
     .blogFeed-detail {
         color: #000;

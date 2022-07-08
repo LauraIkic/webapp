@@ -1,18 +1,8 @@
-import path from 'path'
-import fs from 'fs'
-
 const axios = require('axios')
 const storyblokToken = '1IsgW07t4t5sm0UzdHAD6gtt'
 const googleId = 'UA-202640934-1'
 
 module.exports = {
-  // used for HTTPS support. Check out how to creates ssl certificate here https://grandgarage.atlassian.net/wiki/spaces/ITINT/pages/2127532975/Docker#Docker-SSL
-  // server: {
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, 'ggwebsite.key')),
-  //     cert: fs.readFileSync(path.resolve(__dirname, 'ggwebsite.crt'))
-  //   }
-  // },
   i18n: {
     locales: [
       {
@@ -75,41 +65,25 @@ module.exports = {
       pathRewrite: { '^/.netlify/functions': '' }
     }
   },
+  /**
+   * Importing scss
+   * @see https://dev.to/nbhankes/using-sass-in-nuxt-js-4595
+   */
+  css: [
+    '@/assets/scss/styles.scss',
+    'swiper/dist/css/swiper.css',
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
   buildModules: [
     ['storyblok-nuxt', { accessToken: storyblokToken, cacheProvider: 'memory' }],
     '@nuxtjs/proxy',
-    ['@nuxtjs/fontawesome'],
-    ['@nuxtjs/google-analytics']
+    ['@nuxtjs/google-analytics'],
+    ['@nuxtjs/style-resources']
   ],
-  fontawesome: {
-    icons: {
-      solid: [
-        'faUser',
-        'faCube',
-        'faCoins',
-        'faGift',
-        'faHammer',
-        'faDownload',
-        'faFileInvoice',
-        'faFilePdf',
-        'faLink',
-        'faGraduationCap',
-        'faUserFriends',
-        'faCheckCircle',
-        'faTimesCircle',
-        'faRunning',
-        'faAngleLeft',
-        'faTimes',
-        'faKey',
-        'faCircleNotch',
-        'faSignOutAlt',
-        'faInfoCircle',
-        'faArrowCircleRight',
-        'faSave',
-        'faPlus',
-        'faExclamationTriangle'
-      ]
-    }
+  styleResources: {
+    scss: [
+      '@/assets/scss/styles.scss'
+    ]
   },
   modules: [
     '@nuxtjs/sentry',
@@ -133,15 +107,15 @@ module.exports = {
     '~/plugins/map',
     '~/plugins/libs',
     '~/plugins/routersync',
+    '~/plugins/fontawesome.js',
     { src: '~/plugins/components-nossr', ssr: false }
   ],
+  purgeCSS: {
+    whitelistPatterns: [/svg.*/, /fa.*/]
+  },
   router: {
     middleware: 'router'
   },
-  // env: {
-  //   baseUrl:
-  //     process.env.NUXT_ENV_API === 'local' ? 'https://connector.dev.grandgarage.eu nuxt' : 'https://staging-connector.grandgarage.eu nuxt'
-  // },
   generate: {
     target: 'static',
     routes: function (callback) {
@@ -189,10 +163,6 @@ module.exports = {
       })
     }
   },
-  css: [
-    '@/assets/scss/styles.scss',
-    'swiper/dist/css/swiper.css'
-  ],
   /*
    ** Customize the progress bar color
    */

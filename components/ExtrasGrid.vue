@@ -25,7 +25,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '/assets/scss/styles.scss';
 
 .extras-grid-wrapper {
   margin: 2em 0;

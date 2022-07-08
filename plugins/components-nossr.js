@@ -1,7 +1,7 @@
-import Vue from 'vue';
+import Vue from 'vue'
 
 import VueAwesomeSwiper from 'vue-awesome-swiper/dist/ssr'
-import DatePick from 'vue-date-pick';
+import DatePick from 'vue-date-pick'
 import MarqueeText from 'vue-marquee-text-component'
 
 Vue.use(VueAwesomeSwiper)

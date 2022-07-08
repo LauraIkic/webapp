@@ -23,8 +23,6 @@ export default {
   }),
   watch: {
     language: function (to) {
-      console.log('change', to)
-      console.log(this.$route)
       this.$router.push('/' + to)
     }
   },
@@ -66,7 +64,7 @@ export default {
 
 </script>
  <style lang="scss" scoped>
- @import '/assets/scss/styles.scss';
+
  .dropbtn {
    background-color: #f2f3ee;
    padding: 16px;
