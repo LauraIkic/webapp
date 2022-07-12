@@ -68,7 +68,6 @@ export default {
       ],
       loading: false,
       search: '',
-      workshops: [],
       tagsCollapsed: true,
       selectedEvent: '',
       filter: '',
@@ -88,10 +87,19 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.checkExistingSelection()
-      this.selectedEvent = this.filterCategories()
-      this.unselectEvents()
-      this.filter = this.selectedEvent[0].name
+      if (this.selectedEvent !== '') {
+        this.checkExistingSelection()
+        this.selectedEvent = this.filterCategories()
+        this.unselectEvents()
+      } else {
+        this.selectedEvent = this.filterCategories()
+      }
+      if (this.selectedEvent.length > 0) {
+        this.filter = this.selectedEvent[0].name
+      } else {
+        this.selectedEvent = ''
+        this.filter = ''
+      }
       window.PretixWidget.buildWidgets()
       this.loading = false
     },
@@ -107,9 +115,6 @@ export default {
     },
     unselectEvents () {
       let i = 0
-      if (this.selectedEvent.length === 1) {
-        return
-      }
       while (i < this.selectedEvent.length - 1) {
         this.categories.forEach((o) => {
           if (o.name === this.eventToToggle.name) {
@@ -120,18 +125,14 @@ export default {
       }
     },
     checkExistingSelection () {
-      if (this.selectedEvent !== '') {
-        const newEvent = this.filterCategories()
-        this.selectedEvent.forEach((item) => {
-          newEvent.forEach((newItem) => {
-            if (item.name !== newItem.name) {
-              console.log('delete this val')
-              console.log(item.name)
-              this.eventToToggle = item
-            }
-          })
+      const newEvent = this.filterCategories()
+      this.selectedEvent.forEach((item) => {
+        newEvent.forEach((newItem) => {
+          if (item.name !== newItem.name) {
+            this.eventToToggle = item
+          }
         })
-      }
+      })
     }
   }
 }

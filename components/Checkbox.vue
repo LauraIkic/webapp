@@ -41,8 +41,6 @@ export default {
       this.$emit('input', this.dvalue)
     })
     this.visible = Boolean(this.disabled)
-    console.log('visible')
-    console.log(this.visible)
   }
 }
 </script>
