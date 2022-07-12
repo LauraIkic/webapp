@@ -6,6 +6,7 @@
     <input
       v-model="dvalue"
       type="checkbox"
+      :disabled="visible"
     >
     <div
       class="checkmark"
@@ -27,10 +28,11 @@
 
 <script>
 export default {
-  props: ['value', 'theme'],
+  props: ['value', 'theme', 'disabled'],
   data: () => {
     return {
-      dvalue: false
+      dvalue: false,
+      visible: false
     }
   },
   created () {
@@ -38,6 +40,9 @@ export default {
     this.$watch('dvalue', () => {
       this.$emit('input', this.dvalue)
     })
+    this.visible = Boolean(this.disabled)
+    console.log('visible')
+    console.log(this.visible)
   }
 }
 </script>

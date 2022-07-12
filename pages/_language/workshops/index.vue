@@ -1,7 +1,7 @@
 <template>
   <section class="workshop-overview">
     <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
-    <script type="text/javascript" src="https://pretix.eu/widget/v1.en.js" async></script>
+    <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
     <div class="workshop-filters">
       <div class="filters">
       </div>
@@ -18,13 +18,13 @@
         <div class="headline">
           {{ $t('area') }}
         </div>
-        <div class="tag-list">
+        <div class="tag-list" :key="this.filter">
           <div v-for="c in categories" :key="c.key" class="tag">
-            <checkbox
-                v-model="c.value"
-                class="tag"
-                theme="white"
-            >{{c.name}}</checkbox>
+              <checkbox
+                  v-model="c.value"
+                  class="tag"
+                  theme="white"
+              >{{c.name}}</checkbox>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
     </div>
     <div class="workshop-list-wrapper "  :key="this.selectedEvent">
       <div v-if="selectedEvent !== ''">
-        <pretix-widget name="pretix" event="https://pretix.eu/ggTest" :filter="`attr[Kategorie]=${this.selectedEvent}`"></pretix-widget>
+        <pretix-widget name="pretix" event="https://pretix.eu/ggTest" :filter="`attr[Kategorie]=${this.filter}`"></pretix-widget>
       </div>
       <div v-if="selectedEvent === ''">
         <pretix-widget name="pretix" event="https://pretix.eu/ggTest"></pretix-widget>
@@ -70,7 +70,9 @@ export default {
       search: '',
       workshops: [],
       tagsCollapsed: true,
-      selectedEvent: ''
+      selectedEvent: '',
+      filter: '',
+      eventToToggle: ''
     }
   },
   created () {
@@ -86,13 +88,10 @@ export default {
   methods: {
     update () {
       this.loading = true
-      if (this.selectedEvent !== '') {
-        this.selectedEvent = ''
-      } else {
-        this.selectedEvent = this.filterCategories()[0]
-      }
-      console.log('selected event')
-      console.log(this.selectedEvent)
+      this.checkExistingSelection()
+      this.selectedEvent = this.filterCategories()
+      this.unselectEvents()
+      this.filter = this.selectedEvent[0].name
       window.PretixWidget.buildWidgets()
       this.loading = false
     },
@@ -103,53 +102,38 @@ export default {
       return this.categories.filter((c) => {
         return (c.value) ? c.name : ''
       }).map((c) => {
-        return c.name
-      })
-    }
-  }
-  /*,
-  computed: {
-    selectedCategories () {
-      return this.categories.filter((c) => {
-        return c.value
-      }).map((v) => {
-        return v.key
+        return { name: c.name, value: c.value }
       })
     },
-    filters () {
-      return {
-        filter_query: {
-          component: {
-            in: 'workshop-date'
-          },
-          starttime: {
-            'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+    unselectEvents () {
+      let i = 0
+      if (this.selectedEvent.length === 1) {
+        return
+      }
+      while (i < this.selectedEvent.length - 1) {
+        this.categories.forEach((o) => {
+          if (o.name === this.eventToToggle.name) {
+            o.value = false
           }
-        },
-        search_term: this.search
+        })
+        i++
+      }
+    },
+    checkExistingSelection () {
+      if (this.selectedEvent !== '') {
+        const newEvent = this.filterCategories()
+        this.selectedEvent.forEach((item) => {
+          newEvent.forEach((newItem) => {
+            if (item.name !== newItem.name) {
+              console.log('delete this val')
+              console.log(item.name)
+              this.eventToToggle = item
+            }
+          })
+        })
       }
     }
-  },
-  async asyncData (context) {
-    // let tags = await context.store.dispatch("loadTags");
-    const filters = {
-      filter_query: {
-        component: {
-          in: 'workshop-date'
-        },
-        starttime: {
-          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
-        }
-      }
-    }
-    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
-      if (data) {
-        return { workshops: data }
-      }
-      return { workshops: [] }
-    })
-    return { ...workshops }
-  }*/
+  }
 }
 </script>
 
