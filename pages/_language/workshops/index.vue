@@ -139,13 +139,6 @@ export default {
 </script>
 
 <style lang="scss">
-.pretix-widget-wrapper{
-  width: 1264px;
-  background: white;
-  .pretix-widget-has-events pretix-widget-day{
-    background: pink;
-  }
-}
 
 .workshop-overview {
   .loading {
@@ -313,33 +306,18 @@ export default {
   }
 }
 .workshop-list-wrapper {
-  @include media-breakpoint-down(lg) {
-    @include margin-page-wide;
-  }
   display: flex;
-
-  .workshop-list {
-    flex: 3;
-
-    .list-item {
-      margin-right: 10px;
+  justify-content: center;
+  .pretix-widget-wrapper{
+    width: 70vw;
+    max-width: 1264px;
+    background: white;
+    .pretix-widget-event-calendar-previous-month{
+      padding: 10px;
     }
-
-    .list-enter-active,
-    .list-leave-active {
-      transition: all 0.5s;
+    .pretix-widget-event-calendar-next-month{
+      padding: 10px;
     }
-
-    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
-    {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-  }
-
-  .workshop-list-none {
-    flex: 3;
-    text-align: center;
   }
 }
 .machine-filters {
