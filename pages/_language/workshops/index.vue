@@ -8,17 +8,37 @@
       </div>
       <loading class="loading" v-if="loading"></loading>
     </div>
-    <div class="workshop-list-wrapper">
-      <div v-if="workshops && workshops.length > 0" class="workshop-list">
-        <transition-group name="list">
+    <div class="machine-filters">
+      <code class="loading" v-if="loading">{{ $t('Loading') }}</code>
+      <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
+        <div class="expander" @click="toggleTags()">
+        </div>
+        <div class="headline">
+          {{ $t('area') }}
+        </div>
+        <div class="tag-list">
+          <div v-for="t in categories" :key="t.key" class="tag">
+            <checkbox
+                v-model="t.value"
+                class="tag"
+                theme="white"
+            >{{t.name}}</checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="search">
+        <input type="text" :placeholder="[[ $t('searchMachines') ]]" v-model="search" name="" id=""/>
+      </div>
+    </div>
+    <div class="workshop-list-wrapper" :key="this.filtered">
+      <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
           <workshop-list-item
-              v-for="item in workshops"
+              v-for="item in filteredWorkshops"
               :blok="item"
               :key="item.id"
               class="list-item"
               :slim="false"
           ></workshop-list-item>
-        </transition-group>
       </div>
       <div v-else class="workshop-list-none">
         <code> {{ $t('noSearchResults') }}</code>
@@ -42,10 +62,17 @@ export default {
       loading: false,
       search: '',
       workshops: [],
-      tags: []
+      tags: [],
+      tagsCollapsed: false,
+      selectedEvents: [],
+      filteredWorkshops: [],
+      filtered: 0
     }
   },
   created () {
+    this.$watch('categories', (newVal, oldVal) => {
+      this.update()
+    }, { deep: true })
   },
   watch: {
     search () {
@@ -59,16 +86,36 @@ export default {
         this.loading = false
         this.workshops = data
       })
-    }
-  },
-  computed: {
+      this.selectedEvents = this.selectedCategories()
+      this.filteredWorkshops = []
+      console.log('SELECTED EVENTS')
+      console.log(this.selectedEvents)
+      this.workshops = this.filterCategory()
+      console.log(this.workshops)
+      this.filtered = true
+    },
+    toggleTags () {
+      this.tagsCollapsed = !this.tagsCollapsed
+    },
+    filterCategory () {
+      this.workshops.forEach((item) => {
+        this.selectedEvents.forEach((selectedItem) => {
+          if (item.content.category === selectedItem) {
+            this.filteredWorkshops.push(item)
+          }
+        })
+      })
+      return this.filteredWorkshops
+    },
     selectedCategories () {
       return this.categories.filter((c) => {
-        return c.value
+        return (c.value) ? c.key : ''
       }).map((v) => {
         return v.key
       })
-    },
+    }
+  },
+  computed: {
     filters () {
       return {
         filter_query: {
@@ -303,5 +350,131 @@ export default {
     text-align: center;
   }
 }
-
+.machine-filters {
+  .tags {
+    padding: 8vh 0;
+    @include media-breakpoint-down(sm) {
+      padding: 4vh 0;
+    }
+    .headline {
+      color: #FFF;
+      font-weight: bold;
+      font-size: 1.8rem;
+      @include margin-page-wide();
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      @include media-breakpoint-down(sm) {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+    }
+    .tag-list {
+      @include margin-page-wide();
+      display: grid;
+      max-width: 70em;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      @include media-breakpoint-down(lg) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      }
+      @include media-breakpoint-down(md) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr 1fr;
+        font-size: .85em;
+      }
+      @include media-breakpoint-down(xs) {
+        grid-template-columns: 1fr;
+      }
+      grid-gap: 15px 20px;
+      >.tag {
+        font-family: $font-mono;
+        color: #FFF;
+        user-select: none;
+        cursor: pointer;
+        input[type=checkbox] {
+          outline: none;
+          -webkit-appearance: none;
+          padding: 5px;
+          border: 1px solid #FFF;
+          border-radius: 3px;
+          position: relative;
+          top: 0;
+          &:checked {
+            background-color: #FFF;
+          }
+        }
+      }
+    }
+    background-color: $color-blue;
+    @include media-breakpoint-down(sm) {
+      overflow: hidden;
+      position: relative;
+      max-height: 1000px;
+      transition: all .3s linear;
+      padding-bottom: 30px;
+      .expander {
+        cursor: pointer;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 20px;
+        transition: all .3s linear;
+        &:after {
+          transition: all .3s linear;
+          content: "";
+          position: absolute;
+          bottom: 18px;
+          left: 50%;
+          width: 10px;
+          height: 10px;
+          bottom: 8px;
+          border-bottom: 2px solid #fff;
+          border-right: 2px solid #fff;
+          margin-left: -13px;
+          transform: rotate(225deg);
+          transform-origin: center center;
+        }
+      }
+      &.collapsed {
+        max-height: 17vh;
+        .expander {
+          height: 70px;
+          background: linear-gradient(rgba(0,0,0,0), $color-blue 80%);
+          &:after {
+            transform: rotate(45deg);
+            bottom: 18px;
+          }
+        }
+      }
+    }
+  }
+  .search {
+    display: flex;
+    padding-top: 3vh;
+    @include margin-page-wide();
+    padding-bottom: 5vh;
+    input[type=text] {
+      flex: 1;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      outline: none;
+      font-family: $font-secondary;
+      font-size: 1.1rem;
+      border: none;
+    }
+    input[type=button] {
+      font-size: 1.1rem;
+      margin-left: 10px;
+      text-transform: uppercase;
+      background-color: transparent;
+      border: none;
+      font-weight: bold;
+      color: $color-orange;
+      outline: none;
+    }
+  }
+}
 </style>
