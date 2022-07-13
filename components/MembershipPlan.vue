@@ -80,6 +80,7 @@
           {{ item.text }}
         </li>
       </ul>
+      <markdown :value="blok.plan_text" class="plan-text"/>
     </div>
   </div>
 </template>
@@ -164,6 +165,12 @@ export default {
           }
         }
       }
+    }
+    .plan-text {
+      padding: 10px 0;
+      font-size: 0.8rem;
+      font-family: $font-mono;
+      line-height: 1.5em;
     }
   }
   .changeprice-enter-active, .changeprice-leave-active {

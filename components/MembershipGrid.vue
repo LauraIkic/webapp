@@ -59,25 +59,25 @@
       </div>
       <div
         v-if="!hasUser"
-        class="register-button"
+        class="login-register-info"
       >
-        <button @click="register">
-          {{ $t( "registerNow" ) }}
-        </button>
+        <p>{{ $t( "alreadyRegistered" ) }}<span @click="login"> LOGIN </span>{{ $t( "startMembership" ) }}</p>
+        <p>{{ $t( "firstTime" ) }}</p>
+        <div class="register-button">
+          <button @click="register">
+            {{ $t( "registerNow" ) }}
+          </button>
+        </div>
       </div>
       <div
         v-if="hasUser && !isMember"
-        class="register-button"
+        class="login-register-info"
       >
-        <button @click="$router.push('/wizard/onboarding')">
-          {{ $t( "joinNow" ) }}
-        </button>
-      </div>
-      <div
-        v-if="blok.plans_text"
-        class="plans-text"
-      >
-        <markdown :value="blok.plans_text" />
+        <div class="register-button">
+          <button @click="$router.push('/wizard/onboarding')">
+            {{ $t( "joinNow" ) }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,6 +105,9 @@ export default {
     },
     register () {
       this.$store.dispatch('setSidebar', 'register')
+    },
+    login () {
+      this.$store.dispatch('setSidebar', 'login')
     }
   }
 }
@@ -125,9 +128,6 @@ export default {
     flex-basis: 50%;
     display: flex;
     flex-direction: column;
-    @include media-breakpoint-down(md) {
-      flex-direction: row;
-    }
     @include media-breakpoint-down(sm) {
       flex-direction: column;
     }
@@ -149,23 +149,19 @@ export default {
       width: 50%;
     }
     .image {
+      @include media-breakpoint-down(md) {
+        display: flex;
+        align-self: center;
+      }
       img {
         display: block;
         max-width: 100%;
-        @include media-breakpoint-down(md) {
-          margin-left: 3%;
-          margin-top: 10vh;
-        }
-        @include media-breakpoint-down(sm) {
-          margin-left: 0;
-          margin-top: 1vh;
-        }
-
         @include media-breakpoint-up(lg) {
           max-width: 90%;
         }
         height: auto;
         max-height: 30vh;
+        margin-top: 5%;
       }
     }
     .info {
@@ -176,8 +172,8 @@ export default {
         width: 95%;
       }
       font-size: 1rem;
-      letter-spacing: 0.03em;
-      line-height: 1.4;
+      letter-spacing: 0.04em;
+      line-height: 1.6;
     }
 
   }
@@ -185,13 +181,13 @@ export default {
     flex-basis: 50%;
     .payment-options {
       display: flex;
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(md) {
         flex-direction: column;
         .payment-options-title {
-          margin-bottom: .4em;
+          margin: 2em 0 1em 0;
         }
       }
-      margin: 4vh 0 3vh;
+      margin: 0 0 3vh;
       align-items: center;
       justify-content: center;
       font-size: .8em;
@@ -219,9 +215,27 @@ export default {
       flex-direction: row;
       justify-content: center;
     }
-    .register-button {
-      text-align: center;
-      button {
+    .login-register-info {
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      p {
+        max-width: 500px ;
+        span {
+          font-size: 1.2rem;
+          color: $color-orange;
+          font-weight: bold;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+     .register-button {
+       text-align: center;
+       button {
         outline: none;
         cursor: pointer;
         font-size: 1.2em;
@@ -234,25 +248,9 @@ export default {
         transition: background-color .3s linear;
         &:hover {
           background-color: saturate(darken($color-orange, 5%), 100%);
+          }
         }
       }
-    }
-    .plans-text {
-      position: relative;
-      &:before {
-        content: "*";
-        font-family: $font-mono;
-        font-size: 4em;
-        position: absolute;
-        left: -.6em;
-        top: -.8em;
-        color: $color-orange;
-      }
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin: 2em 3em;
-      max-width: 85%;
-      color: #444;
     }
   }
 }
