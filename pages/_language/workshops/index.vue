@@ -1,13 +1,5 @@
 <template>
   <section class="workshop-overview">
-    <div class="workshop-filters">
-      <div class="filters">
-      </div>
-      <div class="search">
-        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
-      </div>
-      <loading class="loading" v-if="loading"></loading>
-    </div>
     <div class="machine-filters">
       <code class="loading" v-if="loading">{{ $t('Loading') }}</code>
       <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
@@ -22,26 +14,40 @@
                 v-model="t.value"
                 class="tag"
                 theme="white"
-            >{{t.name}}</checkbox>
+            >{{ t.name }}
+            </checkbox>
           </div>
         </div>
       </div>
       <div class="search">
-        <input type="text" :placeholder="[[ $t('searchMachines') ]]" v-model="search" name="" id=""/>
+        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
     </div>
     <div class="workshop-list-wrapper" :key="this.filtered">
       <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
+        <workshop-list-item
+            v-for="item in filteredWorkshops"
+            :blok="item"
+            :key="item.id"
+            class="list-item"
+            :slim="false"
+        ></workshop-list-item>
+      </div>
+      <div v-else>
+        <div v-if="workshops && workshops.length > 0" class="workshop-list">
           <workshop-list-item
-              v-for="item in filteredWorkshops"
+              v-for="item in workshops"
               :blok="item"
               :key="item.id"
               class="list-item"
               :slim="false"
           ></workshop-list-item>
-      </div>
-      <div v-else class="workshop-list-none">
-        <code> {{ $t('noSearchResults') }}</code>
+        </div>
+        <div v-else>
+          <div class="workshop-list-none">
+            <code> {{ $t('noSearchResults') }}</code>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -166,19 +172,24 @@ export default {
     .filters {
       background-color: $color-orange;
       display: flex;
+
       .tags {
         flex: 3;
       }
+
       .calendar {
         flex: 1;
         max-width: 320px;
+
         .reset {
           margin-top: -3px;
           background-color: #000;
           padding: 10px;
+
           .all {
             padding: 10px;
             color: #FFF;
+
             &:hover {
               cursor: pointer;
               color: #000;
@@ -188,11 +199,13 @@ export default {
         }
       }
     }
+
     .tags {
       padding-bottom: 4vh;
       @include media-breakpoint-down(sm) {
         padding: 4vh 0;
       }
+
       .headline {
         padding-top: 4vh;
         color: #FFF;
@@ -207,6 +220,7 @@ export default {
           margin-bottom: 10px;
         }
       }
+
       .tag-list {
         @include margin-page-wide();
         display: grid;
@@ -226,7 +240,8 @@ export default {
           grid-template-columns: 1fr;
         }
         grid-gap: 15px 20px;
-        >.tag {
+
+        > .tag {
           font-family: $font-mono;
           color: #FFF;
           user-select: none;
@@ -245,6 +260,7 @@ export default {
         }
       }
     }
+
     @include media-breakpoint-down(sm) {
       overflow: hidden;
       position: relative;
@@ -258,6 +274,7 @@ export default {
         width: 100%;
         height: 20px;
         transition: all .3s linear;
+
         &:after {
           transition: all .3s linear;
           content: "";
@@ -276,9 +293,11 @@ export default {
       }
       &.collapsed {
         max-height: 17vh;
+
         .expander {
           height: 70px;
-          background: linear-gradient(rgba(0,0,0,0), $color-orange 80%);
+          background: linear-gradient(rgba(0, 0, 0, 0), $color-orange 80%);
+
           &:after {
             transform: rotate(45deg);
             bottom: 18px;
@@ -298,6 +317,7 @@ export default {
     @include media-breakpoint-down(xs) {
       padding-bottom: 0rem;
     }
+
     input[type="text"] {
       flex: 1;
       display: block;
@@ -308,6 +328,7 @@ export default {
       font-size: 1.1rem;
       border: none;
     }
+
     input[type="button"] {
       font-size: 1.1rem;
       margin-left: 10px;
@@ -320,6 +341,7 @@ export default {
     }
   }
 }
+
 .workshop-list-wrapper {
   @include media-breakpoint-down(lg) {
     @include margin-page-wide;
@@ -350,12 +372,14 @@ export default {
     text-align: center;
   }
 }
+
 .machine-filters {
   .tags {
     padding: 8vh 0;
     @include media-breakpoint-down(sm) {
       padding: 4vh 0;
     }
+
     .headline {
       color: #FFF;
       font-weight: bold;
@@ -369,6 +393,7 @@ export default {
         margin-bottom: 10px;
       }
     }
+
     .tag-list {
       @include margin-page-wide();
       display: grid;
@@ -388,11 +413,13 @@ export default {
         grid-template-columns: 1fr;
       }
       grid-gap: 15px 20px;
-      >.tag {
+
+      > .tag {
         font-family: $font-mono;
         color: #FFF;
         user-select: none;
         cursor: pointer;
+
         input[type=checkbox] {
           outline: none;
           -webkit-appearance: none;
@@ -401,12 +428,14 @@ export default {
           border-radius: 3px;
           position: relative;
           top: 0;
+
           &:checked {
             background-color: #FFF;
           }
         }
       }
     }
+
     background-color: $color-blue;
     @include media-breakpoint-down(sm) {
       overflow: hidden;
@@ -421,6 +450,7 @@ export default {
         width: 100%;
         height: 20px;
         transition: all .3s linear;
+
         &:after {
           transition: all .3s linear;
           content: "";
@@ -439,9 +469,11 @@ export default {
       }
       &.collapsed {
         max-height: 17vh;
+
         .expander {
           height: 70px;
-          background: linear-gradient(rgba(0,0,0,0), $color-blue 80%);
+          background: linear-gradient(rgba(0, 0, 0, 0), $color-blue 80%);
+
           &:after {
             transform: rotate(45deg);
             bottom: 18px;
@@ -450,11 +482,13 @@ export default {
       }
     }
   }
+
   .search {
     display: flex;
     padding-top: 3vh;
     @include margin-page-wide();
     padding-bottom: 5vh;
+
     input[type=text] {
       flex: 1;
       display: block;
@@ -465,6 +499,7 @@ export default {
       font-size: 1.1rem;
       border: none;
     }
+
     input[type=button] {
       font-size: 1.1rem;
       margin-left: 10px;
