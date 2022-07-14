@@ -3,6 +3,7 @@ import auth0 from 'auth0-js'
 import { getUserFromLocalStorage, setToken, unsetToken } from '~/utils/auth'
 import axios from 'axios'
 import moment from 'moment'
+import Vue from 'vue'
 
 const origin = process.client ? window.location.origin : process.env.ORIGIN
 
@@ -62,6 +63,7 @@ const createStore = () => {
       fabman: null,
       courses: null,
       memberCourses: null,
+      member: null,
       workshops: null,
       necessaryCookie: false,
       analyticsCookie: false
@@ -123,6 +125,9 @@ const createStore = () => {
       },
       setCourses (state, data) {
         state.courses = data
+      },
+      setMember (state, data) {
+        state.member = data
       },
       setMemberCourses (state, data) {
         state.memberCourses = data
@@ -345,14 +350,31 @@ const createStore = () => {
           this.$sentry.captureException(err)
         })
       },
+      updateMember ({ state, commit, dispatch }, data) {
+        Vue.delete(data, 'lockVersion')
+        const req = JSON.parse(JSON.stringify((data)))
+        return connector.put('/v1/fabman/members/' + data.id, req).then((r) => {
+          const member = Object.assign(state.member, r.data)
+          commit('setMember', member)
+        }).catch((err) => {
+          this.$sentry.captureException(err)
+        })
+      },
       getUser ({ state, commit, dispatch }) {
         return axios.get(`${origin}/.netlify/functions/getUser`).then((r) => {
           commit('setUser', r.data)
+          dispatch('getMember', r.data.profile.id)
           return dispatch('getFabman')
         }).catch((err) => {
           this.$sentry.captureException(err)
         })
       },
+      getMember ({ state, commit }, id) {
+        return connector.get('/v1/fabman/members/' + id).then((r) => {
+          commit('setMember', r.data)
+        })
+      },
+
       checkAuth ({ commit, dispatch, state }) {
         if (state.auth || getUserFromLocalStorage()) {
           // renew Token
