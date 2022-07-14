@@ -25,6 +25,7 @@
     </div>
     <div class="workshop-list-wrapper" :key="this.filtered">
       <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
+        <transition-group name="list">
         <workshop-list-item
             v-for="item in filteredWorkshops"
             :blok="item"
@@ -32,9 +33,11 @@
             class="list-item"
             :slim="false"
         ></workshop-list-item>
+        </transition-group>
       </div>
       <div v-else>
         <div v-if="workshops && workshops.length > 0" class="workshop-list">
+          <transition-group name="list">
           <workshop-list-item
               v-for="item in workshops"
               :blok="item"
@@ -42,6 +45,7 @@
               class="list-item"
               :slim="false"
           ></workshop-list-item>
+          </transition-group>
         </div>
         <div v-else>
           <div class="workshop-list-none">
@@ -313,7 +317,6 @@ export default {
       @include margin-page-wide;
     }
     padding-top: 1rem;
-    margin-bottom: 2em;
     @include media-breakpoint-down(xs) {
       padding-bottom: 0rem;
     }
@@ -343,32 +346,41 @@ export default {
 }
 
 .workshop-list-wrapper {
-  @include media-breakpoint-down(lg) {
-    @include margin-page-wide;
-  }
   display: flex;
-
   .workshop-list {
-    flex: 3;
+    > span {
+      display: grid;
+      @include media-breakpoint-up(sm) {
+        grid-template-columns: 1fr 1fr;
+      }
+      @include media-breakpoint-up(md) {
+        grid-template-columns: 1fr 1fr;
+      }
 
-    .list-item {
-      margin-right: 10px;
+      @include media-breakpoint-up(xl) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      grid-column-gap: 2vw;
+      grid-row-gap: 2vw;
     }
-
-    .list-enter-active,
-    .list-leave-active {
+    flex: 3;
+    .list-item {
+      min-width: 150px;
+      padding: 0 5px;
+      @include media-breakpoint-up(lg) {
+        min-width: 200px;
+      }
+    }
+    .list-enter-active, .list-leave-active {
       transition: all 0.5s;
     }
-
-    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
-    {
+    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
       opacity: 0;
       transform: translateX(30px);
     }
   }
-
   .workshop-list-none {
-    flex: 3;
+    flex: 1;
     text-align: center;
   }
 }
@@ -485,10 +497,8 @@ export default {
 
   .search {
     display: flex;
-    padding-top: 3vh;
     @include margin-page-wide();
-    padding-bottom: 5vh;
-
+    margin-top: 1vh;
     input[type=text] {
       flex: 1;
       display: block;
