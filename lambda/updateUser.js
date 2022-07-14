@@ -10,6 +10,12 @@ let tmpClient
 let tmpOrigin
 switch (process.env.NETLIFY_ENVIRONMENT) {
   case 'develop':
+    tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
+    tmpClient = jwksClient({
+      jwksUri: `${process.env.AUTH0_URL_DEVELOP}/.well-known/jwks.json`
+    })
+    tmpOrigin = process.env.ORIGIN_DEVELOP
+    break
   case 'staging':
     tmpFabmanToken = process.env.FABMAN_TOKEN_STAGING
     tmpClient = jwksClient({

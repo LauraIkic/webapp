@@ -385,3 +385,21 @@ input:focus {
 .text-center {
   text-align: center;
 }
+
+.button {
+  font-weight: bold;
+  line-height: 1em;
+  padding: 10px;
+  outline: none;
+  width: 100%;
+  color: #FFF;
+  border: none;
+  background-color: #E69140;
+  margin: 0;
+  cursor: pointer;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: black;
+}

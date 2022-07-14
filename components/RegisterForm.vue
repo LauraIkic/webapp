@@ -169,7 +169,7 @@
         </div>
       </div>
       <div class="form-item button-row">
-        <button @click="submit">
+        <button class="input-button-primary" @click="submit">
           {{ $t('register') }}
         </button>
       </div>
@@ -482,6 +482,10 @@ export default {
         }
       }
     }
+  }
+
+  .red {
+    border-color: red !important;
   }
 }
 </style>

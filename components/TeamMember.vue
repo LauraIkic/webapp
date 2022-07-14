@@ -51,13 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="short-description">
-          {{ blok.short_description }}
-        </div>
       </div>
-    </div>
-    <div class="short-description-mobile">
-      {{ blok.short_description }}
     </div>
     <div class="body">
       <div class="future-slogan">
@@ -182,17 +176,7 @@ export default {
           margin-right: 3em;
         }
       }
-      .short-description {
-        line-height: 1.5;
-        @include media-breakpoint-up(xl) {
-          width: 90%;
-        }
-        font-size: 1rem;
-      }
     }
-  }
-  .short-description-mobile {
-    display: none;
   }
   .body {
     padding: 100px 0;
@@ -241,16 +225,7 @@ export default {
             }
           }
         }
-        .short-description {
-          display: none;
-        }
       }
-    }
-    .short-description-mobile {
-      display: flex;
-      margin: 1em 5em;
-      line-height: 1.4;
-      font-size: 1rem;
     }
   }
 
@@ -265,8 +240,6 @@ export default {
             .name {
             }
           }
-        }
-        .short-description {
         }
       }
       .image {
@@ -290,9 +263,6 @@ export default {
           z-index: 99;
         }
       }
-    }
-    .short-description-mobile {
-      margin: 1em 0;
     }
     .body {
       padding: 50px 0;
