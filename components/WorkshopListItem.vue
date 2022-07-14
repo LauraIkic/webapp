@@ -237,6 +237,11 @@ export default {
       font-family: $font-mono;
       line-height: 1.6;
       font-size: 0.9rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      hyphens: auto;
       @include media-breakpoint-down(sm) {
         width: 100%;
       }
