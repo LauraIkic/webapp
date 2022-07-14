@@ -499,6 +499,7 @@ export default {
     display: flex;
     @include margin-page-wide();
     margin-top: 1vh;
+    margin-bottom: 2vh;
     input[type=text] {
       flex: 1;
       display: block;

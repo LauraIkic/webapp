@@ -168,6 +168,8 @@ export default {
     flex-direction: column;
   }
   .image {
+    display: flex;
+    justify-content: center;
     @include media-breakpoint-down(sm) {
       overflow: hidden;
     }
@@ -177,8 +179,6 @@ export default {
       }
       max-width: 100%;
       padding: 1em;
-      display: flex;
-      justify-content: center;
     }
   }
   br {
@@ -281,7 +281,6 @@ export default {
     &:nth-child(odd) {
       background-color: rgba(242, 243, 238,0.9);
     }
-    margin: 5px;
     @include media-breakpoint-down(xs) {
       border: .11em solid #f2f3ee;
       padding:7px;
