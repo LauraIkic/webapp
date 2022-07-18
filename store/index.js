@@ -292,20 +292,20 @@ const createStore = () => {
         }
       },
       saveQuiz ({ state }, data) {
-        return connector.post('/courses/save-quiz', data).then((r) => {
+        return connector.post('/v1/courses/save-quiz', data).then((r) => {
           if (r.data.success) {
             return r.data.data
           }
         })
       },
       async savePublicQuiz ({ state }, data) {
-        const r = await axios.post(connectorBaseUrl + '/save-public-quiz', data)
+        const r = await axios.post(connectorBaseUrl + '/v1/save-public-quiz', data)
         if (r.data.success) {
           return r.data.data
         }
       },
       async getAsu () {
-        const r = await axios.get(connectorBaseUrl + '/get-asu')
+        const r = await axios.get(connectorBaseUrl + '/v1/get-asu')
         if (r.data.success) {
           return r.data.data
         }
@@ -317,7 +317,7 @@ const createStore = () => {
         const params = {
           course_id: id
         }
-        return connector.get('/courses/get-quiz', { params }).then((r) => {
+        return connector.get('/v1/courses/get-quiz', { params }).then((r) => {
           if (r.data.success) {
             return r.data.data
           }
@@ -439,7 +439,7 @@ const createStore = () => {
         unsetToken()
       },
       startCourse ({ commit }, context) {
-        return connector.post('/courses/start-course', context).then((r) => {
+        return connector.post('/v1/courses/start-course', context).then((r) => {
           if (r.data.success) {
             return r.data.data
           }
@@ -504,7 +504,7 @@ const createStore = () => {
       getMemberCourses ({ state, commit }, id) {
         if (!state.auth) return null
 
-        return connector.get('/courses/get-member-courses').then((r) => {
+        return connector.get('/v1/courses/get-member-courses').then((r) => {
           if (r.data.success) {
             commit('setMemberCourses', r.data.data)
           }
@@ -513,7 +513,7 @@ const createStore = () => {
       getCourses ({ state, commit }, id) {
         if (!state.auth) return null
 
-        return connector.get('/courses/get-courses').then((r) => {
+        return connector.get('/v1/courses/get-courses').then((r) => {
           if (r.data.success) {
             commit('setCourses', r.data.data)
           }
