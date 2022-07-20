@@ -175,8 +175,9 @@ const createStore = () => {
           this.$sentry.captureException(err)
         })
       },
-      getUserMetadata () {
-        return connector.get('member/metadata').then((r) => {
+      getUserMetadata ({ state }) {
+        const id = state.member.id
+        return connector.get(`v1/fabman/members/${id}/metadata`).then((r) => {
           return r
         }).catch((err) => {
           this.$sentry.captureException(err)
@@ -209,7 +210,7 @@ const createStore = () => {
       },
       getWorkshopDateMetadata ({ state }, data) {
         if (connector) {
-          return connector.post('/member/getWorkshopDateMetadata', data).then((r) => {
+          return connector.post('/v1/workshops/getWorkshopDateMetadata', data).then((r) => {
             if (r.data) {
               return r.data
             }
@@ -221,7 +222,7 @@ const createStore = () => {
         }
       },
       bookWorkshop ({ state }, data) {
-        return connector.post('/member/checkoutWorkshop', data)
+        return connector.post('/v1/workshops/checkoutWorkshop', data)
       },
       checkout ({ state }, data) {
         return connector.post('/member/checkoutTransaction', data)
@@ -230,11 +231,11 @@ const createStore = () => {
         return connector.post('/member/workshopStorno', data)
       },
       async getCredits ({ state }) {
-        const res = await connector.get('/member/getCredits')
+        const res = await connector.get('/v1/members/getCredits')
         return res.data
       },
       async getCreditsLog ({ state }) {
-        const res = await connector.get('/member/getCreditsLog')
+        const res = await connector.get('/v1/members/getCreditsLog')
         return res.data
       },
       startTransaction ({ state }, data) {
