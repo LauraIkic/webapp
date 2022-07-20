@@ -34,10 +34,10 @@
     </div>
     <div class="workshop-list-wrapper "  :key="this.selectedEvent">
       <div v-if="selectedEvent !== ''">
-        <pretix-widget name="pretix" event="https://pretix.eu/ggTest" :filter="`attr[Kategorie]=${this.filter}`"></pretix-widget>
+        <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" :filter="`attr[Kategorie]=${this.filter}`"></pretix-widget>
       </div>
       <div v-if="selectedEvent === ''">
-        <pretix-widget name="pretix" event="https://pretix.eu/ggTest"></pretix-widget>
+        <pretix-widget name="pretix" event="https://pretix.eu/grandgarage"></pretix-widget>
       </div>
       <noscript>
         <div class="pretix-widget">
@@ -309,6 +309,10 @@ export default {
   display: flex;
   justify-content: center;
   .pretix-widget-wrapper{
+    a {
+      color: $color-secondary;
+      text-decoration: underline;
+    }
     width: 70vw;
     max-width: 1264px;
     background: white;
