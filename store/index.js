@@ -9,6 +9,7 @@ const origin = process.client ? window.location.origin : process.env.ORIGIN
 console.log('### Nuxt environment is: ' + process.env.NUXT_ENV_ENVIRONMENT)
 
 let tmpAuth = null
+let tmpVersion = null
 
 // Define auth0 routes depending on your environment
 switch (process.env.NUXT_ENV_ENVIRONMENT) {
@@ -20,6 +21,7 @@ switch (process.env.NUXT_ENV_ENVIRONMENT) {
       responseType: 'token id_token',
       redirectUri: origin + '/auth'
     })
+    tmpVersion = process.env.CONNECTOR_API_URL_DEVELOP
     break
   case 'staging':
     tmpAuth = new auth0.WebAuth({
@@ -29,6 +31,7 @@ switch (process.env.NUXT_ENV_ENVIRONMENT) {
       responseType: 'token id_token',
       redirectUri: origin + '/auth'
     })
+    tmpVersion = process.env.CONNECTOR_API_URL_STAGING
     break
   default: // production
     tmpAuth = new auth0.WebAuth({
@@ -38,16 +41,16 @@ switch (process.env.NUXT_ENV_ENVIRONMENT) {
       responseType: 'token id_token',
       redirectUri: origin + '/auth'
     })
+    tmpVersion = process.env.CONNECTOR_API_URL
 }
 
 const webAuth = tmpAuth
+const version = tmpVersion
 
 const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNECTOR_URL : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
 
 let connector
-
-const version = process.env.CONNECTOR_API_URL
 
 const createStore = () => {
   return new Vuex.Store({

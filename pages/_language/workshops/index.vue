@@ -20,17 +20,17 @@
         </div>
         <div class="tag-list" :key="this.filter">
           <div v-for="c in categories" :key="c.key" class="tag">
-              <checkbox
-                  v-model="c.value"
-                  class="tag"
-                  theme="white"
-              >{{c.name}}</checkbox>
+            <checkbox
+                v-model="c.value"
+                class="tag"
+                theme="white"
+            >{{c.name}}</checkbox>
           </div>
         </div>
       </div>
-<!--      <div class="search">
-        <input type="text" :placeholder="[[ $t('search') ]]" v-model="search" name="" id=""/>
-      </div>-->
+      <!--      <div class="search">
+              <input type="text" :placeholder="[[ $t('search') ]]" v-model="search" name="" id=""/>
+            </div>-->
     </div>
     <div class="workshop-list-wrapper "  :key="this.selectedEvent">
       <div v-if="selectedEvent !== ''">

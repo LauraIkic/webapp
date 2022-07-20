@@ -85,8 +85,6 @@ export default {
     },
     filterTags () {
       return this.tags.filter((t) => {
-        console.log('tags')
-        console.log(t)
         return t.value
       }).map((t) => {
         return t.name

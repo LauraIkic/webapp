@@ -53,7 +53,7 @@ export default {
     },
     spaceBetween () {
       if (process.client && window && window.innerWidth) {
-        if (window.innerWidth < 786) {
+        if (window.innerWidth < 600) {
           return 0
         }
       }
@@ -61,8 +61,8 @@ export default {
     },
     num () {
       if (process.client && window && window.innerWidth) {
-        if (window.innerWidth < 786) {
-          return 1
+        if (window.innerWidth < 600) {
+          return 1.5
         }
       }
       return 3
@@ -75,7 +75,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .swiper-wrapper.center {
   @include media-breakpoint-up(sm) {
     justify-content: center;
@@ -100,7 +99,7 @@ export default {
       background-position: center;
       background-repeat: no-repeat;
       @include media-breakpoint-down(md){
-        width:200px !important;
+        //width: 200px !important;
         height: 180px !important;
       }
     }
