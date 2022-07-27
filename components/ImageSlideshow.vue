@@ -83,6 +83,7 @@ export default {
 
 .image-slideshow {
   color: $color-blue;
+  margin-top: 5rem;
   .text {
     @include margin-page-middle();
     padding: 5rem 0 4rem;
