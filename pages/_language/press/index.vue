@@ -6,7 +6,8 @@
       </div>
         <press-contact :key="p.id" v-for="p in story.content.body" :story="p"></press-contact>
       <div class="press-post-title"> {{ $t('pressReleases') }}</div>
-      <div class="press-preview">
+
+<!--      <div class="press-preview">
         <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
       </div>
       <details>
@@ -14,7 +15,8 @@
         <div class="all-press-posts">
           <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
-      </details>
+      </details>-->
+      <press-gallery :images="pressImages"></press-gallery>
       <div class="images">
         <press-image-slider :story="images"></press-image-slider>
       </div>
@@ -66,6 +68,9 @@ export default {
     }
   },
   computed: {
+    pressImages () {
+      return this.story.content.PressGallery
+    },
     images () {
       return this.story.content.Images
     },

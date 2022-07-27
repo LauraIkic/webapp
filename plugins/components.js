@@ -90,6 +90,7 @@ import PressPost from '../components/PressPost'
 import GiftPage from '../components/GiftPage'
 import TeamImageSlider from '../components/TeamImageSlider'
 import MaterialPrices from '../components/MaterialPrices'
+import PressGallery from '../components/PressGallery'
 
 Vue.component('material-prices', MaterialPrices)
 Vue.component('page', Page)
@@ -185,3 +186,4 @@ Vue.component('press-post-preview', PressPostPreview)
 Vue.component('press-overview', PressPost)
 Vue.component('gift-page', GiftPage)
 Vue.component('team-image-slider', TeamImageSlider)
+Vue.component('press-gallery', PressGallery)
