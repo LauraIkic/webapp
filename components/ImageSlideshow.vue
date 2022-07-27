@@ -99,8 +99,8 @@ export default {
       background-position: center;
       background-repeat: no-repeat;
       @include media-breakpoint-down(md){
-        //width: 200px !important;
         height: 180px !important;
+        margin-left: -20px;
       }
     }
     padding-bottom: 60px;
