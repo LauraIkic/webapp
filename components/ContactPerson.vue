@@ -124,7 +124,6 @@ export default {
 .contact-block{
   display: flex;
   background-color: white;
-  margin-bottom: 3em;
   padding: 30px;
   flex-flow: column;
   align-items: center;
