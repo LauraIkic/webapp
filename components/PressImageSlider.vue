@@ -1,9 +1,7 @@
 <template>
     <div class="image-slideshow ">
       <div v-swiper:swiper="swiperOption">
-        <div class="title">
-          {{ $t('pressImages') }}
-        </div>
+
         <div
             class="swiper-wrapper"
         >
@@ -13,16 +11,15 @@
               class="swiper-slide"
               :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}">
             <div class="slide-image-title">
-              <div class="image-title">
+<!--              <div class="image-title">
                 {{s.text}}
-              </div>
+              </div>-->
             </div>
-            <div class="download-underline" @click="myPath(s.image)">
+            <div class="download-underline" >
               <div class="download">
                 <div class="download-text">
-                  {{ $t('download') }}
+                  {{s.text}}
                 </div>
-                <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
               </div>
             </div>
           </div>
@@ -195,12 +192,11 @@ export default {
     .download-text{
       color:white;
       cursor: pointer;
-      &:hover{
-        text-decoration: underline;
-      }
+      font-size: 1.2em;
     }
-    padding-top: 30px;
+    padding-top: 10px;
     height: 25em;
+    padding-bottom: 100px;
     .swiper-slide {
       display: block;
       background-size: contain;
@@ -233,7 +229,7 @@ export default {
         }
       }
     }
-    padding-bottom: 130px;
+
     @include media-breakpoint-down(md){
       height: 360px;
     }

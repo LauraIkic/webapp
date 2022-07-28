@@ -5,8 +5,18 @@
         <h1 class="headline-text"> {{ $t('press') }}</h1>
       </div>
         <press-contact :key="p.id" v-for="p in story.content.body" :story="p"></press-contact>
-      <div class="press-post-title"> {{ $t('pressReleases') }}</div>
-
+      <div class="main-title"> Pressestimmen</div>
+      <press-gallery :images="pressImages"></press-gallery>
+      <div class="main-title"> {{ $t('pressReleases') }}</div>
+<!--      <div class="press-preview">
+      <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
+    </div>
+      <details>
+        <summary style="cursor:pointer" class="to-all-posts">  {{ $t('allPressReleases') }}</summary>
+        <div class="all-press-posts">
+          <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
+        </div>
+      </details>-->
 <!--      <div class="press-preview">
         <press-post-preview :key="p.id" v-for="p in pressToDisplay" :story="p"></press-post-preview>
       </div>
@@ -16,7 +26,15 @@
           <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
       </details>-->
-      <press-gallery :images="pressImages"></press-gallery>
+<!--
+      <ImageSlideShowPress :press-components="press"></ImageSlideShowPress>
+-->
+      <ul class="press-grid">
+        <li class="press-grid-item" v-for="p in press" :key="p.uuid">
+          <press-post-preview  :story="p"></press-post-preview>
+        </li>
+      </ul>
+      <div class="main-title"> {{ $t('pressImages') }}</div>
       <div class="images">
         <press-image-slider :story="images"></press-image-slider>
       </div>
@@ -26,7 +44,11 @@
 <script>
 
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+import ImageSlideShowPress from '../../../components/ImageSlideShowPress'
 export default {
+/*
+  components: { ImageSlideShowPress },
+*/
   mixins: [storyblokLivePreview],
   props: ['blok'],
   data () {
@@ -76,7 +98,7 @@ export default {
     },
     pressToDisplay () {
       if (!this.press) return
-      return this.press.slice(0, 3)
+      return this.press.slice(0, 10)
     },
     filters () {
       // eslint-disable-next-line camelcase
@@ -99,6 +121,15 @@ export default {
   justify-content: space-between;
   margin: 0 auto;
   flex-flow: column;
+  .main-title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding-top: 1vh;
+    padding-left: 0;
+    font-family: "Chakra Petch", sans-serif;
+    margin-top: 5vh;
+    margin-left: 3vw;
+  }
   .headline{
     font-family: Chakra Petch;
     padding: 10px;
@@ -110,7 +141,6 @@ export default {
       color:black;
       font-size: 5rem;
       display: flex;
-      font-family: Chakra Petch;
       @include media-breakpoint-down(xs) {
         font-size: 3.5rem;
         max-width: 350px;
@@ -145,8 +175,8 @@ export default {
     }
   }
   .images{
-    margin-top:10%;
     background: black;
+    margin-top: 1rem;
   }
   @include media-breakpoint-down(md) {
     .headline{
@@ -187,6 +217,22 @@ export default {
     }
     details[open] > summary:before {
       transform: rotate(90deg);
+    }
+  }
+  .press-grid{
+    width: 100%;
+    display: grid;
+    grid-column-gap: 1rem;
+    -moz-column-gap: 1rem;
+    column-gap: 1rem;
+    grid-row-gap: 2rem;
+    row-gap: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    list-style: none;
+    .press-grid-item{
+      &:hover{
+        transform: translateY(-7px);
+      }
     }
   }
 </style>

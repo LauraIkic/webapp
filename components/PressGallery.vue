@@ -83,7 +83,7 @@ export default {
 .grid-container {
   width: 100%;
   display: grid;
-  padding-bottom: 16rem;
+  padding-bottom: 10rem;
   column-gap: 1rem;
   row-gap: 2rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
