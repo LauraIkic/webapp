@@ -91,6 +91,8 @@ import GiftPage from '../components/GiftPage'
 import TeamImageSlider from '../components/TeamImageSlider'
 import MaterialPrices from '../components/MaterialPrices'
 import PressGallery from '../components/PressGallery'
+import ContactPerson from '../components/ContactPerson'
+import ContactPreview from '../components/ContactPreview'
 
 Vue.component('material-prices', MaterialPrices)
 Vue.component('page', Page)
@@ -187,3 +189,5 @@ Vue.component('press-overview', PressPost)
 Vue.component('gift-page', GiftPage)
 Vue.component('team-image-slider', TeamImageSlider)
 Vue.component('press-gallery', PressGallery)
+Vue.component('contact-person', ContactPerson)
+Vue.component('contact-preview', ContactPreview)
