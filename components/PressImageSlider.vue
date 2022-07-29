@@ -18,7 +18,7 @@
             <div class="download-underline" >
               <div class="download">
                 <div class="download-text">
-                  {{s.text}}
+                  {{s.title}}
                 </div>
               </div>
             </div>

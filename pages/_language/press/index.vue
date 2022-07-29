@@ -26,14 +26,12 @@
           <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
       </details>-->
-<!--
       <ImageSlideShowPress :press-components="press"></ImageSlideShowPress>
--->
-      <ul class="press-grid">
+<!--      <ul class="press-grid">
         <li class="press-grid-item" v-for="p in press" :key="p.uuid">
           <press-post-preview  :story="p"></press-post-preview>
         </li>
-      </ul>
+      </ul>-->
       <div class="main-title"> {{ $t('pressImages') }}</div>
       <div class="images">
         <press-image-slider :story="images"></press-image-slider>
@@ -46,9 +44,7 @@
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 import ImageSlideShowPress from '../../../components/ImageSlideShowPress'
 export default {
-/*
   components: { ImageSlideShowPress },
-*/
   mixins: [storyblokLivePreview],
   props: ['blok'],
   data () {
