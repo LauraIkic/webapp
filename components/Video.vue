@@ -3,7 +3,7 @@
       v-editable="blok"
       class="video-blok"
   >
-    <div class="video-container">
+    <div class="container">
       <div
           class="col-start"
       >
@@ -22,8 +22,8 @@
           <markdown :value="blok.text" />
         </p>
       </div>
-      <div class="video" v-if="blok.video">
-        <iframe width="1255" height="710" :src="blok.video" title="YouTube video player" frameborder="0"
+      <div class="iframe-container" v-if="blok.video">
+        <iframe :src="blok.video" title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
       </div>
@@ -47,8 +47,8 @@ export default {
   justify-content: center;
   margin: 2rem 0 4rem 0;
 
-  .video-container {
-    max-width: 100%;
+  .container {
+    max-width: 1255px;
     position: relative;
     height: calc(100% - 64px);
     display: flex;
@@ -110,23 +110,18 @@ export default {
       }
     }
   }
-  .video {
-    width: inherit;
-    display: flex;
-    align-self: center;
+  .iframe-container {
+    overflow: hidden;
+    /* 16:9 aspect ratio */
+    padding-top: 56.25%;
+    position: relative;
     margin: 2% 0;
-
-    & * {
-      @include media-breakpoint-down(md) {
-        height: 32vh;
-        width: 69vw;
-        margin-bottom: 10%;
-      }
-      @include media-breakpoint-down(xs) {
-        height: 25vh;
-        width: 100%;
-        margin-bottom: 10%;
-      }
+    iframe {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
   }
 }
