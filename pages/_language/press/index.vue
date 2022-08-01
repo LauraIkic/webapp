@@ -26,7 +26,7 @@
           <press-post-preview :key="p.id" v-for="p in press" :story="p"></press-post-preview>
         </div>
       </details>-->
-      <ImageSlideShowPress :press-components="press"></ImageSlideShowPress>
+      <ItemSlideShow :items="press"/>
 <!--      <ul class="press-grid">
         <li class="press-grid-item" v-for="p in press" :key="p.uuid">
           <press-post-preview  :story="p"></press-post-preview>
@@ -42,9 +42,9 @@
 <script>
 
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
-import ImageSlideShowPress from '../../../components/ImageSlideShowPress'
+import ItemSlideShow from '../../../components/ItemSlideShow'
 export default {
-  components: { ImageSlideShowPress },
+  components: { ItemSlideShow },
   mixins: [storyblokLivePreview],
   props: ['blok'],
   data () {
@@ -123,7 +123,7 @@ export default {
     padding-top: 1vh;
     padding-left: 0;
     font-family: "Chakra Petch", sans-serif;
-    margin-top: 5vh;
+    margin-top: 10vh;
     margin-left: 3vw;
   }
   .headline{
@@ -172,7 +172,7 @@ export default {
   }
   .images{
     background: black;
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   @include media-breakpoint-down(md) {
     .headline{
@@ -223,12 +223,12 @@ export default {
     column-gap: 1rem;
     grid-row-gap: 2rem;
     row-gap: 2rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     list-style: none;
     .press-grid-item{
-      &:hover{
+/*      &:hover{
         transform: translateY(-7px);
-      }
+      }*/
     }
   }
 </style>

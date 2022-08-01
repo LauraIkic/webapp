@@ -18,7 +18,7 @@
             <div class="download-underline" >
               <div class="download">
                 <div class="download-text">
-                  {{s.title}}
+                  {{s.text}}
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default {
     swiperOption () {
       return {
         slidesPerView: this.num,
-        spaceBetween: this.spaceBetween,
+        spaceBetween: 0,
         autoplay: {
           delay: 5000,
           disableOnInteraction: true
@@ -64,12 +64,12 @@ export default {
           return 0
         }
       }
-      return 30
+      return 0
     },
     num () {
       if (process.client && window && window.innerWidth) {
         if (window.innerWidth < 786) {
-          return 1
+          return 1.5
         }
       }
       return 3
@@ -84,7 +84,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.swiper-slide{
+  width: 400px !important;
+}
 .slide-image-title{
   display: flex;
   flex-flow: column;
@@ -106,7 +108,7 @@ export default {
   color: white;
   display: flex;
   flex-flow: column;
-
+  margin-top: -230px;
   @include media-breakpoint-down(md) {
     opacity: 1;
     position: fixed;
@@ -194,7 +196,7 @@ export default {
       cursor: pointer;
       font-size: 1.2em;
     }
-    padding-top: 10px;
+    padding-top: 30px;
     height: 25em;
     padding-bottom: 100px;
     .swiper-slide {

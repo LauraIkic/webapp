@@ -17,10 +17,10 @@
         <a class="xButton" href="javascript:void(0)"
            @click="closeModal()">&times;</a>
         <div class="display-image">
-          <a class="arrow-left" href="javascript:void(0)"
+          <a id="arrow-left" class="arrow-left" href="javascript:void(0)"
              @click="changeImage(-1)">&lt;</a>
           <img id="modal-img" class="modal-img"/>
-          <a class="arrow-right" href="javascript:void(0)"
+          <a id="arrow-right" class="arrow-right" href="javascript:void(0)"
              @click="changeImage(1)">></a>
         </div>
       </div>
@@ -45,34 +45,54 @@ export default {
   },
   methods: {
     showModal (src) {
-      console.log('huhu')
       const modal = document.getElementById('modal')
       modal.style.setProperty('display', 'flex')
-      console.log(modal.style)
       const modalImg = document.getElementById('modal-img')
       modalImg.src = src
       this.imageList.forEach((item, index) => {
-        if (item.src === src) {
+        if (item.image === src) {
           this.currentPosition = index
+          console.log(this.currentPosition)
+          if (this.currentPosition === this.imageList.length - 1) {
+            console.log('disable right')
+          }
         }
       })
+      this.checkForEnd()
     },
     closeModal () {
       const modal = document.getElementById('modal')
       modal.style.setProperty('display', 'none')
+      this.currentPosition = 0
     },
     changeImage (val) {
-      if (this.currentPosition + val === this.imageList.length) {
+      if (this.currentPosition + val === this.imageList.length || this.currentPosition + val < 0) {
         return
       }
       const modalImg = document.getElementById('modal-img')
+      const rightArrow = document.getElementById('arrow-right')
+
       this.currentPosition = this.currentPosition + val
-      console.log(this.currentPosition)
+      this.checkForEnd()
       this.imageList.forEach((item, index) => {
         if (this.currentPosition === index) {
           modalImg.src = item.image
         }
       })
+    },
+    checkForEnd () {
+      const rightArrow = document.getElementById('arrow-right')
+      if (this.currentPosition === this.imageList.length - 1) {
+        rightArrow.style.setProperty('opacity', '0')
+      } else {
+        rightArrow.style.setProperty('opacity', '1')
+      }
+      const leftArrow = document.getElementById('arrow-left')
+      if (this.currentPosition === 0) {
+        leftArrow.style.setProperty('opacity', '0')
+      } else {
+        leftArrow.style.setProperty('opacity', '1')
+      }
     }
   }
 }
@@ -83,11 +103,25 @@ export default {
 .grid-container {
   width: 100%;
   display: grid;
-  padding-bottom: 10rem;
+  padding-bottom: 1rem;
   column-gap: 1rem;
   row-gap: 2rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(1, minmax(0, 1fr));
   list-style: none;
+  margin-left: -20px;
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-left: 0px;
+  }
+  @media (min-width: 1280px) {
+    column-gap: 2rem;
+    margin-left: 0px;
+  }
 }
 
 .display-grid-item {
@@ -173,28 +207,35 @@ export default {
   .display-image {
     display: flex;
     .arrow-left{
-      padding-right: 2.5rem;
+      padding-right: 0.5rem;
       color: #ffffff;
       font-size: 3rem;
       line-height: 1;
       font-weight: 700;
       align-self: center;
+      @media (min-width: 768px) {
+        padding-right: 2.5rem;
+      }
     }
     .arrow-right{
-      padding-left: 2.5rem;
+      padding-left: 0.5rem;
       color: #ffffff;
       font-size: 3rem;
       line-height: 1;
       font-weight: 700;
       align-self: center;
+      @media (min-width: 768px) {
+        padding-left: 2.5rem;
+      }
     }
     .modal-img{
       object-fit: cover;
+      width: 300px;
       @media (min-width: 768px) {
-        width: 600px;
+        width: 500px;
       }
       @media (min-width: 1024px) {
-        width: 1000px;
+        width: 600px;
       }
     }
   }
