@@ -1,9 +1,7 @@
 <template>
     <div class="image-slideshow ">
       <div v-swiper:swiper="swiperOption">
-        <div class="title">
-          {{ $t('pressImages') }}
-        </div>
+
         <div
             class="swiper-wrapper"
         >
@@ -13,16 +11,15 @@
               class="swiper-slide"
               :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}">
             <div class="slide-image-title">
-              <div class="image-title">
+<!--              <div class="image-title">
                 {{s.text}}
-              </div>
+              </div>-->
             </div>
-            <div class="download-underline" @click="myPath(s.image)">
+            <div class="download-underline" >
               <div class="download">
                 <div class="download-text">
-                  {{ $t('download') }}
+                  {{s.text}}
                 </div>
-                <img class="download-cloud" src="~/assets/img/icons/download-icon.svg">
               </div>
             </div>
           </div>
@@ -50,7 +47,7 @@ export default {
     swiperOption () {
       return {
         slidesPerView: this.num,
-        spaceBetween: this.spaceBetween,
+        spaceBetween: 0,
         autoplay: {
           delay: 5000,
           disableOnInteraction: true
@@ -67,12 +64,12 @@ export default {
           return 0
         }
       }
-      return 30
+      return 0
     },
     num () {
       if (process.client && window && window.innerWidth) {
         if (window.innerWidth < 786) {
-          return 1
+          return 1.5
         }
       }
       return 3
@@ -87,7 +84,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.swiper-slide{
+  width: 400px !important;
+}
 .slide-image-title{
   display: flex;
   flex-flow: column;
@@ -109,7 +108,7 @@ export default {
   color: white;
   display: flex;
   flex-flow: column;
-
+  margin-top: -230px;
   @include media-breakpoint-down(md) {
     opacity: 1;
     position: fixed;
@@ -195,12 +194,11 @@ export default {
     .download-text{
       color:white;
       cursor: pointer;
-      &:hover{
-        text-decoration: underline;
-      }
+      font-size: 1.2em;
     }
     padding-top: 30px;
     height: 25em;
+    padding-bottom: 100px;
     .swiper-slide {
       display: block;
       background-size: contain;
@@ -233,7 +231,7 @@ export default {
         }
       }
     }
-    padding-bottom: 130px;
+
     @include media-breakpoint-down(md){
       height: 360px;
     }

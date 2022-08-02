@@ -1,19 +1,18 @@
 <template>
   <nuxt-link :to="localePath('/de/press/' +postItemSlug)">
     <div class="press-post-preview">
-      <div class="date">
-        {{ postItemDate }}
+      <div class="image" :style="{ 'background-image': 'url(' + story.content.Image + ')' }">
+<!--
+        <img :src="$resizeImage(story.content.Image, '300x200')">
+-->
       </div>
       <div class="press-information">
         <div class="title">
           {{ postItem.Title }}
         </div>
-        <div class="teaser">
-          {{ postItem.Teaser }}
+        <div class="date">
+          {{ postItemDate }}
         </div>
-      </div>
-      <div class="to-full-press-post">
-        <div class="arrow"></div>
       </div>
     </div>
   </nuxt-link>
@@ -40,99 +39,52 @@ export default {
 </script>
 
 <style lang="scss">
-
 .press-post-preview {
-  color: black;
-  display: flex;
-  justify-content: center;
-  margin-top: 10vh;
-  margin-left: auto;
-  margin-right: auto;
-  background: white;
-  width: 50vw;
+
   border-radius: 10px;
-  border-top: black 10px solid;
-  box-shadow: 10px 5px 5px #00000024;
-  &:hover {
-    background: repeating-linear-gradient(45deg, #787877, #787877 70px, rgba(0, 0, 0, 0.8) 70px, rgba(0, 0, 0, 0.8) 140px);
-    border-top: 10px solid;
+  background: #fdfdfc;
+  width: 300px;
+  height: 24rem;
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+  .image {
+      height: 20rem;
+      width: 300px;
+      border-top-left-radius: 10px;
+      background-size: cover;
+      object-fit: cover;
+      border-top-right-radius: 10px;
   }
 
   .press-information {
-    line-height: 1.8;
-    padding: 19px;
-    width: 30vw;
-    background: white;
-    .title {
-      font-size: 2rem;
-    }
-  }
-
-  .date {
-    width: 11vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.3rem;
-    border-right: black 1px solid;
-    background: white;
-  }
-
-  .to-full-press-post {
-    align-items: center;
-    display: flex;
-    background: white;
-  }
-  @include media-breakpoint-down(md) {
-    margin-right: 5%;
-    width: 90%;
-    margin-top: 4vh;
-    display: flex;
+    color: black;
+    height: inherit;
+    padding: 20px;
+    display:flex;
     flex-flow: column;
-    .press-information {
-      width: auto;
-      .title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        border-bottom: black 1px solid;
-        margin-bottom: 3%;
-      }
-    }
-    .date {
-      padding: 12px;
-      align-self: end;
-      width: auto;
-      border-right: none;
-      font-weight: normal;
-    }
-    .to-full-press-post {
-      padding: 12px;
-      align-self: end;
-      border-radius: 10px;
+    justify-content: space-between;
+    .title {
+      line-height: 1.3;
+      font-weight: bold;
     }
   }
-
-  .arrow {
-    display: inline-block;
-    position: relative;
-    width: 4em;
-    border-right: .1em solid black;
-    border-top: .1em solid black;
-    margin: .25em 1em;
-    transition: transform .15s ease-out;
-
-    &:after {
-      content: "";
-      position: absolute;
-      right: -.1em;
-      top: -.05em;
-      border-right: .1em solid black;
-      border-top: .1em solid black;
-      width: .5em;
-      height: .5em;
-      transform-origin: right top;
-      transform: rotate(45deg);
+  &:hover {
+    .image {
+      transform: scale(1.05);
+      transition: transform 400ms cubic-bezier(0.4, 0, 0.25, 1) 0ms, opacity 1s cubic-bezier(0.4, 0, 0.25, 1) 0ms;
+      background-size: cover;
+      width: 300px;
+      overflow: hidden;
+      background-color: rgba(19, 17, 19, 0.41);
+      position: relative;
+      left: 0;
+      transition-duration: 0.4s, 0.5s;
+      transition-timing-function: ease, ease-out;
+      transition-delay: 0s, 0.4s;
+      box-shadow: 0px -40px 71px rgba(0, 0, 0, 0.44);
+      transition-property: all;
+      z-index: 100;
     }
   }
 }

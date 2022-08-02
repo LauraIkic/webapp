@@ -30,6 +30,7 @@ export default {
   }
   height: calc(50vh - 89px);
   position: relative;
+  z-index: 10;
   .header-image {
     height: 100%;
     background-size: cover;

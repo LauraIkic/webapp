@@ -1,33 +1,43 @@
 <template>
   <div
-    v-editable="blok"
-    class="image-slideshow"
+      class="image-slideshow"
   >
-    <div
-      v-if="blok.text"
-      class="text"
-    >
-      {{ blok.text }}
-    </div>
     <div v-swiper:swiper="swiperOption">
       <div
-        class="swiper-wrapper"
-        :class="{ center : length }"
+          class="swiper-wrapper"
+          :class="{ center : length }"
       >
         <div
-          v-for="s in blok.items"
-          :key="s._uid"
-          class="swiper-slide"
-          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
-        />
+            v-for="s in items"
+            :key="s"
+            class="swiper-slide"
+        >
+          <nuxt-link :to="localePath('/de/press/' + s.slug)">
+            <div class="press-post-preview">
+              <div class="image" :style="{ 'background-image': 'url(' + s.content.Image + ')' }">
+                <!--
+                        <img :src="$resizeImage(story.content.Image, '300x200')">
+                -->
+              </div>
+              <div class="press-information">
+                <div class="title">
+                  {{s.content.Title}}
+                </div>
+                <div class="date">
+                  {{s.content.Date.slice(0,11)}}
+                </div>
+              </div>
+            </div>
+          </nuxt-link>
+        </div>
       </div>
       <div
-        v-if="!length"
-        class="swiper-button-next"
+          v-if="!length"
+          class="swiper-button-next"
       />
       <div
-        v-if="!length"
-        class="swiper-button-prev"
+          v-if="!length"
+          class="swiper-button-prev"
       />
     </div>
   </div>
@@ -35,7 +45,7 @@
 
 <script>
 export default {
-  props: ['blok'],
+  props: ['items'],
   computed: {
     swiperOption () {
       return {
@@ -57,24 +67,31 @@ export default {
           return 0
         }
       }
-      return 30
+      return 10
     },
     num () {
       if (process.client && window && window.innerWidth) {
+        if (window.innerWidth < 900 && window.innerWidth > 600) {
+          return 2
+        }
         if (window.innerWidth < 600) {
-          return 1.5
+          return 1.1
         }
       }
       return 3
     },
     length () {
-      return this.blok.items.length < 4
+      return this.items.length < 4
     }
   }
 }
 </script>
 
 <style lang="scss">
+.swiper-slide{
+  width: 300px !important;
+  margin-left: 30px !important;
+}
 .swiper-wrapper.center {
   @include media-breakpoint-up(sm) {
     justify-content: center;
@@ -83,7 +100,7 @@ export default {
 
 .image-slideshow {
   color: $color-blue;
-  margin-top: 5rem;
+  margin-top: 2rem;
   .text {
     @include margin-page-middle();
     padding: 5rem 0 4rem;
@@ -100,13 +117,13 @@ export default {
       background-position: center;
       background-repeat: no-repeat;
       @include media-breakpoint-down(md){
-        height: 180px !important;
+        height: 300px !important;
         margin-left: -20px;
       }
     }
     padding-bottom: 60px;
     @include media-breakpoint-down(md){
-      height: 25vh;
+      height: 50vh;
     }
   }
   .swiper-button-prev,
