@@ -56,6 +56,7 @@ export default {
   flex-direction: row;
   flex: 1;
   justify-content: center;
+  margin: 2rem 0 8rem 0;
 
   .teaser-content {
     max-width: 100%;
@@ -124,7 +125,6 @@ export default {
 .contact-block{
   display: flex;
   background-color: white;
-  margin-bottom: 3em;
   padding: 30px;
   flex-flow: column;
   align-items: center;
