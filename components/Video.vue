@@ -45,7 +45,7 @@ export default {
   flex-direction: row;
   flex: 1;
   justify-content: center;
-  margin: 2rem 0 4rem 0;
+  margin: 2rem 0;
 
   .container {
     max-width: 1255px;
