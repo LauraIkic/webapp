@@ -132,11 +132,11 @@ export default {
   &:hover {
     .grid-image {
       transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-      --transform-scale-x: 1.25;
-      --transform-scale-y: 1.25;
+      --transform-scale-x: 1.1;
+      --transform-scale-y: 1.1;
       opacity: 0.75;
-      --tw-scale-x: 1.25;
-      --tw-scale-y: 1.25;
+      --tw-scale-x: 1.1;
+      --tw-scale-y: 1.1;
       --tw-border-spacing-x: 0;
       --tw-border-spacing-y: 0;
       --tw-translate-x: 0;
