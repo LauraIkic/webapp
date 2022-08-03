@@ -86,7 +86,6 @@ import CookieManager from '../components/CookieManager'
 import LanguageInput from '../components/LanguageInput'
 import PressContact from '../components/PressContact'
 import PressImageSlider from '../components/PressImageSlider'
-import PressPostPreview from '../components/PressPostPreview'
 import PressPost from '../components/PressPost'
 import GiftPage from '../components/GiftPage'
 import TeamImageSlider from '../components/TeamImageSlider'
@@ -186,7 +185,6 @@ Vue.component('location-description', LocationDescription)
 
 Vue.component('press-contact', PressContact)
 Vue.component('press-image-slider', PressImageSlider)
-Vue.component('press-post-preview', PressPostPreview)
 Vue.component('press-overview', PressPost)
 Vue.component('gift-page', GiftPage)
 Vue.component('team-image-slider', TeamImageSlider)

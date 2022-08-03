@@ -1,19 +1,14 @@
 <template>
     <div class="image-slideshow ">
       <div v-swiper:swiper="swiperOption">
-
         <div
-            class="swiper-wrapper"
-        >
+            class="swiper-wrapper">
           <div
               v-for="s in imageGallery"
               :key="s._uid"
               class="swiper-slide"
               :style="{ backgroundImage: 'url(' + $resizeImage(s.image, '300x300') + ')'}">
             <div class="slide-image-title">
-<!--              <div class="image-title">
-                {{s.text}}
-              </div>-->
             </div>
             <div class="download-underline" >
               <div class="download">
@@ -69,10 +64,10 @@ export default {
     num () {
       if (process.client && window && window.innerWidth) {
         if (window.innerWidth < 786) {
-          return 1.5
+          return 1.2
         }
       }
-      return 3
+      return 2.7
     }
   },
   methods: {
@@ -85,7 +80,12 @@ export default {
 
 <style lang="scss" scoped>
 .swiper-slide{
-  width: 400px !important;
+  margin-left: 40px !important;
+  margin-right: 40px !important;
+  @include media-breakpoint-down(md) {
+    margin-left: 30px !important;
+    margin-right: 0px !important;
+  }
 }
 .slide-image-title{
   display: flex;
@@ -131,7 +131,6 @@ export default {
     display: flex;
     flex-flow: row;
     height: 3vh;
-    width: 400px;
     margin-top: 3%;
     justify-content: center;
     .download-text{
@@ -199,6 +198,7 @@ export default {
     padding-top: 30px;
     height: 25em;
     padding-bottom: 100px;
+    width: 90%;
     .swiper-slide {
       display: block;
       background-size: contain;
@@ -208,27 +208,6 @@ export default {
       @include media-breakpoint-down(md){
         width:200px !important;
         height: 180px !important;
-      }
-      &:hover{
-        .slide-image-title{
-          background-color: rgba(19, 17, 19, 0.41);
-          position: relative;
-          left: 0;
-          transition-duration: .4s, .5s;
-          transition-timing-function: ease, ease-out;
-          transition-delay: 0s, .4s;
-          box-shadow: 0px -40px 71px rgba(0, 0, 0, 0.44);
-          transition-property: all;
-          @include media-breakpoint-down(md){
-            transition: none;
-          }
-        }
-        .image-title{
-          @include media-breakpoint-up(md){
-            font-size: 1.5rem;
-            opacity:1;
-          }
-        }
       }
     }
 
