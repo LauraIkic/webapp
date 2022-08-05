@@ -143,12 +143,6 @@ export default {
       padding: 4px;
     }
   }
-  &:hover {
-    text-decoration: underline;
-    .download-cloud{
-      padding: 3px;
-    }
-  }
   @include media-breakpoint-down(md){
     height:125%;
   }
