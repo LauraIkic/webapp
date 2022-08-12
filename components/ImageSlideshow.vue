@@ -86,7 +86,7 @@ export default {
   margin-top: 5rem;
   .text {
     @include margin-page-middle();
-    padding: 5rem 0 4rem;
+    padding: 2rem 0;
     font-size: 1.8rem;
     font-family: $font-secondary;
     line-height: 1.4;
