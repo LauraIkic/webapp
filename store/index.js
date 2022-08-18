@@ -247,7 +247,10 @@ const createStore = () => {
         return res.data
       },
       async getInvoices ({ state }) {
-        const res = await connector.get('/member/invoices')
+        const params = {
+          member: state.member.id
+        }
+        const res = await connector.get('/v1/fabman/invoices', { params })
         return res.data
       },
       async getActivities ({ state }) {
