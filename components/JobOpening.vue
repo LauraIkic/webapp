@@ -38,7 +38,7 @@
           <img
             v-if="blok.image"
             class="image"
-            :src="$resizeImage(blok.image, '1600x400')"
+            :src="$resizeImage(blok.image, '1700x550')"
             alt=""
           >
           <div class="header">
