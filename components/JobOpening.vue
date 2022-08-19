@@ -125,7 +125,8 @@ export default {
           margin-bottom: 5px;
         }
         .subtitle {
-          font-size: 1rem;
+          font-size: 1.2rem;
+          font-weight: bold;
         }
       }
       .col-button {
