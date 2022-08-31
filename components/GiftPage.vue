@@ -625,7 +625,7 @@ export default {
     },
     async redeem () {
       this.loading = true
-      await this.$store.dispatch('redeemGiftCard', { uuid: this.giftcardCode })
+      await this.$store.dispatch('redeemGiftCard', { secret: this.giftcardCode })
         .then((response) => {
           console.log('success', response)
           this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
