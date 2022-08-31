@@ -28,7 +28,7 @@
             <div> {{ $t('materialsUsed') }}</div>
             <vue-markdown>{{ item.content.materials }}</vue-markdown>
           </div>
-          <div class="spacer"></div>
+<!--          <div class="spacer"></div>-->
           <div class="video" v-if="item.content.video">
             <iframe :src="item.content.video" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -236,7 +236,6 @@ export default {
   line-height: normal;
   background: #f2f3ee;;
   font-size: 1.5rem;
-  margin-bottom: 7%;
   @include media-breakpoint-down(md) {
     flex-flow: column;
     margin-left: 5%;

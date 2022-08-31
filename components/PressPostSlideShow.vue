@@ -84,7 +84,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .swiper-slide{
   width: 300px !important;
   margin-left: 30px !important;
@@ -120,7 +120,7 @@ export default {
     }
     padding-bottom: 60px;
     @include media-breakpoint-down(md){
-      height: 50vh;
+      height: 50vh !important;
     }
   }
   .swiper-button-prev,

@@ -38,7 +38,7 @@
           <img
             v-if="blok.image"
             class="image"
-            :src="$resizeImage(blok.image, '1600x400')"
+            :src="$resizeImage(blok.image, '1700x550')"
             alt=""
           >
           <div class="header">
@@ -125,7 +125,8 @@ export default {
           margin-bottom: 5px;
         }
         .subtitle {
-          font-size: 1rem;
+          font-size: 1.2rem;
+          font-weight: bold;
         }
       }
       .col-button {
