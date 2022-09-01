@@ -13,7 +13,7 @@
           <div class="table-header">
             <div class="header-item">
               <div class="list_item">Datum</div>
-              <div class="list_item description">Buchung</div>
+              <div class="list_item booking">Buchung</div>
               <div class="list_item amount">Betrag</div>
             </div>
           </div>
@@ -51,7 +51,7 @@
               <div class="list_item">Datum</div>
               <div class="list_item">Rechnung</div>
               <div class="list_item">Betrag</div>
-              <div class="list_item">Status</div>
+              <div class="list_item status">Status</div>
             </div>
           </div>
           <div class="table-content">
@@ -167,7 +167,10 @@ export default {
       }
 
       .booking {
-        width: 55%;
+        width: 50%;
+      }
+      .status {
+        margin-left: 2%;
       }
     }
   }
@@ -194,8 +197,11 @@ export default {
         padding-left: 1rem;
         padding-right: 1rem;
       }
+      .description {
+        width: 50%;
+      }
       .result {
-        width: 75%;
+        width: 122%;
         text-align: right;
       }
       .bubble {
@@ -240,9 +246,6 @@ export default {
   }
   .amount {
     text-align: right;
-  }
-  .description {
-    width: 55%;
   }
 }
 @include media-breakpoint-down(xs) {
