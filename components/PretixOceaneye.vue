@@ -133,9 +133,18 @@ export default {
         background-color: black;
         border-color: black;
     }
+    .pretix-widget-event-availability-green {
+      background-color: $color-primary !important;
+    }
+    .pretix-widget-event-availability-red {
+      background-color: $color-secondary !important;
+    }
     width: 70vw;
     max-width: 1264px;
     background: white;
+    .pretix-widget-event-calendar-events {
+      margin-top: 15%;
+    }
     .pretix-widget-event-calendar-previous-month{
       padding: 10px;
     }
