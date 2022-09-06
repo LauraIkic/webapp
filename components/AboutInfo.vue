@@ -3,7 +3,7 @@
     v-editable="blok"
     class="about-info"
   >
-    <div class="headline">
+    <div v-if="blok.headline" class="headline">
       {{ blok.headline }}
     </div>
     <div class="col">
