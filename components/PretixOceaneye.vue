@@ -1,5 +1,5 @@
 <template>
-  <section class="workshop-overview">
+  <section class="oceaneye-overview">
     <div
         v-editable="blok"
         class="pretix-oceaneye"
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-.workshop-overview {
+.oceaneye-overview {
   background-color: white;
   margin-bottom: 5%;
 }
@@ -174,6 +174,9 @@ export default {
     .pretix-widget .pretix-widget-loading svg {
       top: Min(40%);
       position: center;
+    }
+    .pretix-widget-overlay {
+      display: none;
     }
   }
 }
