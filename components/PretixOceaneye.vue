@@ -50,6 +50,10 @@ export default {
 </script>
 
 <style lang="scss">
+.workshop-overview {
+  background-color: white;
+  margin-bottom: 5%;
+}
 .container {
   max-width: 1255px;
   position: relative;
@@ -100,7 +104,7 @@ export default {
         margin: 0 0 2% 0;
       }
       @include media-breakpoint-down(md) {
-        margin: 3% 15% 10%;
+        margin: 3% 15% 2%;
         font-size: 0.9em;
         line-height: 1.6;
       }
@@ -116,7 +120,6 @@ export default {
 .pretix-content {
   display: flex;
   justify-content: center;
-  margin: 5% 0;
   .pretix-widget-wrapper{
     a {
       color: $color-secondary;
@@ -133,17 +136,34 @@ export default {
         background-color: black;
         border-color: black;
     }
+    .pretix-widget-event-week-table {
+      margin-top: 3%;
+    }
     .pretix-widget-event-availability-green {
       background-color: $color-primary !important;
     }
     .pretix-widget-event-availability-red {
       background-color: $color-secondary !important;
     }
+    .pretix-widget-event-availability-reserved {
+      background-color: $color-yellow !important;
+    }
     width: 70vw;
-    max-width: 1264px;
+    max-width: 1000px;
     background: white;
+    .pretix-widget {
+      border: none;
+      .pretix-widget-event-week-col:first-child {
+        @media screen and (min-width: 1145px) {
+          margin-left: 50px !important;
+        }
+      }
+    }
     .pretix-widget-event-calendar-events {
-      margin-top: 15%;
+      margin: 3% 0;
+      @media screen and (min-width: 1145px) {
+        margin-top: 15%;
+      }
     }
     .pretix-widget-event-calendar-previous-month{
       padding: 10px;
