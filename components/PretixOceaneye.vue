@@ -175,9 +175,6 @@ export default {
       top: Min(40%);
       position: center;
     }
-    .pretix-widget-overlay {
-      display: none;
-    }
   }
 }
 </style>
