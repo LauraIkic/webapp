@@ -132,6 +132,9 @@ h3 {
     font-size: 2rem;
   }
 }
+.pretix-widget-overlay {
+  display: none;
+}
 
 .form {
   margin: 0 1em 2em;
