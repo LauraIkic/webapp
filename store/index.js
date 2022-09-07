@@ -28,7 +28,7 @@ switch (process.env.NUXT_ENV_ENVIRONMENT) {
     tmpAuth = new auth0.WebAuth({
       domain: 'gg-staging.eu.auth0.com',
       clientID: 'LsZ4ug7c87ae1SAq1Q3nW4FjvJsQXb7T',
-      audience: 'https://api.grandgarage.eu/',
+      audience: 'https://gg-staging.eu.auth0.com/api/v2/',
       responseType: 'token id_token',
       redirectUri: origin + '/auth'
     })
