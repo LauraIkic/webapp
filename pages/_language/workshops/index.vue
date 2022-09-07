@@ -1,5 +1,15 @@
 <template>
   <section class="workshop-overview">
+    <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
+    <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
+    <div class="workshop-filters">
+      <div class="filters">
+      </div>
+      <div class="search">
+        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
+      </div>
+      <loading class="loading" v-if="loading"></loading>
+    </div>
     <div class="machine-filters">
       <code class="loading" v-if="loading">{{ $t('Loading') }}</code>
       <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
@@ -8,74 +18,60 @@
         <div class="headline">
           {{ $t('area') }}
         </div>
-        <div class="tag-list">
-          <div v-for="t in categories" :key="t.key" class="tag">
+        <div class="tag-list" :key="this.filter">
+          <div v-for="c in categories" :key="c.key" class="tag">
             <checkbox
-                v-model="t.value"
+                v-model="c.value"
                 class="tag"
                 theme="white"
-            >{{ t.name }}
-            </checkbox>
+            >{{c.name}}</checkbox>
           </div>
         </div>
       </div>
-      <div class="search">
-        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
-      </div>
+      <!--      <div class="search">
+              <input type="text" :placeholder="[[ $t('search') ]]" v-model="search" name="" id=""/>
+            </div>-->
     </div>
-    <div class="workshop-list-wrapper" :key="this.filtered">
-      <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
-        <transition-group name="list">
-        <workshop-list-item
-            v-for="item in filteredWorkshops"
-            :blok="item"
-            :key="item.id"
-            class="list-item"
-            :slim="false"
-        ></workshop-list-item>
-        </transition-group>
+    <div class="workshop-list-wrapper "  :key="this.selectedEvent">
+      <div v-if="selectedEvent !== ''">
+        <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" :filter="`attr[Kategorie]=${this.filter}`"></pretix-widget>
       </div>
-      <div v-else>
-        <div v-if="workshops && workshops.length > 0" class="workshop-list">
-          <transition-group name="list">
-          <workshop-list-item
-              v-for="item in workshops"
-              :blok="item"
-              :key="item.id"
-              class="list-item"
-              :slim="false"
-          ></workshop-list-item>
-          </transition-group>
-        </div>
-        <div v-else>
-          <div class="workshop-list-none">
-            <code> {{ $t('noSearchResults') }}</code>
+      <div v-if="selectedEvent === ''">
+        <pretix-widget name="pretix" event="https://pretix.eu/grandgarage"></pretix-widget>
+      </div>
+      <noscript>
+        <div class="pretix-widget">
+          <div class="pretix-widget-info-message">
+            JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
+            please <a target="_blank" href="https://pretix.eu/ggTest">click here</a>.
           </div>
         </div>
-      </div>
+      </noscript>
+
     </div>
   </section>
 </template>
 
 <script>
-import moment from 'moment'
+import Checkbox from '~/components/Checkbox.vue'
 
 export default {
+  components: {
+    Checkbox
+  },
   data () {
     return {
       categories: [
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshop', value: false },
-        { key: 'training', name: 'Unterweisungen', value: false }
+        { key: 'training', name: 'Einschulungen', value: false }
       ],
       loading: false,
       search: '',
-      workshops: [],
-      tags: [],
-      tagsCollapsed: false,
-      selectedEvents: [],
-      filteredWorkshops: [],
-      filtered: 0
+      tagsCollapsed: true,
+      selectedEvent: '',
+      filter: '',
+      eventToToggle: ''
     }
   },
   created () {
@@ -91,73 +87,53 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findWorkshops', this.filters).then((data) => {
-        this.loading = false
-        this.workshops = data
-      })
-      this.selectedEvents = this.selectedCategories()
-      this.filteredWorkshops = []
-      console.log('SELECTED EVENTS')
-      console.log(this.selectedEvents)
-      this.workshops = this.filterCategory()
-      console.log(this.workshops)
-      this.filtered = true
+      if (this.selectedEvent !== '') {
+        this.checkExistingSelection()
+        this.selectedEvent = this.filterCategories()
+        this.unselectEvents()
+      } else {
+        this.selectedEvent = this.filterCategories()
+      }
+      if (this.selectedEvent.length > 0) {
+        this.filter = this.selectedEvent[0].name
+      } else {
+        this.selectedEvent = ''
+        this.filter = ''
+      }
+      window.PretixWidget.buildWidgets()
+      this.loading = false
     },
     toggleTags () {
       this.tagsCollapsed = !this.tagsCollapsed
     },
-    filterCategory () {
-      this.workshops.forEach((item) => {
-        this.selectedEvents.forEach((selectedItem) => {
-          if (item.content.category === selectedItem) {
-            this.filteredWorkshops.push(item)
+    filterCategories () {
+      return this.categories.filter((c) => {
+        return (c.value) ? c.name : ''
+      }).map((c) => {
+        return { name: c.name, value: c.value }
+      })
+    },
+    unselectEvents () {
+      let i = 0
+      while (i < this.selectedEvent.length - 1) {
+        this.categories.forEach((o) => {
+          if (o.name === this.eventToToggle.name) {
+            o.value = false
+          }
+        })
+        i++
+      }
+    },
+    checkExistingSelection () {
+      const newEvent = this.filterCategories()
+      this.selectedEvent.forEach((item) => {
+        newEvent.forEach((newItem) => {
+          if (item.name !== newItem.name) {
+            this.eventToToggle = item
           }
         })
       })
-      return this.filteredWorkshops
-    },
-    selectedCategories () {
-      return this.categories.filter((c) => {
-        return (c.value) ? c.key : ''
-      }).map((v) => {
-        return v.key
-      })
     }
-  },
-  computed: {
-    filters () {
-      return {
-        filter_query: {
-          component: {
-            in: 'workshop-date'
-          },
-          starttime: {
-            'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
-          }
-        },
-        search_term: this.search
-      }
-    }
-  },
-  async asyncData (context) {
-    // let tags = await context.store.dispatch("loadTags");
-    const filters = {
-      filter_query: {
-        component: {
-          in: 'workshop-date'
-        },
-        starttime: {
-          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
-        }
-      }
-    }
-    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
-      if (data) {
-        return { workshops: data }
-      }
-      return { workshops: [] }
-    })
-    return { ...workshops }
   }
 }
 </script>
@@ -175,24 +151,19 @@ export default {
     .filters {
       background-color: $color-orange;
       display: flex;
-
       .tags {
         flex: 3;
       }
-
       .calendar {
         flex: 1;
         max-width: 320px;
-
         .reset {
           margin-top: -3px;
           background-color: #000;
           padding: 10px;
-
           .all {
             padding: 10px;
             color: #FFF;
-
             &:hover {
               cursor: pointer;
               color: #000;
@@ -202,13 +173,11 @@ export default {
         }
       }
     }
-
     .tags {
       padding-bottom: 4vh;
       @include media-breakpoint-down(sm) {
         padding: 4vh 0;
       }
-
       .headline {
         padding-top: 4vh;
         color: #FFF;
@@ -223,7 +192,6 @@ export default {
           margin-bottom: 10px;
         }
       }
-
       .tag-list {
         @include margin-page-wide();
         display: grid;
@@ -243,8 +211,7 @@ export default {
           grid-template-columns: 1fr;
         }
         grid-gap: 15px 20px;
-
-        > .tag {
+        >.tag {
           font-family: $font-mono;
           color: #FFF;
           user-select: none;
@@ -263,7 +230,6 @@ export default {
         }
       }
     }
-
     @include media-breakpoint-down(sm) {
       overflow: hidden;
       position: relative;
@@ -277,7 +243,6 @@ export default {
         width: 100%;
         height: 20px;
         transition: all .3s linear;
-
         &:after {
           transition: all .3s linear;
           content: "";
@@ -296,11 +261,9 @@ export default {
       }
       &.collapsed {
         max-height: 17vh;
-
         .expander {
           height: 70px;
-          background: linear-gradient(rgba(0, 0, 0, 0), $color-orange 80%);
-
+          background: linear-gradient(rgba(0,0,0,0), $color-orange 80%);
           &:after {
             transform: rotate(45deg);
             bottom: 18px;
@@ -316,10 +279,10 @@ export default {
       @include margin-page-wide;
     }
     padding-top: 1rem;
+    margin-bottom: 2em;
     @include media-breakpoint-down(xs) {
       padding-bottom: 0rem;
     }
-
     input[type="text"] {
       flex: 1;
       display: block;
@@ -330,7 +293,6 @@ export default {
       font-size: 1.1rem;
       border: none;
     }
-
     input[type="button"] {
       font-size: 1.1rem;
       margin-left: 10px;
@@ -343,54 +305,31 @@ export default {
     }
   }
 }
-
 .workshop-list-wrapper {
   display: flex;
-  .workshop-list {
-    > span {
-      display: grid;
-      @include media-breakpoint-up(sm) {
-        grid-template-columns: 1fr 1fr;
-      }
-      @include media-breakpoint-up(md) {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      @include media-breakpoint-up(xl) {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-      grid-column-gap: 2vw;
-      grid-row-gap: 2vw;
+  justify-content: center;
+  .pretix-widget-wrapper{
+    a {
+      color: $color-secondary;
+      text-decoration: underline;
     }
-    flex: 3;
-    .list-item {
-      min-width: 150px;
-      padding: 0 5px;
-      @include media-breakpoint-up(lg) {
-        min-width: 200px;
-      }
+    width: 70vw;
+    max-width: 1264px;
+    background: white;
+    .pretix-widget-event-calendar-previous-month{
+      padding: 10px;
     }
-    .list-enter-active, .list-leave-active {
-      transition: all 0.5s;
+    .pretix-widget-event-calendar-next-month{
+      padding: 10px;
     }
-    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-  }
-  .workshop-list-none {
-    flex: 1;
-    text-align: center;
   }
 }
-
 .machine-filters {
   .tags {
     padding: 8vh 0;
     @include media-breakpoint-down(sm) {
       padding: 4vh 0;
     }
-
     .headline {
       color: #FFF;
       font-weight: bold;
@@ -404,7 +343,6 @@ export default {
         margin-bottom: 10px;
       }
     }
-
     .tag-list {
       @include margin-page-wide();
       display: grid;
@@ -424,13 +362,11 @@ export default {
         grid-template-columns: 1fr;
       }
       grid-gap: 15px 20px;
-
-      > .tag {
+      >.tag {
         font-family: $font-mono;
         color: #FFF;
         user-select: none;
         cursor: pointer;
-
         input[type=checkbox] {
           outline: none;
           -webkit-appearance: none;
@@ -439,14 +375,12 @@ export default {
           border-radius: 3px;
           position: relative;
           top: 0;
-
           &:checked {
             background-color: #FFF;
           }
         }
       }
     }
-
     background-color: $color-blue;
     @include media-breakpoint-down(sm) {
       overflow: hidden;
@@ -461,7 +395,6 @@ export default {
         width: 100%;
         height: 20px;
         transition: all .3s linear;
-
         &:after {
           transition: all .3s linear;
           content: "";
@@ -480,11 +413,9 @@ export default {
       }
       &.collapsed {
         max-height: 17vh;
-
         .expander {
           height: 70px;
-          background: linear-gradient(rgba(0, 0, 0, 0), $color-blue 80%);
-
+          background: linear-gradient(rgba(0,0,0,0), $color-blue 80%);
           &:after {
             transform: rotate(45deg);
             bottom: 18px;
@@ -493,12 +424,11 @@ export default {
       }
     }
   }
-
   .search {
     display: flex;
+    padding-top: 3vh;
     @include margin-page-wide();
-    margin-top: 1vh;
-    margin-bottom: 2vh;
+    padding-bottom: 5vh;
     input[type=text] {
       flex: 1;
       display: block;
@@ -509,7 +439,6 @@ export default {
       font-size: 1.1rem;
       border: none;
     }
-
     input[type=button] {
       font-size: 1.1rem;
       margin-left: 10px;

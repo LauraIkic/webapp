@@ -1,0 +1,160 @@
+<template>
+  <section class="workshop-overview">
+    <div
+        v-editable="blok"
+        class="pretix-oceaneye"
+    >
+      <link rel="stylesheet" type="text/css" href="https://pretix.eu/grandgarage/oceanEye/widget/v1.css">
+      <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
+      <div class="container">
+        <div
+            class="col-start"
+        >
+          <h2
+              v-if="blok.headline"
+              class="headline"
+          >
+            <markdown :value="blok.headline" />
+          </h2>
+        </div>
+        <div class="col-end">
+          <p
+              v-if="blok.text"
+              class="text"
+          >
+            <markdown :value="blok.text" />
+          </p>
+        </div>
+      </div>
+      <div class="pretix-content">
+        <div>
+          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage/oceanEye/"></pretix-widget>
+        </div>
+        <noscript>
+          <div class="pretix-widget">
+            <div class="pretix-widget-info-message">
+              JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
+              please <a target="_blank" href="https://pretix.eu/ggTest">click here</a>.
+            </div>
+          </div>
+        </noscript>
+      </div>
+      </div>
+  </section>
+</template>
+
+<script>
+export default {
+  props: ['blok']
+}
+</script>
+
+<style lang="scss">
+.container {
+  max-width: 1255px;
+  position: relative;
+  height: calc(100% - 64px);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  @include media-breakpoint-down(md) {
+    background-size: 0.8em;
+    background-position: 70% -10px;
+  }
+  @include media-breakpoint-down(xs) {
+    background-position: 65% -10px;
+  }
+
+  .col-start {
+    display: flex;
+    align-items: flex-start;
+    margin: 50px 70px 0;
+
+    .headline {
+      font-size: 1.4em;
+      @include media-breakpoint-up(lg) {
+        width: 700px;
+        font-size: 1.8em;
+      }
+      position: relative;
+      margin: 2% 4%;
+      letter-spacing: 2px;
+      line-height: 1.5;
+      font-weight: 600;
+      font-family: $font-secondary;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .col-end {
+    flex: 1;
+    display: flex;
+    align-self: center;
+
+    .text {
+      @include media-breakpoint-up(lg) {
+        width: 900px;
+        margin: 0 0 2% 0;
+      }
+      @include media-breakpoint-down(md) {
+        margin: 3% 15% 10%;
+        font-size: 0.9em;
+        line-height: 1.6;
+      }
+      margin-top: 0;
+      font-weight: normal;
+      font-family: $font-primary;
+      line-height: 1.6;
+      font-size: 1.1em;
+      letter-spacing: .03em;
+    }
+  }
+}
+.pretix-content {
+  display: flex;
+  justify-content: center;
+  margin: 5% 0;
+  .pretix-widget-wrapper{
+    a {
+      color: $color-secondary;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    button {
+      background-color: $color-secondary;
+      border-color: $color-secondary;
+    }
+    button:hover {
+        background-color: black;
+        border-color: black;
+    }
+    .pretix-widget-event-availability-green {
+      background-color: $color-primary !important;
+    }
+    .pretix-widget-event-availability-red {
+      background-color: $color-secondary !important;
+    }
+    width: 70vw;
+    max-width: 1264px;
+    background: white;
+    .pretix-widget-event-calendar-events {
+      margin-top: 15%;
+    }
+    .pretix-widget-event-calendar-previous-month{
+      padding: 10px;
+    }
+    .pretix-widget-event-calendar-next-month{
+      padding: 10px;
+    }
+    .pretix-widget .pretix-widget-loading svg {
+      top: Min(40%);
+      position: center;
+    }
+  }
+}
+</style>
