@@ -1,7 +1,7 @@
 <template>
   <nuxt-link :to="'/' + blok.full_slug">
     <div
-        class="workshop-list-item content-card"
+        class="workshop-list-item"
         :class="{ slim: slim }"
     >
       <div class="image">
@@ -154,6 +154,7 @@ export default {
   display: flex;
   margin-bottom: 25px;
   justify-content: center;
+  flex-flow: column;
   &.slim {
     margin-bottom: 0;
     .image {
@@ -165,9 +166,10 @@ export default {
   }
   @include media-breakpoint-down(md) {
     flex-direction: column;
-    margin-right: 4%;
   }
   .image {
+    display: flex;
+    justify-content: center;
     @include media-breakpoint-down(sm) {
       overflow: hidden;
     }
@@ -175,9 +177,7 @@ export default {
       @include media-breakpoint-down(xs) {
         width: 100%;
       }
-      max-height: calc(40vh - 65px);
       max-width: 100%;
-      display: block;
       padding: 1em;
     }
   }
@@ -207,9 +207,9 @@ export default {
       position: relative;
       z-index: 1;
       font-family: $font-secondary;
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: .4rem;
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         font-size: 1.1em;
         font-weight: bold;
         margin-top:4px;
@@ -237,7 +237,11 @@ export default {
       font-family: $font-mono;
       line-height: 1.6;
       font-size: 0.9rem;
-      width: 85%;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      hyphens: auto;
       @include media-breakpoint-down(sm) {
         width: 100%;
       }
@@ -282,7 +286,6 @@ export default {
     &:nth-child(odd) {
       background-color: rgba(242, 243, 238,0.9);
     }
-    margin: 5px;
     @include media-breakpoint-down(xs) {
       border: .11em solid #f2f3ee;
       padding:7px;
@@ -313,8 +316,7 @@ export default {
         display: flex;
       }
       .col {
-        padding: 8px;
-        margin-right: 10px;
+        padding: 5px;
         width: max-content;
         &.soldOut {
           color: $color-orange;

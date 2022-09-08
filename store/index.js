@@ -261,7 +261,10 @@ const createStore = () => {
         return res.data
       },
       async getActivities ({ state }) {
-        const res = await connector.get('/member/activities')
+        const params = {
+          member: state.member.id
+        }
+        const res = await connector.get('/v1/fabman/charges', { params })
         return res.data
       },
       async getPDF ({ state }, id) {
