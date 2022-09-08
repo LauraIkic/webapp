@@ -12,9 +12,9 @@
         <div class="table">
           <div class="table-header">
             <div class="header-item">
-              <div class="list_item">Datum</div>
-              <div class="list_item booking">Buchung</div>
-              <div class="list_item amount">Betrag</div>
+              <div class="col activity-date">Datum</div>
+              <div class="col activity-amount">Betrag</div>
+              <div class="col activity-description">Buchung</div>
             </div>
           </div>
           <div class="table-content">
@@ -23,14 +23,15 @@
                 :key="activity.id"
                 class="table-row">
               <div class="table-data">{{ new Date(activity.date).toLocaleDateString('de-AT') }}</div>
-              <div class="table-data description">{{activity.description}}</div>
-              <div class="table-data amount" :style="{color: activity.price > 0 ? 'red' : 'green'}">{{Number(activity.price * (-1)).toFixed(2)}} €</div>
+              <div class="table-data activity-amount" :style="{color: activity.price > 0 ? 'red' : 'green'}">{{Number(activity.price * (-1)).toFixed(2)}} €</div>
+              <div class="table-data activity-description">{{activity.description}}</div>
+
             </div>
           </div>
           <div class="table-content">
             <div class="table-row end">
               <div class="table-data result">{{totalResult > 0 ? 'Kosten:' : 'Guthaben:'}}</div>
-              <div class="table-data" :style="{color: totalResult > 0 ? 'red' : 'green'}">{{totalResult * (-1).toFixed(2)}} €</div>
+              <div class="table-data total" :style="{color: totalResult > 0 ? 'red' : 'green'}">{{totalResult.toFixed(2) * (-1)}} €</div>
             </div>
           </div>
         </div>
@@ -48,10 +49,10 @@
         <div class="table">
           <div class="table-header">
             <div class="header-item">
-              <div class="list_item">Datum</div>
-              <div class="list_item">Rechnung</div>
-              <div class="list_item">Betrag</div>
-              <div class="list_item status">Status</div>
+              <div class="col invoice-date">Datum</div>
+              <div class="col invoice-amount">Betrag</div>
+              <div class="col invoice-number">Rechnung</div>
+              <div class="col invoice-status">Status</div>
             </div>
           </div>
           <div class="table-content">
@@ -59,10 +60,10 @@
                 v-for="invoice of invoices"
                 :key="invoice.id"
                 class="table-row">
-              <div class="table-data">{{ new Date(invoice.date).toLocaleDateString('de-AT') }}</div>
-              <div class="table-data">{{invoice.number}}</div>
-              <div class="table-data">{{invoice.total}} €</div>
-              <div class="table-data">
+              <div class="table-data invoice-date">{{ new Date(invoice.date).toLocaleDateString('de-AT') }}</div>
+              <div class="table-data invoice-amount">{{invoice.total}} €</div>
+              <div class="table-data invoice-number">{{invoice.number}}</div>
+              <div class="table-data invoice-status">
                 <span :class="[['paid'].includes(invoice.state) ? 'bubble grey' : 'noStatus']">Bezahlt</span>
                 <span :class="[['unpaid'].includes(invoice.state) ? 'bubble yellow' : 'noStatus']">Offen</span>
                 <span :class="[['cancelled'].includes(invoice.state) ? 'bubble red' : 'noStatus']">Storno</span>
@@ -109,32 +110,6 @@ export default {
       if (Object.prototype.hasOwnProperty.call(to, 'id')) {
         this.highlightedId = to.id
       }
-    },
-    getStatus (state) {
-      return this.statuses[state]
-    },
-    getDate (date) {
-      return new Date(date)
-    },
-    async getPdf (invoice) {
-      if (!invoice.has_attachment) {
-        return
-      }
-      await this.$store.dispatch('getPDF', invoice.uuid)
-        .then((res) => {
-          const blob = new Blob([res.data], { type: 'application/pdf' })
-          const link = document.createElement('a')
-          link.download = invoice.filename + '.pdf'
-          link.href = URL.createObjectURL(blob)
-          link.click()
-        })
-        .catch((error) => {
-          console.log(error.response.status, error.response.msg)
-          this.$sentry.captureException(new Error(error))
-          this.$toast.show('Die Rechnung konnte nicht geladen werden', {
-            className: 'badToast'
-          })
-        })
     }
   }
 }
@@ -160,13 +135,12 @@ export default {
       display: flex;
       flex-grow: 1;
 
-      .list_item {
+      .col {
         width: 22.5%;
         padding-left: 1rem;
         padding-right: 1rem;
       }
-
-      .booking {
+      .activity-description {
         width: 50%;
       }
       .status {
@@ -197,7 +171,7 @@ export default {
         padding-left: 1rem;
         padding-right: 1rem;
       }
-      .description {
+      .activity-description {
         width: 50%;
       }
       .result {
@@ -244,14 +218,16 @@ export default {
       border-top-width: medium;
     }
   }
-  .amount {
+  .activity-amount {
     text-align: right;
+    order: 999;
   }
 }
+//Mobile
 @include media-breakpoint-down(xs) {
   .table {
-    margin-left: -4%;
-    margin-right: -4%;
+    margin-left: -8%;
+    margin-right: -8%;
     .table-header {
       padding: 0.75rem 0;
       font-size: 0.8rem;
@@ -260,154 +236,93 @@ export default {
       .header-item {
         display: flex;
         flex-grow: 1;
+        flex-wrap: wrap;
 
-        .list_item {
-          width: 23%;
+        .col {
+          width: 50%;
           padding-left: 0.5rem;
           padding-right: 0.5rem;
         }
+        .activity-amount {
+          text-align: right;
+        }
 
-        .booking {
-          width: 50%;
+        .activity-description {
+          width: 100%;
+          order: 999;
+        }
+        .invoice-date {
+          order: 1;
+        }
+        .invoice-amount {
+          order: 2;
+          text-align: right;
+        }
+        .invoice-number {
+          order: 3;
+        }
+        .invoice-status {
+          order: 4;
+          text-align: right;
         }
       }
     }
 
     .table-content {
-
       font-size: 0.8rem;
       font-weight: 500;
-
       .table-row {
         padding: 0.75rem 0;
-
+        display: flex;
+        flex-wrap: wrap;
         .table-data {
-          width: 23%;
+          width: 50%;
           padding-left: 0.5rem;
           padding-right: 0.5rem;
         }
-
-        .description {
-          width: 54%;
+        .activity-description {
+          width: 100%;
+          order: 999;
         }
-
+        .activity-amount {
+          text-align: right;
+        }
+        .invoice-date {
+          order: 1;
+        }
+        .invoice-amount {
+          order: 2;
+          text-align: right;
+        }
+        .invoice-number {
+          order: 3;
+        }
+        .invoice-status {
+          order: 4;
+          text-align: right;
+        }
         .result {
-          width: 73%;
+          width: 78%;
+          text-align: right;
+        }
+        .total {
+          width: 22%;
           text-align: right;
         }
         .bubble {
           width: 60px;
-          height: 25px;
-          border-radius: 100px;
-          text-align: center;
-          font-weight: 600;
-          padding-top: 2px;
-          margin-bottom: 10px;
+          position: relative;
+          padding: 2px 5px;
         }
         .icon {
           display: flex;
-          align-items: center;
+          align-items: end;
           color: grey;
           width: 7%;
+          order: 5;
         }
       }
     }
   }
 }
-//.invoices {
-//  & .invoice {
-//    display: flex;
-//    flex-flow: row nowrap;
-//    padding: 0.4em;
-//    @include media-breakpoint-down(sm) {
-//      flex-direction: column;
-//      position: relative;
-//      background-color: #fafafa;
-//      margin: 1em 0;
-//      border: 1px solid grey;
-//      border-radius: 0.3em;
-//      & .icon {
-//        position: absolute;
-//        top: 1em;
-//        right: 0;
-//        font-size: 1.3em;
-//        margin-right: -1em;
-//      }
-//      & .name {
-//        font-size: 1.1em;
-//        padding: 0.4em 0;
-//      }
-//      & .invoiceNumber {
-//        padding-bottom: 0.4em;
-//      }
-//    }
-//
-//    & * {
-//      margin-right: 2em;
-//    }
-//
-//    & .date {
-//      color: grey;
-//      width: 5em;
-//      transition: highlight 3s;
-//    }
-//
-//    & .name {
-//      width: 10em;
-//    }
-//
-//    & .invoiceNumber {
-//      width: 8em;
-//      color: grey;
-//    }
-//
-//    & .green {
-//      color: green;
-//    }
-//
-//    & .red {
-//      color: red;
-//    }
-//
-//    & .yellow {
-//      color: $color-orange;
-//    }
-//
-//    & .noStatus {
-//      display: none;
-//    }
-//
-//    & .status {
-//      min-width: 12em;
-//    }
-//
-//    & .info {
-//      padding-left: 1em;
-//      // text-align: right;
-//      color: grey;
-//    }
-//
-//    & .icon {
-//      display: flex;
-//      align-items: center;
-//      color: grey;
-//    }
-//  }
-//}
-//
-//.invoice:nth-child(odd) {
-//  background: #fafafa;
-//}
-//
-//.invoice:hover .icon {
-//  color: $color-blue-alt;
-//}
-//
-//.pointer {
-//  cursor: pointer;
-//}
-//
-//.highlighted {
-//  background: $color-yellow !important;
-//}
 </style>
