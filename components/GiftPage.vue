@@ -259,7 +259,7 @@ export default {
           if (this.origin) {
             this.$router.push(`buyWorkshop?uuid=${this.origin}`)
           }
-          this.$router.push('me/credits')
+          this.$router.push('/me/credits')
         })
         .catch((error) => {
           console.log('error', error.response)
