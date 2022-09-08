@@ -24,7 +24,21 @@
             <markdown :value="blok.Title" />
           </div>
           <div class="items">
-
+            <section class="display-item">
+              <div class="top">
+                <div class="top-image"></div>
+              </div>
+              <div class="bottom">
+                <div class="bottom-text">
+                  {{ $t('buyGiftCard') }}
+                </div>
+                <a href="https://grandgarage.firstvoucher.com/" class="buy-redeem-button">
+                  {{ $t('buy') }}
+                </a>
+              </div>
+            </section>
+            <div class="spacer"></div>
+            <br>
             <section class="display-item">
               <div class="top">
                 <div class="top-image"></div>
