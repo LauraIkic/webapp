@@ -132,7 +132,7 @@ h3 {
     font-size: 2rem;
   }
 }
-.pretix-widget-overlay {
+.pretix-widget-alert-holder {
   display: none;
 }
 
