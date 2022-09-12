@@ -11,10 +11,10 @@
       >
         <div class="table">
           <div class="table-header">
-            <div class="header-item">
-              <div class="col activity-date">Datum</div>
-              <div class="col activity-amount">Betrag</div>
-              <div class="col activity-description">Buchung</div>
+            <div class="header-items">
+              <div class="header-item activity-date">Datum</div>
+              <div class="header-item activity-amount">Betrag</div>
+              <div class="header-item activity-description">Buchung</div>
             </div>
           </div>
           <div class="table-content">
@@ -48,11 +48,11 @@
       >
         <div class="table">
           <div class="table-header">
-            <div class="header-item">
-              <div class="col invoice-date">Datum</div>
-              <div class="col invoice-amount">Betrag</div>
-              <div class="col invoice-number">Rechnung</div>
-              <div class="col invoice-status">Status</div>
+            <div class="header-items">
+              <div class="header-item invoice-date">Datum</div>
+              <div class="header-item invoice-number">Rechnung</div>
+              <div class="header-item invoice-amount">Betrag</div>
+              <div class="header-item invoice-status">Status</div>
             </div>
           </div>
           <div class="table-content">
@@ -61,8 +61,8 @@
                 :key="invoice.id"
                 class="table-row">
               <div class="table-data invoice-date">{{ new Date(invoice.date).toLocaleDateString('de-AT') }}</div>
-              <div class="table-data invoice-amount">{{invoice.total}} €</div>
               <div class="table-data invoice-number">{{invoice.number}}</div>
+              <div class="table-data invoice-amount">{{invoice.total}} €</div>
               <div class="table-data invoice-status">
                 <span :class="[['paid'].includes(invoice.state) ? 'bubble grey' : 'noStatus']">Bezahlt</span>
                 <span :class="[['unpaid'].includes(invoice.state) ? 'bubble yellow' : 'noStatus']">Offen</span>
@@ -131,11 +131,11 @@ export default {
     letter-spacing: 0.05em;
     font-weight: 600;
 
-    .header-item {
+    .header-items {
       display: flex;
       flex-grow: 1;
 
-      .col {
+      .header-item {
         width: 22.5%;
         padding-left: 1rem;
         padding-right: 1rem;
@@ -143,7 +143,7 @@ export default {
       .activity-description {
         width: 50%;
       }
-      .status {
+      .invoice-status {
         margin-left: 2%;
       }
     }
@@ -175,7 +175,11 @@ export default {
         width: 50%;
       }
       .result {
-        width: 122%;
+        width: 77.5%;
+        text-align: right;
+      }
+      .total {
+        width: 17.5%;
         text-align: right;
       }
       .bubble {
@@ -233,12 +237,12 @@ export default {
       font-size: 0.8rem;
       line-height: 1.25rem;
 
-      .header-item {
+      .header-items {
         display: flex;
         flex-grow: 1;
         flex-wrap: wrap;
 
-        .col {
+        .header-item {
           width: 50%;
           padding-left: 0.5rem;
           padding-right: 0.5rem;
@@ -264,6 +268,7 @@ export default {
         .invoice-status {
           order: 4;
           text-align: right;
+          margin-left: 0;
         }
       }
     }
