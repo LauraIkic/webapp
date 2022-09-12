@@ -32,7 +32,7 @@
                 <div class="bottom-text">
                   {{ $t('buyGiftCard') }}
                 </div>
-                <a href="https://grandgarage.firstvoucher.com/" class="buy-redeem-button">
+                <a href="https://grandgarage.firstvoucher.com/" target="_blank" class="buy-redeem-button">
                   {{ $t('buy') }}
                 </a>
               </div>
