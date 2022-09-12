@@ -41,6 +41,8 @@ import Machine from '~/components/Machine.vue'
 import JobTeaser from '~/components/JobTeaser.vue'
 import JobList from '~/components/JobList.vue'
 import JobOpening from '~/components/JobOpening.vue'
+import PageList from '~/components/PageList.vue'
+import PageCard from '~/components/PageCard.vue'
 
 import ImageGallery from '~/components/ImageGallery.vue'
 import ImageSlideshow from '~/components/ImageSlideshow.vue'
@@ -138,6 +140,8 @@ Vue.component('machine', Machine)
 Vue.component('job-teaser', JobTeaser)
 Vue.component('job-list', JobList)
 Vue.component('job-opening', JobOpening)
+Vue.component('page-list', PageList)
+Vue.component('page-card', PageCard)
 
 Vue.component('login-form', LoginForm)
 Vue.component('register-form', RegisterForm)
