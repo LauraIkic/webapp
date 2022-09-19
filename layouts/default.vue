@@ -66,6 +66,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../assets/scss/styles.scss';
 
 body {
   background-color: $color-bright-bg;
@@ -130,6 +131,9 @@ h3 {
   @include media-breakpoint-down(sm) {
     font-size: 2rem;
   }
+}
+.pretix-widget-alert-holder {
+  display: none;
 }
 
 .form {

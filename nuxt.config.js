@@ -45,18 +45,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Roboto+Mono'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Chakra+Petch'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed'
-      }
+      { rel: 'icon', type: 'image/x-icon', href: '/gg-logo.svg' }
     ]
   },
   proxy: {

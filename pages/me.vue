@@ -75,7 +75,18 @@ export default {
       return this.$store.state.member
     },
     isMember () {
-      return this.$store.state.user.packages.length > 0
+      let hasActivePackage = false
+      let packageDate = null
+      const today = new Date()
+      if (this.$store.state.user.packages.length > 0) {
+        this.$store.state.user.packages.forEach(element => {
+          packageDate = new Date(element.chargedUntilDate)
+          if (packageDate > today) {
+            hasActivePackage = true
+          }
+        })
+      }
+      return hasActivePackage
     }
   }
 }
