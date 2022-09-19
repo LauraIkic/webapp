@@ -50,11 +50,10 @@
                 {{ blok.subtitle }}
               </div>
             </div>
-            <div class="col-button">
-              <a
-                href="mailto:office@grandgarage.eu"
-                class="apply-button"
-              >{{ $t('apply') }}</a>
+            <div class="col-button" >
+              <a v-bind:href="contact" v-if="!this.hideContact" target="_blank"
+                 class="apply-button">
+              {{ $t('apply') }}</a>
             </div>
           </div>
           <markdown :value="blok.description" />
@@ -75,6 +74,23 @@ export default {
   methods: {
     updateStatus (e) {
       this.active = e.status
+    }
+  },
+  computed: {
+    hideContact () {
+      return this.blok.hide_contact
+    },
+
+    contact () {
+      if (this.blok.contact.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
+        return `mailto:${this.blok.contact}`
+      } else {
+        if (this.blok.contact !== '') {
+          return this.blok.contact
+        } else {
+          return 'mailto:office@grandgarage.eu'
+        }
+      }
     }
   }
 }
