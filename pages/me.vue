@@ -1,10 +1,9 @@
 <template>
-  <div class="profile" v-if="user !== null && member !== null">
+  <div class="profile" v-if="user !== null">
     <div class="header">
-      <h1 class="name">{{member.firstName }} {{member.lastName}}</h1>
-      <!--<h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1> -->
+      <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
       <h2 style="display: none;">STAGING</h2>
-      <code class="number">#{{ member.memberNumber }}</code>
+      <code class="number">#{{ user.profile.memberNumber }}</code>
     </div>
     <div v-if="!hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
       <font-awesome-icon icon="info-circle"/>
@@ -41,16 +40,14 @@ export default {
   data () {
     return {
       hasCompletedOnboarding: true,
-      hasCompletedRequiredCourses: true,
-      test: null,
-      lastName: ''
+      hasCompletedRequiredCourses: true
     }
   },
   created () {
   },
   async mounted () {
-    //this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
-    //this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses')
+    this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
+    this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses')
   },
   methods: {
     getPackage (p) {
@@ -70,9 +67,6 @@ export default {
   computed: {
     user () {
       return this.$store.state.user
-    },
-    member () {
-      return this.$store.state.member
     },
     isMember () {
       let hasActivePackage = false

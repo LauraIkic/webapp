@@ -3,13 +3,13 @@
     <h2>{{ $t('contactDetails') }}</h2>
     <form
       class="form"
-      @submit.prevent="updateMember"
+      @submit.prevent="updateUser"
     >
       <div class="form-item">
         <span class="label">{{ $t('firstName') }}</span>
         <input
           id=""
-          v-model="member.firstName"
+          v-model="user.profile.firstName"
           class="input-text"
           disabled
           type="text"
@@ -20,7 +20,7 @@
         <span class="label">{{ $t('lastName') }}</span>
         <input
           id=""
-          v-model="member.lastName"
+          v-model="user.profile.lastName"
           class="input-text"
           disabled
           type="text"
@@ -31,7 +31,7 @@
         <span class="label">{{ $t('address') }}</span>
         <input
           id=""
-          v-model="member.address"
+          v-model="user.profile.address"
           class="input-text"
           type="text"
           name=""
@@ -41,7 +41,7 @@
         <span />
         <input
           id=""
-          v-model="member.address2"
+          v-model="user.profile.address2"
           class="input-text"
           type="text"
           name=""
@@ -51,7 +51,7 @@
         <span class="label">{{ $t('zipCode') }}</span>
         <input
           id=""
-          v-model="member.zip"
+          v-model="user.profile.zip"
           class="input-text"
           type="text"
           name=""
@@ -61,7 +61,7 @@
         <span class="label">{{ $t('city') }}</span>
         <input
           id=""
-          v-model="member.city"
+          v-model="user.profile.city"
           class="input-text"
           type="text"
           name=""
@@ -92,16 +92,16 @@ export default {
     }
   },
   computed: {
-    member () {
-      return this.$store.state.member
+    user () {
+      return this.$store.state.user
     }
   },
   created () {
   },
   methods: {
-    updateMember (event) {
+    updateUser (event) {
       this.loading = true
-      this.$store.dispatch('updateMember', Object.assign({}, this.member)).then(() => {
+      this.$store.dispatch('updateUser', Object.assign({}, this.user.profile)).then(() => {
         this.loading = false
         this.$notify({
           title: 'Yay!',
