@@ -33,7 +33,7 @@ function getMetaTagsForPage (page) {
       metaTitle = page?.content?.metadata?.title
       break
     case (page?.metadata?.title !== undefined && page?.metadata?.title !== ''):
-      metaTitle = 'GRAND GARAGE - ' + page.metadata.title
+      metaTitle = page.metadata.title
       break
     case (page.subtitle !== undefined && page.subtitle !== ''):
       metaTitle = 'GRAND GARAGE - ' + page.subtitle
