@@ -29,11 +29,14 @@ function getMetaTagsForPage (page) {
   // get title for page & og:title
   let metaTitle = ''
   switch (true) {
-    case (page.subtitle !== undefined && page.subtitle !== ''):
-      metaTitle = 'GRAND GARAGE - ' + page.subtitle
+    case (page?.content?.metadata?.title !== undefined && typeof page?.content?.metadata?.title === 'string' && page?.content?.metadata?.title !== ''):
+      metaTitle = page?.content?.metadata?.title
       break
     case (page?.metadata?.title !== undefined && page?.metadata?.title !== ''):
       metaTitle = 'GRAND GARAGE - ' + page.metadata.title
+      break
+    case (page.subtitle !== undefined && page.subtitle !== ''):
+      metaTitle = 'GRAND GARAGE - ' + page.subtitle
       break
     case (page.title !== undefined && page.title !== ''):
       metaTitle = 'GRAND GARAGE - ' + page.metadata.title
@@ -50,6 +53,9 @@ function getMetaTagsForPage (page) {
   // get description for meta description & og:description
   let metaDescription = ''
   switch (true) {
+    case (page?.content?.metadata?.description !== undefined && typeof page?.content?.metadata?.description === 'string' && page?.content?.metadata?.description !== ''):
+      metaDescription = page?.content?.metadata?.description
+      break
     case (page.metadata !== undefined && typeof page.metadata === 'string' && page.metadata !== ''):
       metaDescription = page.metadata
       break
