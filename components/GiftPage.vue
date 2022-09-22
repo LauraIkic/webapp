@@ -486,7 +486,8 @@
                         >
                       </div>
                       <div class="image">
-                        <img src="~/assets/img/icons/gg-logo-icon.svg" width="40">
+                        <img src="~/assets/img/icons/gg-logo-icon.svg"
+                             width="40">
                       </div>
                     </div>
                   </div>

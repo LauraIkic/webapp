@@ -48,7 +48,6 @@ import ImageSlideshowBlue from '~/components/ImageSlideshowBlue.vue'
 import SpotlightSlider from '~/components/SpotlightSlider.vue'
 import TextImage from '~/components/TextImage.vue'
 import Text from '~/components/Text.vue'
-import Video from '~/components/Video.vue'
 
 import LinksSlideshow from '../components/LinksSlideshow'
 
@@ -86,13 +85,11 @@ import CookieManager from '../components/CookieManager'
 import LanguageInput from '../components/LanguageInput'
 import PressContact from '../components/PressContact'
 import PressImageSlider from '../components/PressImageSlider'
+import PressPostPreview from '../components/PressPostPreview'
 import PressPost from '../components/PressPost'
 import GiftPage from '../components/GiftPage'
 import TeamImageSlider from '../components/TeamImageSlider'
 import MaterialPrices from '../components/MaterialPrices'
-import PressGallery from '../components/PressGallery'
-import ContactPerson from '../components/ContactPerson'
-import ContactPreview from '../components/ContactPreview'
 
 Vue.component('material-prices', MaterialPrices)
 Vue.component('page', Page)
@@ -151,7 +148,6 @@ Vue.component('image-slideshow-blue', ImageSlideshowBlue)
 Vue.component('text-image', TextImage)
 Vue.component('text-blok', Text)
 Vue.component('links-slideshow', LinksSlideshow)
-Vue.component('video-blok', Video)
 
 Vue.component('faq-block', FAQBlock)
 Vue.component('faq-item', FAQItem)
@@ -185,9 +181,7 @@ Vue.component('location-description', LocationDescription)
 
 Vue.component('press-contact', PressContact)
 Vue.component('press-image-slider', PressImageSlider)
+Vue.component('press-post-preview', PressPostPreview)
 Vue.component('press-overview', PressPost)
 Vue.component('gift-page', GiftPage)
 Vue.component('team-image-slider', TeamImageSlider)
-Vue.component('press-gallery', PressGallery)
-Vue.component('contact-person', ContactPerson)
-Vue.component('contact-preview', ContactPreview)

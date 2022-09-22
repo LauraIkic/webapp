@@ -62,7 +62,7 @@ export default {
     height: inherit;
     background-size: contain;
     background-repeat: no-repeat;
-    width: 24%;
+    width: 30%;
   }
   justify-content: center;
   .contact-information{
