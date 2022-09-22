@@ -347,6 +347,8 @@ export default {
 .workshop-list-wrapper {
   display: flex;
   .workshop-list {
+    padding-right: 10px;
+    padding-left: 10px;
     > span {
       display: grid;
       @include media-breakpoint-up(sm) {
@@ -358,6 +360,7 @@ export default {
 
       @include media-breakpoint-up(xl) {
         grid-template-columns: 1fr 1fr 1fr;
+        padding: 0px;
       }
       grid-column-gap: 2vw;
       grid-row-gap: 2vw;
@@ -365,7 +368,7 @@ export default {
     flex: 3;
     .list-item {
       min-width: 150px;
-      padding: 0 5px;
+      border-radius: 10px;
       @include media-breakpoint-up(lg) {
         min-width: 200px;
       }
