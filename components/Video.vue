@@ -38,6 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .video-blok {
   color: #000;
   display: flex;
@@ -45,6 +46,7 @@ export default {
   flex: 1;
   justify-content: center;
   margin: 2rem 0;
+
   .container {
     max-width: 1255px;
     position: relative;
@@ -59,10 +61,12 @@ export default {
     @include media-breakpoint-down(xs) {
       background-position: 65% -10px;
     }
+
     .col-start {
       display: flex;
       align-items: flex-start;
       margin: 50px 70px 0;
+
       .headline {
         font-size: 1.4em;
         @include media-breakpoint-up(lg) {
@@ -75,15 +79,18 @@ export default {
         line-height: 1.5;
         font-weight: 600;
         font-family: $font-secondary;
+
         p {
           margin: 0;
         }
       }
     }
+
     .col-end {
       flex: 1;
       display: flex;
       align-self: center;
+
       .text {
         @include media-breakpoint-up(lg) {
           width: 900px;
