@@ -7,7 +7,11 @@
     </div>
 
     <a class="filelink" :href="blok.file.filename" target="_blank">
-    <div class="title">{{ blok.name }}</div>
+    <div class="title">
+      <p>
+        {{ blok.name }}
+      </p>
+    </div>
     </a>
     <div id="modal" class="modal">
       <div class="modal-display">
@@ -69,15 +73,16 @@ export default {
     object-fit: cover;
   }
   .title {
-    padding: 10px;
     display: flex;
     justify-content: center;
     background: $color-orange;
     font-size: 1rem;
     text-transform: uppercase;
-    color: white;
     font-weight: bold;
     margin-bottom: .2rem;
+    p{
+      color: white;
+    }
   }
 
   .subtitle {
