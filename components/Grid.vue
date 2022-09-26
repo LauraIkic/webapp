@@ -1,14 +1,16 @@
 <template>
   <div
     v-editable="blok"
-    class="grid"
   >
-    <component
-      :is="blok.component"
-      v-for="blok in blok.columns"
-      :key="blok._uid"
-      :blok="blok"
-    />
+    <div v-if="blok.title" class="title"> {{blok.title}}</div>
+    <div class="grid">
+      <component
+          :is="blok.component"
+          v-for="blok in blok.columns"
+          :key="blok._uid"
+          :blok="blok"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,7 +21,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.title {
+  font-size: 2rem;
+  margin-left: 120px;
+  font-weight: bold;
+}
 .grid {
   display: flex;
   @include margin-page-wide();
