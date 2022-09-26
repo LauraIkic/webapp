@@ -26,25 +26,25 @@
     <div class="workshop-list-wrapper" :key="this.filtered">
       <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
         <transition-group name="list">
-        <workshop-list-item
-            v-for="item in filteredWorkshops"
-            :blok="item"
-            :key="item.id"
-            class="list-item"
-            :slim="false"
-        ></workshop-list-item>
-        </transition-group>
-      </div>
-      <div v-else>
-        <div v-if="workshops && workshops.length > 0" class="workshop-list">
-          <transition-group name="list">
           <workshop-list-item
-              v-for="item in workshops"
+              v-for="item in filteredWorkshops"
               :blok="item"
               :key="item.id"
               class="list-item"
               :slim="false"
           ></workshop-list-item>
+        </transition-group>
+      </div>
+      <div v-else>
+        <div v-if="workshops && workshops.length > 0" class="workshop-list">
+          <transition-group name="list">
+            <workshop-list-item
+                v-for="item in workshops"
+                :blok="item"
+                :key="item.id"
+                class="list-item"
+                :slim="false"
+            ></workshop-list-item>
           </transition-group>
         </div>
         <div v-else>

@@ -20,420 +20,45 @@
         <loading-spinner v-if="loading" class="loading-spinner ml-05"/>
       </h2>
       <template v-if="!action">
-          <div class="description-gift-card">
-            <markdown :value="blok.Title" />
-          </div>
-          <div class="items">
-            <section class="display-item">
-              <div class="top">
-                <div class="top-image"></div>
+        <div class="description-gift-card">
+          <markdown :value="blok.Title" />
+        </div>
+        <div class="items">
+          <section class="display-item">
+            <div class="top">
+              <div class="top-image"></div>
+            </div>
+            <div class="bottom">
+              <div class="bottom-text">
+                {{ $t('buyGiftCard') }}
               </div>
-              <div class="bottom">
-                <div class="bottom-text">
-                  {{ $t('buyGiftCard') }}
-                </div>
-                <div class="buy-redeem-button"
-                     @click="$router.push('gift?action=buy')">
-                  {{ $t('buy') }}
-                </div>
+              <a href="https://grandgarage.firstvoucher.com/" target="_blank" class="buy-redeem-button">
+                {{ $t('buy') }}
+              </a>
+            </div>
+          </section>
+          <div class="spacer"></div>
+          <br>
+          <section class="display-item">
+            <div class="top">
+              <div class="top-image"></div>
+            </div>
+            <div class="bottom">
+              <div class="bottom-text">
+                {{ $t('redeemGiftCard') }}
               </div>
-            </section>
-            <div class="spacer"></div>
-            <br>
-            <section class="display-item">
-              <div class="top">
-                <div class="top-image"></div>
+              <div class="buy-redeem-button"
+                   @click="$router.push('gift?action=redeem')">
+                {{ $t('redeem') }}
               </div>
-              <div class="bottom">
-                <div class="bottom-text">
-                  {{ $t('redeemGiftCard') }}
-                </div>
-                <div class="buy-redeem-button"
-                     @click="$router.push('gift?action=redeem')">
-                  {{ $t('redeem') }}
-                </div>
-              </div>
-            </section>
-            <br>
-          </div>
+            </div>
+          </section>
+          <br>
+        </div>
       </template>
 
       <transition name="fade">
         <template>
-          <template v-if="action === 'buy'">
-            <div v-if="step === 0" class="giftcardForm">
-              <div class="gift-card-body">
-                <div class="description-gift-card">
-                  <markdown :value="blok.Title" />
-                </div>
-                <section class="buy-gift-cards">
-                  <div class="input gg-card" @click="selectedProductId='719'">
-                    <input type="radio" value="719" v-model="selectedProductId">
-                    <span> {{ $t('giftCardValue') }} </span>
-                    <div class="bottom-gift-card">
-                      <option class="options" value="719">10€</option>
-                      <div class="image-spacer"></div>
-                      <div class="image">
-                        <img src="~/assets/img/icons/gg-logo-icon.svg" width="40">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input gg-card" @click="selectedProductId='720'">
-                    <input type="radio" value="720" v-model="selectedProductId">
-                    <span>  {{ $t('giftCardValue') }} </span>
-                    <div class="bottom-gift-card">
-                      <option class="options" value="720">25€</option>
-                      <div class="image-spacer"></div>
-                      <div class="image">
-                        <img src="~/assets/img/icons/gg-logo-icon.svg"
-                             width="40">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input gg-card" @click="selectedProductId='721'">
-                    <input type="radio" value="721" v-model="selectedProductId">
-                    <span>  {{ $t('giftCardValue') }} </span>
-                    <div class="bottom-gift-card">
-                      <option class="options" value="721">50€</option>
-                      <div class="image-spacer"></div>
-                      <div class="image">
-                        <img src="~/assets/img/icons/gg-logo-icon.svg"
-                             width="40">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input gg-card" @click="selectedProductId='722'">
-                    <input type="radio" value="722" v-model="selectedProductId">
-                    <span>  {{ $t('giftCardValue') }}</span>
-                    <div class="bottom-gift-card">
-                      <option class="options" value="722">100€</option>
-                      <div class="image-spacer"></div>
-                      <div class="image">
-                        <img src="~/assets/img/icons/gg-logo-icon.svg"
-                             width="40">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input gg-card" @click="selectedProductId='923'">
-                    <input type="radio" value="923" v-model="selectedProductId">
-                    <span>  {{ $t('giftCardValue') }}</span>
-                    <div class="bottom-gift-card">
-                      <option class="options" value="923">150€</option>
-                      <div class="image-spacer"></div>
-                      <div class="image">
-                        <img src="~/assets/img/icons/gg-logo-icon.svg"
-                             width="40">
-                      </div>
-                    </div>
-                    <div class="info-text-subtle">{{ $t('giftCardNoticeYearlyDiscounted') }}</div>
-                  </div>
-                  <div class="input gg-card" @click="selectedProductId='924'">
-                    <input type="radio" value="924" v-model="selectedProductId">
-                    <span>  {{ $t('giftCardValue') }}</span>
-                    <div class="bottom-gift-card">
-                      <option class="options" value="924">400€</option>
-                      <div class="image-spacer"></div>
-                      <div class="image">
-                        <img src="~/assets/img/icons/gg-logo-icon.svg"
-                             width="40">
-                      </div>
-                    </div>
-                    <div class="info-text-subtle">{{ $t('giftCardNoticeYearlyRegular') }}</div>
-                  </div>
-                </section>
-              </div>
-              <div class="buttons">
-                <button
-                  class="input-button-primary"
-                  @click="$router.push('gift')"
-                >
-                  {{ $t('back') }}
-                </button>
-                <button
-                  class="input-button-primary"
-                  :disabled="!selectedProductId"
-                  @click="step++">
-                  {{ $t('continue') }}
-                </button>
-              </div>
-            </div>
-            <div v-if="step === 1">
-              <div class="gift-card-body">
-                <div v-if="user !== null">
-                  <h2 class="headline">Zahlungsmethode</h2>
-                  <div class="payment-methods">
-                    <div class="input  gg-card" @click="paymentMethod='1'">
-                      <input
-                        v-model="paymentMethod"
-                        type="radio"
-                        name="paymentMethod"
-                        value="1">
-                      {{ $t('paymentProvider') }} <br>
-                      <span class="silent-info ml-2">
-                      <div class="icon svg-icon paypal-icon"></div>
-                      <div class="icon svg-icon mastercard-icon"></div>
-                      <div class="icon svg-icon visa-icon"></div>
-                      <div class="icon svg-icon apple-pay-icon"></div>
-                    </span>
-                      <div v-if="invoiceContact.sepa_mandate_agreed"></div>
-                    </div>
-                    <div class="spacer"></div>
-                    <span v-if="sepaActive">
-                        <div v-if="ibanIsValid" class="input gg-card" @click="paymentMethod='2'">
-                          <input
-                            v-model="paymentMethod"
-                            type="radio"
-                            name="paymentMethod"
-                            value="2">
-                          {{ $t('sepaBill') }}
-                        </div>
-                        <div v-else class="input disabled">
-                          <input
-                            disabled
-                            type="radio"
-                            name="paymentMethod"
-                            value="0">
-                          {{ $t('sepaBill') }} <br>
-                          <span class="silent-info ml-1">
-                          <font-awesome-icon icon="exclamation-triangle"/> {{ $t('invalidOrMissingIban') }}
-                          </span>
-                        </div>
-                      </span>
-                    <span v-else>
-                      <div class="input disabled">
-                        <input
-                          disabled
-                          type="radio"
-                          name="paymentMethod"
-                          value="0">
-                        {{ $t('sepaBill') }} <br>
-                        <span class="silent-link ml-1" @click="$router.push('/wizard/onboarding')">
-                        <font-awesome-icon icon="info-circle"/> {{ $t('joinNow') }}
-                      </span>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-                <h2 class="headline"> {{ $t('billingAddress') }}</h2>
-                <div class="logged-out-payment">
-                  <div v-if="user === null">
-                    <div class="input gg-card" @click="paymentMethod='1'">
-                      <input
-                        v-model="paymentMethod"
-                        type="radio"
-                        name="paymentMethod"
-                        value="1"
-                      >
-                      {{ $t('paymentProvider') }} <br>
-                      <span class="silent-info ml-2">
-                      <div class="icon svg-icon paypal-icon"></div>
-                      <div class="icon svg-icon mastercard-icon"></div>
-                      <div class="icon svg-icon visa-icon"></div>
-                      <div class="icon svg-icon apple-pay-icon"></div>
-                    </span>
-                    </div>
-                  </div>
-                  <div class="spacer"></div>
-                  <br>
-                  <div class="user-contact">
-                    <table>
-                      <tr>
-                        <th>
-                          <span class="label"> {{ $t('company') }}</span>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.company_name"
-                            class="input-text"
-                            type="text"
-                            name=""
-                          >
-                        </th>
-                        <th v-if="invoiceContact.company_name">
-                          Uid* <!-- TODO implement a validator for business-iddentification-number (UID) -->
-                          <input
-                            v-model="invoiceContact.uid"
-                            class="input-text"
-                            required
-                            type="text"
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          <span class="label"> {{ $t('firstName') }}*</span>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.firstname"
-                            class="input-text"
-                            required
-                            type="text"
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          <span class="label"> {{ $t('lastName') }}*</span>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.lastname"
-                            class="input-text"
-                            required
-                            type="text"
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                      <tr v-if="this.user === null">
-                        <th>
-                          <span class="label"> {{ $t('email') }}*</span>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.email"
-                            class="input-text"
-                            required
-                            type="email"
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          <span class="label"> {{ $t('address') }}*</span>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.street"
-                            class="input-text"
-                            required
-                            type="text"
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          <span class="label"/>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.street_additional"
-                            class="input-text"
-                            type="text"
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          <span class="label"> {{ $t('zipCode') }}*</span>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.zip"
-                            class="input-text"
-                            type="text"
-                            required
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                      <tr>
-                        <th>
-                          <span class="label"> {{ $t('city') }}*</span>
-                        </th>
-                        <th>
-                          <input
-                            v-model="invoiceContact.city"
-                            class="input-text"
-                            required
-                            type="text"
-                            name=""
-                          >
-                        </th>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="buttons">
-                <button
-                  class="input-button-primary"
-                  @click="step--"
-                >
-                  {{ $t('back') }}
-                </button>
-                <button
-                  class="input-button-primary"
-                  :disabled="!validInvoiceContact || !validPayment"
-                  @click="step++"
-                >
-                  {{ $t('reviewOrder') }}
-                </button>
-              </div>
-            </div>
-            <div v-if="step === 2  && invoiceContact">
-              <div class="headline container-box" style="text-decoration: none;">
-                <h2 style="text-decoration: underline;">{{ $t('confirmation') }}</h2>
-                <div v-if="paymentMethod === '1'" class="alert alert-info ml-2" role="alert">
-                  <strong>
-                    <font-awesome-icon icon="info-circle"/>
-                    {{ getGiftCardValue(selectedProductId) }}€
-                    {{ getGiftCardValue(selectedProductId) === 1 ? 'wird' : 'werden' }} {{ $t('invoiced') }}
-                  </strong>
-                </div>
-                <div v-else-if="paymentMethod === '2'" class="alert alert-info ml-2" role="alert">
-                  <strong>
-                    <font-awesome-icon icon="info-circle"/>
-                    {{ getGiftCardValue(selectedProductId) }}€
-                    {{ getGiftCardValue(selectedProductId) === 1 ? 'wird' : 'werden' }}
-                    {{ $t('includedInYourMonthlyBill') }}
-                  </strong>
-                </div>
-                <div class="ml-2">
-                  <h3>Bestellung</h3>
-                  <ul>
-                    <li> {{ $t('giftCard') }} {{ getGiftCardValue(selectedProductId) }}€</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="buttons">
-                <button
-                  class="input-button-payment"
-                  @click="step--"
-                >
-                  {{ $t('back') }}
-                </button>
-                <button v-if="paymentMethod==='1'"
-                        class="input-button-payment"
-                        :disabled="loading"
-                        @click="redirectToPayrexxCheckout()"
-                >
-                  {{ $t('toPaymentProcess') }}
-                </button>
-                <button v-if="paymentMethod==='2'"
-                        class="input-button-payment"
-                        :disabled="loading"
-                        @click="redirectToPayrexxCheckout()"
-                >
-                  {{ $t('payWithSepa') }}
-                </button>
-              </div>
-            </div>
-            <div v-if="step === 3" class="success-container">
-              <div style="margin: 2em 0;"><img width="80px" src="~/assets/img/icons/thumbs-up.svg" class="decorator">
-              </div>
-              <h2 style="margin: 0;"> {{ $t('purchaseCompleted') }}</h2>
-              <p class="text">
-                {{ $t('receiptAndConfirmationViaMail') }}
-              </p>
-            </div>
-          </template>
 
           <template v-if="action === 'redeem'">
             <div v-if="step === 0" class="giftcardForm">
@@ -464,8 +89,8 @@
                   </div>
                   <div class="buttons">
                     <button
-                      class="input-button-primary"
-                      @click="$router.push('gift')"
+                        class="input-button-primary"
+                        @click="$router.push('gift')"
                     >
                       {{ $t('back') }}
                     </button>
@@ -481,8 +106,8 @@
                       <div class=" code">
                         <span class="code-span"> Code: </span>
                         <input
-                          v-model="giftcardCode"
-                          class="form-item"
+                            v-model="giftcardCode"
+                            class="form-item"
                         >
                       </div>
                       <div class="image">
@@ -492,15 +117,15 @@
                   </div>
                   <div class="buttons">
                     <button
-                      class="input-button-payment"
-                      @click="$router.push('gift')"
+                        class="input-button-payment"
+                        @click="$router.push('gift')"
                     >
                       {{ $t('back') }}
                     </button>
                     <button
-                      class="input-button-payment"
-                      :disabled="!giftcardCode"
-                      @click="redeem"
+                        class="input-button-payment"
+                        :disabled="!giftcardCode"
+                        @click="redeem"
                     >
                       Einlösen
                     </button>
@@ -588,19 +213,19 @@ export default {
     loadUserData () {
       this.loading = true
       this.$store.dispatch('getUserMetadata')
-        .then((data) => {
-          this.invoiceContact = data.data.invoice_contact
-          this.sepaActive = data.data.sepa_active
-        })
-        .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
-          this.$toast.show('Ein Fehler ist aufgetreten', {
-            theme: 'bubble'
+          .then((data) => {
+            this.invoiceContact = data.data.invoice_contact
+            this.sepaActive = data.data.sepa_active
           })
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .catch((error) => {
+            console.log(error.response.status, error.response.data.msg)
+            this.$toast.show('Ein Fehler ist aufgetreten', {
+              theme: 'bubble'
+            })
+          })
+          .finally(() => {
+            this.loading = false
+          })
     },
     capitalize (str) {
       return helpers.capitalize(str)
@@ -625,41 +250,41 @@ export default {
     },
     async redeem () {
       this.loading = true
-      await this.$store.dispatch('redeemGiftCard', { uuid: this.giftcardCode })
-        .then((response) => {
-          console.log('success', response)
-          this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
-            className: 'goodToast'
+      await this.$store.dispatch('redeemGiftCard', { secret: this.giftcardCode })
+          .then((response) => {
+            console.log('success', response)
+            this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
+              className: 'goodToast'
+            })
+            if (this.origin) {
+              this.$router.push(`buyWorkshop?uuid=${this.origin}`)
+            }
+            this.$router.push('/me/credits')
           })
-          if (this.origin) {
-            this.$router.push(`buyWorkshop?uuid=${this.origin}`)
-          }
-          this.$router.push('me/credits')
-        })
-        .catch((error) => {
-          console.log('error', error.response)
-          this.giftcardCode = ''
-          switch (error.response.status) {
-            case 405:
-              this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
-                className: 'badToast'
-              })
-              break
-            case 404:
-              this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
-                className: 'badToast'
-              })
-              break
-            default:
-              this.$toast.show('Ein Fehler ist aufgetreten', {
-                className: 'badToast'
-              })
-              break
-          }
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .catch((error) => {
+            console.log('error', error.response)
+            this.giftcardCode = ''
+            switch (error.response.status) {
+              case 405:
+                this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
+                  className: 'badToast'
+                })
+                break
+              case 404:
+                this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
+                  className: 'badToast'
+                })
+                break
+              default:
+                this.$toast.show('Ein Fehler ist aufgetreten', {
+                  className: 'badToast'
+                })
+                break
+            }
+          })
+          .finally(() => {
+            this.loading = false
+          })
     },
     redirectToPayrexxCheckout () {
       this.loading = true
@@ -671,58 +296,58 @@ export default {
       }
       if (this.user === null) {
         this.$store.dispatch('startTransaction', data)
-          .then((response) => {
-            if (response.data.redirect_link) {
-              if (response.data.invoice_contact) {
-                this.connectorInvoiceContact = response.data.invoice_contact
+            .then((response) => {
+              if (response.data.redirect_link) {
+                if (response.data.invoice_contact) {
+                  this.connectorInvoiceContact = response.data.invoice_contact
+                }
+                // Redirect to payrexx screen
+                window.location.href = response.data.redirect_link
+              } else {
+                console.log('response', response.data)
               }
-              // Redirect to payrexx screen
-              window.location.href = response.data.redirect_link
-            } else {
-              console.log('response', response.data)
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
             })
-          })
-          .finally(() => {
-            this.loading = false
-          })
+            .catch((error) => {
+              console.log('error', error)
+              this.$sentry.captureException(new Error(error))
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                theme: 'bubble'
+              })
+            })
+            .finally(() => {
+              this.loading = false
+            })
       } else {
         this.$store.dispatch('checkout', data)
-          .then((response) => {
-            switch (parseInt(this.paymentMethod)) {
-              case 1: // PAYMENT PROVIDER
-                if (response.data.redirect_link) {
-                  if (response.data.invoice_contact) {
-                    this.connectorInvoiceContact = response.data.invoice_contact
+            .then((response) => {
+              switch (parseInt(this.paymentMethod)) {
+                case 1: // PAYMENT PROVIDER
+                  if (response.data.redirect_link) {
+                    if (response.data.invoice_contact) {
+                      this.connectorInvoiceContact = response.data.invoice_contact
+                    }
+                    // Redirect to payrexx screen
+                    window.location.href = response.data.redirect_link
+                  } else {
+                    console.log('Error: No payrexx redirect_link returned!', response.data)
+                    throw new Error('No payrexx redirect_link returned!')
                   }
-                  // Redirect to payrexx screen
-                  window.location.href = response.data.redirect_link
-                } else {
-                  console.log('Error: No payrexx redirect_link returned!', response.data)
-                  throw new Error('No payrexx redirect_link returned!')
-                }
-                break
-              case 2: // SEPA
-                this.step++
-                break
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
+                  break
+                case 2: // SEPA
+                  this.step++
+                  break
+              }
             })
-          })
-          .finally(() => {
-            this.loading = false
-          })
+            .catch((error) => {
+              console.log('error', error)
+              this.$sentry.captureException(new Error(error))
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                theme: 'bubble'
+              })
+            })
+            .finally(() => {
+              this.loading = false
+            })
       }
     },
     getGiftCardValue (id) {
@@ -1132,10 +757,10 @@ h2 {
       justify-content: inherit;
 
       .form-item {
-        width: 100px;
+        width: 150px;
         height: 21px;
         @include media-breakpoint-down(sm) {
-          width: 90px;
+          width: 150px;
           height: 21px;
         }
       }
