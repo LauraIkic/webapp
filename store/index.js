@@ -237,7 +237,7 @@ const createStore = () => {
         return axios.post(connectorBaseUrl + '/payrexx/checkout', data)
       },
       async redeemGiftCard ({ state }, data) {
-        const res = await connector.post('/gift-cards/redeem', data)
+        const res = await connector.post('/pretix/redeemGiftCard/', data)
         return res.data
       },
       async getInvoices ({ state }) {
