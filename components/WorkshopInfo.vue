@@ -24,6 +24,7 @@
       />
       <workshop-dates
         :dates="dates"
+        :pretix="blok.pretix_shortform"
         class="workshop-dates"
       />
       <markdown
@@ -48,7 +49,7 @@
 
 <script>
 
-import { getMetaTagsForWorkshop } from '../services/MetaDataService'
+import { getMetaTagsForPage } from '../services/MetaDataService'
 
 export default {
   props: ['blok', 'dates'],
@@ -67,7 +68,7 @@ export default {
     }
   },
   head () {
-    return getMetaTagsForWorkshop(this.blok)
+    return getMetaTagsForPage(this.blok)
   }
 }
 </script>

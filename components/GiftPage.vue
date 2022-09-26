@@ -20,41 +20,41 @@
         <loading-spinner v-if="loading" class="loading-spinner ml-05"/>
       </h2>
       <template v-if="!action">
-          <div class="description-gift-card">
-            <markdown :value="blok.Title" />
-          </div>
-          <div class="items">
-            <section class="display-item">
-              <div class="top">
-                <div class="top-image"></div>
+        <div class="description-gift-card">
+          <markdown :value="blok.Title" />
+        </div>
+        <div class="items">
+          <section class="display-item">
+            <div class="top">
+              <div class="top-image"></div>
+            </div>
+            <div class="bottom">
+              <div class="bottom-text">
+                {{ $t('buyGiftCard') }}
               </div>
-              <div class="bottom">
-                <div class="bottom-text">
-                  {{ $t('buyGiftCard') }}
-                </div>
-                <a href="https://grandgarage.firstvoucher.com/" target="_blank" class="buy-redeem-button">
-                  {{ $t('buy') }}
-                </a>
+              <a href="https://grandgarage.firstvoucher.com/" target="_blank" class="buy-redeem-button">
+                {{ $t('buy') }}
+              </a>
+            </div>
+          </section>
+          <div class="spacer"></div>
+          <br>
+          <section class="display-item">
+            <div class="top">
+              <div class="top-image"></div>
+            </div>
+            <div class="bottom">
+              <div class="bottom-text">
+                {{ $t('redeemGiftCard') }}
               </div>
-            </section>
-            <div class="spacer"></div>
-            <br>
-            <section class="display-item">
-              <div class="top">
-                <div class="top-image"></div>
+              <div class="buy-redeem-button"
+                   @click="$router.push('gift?action=redeem')">
+                {{ $t('redeem') }}
               </div>
-              <div class="bottom">
-                <div class="bottom-text">
-                  {{ $t('redeemGiftCard') }}
-                </div>
-                <div class="buy-redeem-button"
-                     @click="$router.push('gift?action=redeem')">
-                  {{ $t('redeem') }}
-                </div>
-              </div>
-            </section>
-            <br>
-          </div>
+            </div>
+          </section>
+          <br>
+        </div>
       </template>
 
       <transition name="fade">
@@ -89,8 +89,8 @@
                   </div>
                   <div class="buttons">
                     <button
-                      class="input-button-primary"
-                      @click="$router.push('gift')"
+                        class="input-button-primary"
+                        @click="$router.push('gift')"
                     >
                       {{ $t('back') }}
                     </button>
@@ -106,8 +106,8 @@
                       <div class=" code">
                         <span class="code-span"> Code: </span>
                         <input
-                          v-model="giftcardCode"
-                          class="form-item"
+                            v-model="giftcardCode"
+                            class="form-item"
                         >
                       </div>
                       <div class="image">
@@ -117,15 +117,15 @@
                   </div>
                   <div class="buttons">
                     <button
-                      class="input-button-payment"
-                      @click="$router.push('gift')"
+                        class="input-button-payment"
+                        @click="$router.push('gift')"
                     >
                       {{ $t('back') }}
                     </button>
                     <button
-                      class="input-button-payment"
-                      :disabled="!giftcardCode"
-                      @click="redeem"
+                        class="input-button-payment"
+                        :disabled="!giftcardCode"
+                        @click="redeem"
                     >
                       Einlösen
                     </button>
@@ -213,19 +213,19 @@ export default {
     loadUserData () {
       this.loading = true
       this.$store.dispatch('getUserMetadata')
-        .then((data) => {
-          this.invoiceContact = data.data.invoice_contact
-          this.sepaActive = data.data.sepa_active
-        })
-        .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
-          this.$toast.show('Ein Fehler ist aufgetreten', {
-            theme: 'bubble'
+          .then((data) => {
+            this.invoiceContact = data.data.invoice_contact
+            this.sepaActive = data.data.sepa_active
           })
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .catch((error) => {
+            console.log(error.response.status, error.response.data.msg)
+            this.$toast.show('Ein Fehler ist aufgetreten', {
+              theme: 'bubble'
+            })
+          })
+          .finally(() => {
+            this.loading = false
+          })
     },
     capitalize (str) {
       return helpers.capitalize(str)
@@ -251,40 +251,40 @@ export default {
     async redeem () {
       this.loading = true
       await this.$store.dispatch('redeemGiftCard', { secret: this.giftcardCode })
-        .then((response) => {
-          console.log('success', response)
-          this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
-            className: 'goodToast'
+          .then((response) => {
+            console.log('success', response)
+            this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
+              className: 'goodToast'
+            })
+            if (this.origin) {
+              this.$router.push(`buyWorkshop?uuid=${this.origin}`)
+            }
+            this.$router.push('/me/credits')
           })
-          if (this.origin) {
-            this.$router.push(`buyWorkshop?uuid=${this.origin}`)
-          }
-          this.$router.push('/me/credits')
-        })
-        .catch((error) => {
-          console.log('error', error.response)
-          this.giftcardCode = ''
-          switch (error.response.status) {
-            case 405:
-              this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
-                className: 'badToast'
-              })
-              break
-            case 404:
-              this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
-                className: 'badToast'
-              })
-              break
-            default:
-              this.$toast.show('Ein Fehler ist aufgetreten', {
-                className: 'badToast'
-              })
-              break
-          }
-        })
-        .finally(() => {
-          this.loading = false
-        })
+          .catch((error) => {
+            console.log('error', error.response)
+            this.giftcardCode = ''
+            switch (error.response.status) {
+              case 405:
+                this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
+                  className: 'badToast'
+                })
+                break
+              case 404:
+                this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
+                  className: 'badToast'
+                })
+                break
+              default:
+                this.$toast.show('Ein Fehler ist aufgetreten', {
+                  className: 'badToast'
+                })
+                break
+            }
+          })
+          .finally(() => {
+            this.loading = false
+          })
     },
     redirectToPayrexxCheckout () {
       this.loading = true
@@ -296,58 +296,58 @@ export default {
       }
       if (this.user === null) {
         this.$store.dispatch('startTransaction', data)
-          .then((response) => {
-            if (response.data.redirect_link) {
-              if (response.data.invoice_contact) {
-                this.connectorInvoiceContact = response.data.invoice_contact
+            .then((response) => {
+              if (response.data.redirect_link) {
+                if (response.data.invoice_contact) {
+                  this.connectorInvoiceContact = response.data.invoice_contact
+                }
+                // Redirect to payrexx screen
+                window.location.href = response.data.redirect_link
+              } else {
+                console.log('response', response.data)
               }
-              // Redirect to payrexx screen
-              window.location.href = response.data.redirect_link
-            } else {
-              console.log('response', response.data)
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
             })
-          })
-          .finally(() => {
-            this.loading = false
-          })
+            .catch((error) => {
+              console.log('error', error)
+              this.$sentry.captureException(new Error(error))
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                theme: 'bubble'
+              })
+            })
+            .finally(() => {
+              this.loading = false
+            })
       } else {
         this.$store.dispatch('checkout', data)
-          .then((response) => {
-            switch (parseInt(this.paymentMethod)) {
-              case 1: // PAYMENT PROVIDER
-                if (response.data.redirect_link) {
-                  if (response.data.invoice_contact) {
-                    this.connectorInvoiceContact = response.data.invoice_contact
+            .then((response) => {
+              switch (parseInt(this.paymentMethod)) {
+                case 1: // PAYMENT PROVIDER
+                  if (response.data.redirect_link) {
+                    if (response.data.invoice_contact) {
+                      this.connectorInvoiceContact = response.data.invoice_contact
+                    }
+                    // Redirect to payrexx screen
+                    window.location.href = response.data.redirect_link
+                  } else {
+                    console.log('Error: No payrexx redirect_link returned!', response.data)
+                    throw new Error('No payrexx redirect_link returned!')
                   }
-                  // Redirect to payrexx screen
-                  window.location.href = response.data.redirect_link
-                } else {
-                  console.log('Error: No payrexx redirect_link returned!', response.data)
-                  throw new Error('No payrexx redirect_link returned!')
-                }
-                break
-              case 2: // SEPA
-                this.step++
-                break
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
+                  break
+                case 2: // SEPA
+                  this.step++
+                  break
+              }
             })
-          })
-          .finally(() => {
-            this.loading = false
-          })
+            .catch((error) => {
+              console.log('error', error)
+              this.$sentry.captureException(new Error(error))
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                theme: 'bubble'
+              })
+            })
+            .finally(() => {
+              this.loading = false
+            })
       }
     },
     getGiftCardValue (id) {

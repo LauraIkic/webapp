@@ -87,7 +87,7 @@
 import MachineStatus from '@/components/MachineStatus'
 import MachineCalendar from '@/components/MachineCalendar'
 import MachineHeader from '@/components/MachineHeader'
-import { getMetaTagsForMachine } from '../services/MetaDataService'
+import { getMetaTagsForPage } from '../services/MetaDataService'
 
 export default {
   components: {
@@ -116,7 +116,7 @@ export default {
     }
   },
   head () {
-    return getMetaTagsForMachine(this.machine)
+    return getMetaTagsForPage(this.machine)
   }
 }
 </script>

@@ -1,11 +1,11 @@
 <template>
-  <section class="workshop-overview">
+  <section class="oceaneye-overview">
     <div
         v-editable="blok"
         class="pretix-oceaneye"
     >
-      <link rel="stylesheet" type="text/css" href="https://pretix.eu/grandgarage/oceanEye/widget/v1.css">
-      <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
+      <link rel="stylesheet" type="text/css" href="https://buchung.grandgarage.eu/oceanEye/widget/v1.css">
+      <script type="text/javascript" src="https://buchung.grandgarage.eu/widget/v1.de-informal.js" async></script>
       <div class="container">
         <div
             class="col-start"
@@ -28,13 +28,12 @@
       </div>
       <div class="pretix-content">
         <div>
-          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage/oceanEye/"></pretix-widget>
+          <pretix-widget name="pretix" event="https://buchung.grandgarage.eu/oceanEye/"></pretix-widget>
         </div>
         <noscript>
           <div class="pretix-widget">
             <div class="pretix-widget-info-message">
-              JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
-              please <a target="_blank" href="https://pretix.eu/ggTest">click here</a>.
+              JavaScript ist in Ihrem Browser deaktiviert. Um unseren Ticket-Shop ohne JavaScript aufzurufen, klicken Sie bitte <a target="_blank" rel="noopener" href="https://buchung.grandgarage.eu/oceanEye/">hier</a>.
             </div>
           </div>
         </noscript>
@@ -50,6 +49,10 @@ export default {
 </script>
 
 <style lang="scss">
+.oceaneye-overview {
+  background-color: white;
+  margin-bottom: 5%;
+}
 .container {
   max-width: 1255px;
   position: relative;
@@ -100,7 +103,7 @@ export default {
         margin: 0 0 2% 0;
       }
       @include media-breakpoint-down(md) {
-        margin: 3% 15% 10%;
+        margin: 3% 15% 2%;
         font-size: 0.9em;
         line-height: 1.6;
       }
@@ -116,7 +119,6 @@ export default {
 .pretix-content {
   display: flex;
   justify-content: center;
-  margin: 5% 0;
   .pretix-widget-wrapper{
     a {
       color: $color-secondary;
@@ -133,17 +135,34 @@ export default {
         background-color: black;
         border-color: black;
     }
+    .pretix-widget-event-week-table {
+      margin-top: 3%;
+    }
     .pretix-widget-event-availability-green {
       background-color: $color-primary !important;
     }
     .pretix-widget-event-availability-red {
       background-color: $color-secondary !important;
     }
+    .pretix-widget-event-availability-reserved {
+      background-color: $color-yellow !important;
+    }
     width: 70vw;
-    max-width: 1264px;
+    max-width: 1000px;
     background: white;
+    .pretix-widget {
+      border: none;
+      .pretix-widget-event-week-col:first-child {
+        @media screen and (min-width: 1145px) {
+          margin-left: 50px !important;
+        }
+      }
+    }
     .pretix-widget-event-calendar-events {
-      margin-top: 15%;
+      margin: 3% 0;
+      @media screen and (min-width: 1145px) {
+        margin-top: 15%;
+      }
     }
     .pretix-widget-event-calendar-previous-month{
       padding: 10px;
