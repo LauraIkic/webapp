@@ -437,7 +437,7 @@
 
           <template v-if="action === 'redeem'">
             <div v-if="step === 0" class="giftcardForm">
-              <div v-if="user == null">
+              <div v-if="!isAuthenticated">
                 <div class="card">
                   <div class="input-redeem-card">
                 <span class="span">
@@ -472,7 +472,7 @@
                   </div>
                 </div>
               </div>
-              <div v-if="user !== null">
+              <div v-if="isAuthenticated">
                 <div class="card">
                   <div class="input-redeem-card">
                 <span class="span">
@@ -555,6 +555,9 @@ export default {
         this.loadUserData()
       }
       return this.$store.state.user
+    },
+    isAuthenticated () {
+      return !!this.$store.state.auth
     },
     validInvoiceContact () {
       if (!this.invoiceContact) {
