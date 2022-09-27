@@ -62,7 +62,7 @@
 
           <template v-if="action === 'redeem'">
             <div v-if="step === 0" class="giftcardForm">
-              <div v-if="user == null">
+              <div v-if="!isAuthenticated">
                 <div class="card">
                   <div class="input-redeem-card">
                 <span class="span">
@@ -97,7 +97,7 @@
                   </div>
                 </div>
               </div>
-              <div v-if="user !== null">
+              <div v-if="isAuthenticated">
                 <div class="card">
                   <div class="input-redeem-card">
                 <span class="span">
@@ -181,6 +181,9 @@ export default {
       }
       return this.$store.state.user
     },
+    isAuthenticated () {
+      return !!this.$store.state.auth
+    },
     validInvoiceContact () {
       if (!this.invoiceContact) {
         return false
@@ -213,19 +216,19 @@ export default {
     loadUserData () {
       this.loading = true
       this.$store.dispatch('getUserMetadata')
-          .then((data) => {
-            this.invoiceContact = data.data.invoice_contact
-            this.sepaActive = data.data.sepa_active
+        .then((data) => {
+          this.invoiceContact = data.data.invoice_contact
+          this.sepaActive = data.data.sepa_active
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.data.msg)
+          this.$toast.show('Ein Fehler ist aufgetreten', {
+            theme: 'bubble'
           })
-          .catch((error) => {
-            console.log(error.response.status, error.response.data.msg)
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
-            })
-          })
-          .finally(() => {
-            this.loading = false
-          })
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     capitalize (str) {
       return helpers.capitalize(str)
@@ -251,40 +254,40 @@ export default {
     async redeem () {
       this.loading = true
       await this.$store.dispatch('redeemGiftCard', { secret: this.giftcardCode })
-          .then((response) => {
-            console.log('success', response)
-            this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
-              className: 'goodToast'
-            })
-            if (this.origin) {
-              this.$router.push(`buyWorkshop?uuid=${this.origin}`)
-            }
-            this.$router.push('/me/credits')
+        .then((response) => {
+          console.log('success', response)
+          this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
+            className: 'goodToast'
           })
-          .catch((error) => {
-            console.log('error', error.response)
-            this.giftcardCode = ''
-            switch (error.response.status) {
-              case 405:
-                this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
-                  className: 'badToast'
-                })
-                break
-              case 404:
-                this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
-                  className: 'badToast'
-                })
-                break
-              default:
-                this.$toast.show('Ein Fehler ist aufgetreten', {
-                  className: 'badToast'
-                })
-                break
-            }
-          })
-          .finally(() => {
-            this.loading = false
-          })
+          if (this.origin) {
+            this.$router.push(`buyWorkshop?uuid=${this.origin}`)
+          }
+          this.$router.push('/me/credits')
+        })
+        .catch((error) => {
+          console.log('error', error.response)
+          this.giftcardCode = ''
+          switch (error.response.status) {
+            case 405:
+              this.$toast.show('Dieser Gutschein wurde bereits eingelöst', {
+                className: 'badToast'
+              })
+              break
+            case 404:
+              this.$toast.show('Kein Gutschein mit diesem Code gefunden', {
+                className: 'badToast'
+              })
+              break
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                className: 'badToast'
+              })
+              break
+          }
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     redirectToPayrexxCheckout () {
       this.loading = true
@@ -296,58 +299,58 @@ export default {
       }
       if (this.user === null) {
         this.$store.dispatch('startTransaction', data)
-            .then((response) => {
-              if (response.data.redirect_link) {
-                if (response.data.invoice_contact) {
-                  this.connectorInvoiceContact = response.data.invoice_contact
-                }
-                // Redirect to payrexx screen
-                window.location.href = response.data.redirect_link
-              } else {
-                console.log('response', response.data)
+          .then((response) => {
+            if (response.data.redirect_link) {
+              if (response.data.invoice_contact) {
+                this.connectorInvoiceContact = response.data.invoice_contact
               }
+              // Redirect to payrexx screen
+              window.location.href = response.data.redirect_link
+            } else {
+              console.log('response', response.data)
+            }
+          })
+          .catch((error) => {
+            console.log('error', error)
+            this.$sentry.captureException(new Error(error))
+            this.$toast.show('Ein Fehler ist aufgetreten', {
+              theme: 'bubble'
             })
-            .catch((error) => {
-              console.log('error', error)
-              this.$sentry.captureException(new Error(error))
-              this.$toast.show('Ein Fehler ist aufgetreten', {
-                theme: 'bubble'
-              })
-            })
-            .finally(() => {
-              this.loading = false
-            })
+          })
+          .finally(() => {
+            this.loading = false
+          })
       } else {
         this.$store.dispatch('checkout', data)
-            .then((response) => {
-              switch (parseInt(this.paymentMethod)) {
-                case 1: // PAYMENT PROVIDER
-                  if (response.data.redirect_link) {
-                    if (response.data.invoice_contact) {
-                      this.connectorInvoiceContact = response.data.invoice_contact
-                    }
-                    // Redirect to payrexx screen
-                    window.location.href = response.data.redirect_link
-                  } else {
-                    console.log('Error: No payrexx redirect_link returned!', response.data)
-                    throw new Error('No payrexx redirect_link returned!')
+          .then((response) => {
+            switch (parseInt(this.paymentMethod)) {
+              case 1: // PAYMENT PROVIDER
+                if (response.data.redirect_link) {
+                  if (response.data.invoice_contact) {
+                    this.connectorInvoiceContact = response.data.invoice_contact
                   }
-                  break
-                case 2: // SEPA
-                  this.step++
-                  break
-              }
+                  // Redirect to payrexx screen
+                  window.location.href = response.data.redirect_link
+                } else {
+                  console.log('Error: No payrexx redirect_link returned!', response.data)
+                  throw new Error('No payrexx redirect_link returned!')
+                }
+                break
+              case 2: // SEPA
+                this.step++
+                break
+            }
+          })
+          .catch((error) => {
+            console.log('error', error)
+            this.$sentry.captureException(new Error(error))
+            this.$toast.show('Ein Fehler ist aufgetreten', {
+              theme: 'bubble'
             })
-            .catch((error) => {
-              console.log('error', error)
-              this.$sentry.captureException(new Error(error))
-              this.$toast.show('Ein Fehler ist aufgetreten', {
-                theme: 'bubble'
-              })
-            })
-            .finally(() => {
-              this.loading = false
-            })
+          })
+          .finally(() => {
+            this.loading = false
+          })
       }
     },
     getGiftCardValue (id) {
