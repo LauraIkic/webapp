@@ -97,7 +97,6 @@ import ContactPerson from '../components/ContactPerson'
 import ContactPreview from '../components/ContactPreview'
 import PretixOceaneye from '../components/PretixOceaneye'
 import PretixCalendar from '../components/PretixCalendar'
-import DownloadCard from '../components/DownloadCard'
 
 Vue.component('material-prices', MaterialPrices)
 Vue.component('page', Page)
@@ -200,4 +199,3 @@ Vue.component('contact-person', ContactPerson)
 Vue.component('contact-preview', ContactPreview)
 Vue.component('pretix-oceaneye', PretixOceaneye)
 Vue.component('pretix-calendar', PretixCalendar)
-Vue.component('download-card', DownloadCard)
