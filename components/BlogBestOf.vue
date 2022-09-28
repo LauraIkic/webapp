@@ -1,15 +1,27 @@
 <template>
-  <div class="blog-best-of">
-    <div class="headline">
-      <h1 class="headline-title">{{ $t('blog')}}</h1>
-      <nuxt-link class="blog-link" :to="localePath('/de/news')">
-        <div class="arrow"></div>
-        {{ $t('toBlog') }}
-      </nuxt-link>
+  <div>
+    <div class="blog-best-of">
+      <div class="headline">
+        <h1 class="headline-title">{{ $t('blog')}}</h1>
+        <nuxt-link class="blog-link" :to="localePath('/de/news')">
+          <div class="arrow"></div>
+          {{ $t('toBlog') }}
+        </nuxt-link>
+      </div>
+      <div class="blogItems">
+        <BlogItem :blog="news" v-for="news of newsToDisplay" :key="news.id" class="item"/>
+      </div>
     </div>
-    <div class="blogItems">
-      <BlogItem :blog="news" v-for="news of newsToDisplay" :key="news.id" class="item"/>
-    </div>
+    <link rel="stylesheet" type="text/css" href="https://pretix.eu/ggTest/oceanEye/widget/v1.css">
+    <script type="text/javascript" src="https://pretix.eu/widget/v1.de-informal.js" async></script>
+    <pretix-widget event="https://pretix.eu/demo/democon/" disable-vouchers></pretix-widget>
+    <noscript>
+      <div class="pretix-widget">
+        <div class="pretix-widget-info-message">
+          JavaScript is disabled in your browser. To access our ticket shop without JavaScript, please <a target="_blank" rel="noopener" href="https://pretix.eu/ggTest/yfqc3/">click here</a>.
+        </div>
+      </div>
+    </noscript>
   </div>
 </template>
 

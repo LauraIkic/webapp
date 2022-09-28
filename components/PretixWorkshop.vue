@@ -1,38 +1,39 @@
 <template>
-  <section class="oceaneye-overview" v-if="calendar">
+  <section class="oceaneye-overview">
     <div
+        v-editable="blok"
         class="pretix-oceaneye"
     >
-      <link rel="stylesheet" type="text/css" :href="link">
+      <link rel="stylesheet" type="text/css" href="https://buchung.grandgarage.eu/oceanEye/widget/v1.css">
       <script type="text/javascript" src="https://buchung.grandgarage.eu/widget/v1.de-informal.js" async></script>
       <div class="container">
         <div
             class="col-start"
         >
-<!--          <h2
+          <h2
               v-if="blok.headline"
               class="headline"
           >
             <markdown :value="blok.headline" />
-          </h2>-->
+          </h2>
         </div>
-<!--        <div class="col-end">
+        <div class="col-end">
           <p
               v-if="blok.text"
               class="text"
           >
             <markdown :value="blok.text" />
           </p>
-        </div>-->
+        </div>
       </div>
       <div class="pretix-content">
         <div>
-          <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>
+          <pretix-widget name="pretix" event="https://buchung.grandgarage.eu/oceanEye/"></pretix-widget>
         </div>
         <noscript>
           <div class="pretix-widget">
             <div class="pretix-widget-info-message">
-              JavaScript ist in Ihrem Browser deaktiviert. Um unseren Ticket-Shop ohne JavaScript aufzurufen, klicken Sie bitte <a target="_blank" rel="noopener" :href="event">hier</a>.
+              JavaScript ist in Ihrem Browser deaktiviert. Um unseren Ticket-Shop ohne JavaScript aufzurufen, klicken Sie bitte <a target="_blank" rel="noopener" href="https://buchung.grandgarage.eu/oceanEye/">hier</a>.
             </div>
           </div>
         </noscript>
@@ -43,18 +44,7 @@
 
 <script>
 export default {
-  props: ['calendar'],
-  computed: {
-    link () {
-      return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/widget/v1.css'
-    },
-    event () {
-      return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/'
-    },
-    pretixEvent () {
-      return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/'
-    }
-  }
+  props: ['blok']
 }
 </script>
 
