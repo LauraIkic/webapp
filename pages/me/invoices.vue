@@ -70,6 +70,7 @@
               </div>
               <div
                   class="table-data icon"
+                  @click="getPdf(invoice)"
               >
                 <font-awesome-icon icon="download"/>
               </div>
@@ -110,8 +111,34 @@ export default {
       if (Object.prototype.hasOwnProperty.call(to, 'id')) {
         this.highlightedId = to.id
       }
+    },
+    async getPdf (invoice) {
+      console.log('invoice id: ', invoice.id)
+      await this.$store.dispatch('getPDF', invoice.id)
+        .then((res) => {
+          const binary = atob(res.pdf.replace(/\s/g, ''))
+          const len = binary.length
+          const buffer = new ArrayBuffer(len)
+          const view = new Uint8Array(buffer)
+          for (let i = 0; i < len; i++) {
+            view[i] = binary.charCodeAt(i)
+          }
+          const blob = new Blob([view], { type: 'application/pdf' })
+          const link = document.createElement('a')
+          link.target = '_blank'
+          link.href = URL.createObjectURL(blob)
+          link.click()
+        })
+        .catch((error) => {
+          console.log(error.response.status, error.response.msg)
+          this.$sentry.captureException(new Error(error))
+          this.$toast.show('Die Rechnung konnte nicht geladen werden', {
+            className: 'badToast'
+          })
+        })
     }
   }
+
 }
 </script>
 <style lang="scss" scoped>
