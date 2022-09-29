@@ -113,7 +113,6 @@ export default {
       }
     },
     async getPdf (invoice) {
-      console.log('invoice id: ', invoice.id)
       await this.$store.dispatch('getPDF', invoice.id)
         .then((res) => {
           const binary = atob(res.pdf.replace(/\s/g, ''))
@@ -126,6 +125,7 @@ export default {
           const blob = new Blob([view], { type: 'application/pdf' })
           const link = document.createElement('a')
           link.target = '_blank'
+          link.download = `Rechnung_${invoice.number}.pdf`
           link.href = URL.createObjectURL(blob)
           link.click()
         })
