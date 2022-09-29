@@ -268,13 +268,8 @@ const createStore = () => {
         return res.data
       },
       async getPDF ({ state }, id) {
-        return await connector.get('/member/invoice/' + id, {
-          responseType: 'arraybuffer'
-        }, {
-          headers: {
-            'Content-Type': 'application/pdf'
-          }
-        })
+        const res = await connector.get(`/v1/fabman/invoices/${id}/pdf`)
+        return res.data
       },
       getInvoiceDocument ({ commit, dispatch, state }, id) {
         if (state.auth || getUserFromLocalStorage()) {
