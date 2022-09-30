@@ -5,10 +5,10 @@
     <div v-if="blok.title" class="title"> {{blok.title}}</div>
     <div class="grid">
       <component
-          :is="blok.component"
-          v-for="blok in blok.columns"
-          :key="blok._uid"
-          :blok="blok"
+          v-for="story in blok.columns"
+          :is="story.component"
+          :key="story._uid"
+          :blok="story"
       />
     </div>
   </div>
