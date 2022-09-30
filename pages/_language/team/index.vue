@@ -13,22 +13,22 @@
         </div>
       </div>
     </div>
-<!--    <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">-->
-<!--      <div class="expander" @click="toggleTags()">-->
-<!--      </div>-->
-<!--      <div class="headline">-->
-<!--        {{ $t('departments') }}-->
-<!--      </div>-->
-<!--      <div class="tag-list">-->
-<!--        <div v-for="t in tags" :key="t.key" class="tag">-->
-<!--          <checkbox-->
-<!--              v-model="t.value"-->
-<!--              class="tag"-->
-<!--              theme="white"-->
-<!--          >{{t.name}}</checkbox>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">-->
+    <!--      <div class="expander" @click="toggleTags()">-->
+    <!--      </div>-->
+    <!--      <div class="headline">-->
+    <!--        {{ $t('departments') }}-->
+    <!--      </div>-->
+    <!--      <div class="tag-list">-->
+    <!--        <div v-for="t in tags" :key="t.key" class="tag">-->
+    <!--          <checkbox-->
+    <!--              v-model="t.value"-->
+    <!--              class="tag"-->
+    <!--              theme="white"-->
+    <!--          >{{t.name}}</checkbox>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="member-list-wrapper">
       <div v-if="members && members.length > 0" class="member-list">
         <transition-group name="list">
@@ -36,10 +36,10 @@
         </transition-group>
       </div>
       <div v-else class="member-list-none">
-     </div>
+      </div>
     </div>
-    <div>
-      <team-image-slider :story="footer"></team-image-slider>
+    <div v-for="i in footer" :key="i._uid">
+      <component v-if="i.component" :key="i.component._uid" :blok="i" :is="i.component"></component>
     </div>
   </section>
 </template>
