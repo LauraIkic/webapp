@@ -16,28 +16,35 @@
       </div>
     </div>
     <div class="faqs">
-      <h3><span id="general"></span>Allgemein</h3>
+      <h3><span id="general"></span>{{ $t('general') }}</h3>
       <faq-item
           v-for="i in generalQuestions"
           :key="i.uid"
           :blok="i"
       />
       <br>
-      <h3><span id="membership"></span>Mitgliedschaft</h3>
+      <h3><span id="membership"></span>{{ $t('membership') }}</h3>
       <faq-item
           v-for="i in memberQuestions"
           :key="i.uid"
           :blok="i"
       />
       <br>
-      <h3 v-if="workshopGiftCardQuestions.length > 0"><span id="workshop_giftCard"></span>Workshops & Gutscheine</h3>
+      <h3 v-if="workshopQuestions.length > 0"><span id="workshop_giftCard"></span>{{ $t('workshop') }}</h3>
       <faq-item
-          v-for="i in workshopGiftCardQuestions"
+          v-for="i in workshopQuestions"
           :key="i.uid"
           :blok="i"
       />
       <br>
-      <h3 v-if="creditsQuestions.length > 0 "><span id="credits"></span>Credits</h3>
+      <h3 v-if="giftCardQuestions.length > 0"><span id="workshop_giftCard"></span>{{ $t('giftCard') }}</h3>
+      <faq-item
+          v-for="i in giftCardQuestions"
+          :key="i.uid"
+          :blok="i"
+      />
+      <br>
+      <h3 v-if="creditsQuestions.length > 0 "><span id="credits"></span>   {{ $t('credits') }}</h3>
       <faq-item
           v-for="i in creditsQuestions"
           :key="i.uid"
@@ -58,8 +65,11 @@ export default {
     generalQuestions () {
       return this.filterFaqs('general')
     },
-    workshopGiftCardQuestions () {
-      return this.filterFaqs(' ')
+    workshopQuestions () {
+      return this.filterFaqs('workshop')
+    },
+    giftCardQuestions () {
+      return this.filterFaqs('giftCard')
     },
     creditsQuestions () {
       return this.filterFaqs('credits')
