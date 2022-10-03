@@ -5,7 +5,6 @@
         @click="showModal(blok.file.filename)">
       <img :src="blok.file.filename" alt="" width="300px" height="330px" class="download-card-image" @click="showModal(blok.file.filename)">
     </div>
-
     <a class="filelink" :href="blok.file.filename" target="_blank">
     <div class="title">
       <p>
@@ -13,7 +12,7 @@
       </p>
     </div>
     </a>
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" >
       <div class="modal-display">
         <a class="xButton" href="javascript:void(0)"
            @click="closeModal()">&times;</a>
