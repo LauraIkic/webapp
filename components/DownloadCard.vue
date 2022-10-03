@@ -12,7 +12,7 @@
       </p>
     </div>
     </a>
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" >
       <div class="modal-display">
         <a class="xButton" href="javascript:void(0)"
            @click="closeModal()">&times;</a>
