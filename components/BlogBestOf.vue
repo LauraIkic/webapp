@@ -14,7 +14,6 @@
     </div>
     <link rel="stylesheet" type="text/css" href="https://pretix.eu/ggTest/oceanEye/widget/v1.css">
     <script type="text/javascript" src="https://pretix.eu/widget/v1.de-informal.js" async></script>
-    <pretix-widget event="https://pretix.eu/demo/democon/" disable-vouchers></pretix-widget>
     <noscript>
       <div class="pretix-widget">
         <div class="pretix-widget-info-message">
