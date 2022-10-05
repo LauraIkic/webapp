@@ -78,7 +78,7 @@
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 import VotingButton from '../../../components/VotingButton'
 import VueMarkdown from 'vue-markdown'
-import { getMetaTagsForBlog } from '@/services/MetaDataService'
+import { getMetaTagsForPage } from '@/services/MetaDataService'
 
 export default {
   components: { VotingButton, VueMarkdown },
@@ -145,7 +145,7 @@ export default {
     }
   },
   head () {
-    return getMetaTagsForBlog(this.item)
+    return getMetaTagsForPage(this.item)
   }
 }
 </script>

@@ -9,11 +9,15 @@
 
 <script>
 import BlogBestOf from './BlogBestOf'
+import { getMetaTagsForPage } from '../services/MetaDataService'
 export default {
   components: {
     BlogBestOf
   },
-  props: ['blok']
+  props: ['blok'],
+  head () {
+    return getMetaTagsForPage(this.blok)
+  }
 }
 </script>
 

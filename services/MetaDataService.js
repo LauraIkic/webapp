@@ -1,81 +1,77 @@
-export { getMetaTagsForWorkshop, getMetaTagsForMachine, getMetaTagsForBlog, getMetaTagsForPress }
-/**
-   * get Meta Tags for title and description for Workshop if available,
-   * otherwise build title like  "GRAND GARAGE - SUBTITLE" and description like "GRAND GARAGE - TEASER"
-   * @param workshop Workshop
-   */
-function getMetaTagsForWorkshop (workshop) {
-  let metaTitle = ''
-  let metaDescription = ''
-  const image = 'https:' + workshop.image
-  if (typeof (workshop.metadata) === 'undefined') {
-    metaTitle = 'GRAND GARAGE - ' + workshop.subtitle
-  } else {
-    if (!(workshop.metadata.title === '')) {
-      metaTitle = 'GRAND GARAGE - ' + workshop.metadata.title
-    } else {
-      // subtitle should be available, since it is a required field in storyblok
-      if (workshop.title !== '') {
-        metaTitle = 'GRAND GARAGE - ' + workshop.title
-      } else {
-        metaTitle = 'GRAND GARAGE'
-      }
-    }
-    if (!(workshop.metadata.description === '')) {
-      metaDescription = workshop.metadata.description
-    } else {
-      // subtitle should be available, since it is a required field in storyblok
-      if (workshop.teaser !== '') {
-        metaDescription = workshop.teaser
-      } else {
-        metaDescription = 'GRAND GARAGE - Workshop'
-      }
-    }
-  }
-  return {
-    title: metaTitle,
-    meta: [
-      { hid: 'description', name: 'description', content: metaDescription },
-      { hid: 'og:image', property: 'og:image', content: image },
-      { hid: 'og:description', name: 'og:description', content: metaDescription },
-      { hid: 'og:title', property: 'og:title', content: metaTitle }
-    ]
-  }
-}
+export { getMetaTagsForPage }
 
 /**
- * get Meta Tags for title and description for Machine if available,
- * otherwise build
- * title like  GRAND GARAGE - Machine Title &
- * description like Machine Title
- * (Fallback to 'Machine' if no title is available)
- * @param machine Machine
+ *
+ * @param page
+ * @returns {{meta: [{hid: string, name: string, content: *}, {hid: string, property: string, content: string}, {hid: string, name: string, content: *}, {hid: string, property: string, content: string}], title: string}}
  */
-function getMetaTagsForMachine (machine) {
+function getMetaTagsForPage (page) {
+  //
+  // get image for og:image (preview for sharing page)
+  let image = ''
+  switch (true) {
+    case page.body !== undefined && page.body['0'].slides !== undefined && page.body['0'].slides['0'] !== undefined && page.body['0'].slides['0'].image !== undefined:
+      image = 'https:' + page.body['0'].slides['0'].image
+      break
+    case page.body !== undefined && page.body['0'].image !== undefined:
+      image = 'https:' + page.body['0'].image
+      break
+    case page.image !== undefined:
+      image = 'https:' + page.image
+      break
+    case page.content !== undefined && page.content.Image !== undefined:
+      image = 'https:' + page.content.Image
+      break
+    case page.content !== undefined && page.content.image !== undefined:
+      image = 'https:' + page.content.image
+      break
+  }
+  // get title for page & og:title
   let metaTitle = ''
+  switch (true) {
+    case (page?.content?.metadata?.title !== undefined && typeof page?.content?.metadata?.title === 'string' && page?.content?.metadata?.title !== ''):
+      metaTitle = page?.content?.metadata?.title
+      break
+    case (page?.metadata?.title !== undefined && page?.metadata?.title !== ''):
+      metaTitle = page.metadata.title
+      break
+    case (page.subtitle !== undefined && page.subtitle !== ''):
+      metaTitle = 'GRAND GARAGE - ' + page.subtitle
+      break
+    case (page.title !== undefined && page.title !== ''):
+      metaTitle = 'GRAND GARAGE - ' + page.metadata.title
+      break
+    case (page.content !== undefined && page?.content?.Title !== undefined && page?.content?.Title !== ''):
+      metaTitle = 'GRAND GARAGE - ' + page.content.Title
+      break
+    case (page.name !== undefined && page?.name !== ''):
+      metaTitle = 'GRAND GARAGE - ' + page.name
+      break
+    default: metaTitle = 'GRAND GARAGE'
+  }
+
+  // get description for meta description & og:description
   let metaDescription = ''
-  const image = 'https:' + machine.image
-  if (typeof (machine.metadata) === 'undefined') {
-    metaTitle = 'GRAND GARAGE - ' + machine.title
-  } else {
-    if (!(machine.metadata.title === '')) {
-      metaTitle = 'GRAND GARAGE - ' + machine.metadata.title
-    } else {
-      if (machine.title !== '') {
-        metaTitle = 'GRAND GARAGE - ' + machine.title
-      } else {
-        metaTitle = 'GRAND GARAGE'
-      }
-    }
-    if (!(machine.metadata.description === '')) {
-      metaDescription = machine.metadata.description
-    } else {
-      if (machine.teaser !== '') {
-        metaDescription = machine.teaser
-      } else {
-        metaDescription = 'GRAND GARAGE - Maschine'
-      }
-    }
+  switch (true) {
+    case (page?.content?.metadata?.description !== undefined && typeof page?.content?.metadata?.description === 'string' && page?.content?.metadata?.description !== ''):
+      metaDescription = page?.content?.metadata?.description
+      break
+    case (page.metadata !== undefined && typeof page.metadata === 'string' && page.metadata !== ''):
+      metaDescription = page.metadata
+      break
+    case (page?.metadata?.description !== undefined && page.metadata?.description !== ''):
+      metaDescription = page?.metadata?.description
+      break
+    case (page.teaser !== undefined && page.teaser !== ''):
+      metaDescription = page.teaser
+      break
+    case (page.content !== undefined && page.content.Teaser !== undefined && page.content.Teaser !== ''):
+      metaDescription = page.content.Teaser
+      break
+    case (page.content !== undefined && page.content.text !== undefined && page.content.text !== ''):
+      metaDescription = page.content.text
+      break
+    default: metaDescription = 'Ein Makerspace in der Tabakfabrik Linz. Von der Schweißwerkstatt über CNC-Fräsen bis hin zu 3D-Druckern ist alles in unserer Werkstatt vorhanden.'
   }
   return {
     title: metaTitle,
@@ -84,36 +80,6 @@ function getMetaTagsForMachine (machine) {
       { hid: 'og:image', property: 'og:image', content: image },
       { hid: 'og:description', name: 'og:description', content: metaDescription },
       { hid: 'og:title', property: 'og:title', content: metaTitle }
-    ]
-  }
-}
-
-function getMetaTagsForBlog (item) {
-  const image = 'https:' + item.content.image
-  const ogTitle = 'GRAND GARAGE - ' + item.name
-  const ogDescription = item.content.text
-  return {
-    title: ogTitle,
-    meta: [
-      { hid: 'description', name: 'description', content: ogDescription },
-      { hid: 'og:description', name: 'og:description', content: ogDescription },
-      { hid: 'og:image', property: 'og:image', content: image },
-      { hid: 'og:title', property: 'og:title', content: ogTitle }
-    ]
-  }
-}
-
-function getMetaTagsForPress (story) {
-  const image = 'https:' + story.content.Image
-  const ogTitle = 'GRAND GARAGE - ' + story.content.Title
-  const ogDescription = story.content.Teaser
-  return {
-    title: ogTitle,
-    meta: [
-      { hid: 'description', name: 'description', content: ogDescription },
-      { hid: 'og:description', name: 'og:description', content: ogDescription },
-      { hid: 'og:image', property: 'og:image', content: image },
-      { hid: 'og:title', property: 'og:title', content: ogTitle }
     ]
   }
 }

@@ -6,7 +6,7 @@
 
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
-import { getMetaTagsForPress } from '@/services/MetaDataService'
+import { getMetaTagsForPage } from '@/services/MetaDataService'
 
 export default {
   computed: {
@@ -28,7 +28,7 @@ export default {
     })
   },
   head () {
-    return getMetaTagsForPress(this.story)
+    return getMetaTagsForPage(this.story)
   }
 }
 </script>
