@@ -271,6 +271,14 @@ const createStore = () => {
         const res = await connector.get(`/v1/fabman/invoices/${id}/pdf`)
         return res.data
       },
+      async getMemberPackages ({ state }, id) {
+        const res = await connector.get(`/v1/fabman/members/${id}/packages`)
+        return res.data
+      },
+      async getPackages ({ state }) {
+        const res = await connector.get('/v1/fabman/packages')
+        return res.data
+      },
       getInvoiceDocument ({ commit, dispatch, state }, id) {
         if (state.auth || getUserFromLocalStorage()) {
           // renew Token

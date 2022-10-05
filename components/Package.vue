@@ -6,17 +6,18 @@
       </div>
       <div class="body">
         <div class="title">
-          <div v-if="userPackage.recurringFeePeriod == 'month'" class="interval">
-            {{ $t('monthly-abo') }}
+          <div v-if="this.userPackage._embedded" class="interval">
+            {{ this.userPackage._embedded.package.name }}
           </div>
-          <div v-if="userPackage.recurringFeePeriod == 'year'" class="interval">
-            {{ $t('yearly-abo') }}
-          </div></div>
+          <div v-if="this.userPackage.name" class="interval">
+            {{ this.userPackage.name }}
+          </div>
+        </div>
         <div class="package">
           <div class="package-date">
             {{fromDate}}
             -
-            {{untilDate}}<div v-if="untilDate== null">Kein Ende</div>
+            {{chargedDate}}<div v-if="chargedDate== null">Kein Ende</div>
           </div>
           <div v-if="userPackage.recurringFeePeriod == 'month'" class="interval">
             {{ $t('interval') }} {{ $t('monthly') }}
@@ -37,6 +38,7 @@ export default {
   props: ['userPackage'],
   computed: {
     fromDate () {
+      //console.log('this.userPackage._embedded: ', this.userPackage._embedded.name)
       return new Date(this.userPackage.fromDate).toLocaleDateString('de-at')
     },
     untilDate () {
