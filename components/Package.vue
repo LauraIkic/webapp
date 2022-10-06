@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="package">
-          <div class="package-date">
+          <div class="package-date" v-if="this.userPackage.fromDate">
             {{fromDate}}
             -
             {{chargedDate}}<div v-if="chargedDate== null">Kein Ende</div>
@@ -26,7 +26,18 @@
             {{ $t('interval') }}{{ $t('yearly') }}
           </div>
           {{ $t('price') }} {{userPackage.recurringFee}}  {{ $t('euro') }}
+          <div v-if="storage && booked" class="button" @click="cancelStorage()">
+              <div class="button-text">
+              {{ 'kündigen' }}
+              </div>
+          </div>
+          <div v-if="storage && !booked" class="button" @click="bookStorage()">
+            <div class="button-text">
+              {{ 'buchen' }}
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -35,11 +46,12 @@
 
 <script>
 export default {
-  props: ['userPackage'],
+  props: ['userPackage', 'storage', 'booked'],
   computed: {
     fromDate () {
-      //console.log('this.userPackage._embedded: ', this.userPackage._embedded.name)
-      return new Date(this.userPackage.fromDate).toLocaleDateString('de-at')
+      if (this.userPackage.fromDate) {
+        return new Date(this.userPackage.fromDate).toLocaleDateString('de-at')
+      } else { return null }
     },
     untilDate () {
       if (this.userPackage.untilDate == null) {
@@ -49,6 +61,14 @@ export default {
     },
     chargedDate () {
       return new Date(this.userPackage.chargedUntilDate).toLocaleDateString('de-at')
+    }
+  },
+  methods: {
+    bookStorage () {
+      console.log('funtime starts')
+    },
+    cancelStorage () {
+      console.log('funtime over')
     }
   }
 }
@@ -84,7 +104,30 @@ export default {
       .interval{
         padding-bottom: 10px;
       }
+      .button {
+          cursor: pointer;
+          margin-top: 7%;
+          background: $color-secondary;
+          border-radius: 15px;
+          display: flex;
+          color: white;
+          padding: 7px;
+          font-size: 16px;
+          width: 110px;
+
+          //margin-left: 35%;
+          //@include media-breakpoint-down(sm) {
+          //  margin-left: 35%;
+          //}
+        }.button-text {
+                 text-align: center;
+                 width: 8vw;
+               }
+        & * {
+          text-transform: uppercase;
+        }
     }
   }
+
 }
 </style>

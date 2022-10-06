@@ -4,20 +4,29 @@
     <div
         v-for="userPackage of membership"
         :key="userPackage.id">
-      <package  :user-package="userPackage" />
+      <package
+          :user-package="userPackage"
+          :storage=false />
     </div>
-    <h2>Lager</h2>
     <div
         v-for="userPackage of memberStorage"
         :key="userPackage.id">
-      <package  :user-package="userPackage" />
+      <package
+          :user-package="userPackage"
+          :storage=true
+          :booked=true
+      />
     </div>
 
     <h2>Lager buchen</h2>
     <div
         v-for="userPackage of availableStorage"
         :key="userPackage.id">
-      <package  :user-package="userPackage" />
+      <package
+          :user-package="userPackage"
+          :storage=true
+          :booked=false
+      />
     </div>
 
   </div>
@@ -54,24 +63,10 @@ export default {
     this.packages = await this.$store.dispatch('getPackages')
     this.availableStorage = this.packages.filter((p) => {
       const notes = JSON.parse(p.notes)
-      //console.log(p.id)
-      //console.log(this.storage.package)
-      return notes.is_storage_box
+      return notes.is_storage_box && notes.shop_visible
     })
-    console.log('this.availablePackages: ', this.availableStorage)
-    //console.log('storage filtered: ', this.storage)
   }
-  // computed: {
-  //   user () {
-  //     return this.$store.state.user
-  //   },
-  //   activePackageItem () {
-  //     let packageSize = this.$store.state.user.packages.length
-  //     packageSize = packageSize - 1
-  //     // active element = last element
-  //     return this.$store.state.user.packages[packageSize]
-  //   }
-  // }
+
 }
 </script>
 
