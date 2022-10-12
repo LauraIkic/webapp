@@ -53,13 +53,13 @@ export default {
     },
     event () {
       if (this?.blok?.pretix_shortform) {
-        return 'https://buchung.grandgarage.eu/' + this.blok.pretix_shortform
+        return 'https://buchung.grandgarage.eu/' + this.blok.pretix_shortform + '/'
       }
       return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/'
     },
     pretixEvent () {
       if (this?.blok?.pretix_shortform) {
-        return 'https://buchung.grandgarage.eu/' + 'frauen-technik/'
+        return 'https://buchung.grandgarage.eu/' + this.blok.pretix_shortform + '/'
       }
       return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/'
     }
