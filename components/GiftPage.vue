@@ -32,7 +32,7 @@
               <div class="bottom-text">
                 {{ $t('buyGiftCard') }}
               </div>
-              <a href="https://grandgarage.firstvoucher.com/" target="_blank" class="buy-redeem-button">
+              <a href="https://grandgarage.firstvoucher.com/wertgutschein-fuer-die-grand-garage-m73245" target="_blank" class="buy-redeem-button">
                 {{ $t('buy') }}
               </a>
             </div>
@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import { helpers } from '~/utils/helper'
+// import { helpers } from '~/utils/helper'
 
 export default {
   props: ['blok'],
@@ -160,46 +160,46 @@ export default {
     return {
       step: 0,
       action: null,
-      origin: null,
-      selectedProductId: null,
+      //origin: null,
+      //selectedProductId: null,
       giftcardCode: null,
-      paymentMethod: 0,
+      //paymentMethod: 0,
       error: '',
-      shippingstreetEnabled: 0,
-      invoiceContact: {},
-      connectorInvoiceContact: null,
-      sepa_active: false,
-      shippingstreet: [],
-      loading: false,
-      sepaActive: false
+      //shippingstreetEnabled: 0,
+      //invoiceContact: {},
+      //connectorInvoiceContact: null,
+      //sepa_active: false,
+      //shippingstreet: [],
+      loading: false
+      //sepaActive: false
     }
   },
   computed: {
     user () {
-      if (this.$store.state.user) {
-        this.loadUserData()
-      }
+      // if (this.$store.state.user) {
+      //   this.loadUserData()
+      // }
       return this.$store.state.user
     },
     isAuthenticated () {
       return !!this.$store.state.auth
     },
-    validInvoiceContact () {
-      if (!this.invoiceContact) {
-        return false
-      }
-      if (this.user === null) {
-        return (this.invoiceContact.firstname && this.invoiceContact.lastname && helpers.validateEmail(this.invoiceContact.email) && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
-      } else {
-        return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
-      }
-    },
-    validPayment () {
-      return this.paymentMethod !== 0
-    },
-    ibanIsValid () {
-      return helpers.validateIban(this.invoiceContact.iban)
-    },
+    // validInvoiceContact () {
+    //   if (!this.invoiceContact) {
+    //     return false
+    //   }
+    //   if (this.user === null) {
+    //     return (this.invoiceContact.firstname && this.invoiceContact.lastname && helpers.validateEmail(this.invoiceContact.email) && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
+    //   } else {
+    //     return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
+    //   }
+    // },
+    // validPayment () {
+    //   return this.paymentMethod !== 0
+    // },
+    // ibanIsValid () {
+    //   return helpers.validateIban(this.invoiceContact.iban)
+    // },
     images () {
       return this.blok.Images
     }
@@ -213,31 +213,31 @@ export default {
     this.getQuery(this.$route.query)
   },
   methods: {
-    loadUserData () {
-      this.loading = true
-      this.$store.dispatch('getUserMetadata')
-        .then((data) => {
-          this.invoiceContact = data.data.invoice_contact
-          this.sepaActive = data.data.sepa_active
-        })
-        .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
-          this.$toast.show('Ein Fehler ist aufgetreten', {
-            theme: 'bubble'
-          })
-        })
-        .finally(() => {
-          this.loading = false
-        })
-    },
-    capitalize (str) {
-      return helpers.capitalize(str)
-    },
-    isValidEmailAdress (email) {
-      if (this.user === null) {
-        return helpers.validateEmail(email)
-      } else return true
-    },
+    // loadUserData () {
+    //   this.loading = true
+    //   this.$store.dispatch('getUserMetadata')
+    //     .then((data) => {
+    //       this.invoiceContact = data.data.invoice_contact
+    //       this.sepaActive = data.data.sepa_active
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response.status, error.response.data.msg)
+    //       this.$toast.show('Ein Fehler ist aufgetreten', {
+    //         theme: 'bubble'
+    //       })
+    //     })
+    //     .finally(() => {
+    //       this.loading = false
+    //     })
+    // },
+    // capitalize (str) {
+    //   return helpers.capitalize(str)
+    // },
+    // isValidEmailAdress (email) {
+    //   if (this.user === null) {
+    //     return helpers.validateEmail(email)
+    //   } else return true
+    // },
     getQuery (to) {
       // eslint-disable-next-line no-prototype-builtins
       if (to.hasOwnProperty('origin')) {
@@ -259,9 +259,9 @@ export default {
           this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
             className: 'goodToast'
           })
-          if (this.origin) {
-            this.$router.push(`buyWorkshop?uuid=${this.origin}`)
-          }
+          // if (this.origin) {
+          //   this.$router.push(`buyWorkshop?uuid=${this.origin}`)
+          // }
           this.$router.push('/me/credits')
         })
         .catch((error) => {
@@ -288,87 +288,87 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-    redirectToPayrexxCheckout () {
-      this.loading = true
-      const data = {
-        payment_method: parseInt(this.paymentMethod),
-        product_id: this.selectedProductId,
-        count: 1,
-        invoice_contact: this.invoiceContact
-      }
-      if (this.user === null) {
-        this.$store.dispatch('startTransaction', data)
-          .then((response) => {
-            if (response.data.redirect_link) {
-              if (response.data.invoice_contact) {
-                this.connectorInvoiceContact = response.data.invoice_contact
-              }
-              // Redirect to payrexx screen
-              window.location.href = response.data.redirect_link
-            } else {
-              console.log('response', response.data)
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
-            })
-          })
-          .finally(() => {
-            this.loading = false
-          })
-      } else {
-        this.$store.dispatch('checkout', data)
-          .then((response) => {
-            switch (parseInt(this.paymentMethod)) {
-              case 1: // PAYMENT PROVIDER
-                if (response.data.redirect_link) {
-                  if (response.data.invoice_contact) {
-                    this.connectorInvoiceContact = response.data.invoice_contact
-                  }
-                  // Redirect to payrexx screen
-                  window.location.href = response.data.redirect_link
-                } else {
-                  console.log('Error: No payrexx redirect_link returned!', response.data)
-                  throw new Error('No payrexx redirect_link returned!')
-                }
-                break
-              case 2: // SEPA
-                this.step++
-                break
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
-            })
-          })
-          .finally(() => {
-            this.loading = false
-          })
-      }
-    },
-    getGiftCardValue (id) {
-      switch (id) {
-        case '719':
-          return 10
-        case '720':
-          return 25
-        case '721':
-          return 50
-        case '722':
-          return 100
-        case '923':
-          return 150
-        case '924':
-          return 400
-      }
     }
+    // redirectToPayrexxCheckout () {
+    //   this.loading = true
+    //   const data = {
+    //     payment_method: parseInt(this.paymentMethod),
+    //     product_id: this.selectedProductId,
+    //     count: 1,
+    //     invoice_contact: this.invoiceContact
+    //   }
+    //   if (this.user === null) {
+    //     this.$store.dispatch('startTransaction', data)
+    //       .then((response) => {
+    //         if (response.data.redirect_link) {
+    //           if (response.data.invoice_contact) {
+    //             this.connectorInvoiceContact = response.data.invoice_contact
+    //           }
+    //           // Redirect to payrexx screen
+    //           window.location.href = response.data.redirect_link
+    //         } else {
+    //           console.log('response', response.data)
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log('error', error)
+    //         this.$sentry.captureException(new Error(error))
+    //         this.$toast.show('Ein Fehler ist aufgetreten', {
+    //           theme: 'bubble'
+    //         })
+    //       })
+    //       .finally(() => {
+    //         this.loading = false
+    //       })
+    //   } else {
+    //     this.$store.dispatch('checkout', data)
+    //       .then((response) => {
+    //         switch (parseInt(this.paymentMethod)) {
+    //           case 1: // PAYMENT PROVIDER
+    //             if (response.data.redirect_link) {
+    //               if (response.data.invoice_contact) {
+    //                 this.connectorInvoiceContact = response.data.invoice_contact
+    //               }
+    //               // Redirect to payrexx screen
+    //               window.location.href = response.data.redirect_link
+    //             } else {
+    //               console.log('Error: No payrexx redirect_link returned!', response.data)
+    //               throw new Error('No payrexx redirect_link returned!')
+    //             }
+    //             break
+    //           case 2: // SEPA
+    //             this.step++
+    //             break
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log('error', error)
+    //         this.$sentry.captureException(new Error(error))
+    //         this.$toast.show('Ein Fehler ist aufgetreten', {
+    //           theme: 'bubble'
+    //         })
+    //       })
+    //       .finally(() => {
+    //         this.loading = false
+    //       })
+    //   }
+    // },
+    // getGiftCardValue (id) {
+    //   switch (id) {
+    //     case '719':
+    //       return 10
+    //     case '720':
+    //       return 25
+    //     case '721':
+    //       return 50
+    //     case '722':
+    //       return 100
+    //     case '923':
+    //       return 150
+    //     case '924':
+    //       return 400
+    //   }
+    // }
   }
 }
 </script>
@@ -418,29 +418,29 @@ h2 {
   display: inline-grid;
 }
 
-.paypal-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
-}
-
-.mastercard-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
-}
-
-.visa-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
-}
-
-.apple-pay-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
-}
+//.paypal-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+//}
+//
+//.mastercard-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+//}
+//
+//.visa-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+//}
+//
+//.apple-pay-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+//}
 
 .silent-link, .silent-info {
   font-size: 0.6em;
