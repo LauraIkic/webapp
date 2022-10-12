@@ -1,29 +1,29 @@
 <template>
-  <section class="oceaneye-overview" v-if="calendar">
+  <section class="oceaneye-overview" v-if="calendar || (blok && blok.pretix_shortform)">
     <div
         class="pretix-oceaneye"
     >
-      <link rel="stylesheet" type="text/css" :href="link">
+      <link rel="stylesheet" type="text/css" href="https://buchung.grandgarage.eu/oceanEye/widget/v1.css">
       <script type="text/javascript" src="https://buchung.grandgarage.eu/widget/v1.de-informal.js" async></script>
       <div class="container">
         <div
             class="col-start"
         >
-<!--          <h2
-              v-if="blok.headline"
+         <h2
+              v-if="blok && blok.headline"
               class="headline"
           >
             <markdown :value="blok.headline" />
-          </h2>-->
+          </h2>
         </div>
-<!--        <div class="col-end">
+       <div class="col-end" v-if="blok && blok.text">
           <p
               v-if="blok.text"
               class="text"
           >
             <markdown :value="blok.text" />
           </p>
-        </div>-->
+        </div>
       </div>
       <div class="pretix-content">
         <div>
@@ -43,15 +43,24 @@
 
 <script>
 export default {
-  props: ['calendar'],
+  props: ['calendar', 'blok'],
   computed: {
     link () {
+      if (this?.blok?.pretix_shortform) {
+        return 'https://buchung.grandgarage.eu/' + this.blok.pretix_shortform + '/widget/v1.css'
+      }
       return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/widget/v1.css'
     },
     event () {
+      if (this?.blok?.pretix_shortform) {
+        return 'https://buchung.grandgarage.eu/' + this.blok.pretix_shortform
+      }
       return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/'
     },
     pretixEvent () {
+      if (this?.blok?.pretix_shortform) {
+        return 'https://buchung.grandgarage.eu/' + 'frauen-technik/'
+      }
       return 'https://buchung.grandgarage.eu/' + this.$props.calendar + '/'
     }
   }
