@@ -18,7 +18,7 @@
           v-for="s in blok.items"
           :key="s._uid"
           class="swiper-slide"
-          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '300x300') + ')' }"
+          :style="{ 'background-image': 'url(' + $resizeImage(s.image, '500x500') + ')' }"
         />
       </div>
       <div
