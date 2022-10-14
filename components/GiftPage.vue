@@ -48,7 +48,7 @@
                 {{ $t('redeemGiftCard') }}
               </div>
               <div class="buy-redeem-button"
-                   @click="$router.push('gift?action=redeem')">
+                   @click="$router.push('gutscheine?action=redeem')">
                 {{ $t('redeem') }}
               </div>
             </div>
@@ -90,7 +90,7 @@
                   <div class="buttons">
                     <button
                         class="input-button-primary"
-                        @click="$router.push('gift')"
+                        @click="$router.push('gutscheine')"
                     >
                       {{ $t('back') }}
                     </button>
@@ -118,7 +118,7 @@
                   <div class="buttons">
                     <button
                         class="input-button-payment"
-                        @click="$router.push('gift')"
+                        @click="$router.push('gutscheine')"
                     >
                       {{ $t('back') }}
                     </button>
