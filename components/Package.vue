@@ -6,14 +6,15 @@
       </div>
       <div class="body">
         <div class="title">
-          <div v-if="userPackage.recurringFeePeriod == 'month'" class="interval">
-            {{ $t('monthly-abo') }}
+          <div v-if="this.userPackage._embedded" class="interval">
+            {{ this.userPackage._embedded.package.name }}
           </div>
-          <div v-if="userPackage.recurringFeePeriod == 'year'" class="interval">
-            {{ $t('yearly-abo') }}
-          </div></div>
+          <div v-if="this.userPackage.name" class="interval">
+            {{ this.userPackage.name }}
+          </div>
+        </div>
         <div class="package">
-          <div class="package-date">
+          <div class="package-date" v-if="this.userPackage.fromDate">
             {{fromDate}}
             -
             {{untilDate}}<div v-if="untilDate== null">Kein Ende</div>
@@ -25,7 +26,18 @@
             {{ $t('interval') }}{{ $t('yearly') }}
           </div>
           {{ $t('price') }} {{userPackage.recurringFee}}  {{ $t('euro') }}
+          <div v-if="storage && booked && !untilDate" class="button" @click="cancelStorage(userPackage.id)">
+              <div class="button-text">
+              {{ 'kündigen' }}
+              </div>
+          </div>
+          <div v-if="storage && !booked" class="button" @click="setPackage(userPackage.id)">
+            <div class="button-text">
+              {{ 'buchen' }}
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -34,19 +46,64 @@
 
 <script>
 export default {
-  props: ['userPackage'],
+  props: ['userPackage', 'storage', 'booked'],
   computed: {
     fromDate () {
-      return new Date(this.userPackage.fromDate).toLocaleDateString('de-at')
+      if (this.userPackage.fromDate) {
+        return new Date(this.userPackage.fromDate).toLocaleDateString('de-at')
+      } else { return null }
     },
     untilDate () {
       if (this.userPackage.untilDate == null) {
         return null
       }
       return new Date(this.userPackage.untilDate).toLocaleDateString('de-at')
+    }//,
+    // chargedDate () {
+    //   return new Date(this.userPackage.chargedUntilDate).toLocaleDateString('de-at')
+    // }
+  },
+  methods: {
+    async setPackage (id) {
+      await this.$store.dispatch('setPackage', { id: id })
+        .then((response) => {
+          this.$toast.show('buchung ok', {
+            className: 'goodToast'
+          })
+          this.$emit('reload')
+        })
+        .catch((error) => {
+          switch (error.response.status) {
+            case 404:
+              this.$toast.show('Lagerort bereits ausgebucht!', {
+                className: 'badToast'
+              })
+              break
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                className: 'badToast'
+              })
+              break
+          }
+        })
     },
-    chargedDate () {
-      return new Date(this.userPackage.chargedUntilDate).toLocaleDateString('de-at')
+    async cancelStorage (memberPackageId) {
+      await this.$store.dispatch('cancelPackage', memberPackageId, { id: memberPackageId })
+        .then((response) => {
+          this.$toast.show('kündigung ok', {
+            className: 'goodToast'
+          })
+          this.$emit('reload')
+        })
+        .catch((error) => {
+          switch (error.response.status) {
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                className: 'badToast'
+              })
+              break
+          }
+        })
     }
   }
 }
@@ -82,7 +139,30 @@ export default {
       .interval{
         padding-bottom: 10px;
       }
+      .button {
+          cursor: pointer;
+          margin-top: 7%;
+          background: $color-secondary;
+          border-radius: 15px;
+          display: flex;
+          color: white;
+          padding: 7px;
+          font-size: 16px;
+          width: 110px;
+
+          //margin-left: 35%;
+          //@include media-breakpoint-down(sm) {
+          //  margin-left: 35%;
+          //}
+        }.button-text {
+                 text-align: center;
+                 width: 8vw;
+               }
+        & * {
+          text-transform: uppercase;
+        }
     }
   }
+
 }
 </style>

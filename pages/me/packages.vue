@@ -1,25 +1,96 @@
 <template>
-  <div class="section">
+  <div class="section" v-if="memberPackages && memberStorage && availableStorage"  >
     <h2>{{ $t('membership') }}</h2>
-    {{user.packages.recurringFeePeriod}}
-    <package  :user-package="activePackageItem" />
+    <div
+        v-for="userPackage of membership"
+        :key="userPackage.id">
+      <package v-on:reload="reload"
+          :user-package="userPackage"
+          :storage=false />
+    </div>
+    <div
+        v-for="userPackage of memberStorage"
+        :key="userPackage.id">
+      <package v-on:reload="reload"
+          :user-package="userPackage"
+          :storage=true
+          :booked=true
+      />
+    </div>
+
+    <h2>Lager buchen</h2>
+    <div
+        v-for="userPackage of availableStorage"
+        :key="userPackage.id">
+      <package v-on:reload="reload"
+          :user-package="userPackage"
+          :storage=true
+          :booked=false
+      />
+    </div>
+
   </div>
 </template>
 
 <script>
+
 export default {
   middleware: 'authenticated',
-  computed: {
-    user () {
-      return this.$store.state.user
-    },
-    activePackageItem () {
-      let packageSize = this.$store.state.user.packages.length
-      packageSize = packageSize - 1
-      // active element = last element
-      return this.$store.state.user.packages[packageSize]
+  data () {
+    return {
+      memberPackages: null,
+      membership: null,
+      memberStorage: null,
+      availableStorage: null
+    }
+  },
+  async mounted () {
+    await this.reload()
+  },
+  methods: {
+    async reload () {
+      this.memberPackages = await this.$store.dispatch('getMemberPackages', this.$store.state.member.id)
+
+      // membership of the current member
+      this.membership = this.memberPackages.filter((p) => {
+        const notes = JSON.parse(p._embedded.package.notes)
+        return !notes.is_storage_box
+      })
+
+      // storage of the current member
+      this.memberStorage = this.memberPackages.filter((p) => {
+        const notes = JSON.parse(p._embedded.package.notes)
+        return notes.is_storage_box
+      })
+
+      //all packages available for booking
+      this.packages = await this.$store.dispatch('getPackages')
+      // filter already booked storages
+      this.availableStorage = this.packages.filter((p) => {
+        for (const s of this.memberStorage) {
+          if (s.package === p.id) {
+            return false
+          }
+        }
+        //handle packages with no notes available for storage & visibility or malformed format
+        let notes = null
+        if (!p.notes) {
+          console.error('no notes (storage, visible) for package: ', p)
+          return false
+        }
+        try {
+          notes = JSON.parse(p.notes)
+        } catch (err) {
+          console.error('malformed json format: ', p.notes)
+        }
+        if (!notes) {
+          return false
+        }
+        return notes.is_storage_box && notes.shop_visible
+      })
     }
   }
+
 }
 </script>
 
