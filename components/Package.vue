@@ -17,7 +17,7 @@
           <div class="package-date" v-if="this.userPackage.fromDate">
             {{fromDate}}
             -
-            {{chargedDate}}<div v-if="chargedDate== null">Kein Ende</div>
+            {{untilDate}}<div v-if="untilDate== null">Kein Ende</div>
           </div>
           <div v-if="userPackage.recurringFeePeriod == 'month'" class="interval">
             {{ $t('interval') }} {{ $t('monthly') }}
@@ -26,12 +26,12 @@
             {{ $t('interval') }}{{ $t('yearly') }}
           </div>
           {{ $t('price') }} {{userPackage.recurringFee}}  {{ $t('euro') }}
-          <div v-if="storage && booked" class="button" @click="cancelStorage()">
+          <div v-if="storage && booked && !untilDate" class="button" @click="cancelStorage(userPackage.id)">
               <div class="button-text">
               {{ 'kündigen' }}
               </div>
           </div>
-          <div v-if="storage && !booked" class="button" @click="bookStorage()">
+          <div v-if="storage && !booked" class="button" @click="setPackage(userPackage.id)">
             <div class="button-text">
               {{ 'buchen' }}
             </div>
@@ -58,17 +58,52 @@ export default {
         return null
       }
       return new Date(this.userPackage.untilDate).toLocaleDateString('de-at')
-    },
-    chargedDate () {
-      return new Date(this.userPackage.chargedUntilDate).toLocaleDateString('de-at')
-    }
+    }//,
+    // chargedDate () {
+    //   return new Date(this.userPackage.chargedUntilDate).toLocaleDateString('de-at')
+    // }
   },
   methods: {
-    bookStorage () {
-      console.log('funtime starts')
+    async setPackage (id) {
+      await this.$store.dispatch('setPackage', { id: id })
+        .then((response) => {
+          this.$toast.show('buchung ok', {
+            className: 'goodToast'
+          })
+          this.$emit('reload')
+        })
+        .catch((error) => {
+          switch (error.response.status) {
+            case 404:
+              this.$toast.show('Lagerort bereits ausgebucht!', {
+                className: 'badToast'
+              })
+              break
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                className: 'badToast'
+              })
+              break
+          }
+        })
     },
-    cancelStorage () {
-      console.log('funtime over')
+    async cancelStorage (memberPackageId) {
+      await this.$store.dispatch('cancelPackage', memberPackageId, { id: memberPackageId })
+        .then((response) => {
+          this.$toast.show('kündigung ok', {
+            className: 'goodToast'
+          })
+          this.$emit('reload')
+        })
+        .catch((error) => {
+          switch (error.response.status) {
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten', {
+                className: 'badToast'
+              })
+              break
+          }
+        })
     }
   }
 }
