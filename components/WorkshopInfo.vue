@@ -39,7 +39,7 @@
       />
     </div>
     <div
-      v-if="blok.images"
+      v-if="blok.images && blok.images.length !== 0"
       class="body"
     >
       <image-slideshow :blok="images" />
