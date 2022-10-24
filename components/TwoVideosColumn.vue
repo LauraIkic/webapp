@@ -3,11 +3,6 @@
     v-editable="blok"
     class="two-videos-column"
   >
-    <div>
-      {{blok.video_1}} <br>
-      {{blok.video_2}} <br>
-      {{blok.image}}
-    </div>
     <div class='wrapper'>
       <div class='row'>
         <div class='column column1'>
@@ -42,7 +37,9 @@
         </div>
       </div>
       <div class='row'>
-        <img class="image" src="blok.image">
+        <div class='column'>
+          <img class="image" src="blok.image">
+        </div>
       </div>
     </div>
   </div>
@@ -114,19 +111,11 @@ export default {
   }
 
   .column1 {
-    flex-basis: 40%;
-
-    .content {
-      background-color: #b0b0b0;
-    }
+    flex-basis: 50%;
   }
 
   .column2 {
-    flex-basis: 60%;
-
-    .content {
-      background-color: #c9c9c9;
-    }
+    flex-basis: 50%;
   }
 }
 
