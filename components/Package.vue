@@ -15,9 +15,10 @@
         </div>
         <div class="package">
           <div class="package-date" v-if="this.userPackage.fromDate">
+            <div v-if="untilDate== null">ab&nbsp;</div>
             {{fromDate}}
-            -
-            {{untilDate}}<div v-if="untilDate== null">Kein Ende</div>
+            <div v-if="untilDate">&nbsp;-&nbsp;</div>
+            {{untilDate}}
           </div>
           <div v-if="userPackage.recurringFeePeriod == 'month'" class="interval">
             {{ $t('interval') }} {{ $t('monthly') }}
@@ -67,7 +68,7 @@ export default {
     async setPackage (id) {
       await this.$store.dispatch('setPackage', { id: id })
         .then((response) => {
-          this.$toast.show('buchung ok', {
+          this.$toast.show('Buchung wurde erfolgreich durchgeführt', {
             className: 'goodToast'
           })
           this.$emit('reload')
@@ -90,7 +91,7 @@ export default {
     async cancelStorage (memberPackageId) {
       await this.$store.dispatch('cancelPackage', memberPackageId, { id: memberPackageId })
         .then((response) => {
-          this.$toast.show('kündigung ok', {
+          this.$toast.show('Kündigung wurde erfolgreich durchgeführt', {
             className: 'goodToast'
           })
           this.$emit('reload')
