@@ -53,7 +53,7 @@ export default {
     },
     spaceBetween () {
       if (process.client && window && window.innerWidth) {
-        if (window.innerWidth < 600) {
+        if (window.innerWidth < 500) {
           return 0
         }
       }
@@ -61,8 +61,10 @@ export default {
     },
     num () {
       if (process.client && window && window.innerWidth) {
-        if (window.innerWidth < 600) {
-          return 1.5
+        if (window.innerWidth < 500) {
+          return 1
+        } else if (window.innerWidth < 900) {
+          return 2
         }
       }
       return 3
@@ -75,10 +77,8 @@ export default {
 </script>
 
 <style lang="scss">
-.swiper-wrapper.center {
-  @include media-breakpoint-up(sm) {
-    justify-content: center;
-  }
+.swiper-wrapper {
+   align-items: center;
 }
 
 .image-slideshow {
@@ -86,11 +86,13 @@ export default {
   margin-top: 5rem;
   .text {
     @include margin-page-middle();
-    padding: 2rem 0;
     font-size: 1.8rem;
     font-family: $font-secondary;
     line-height: 1.4;
     letter-spacing: 1.4px;
+    @include media-breakpoint-up(xs){
+      padding: 2rem 0;
+    }
   }
   .swiper-container {
     height: 25em;
@@ -99,14 +101,16 @@ export default {
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      @include media-breakpoint-down(md){
+      @include media-breakpoint-down(xs){
         height: 180px !important;
-        margin-left: -20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 100% !important;
       }
     }
-    padding-bottom: 60px;
     @include media-breakpoint-down(md){
-      height: 25vh;
+      height: 15em;
     }
   }
   .swiper-button-prev,
