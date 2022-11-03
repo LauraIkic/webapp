@@ -27,7 +27,7 @@
       </div>
       <div class="pretix-content">
         <div>
-          <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>
+<!--          <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>-->
         </div>
         <noscript>
           <div class="pretix-widget">
