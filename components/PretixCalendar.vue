@@ -1,43 +1,43 @@
 <template>
   <section class="oceaneye-overview" v-if="calendar || (blok && blok.pretix_shortform)">
-    <div
-        class="pretix-oceaneye"
-    >
-      <link rel="stylesheet" type="text/css" href="https://buchung.grandgarage.eu/oceanEye/widget/v1.css">
+<!--    <div-->
+<!--        class="pretix-oceaneye"-->
+<!--    >-->
+<!--      <link rel="stylesheet" type="text/css" href="https://buchung.grandgarage.eu/oceanEye/widget/v1.css">-->
 <!--      <script type="text/javascript" src="https://buchung.grandgarage.eu/widget/v1.de-informal.js" async></script>-->
-      <div class="container">
-        <div
-            class="col-start"
-        >
-         <h2
-              v-if="blok && blok.headline"
-              class="headline"
-          >
-            <markdown :value="blok.headline" />
-          </h2>
-        </div>
-       <div class="col-end" v-if="blok && blok.text">
-          <p
-              v-if="blok.text"
-              class="text"
-          >
-            <markdown :value="blok.text" />
-          </p>
-        </div>
-      </div>
-      <div class="pretix-content">
-        <div>
-          <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>
-        </div>
-        <noscript>
-          <div class="pretix-widget">
-            <div class="pretix-widget-info-message">
-              JavaScript ist in Ihrem Browser deaktiviert. Um unseren Ticket-Shop ohne JavaScript aufzurufen, klicken Sie bitte <a target="_blank" rel="noopener" :href="event">hier</a>.
-            </div>
-          </div>
-        </noscript>
-      </div>
-    </div>
+<!--      <div class="container">-->
+<!--        <div-->
+<!--            class="col-start"-->
+<!--        >-->
+<!--         <h2-->
+<!--              v-if="blok && blok.headline"-->
+<!--              class="headline"-->
+<!--          >-->
+<!--            <markdown :value="blok.headline" />-->
+<!--          </h2>-->
+<!--        </div>-->
+<!--       <div class="col-end" v-if="blok && blok.text">-->
+<!--          <p-->
+<!--              v-if="blok.text"-->
+<!--              class="text"-->
+<!--          >-->
+<!--            <markdown :value="blok.text" />-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="pretix-content">-->
+<!--        <div>-->
+<!--          <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>-->
+<!--        </div>-->
+<!--        <noscript>-->
+<!--          <div class="pretix-widget">-->
+<!--            <div class="pretix-widget-info-message">-->
+<!--              JavaScript ist in Ihrem Browser deaktiviert. Um unseren Ticket-Shop ohne JavaScript aufzurufen, klicken Sie bitte <a target="_blank" rel="noopener" :href="event">hier</a>.-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </noscript>-->
+<!--      </div>-->
+<!--    </div>-->
   </section>
 </template>
 
