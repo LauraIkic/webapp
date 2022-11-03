@@ -32,7 +32,7 @@
       </div>
       <div class='row'>
         <div class='column'>
-          <img class="image" :src="blok.image">
+          <img  width="100%" :src="blok.image">
         </div>
       </div>
     </div>
@@ -64,6 +64,11 @@ export default {
   .column2 {
     flex-basis: 50%;
   }
+}
+
+.column {
+  padding: 0.2em;
+  flex: 1;
 }
 
 img {
