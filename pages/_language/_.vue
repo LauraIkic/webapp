@@ -11,8 +11,13 @@
 
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+import Snowflakes from 'magic-snowflakes'
+const snowflakes = new Snowflakes({ color: '#fdfdfd', count: 500 })
 
 export default {
+  created () {
+    snowflakes.start()
+  },
   mixins: [storyblokLivePreview],
   asyncData (context) {
     const path = '/' + context.route.params.pathMatch
