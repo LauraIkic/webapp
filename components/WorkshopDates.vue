@@ -1,8 +1,8 @@
 <template>
   <div class="workshop-dates">
-    <div v-if="dates.length > 0 ">
-      <pretix-calendar :calendar="$props.pretix"/>
-    </div>
+<!--    <div v-if="dates.length > 0 ">-->
+<!--      <pretix-calendar :calendar="$props.pretix"/>-->
+<!--    </div>-->
 <!--    <div
       v-for="d in dates"
       :key="d.id"
