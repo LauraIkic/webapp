@@ -26,7 +26,7 @@
         <div class="items">
           <section class="display-item">
             <div class="top">
-              <div class="top-image"></div>
+              <div class="top-image" :style="{ 'background-image': 'url(' + $resizeImage(blok.imageBuy, '1500x1500') + ')' }"></div>
             </div>
             <div class="bottom">
               <div class="bottom-text">
@@ -41,14 +41,14 @@
           <br>
           <section class="display-item">
             <div class="top">
-              <div class="top-image"></div>
+              <div class="top-image" :style="{ 'background-image': 'url(' + $resizeImage(blok.imageRedeem, '1500x1500') + ')' }"></div>
             </div>
             <div class="bottom">
               <div class="bottom-text">
                 {{ $t('redeemGiftCard') }}
               </div>
               <div class="buy-redeem-button"
-                   @click="$router.push('gift?action=redeem')">
+                   @click="$router.push('gutscheine?action=redeem')">
                 {{ $t('redeem') }}
               </div>
             </div>
@@ -90,7 +90,7 @@
                   <div class="buttons">
                     <button
                         class="input-button-primary"
-                        @click="$router.push('gift')"
+                        @click="$router.push('gutscheine')"
                     >
                       {{ $t('back') }}
                     </button>
@@ -118,7 +118,7 @@
                   <div class="buttons">
                     <button
                         class="input-button-payment"
-                        @click="$router.push('gift')"
+                        @click="$router.push('gutscheine')"
                     >
                       {{ $t('back') }}
                     </button>
@@ -501,8 +501,7 @@ h2 {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 10vh;
-  margin-top: 2em;
+  margin-top: 4em;
 
   .display-item {
     border-radius: 15px;
@@ -512,8 +511,9 @@ h2 {
     width: 370px;
     box-shadow: 10px 5px 5px #00000024;
     flex-flow: column;
+    overflow: hidden;
     @include media-breakpoint-down(sm) {
-      height: 200px;
+      height: 220px;
       width: 300px;
     }
 
@@ -522,19 +522,16 @@ h2 {
       color: white;
 
       .top-image {
-        background-image: url(../assets/img/icons/gg-logo-icon.svg);
-        background-size: contain;
+        background-size: cover;
         background-position: 50%;
         background-repeat: no-repeat;
-        height: 3.5vh;
-        filter: invert(1);
-        margin-top: 15%;
-        @include media-breakpoint-down(sm) {
-          margin-top: 19%;
-        }
-
-        &:hover {
-          background-image: url(../assets/img/icons/gg-logo.svg);
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        height: 160px;
+        transition: transform 0.4s ease;
+        transform-origin: 50% 50%;
+        @include media-breakpoint-down(md) {
+          height: 160px;
         }
       }
 
@@ -579,6 +576,9 @@ h2 {
         @include media-breakpoint-down(sm) {
           margin-left: 35%;
         }
+        &:hover {
+          background: black;
+        }
       }
 
       & * {
@@ -589,8 +589,8 @@ h2 {
     &:hover {
       .top {
         .top-image {
-          background-image: url(../assets/img/icons/gg-logo.svg);
-          height: 5vh;
+          transform: scale(1.02);
+          width: 100%;
         }
       }
     }
@@ -789,10 +789,6 @@ h2 {
   flex-flow: column;
 }
 
-.display-item:hover .buy-redeem-button {
-  background: black !important;
-}
-
 .headline {
   padding-left: 21vw;
   text-decoration: underline;
@@ -865,9 +861,15 @@ h2 {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  align-self: center;
+  font-weight: 400;
+  font-family: $font-primary;
+  line-height: 1.6;
+  font-size: 0.9em;
+  letter-spacing: .03em;
   @include media-breakpoint-up(md) {
-    width: 92%;
+    width: 70%;
+    font-size: 1em;
   }
   @include media-breakpoint-down(sm) {
     padding: 0 11vw;
