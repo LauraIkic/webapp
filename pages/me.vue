@@ -40,7 +40,7 @@ export default {
   components: { MenuLink },
   data () {
     return {
-      hasCompletedOnboarding: true,
+      hasCompletedOnboarding: false, // TODO: implement hasCompletedOnboarding function in connector
       hasCompletedRequiredCourses: true,
       test: null,
       lastName: ''
@@ -69,13 +69,14 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.state.user
+      return this.$store.state.user // TODO: remove lambda functions (Requests via Connector)
     },
     member () {
       return this.$store.state.member
     },
     isMember () {
-      return this.$store.state.user.packages.length > 0
+      return false //TODO: implement hasCompletedOnboarding function in connector
+      //return this.$store.state.user.packages.length > 0
     }
   }
 }

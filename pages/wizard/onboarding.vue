@@ -80,8 +80,8 @@
             </button>
             <button
                 v-if="activeStep !== 'confirmation'"
-                :class="['input-button-primary', { disabled: !nextStepEnabled }]"
-                :disabled="nextStepEnabled"
+                :class="['input-button-primary', { disabled: !nextStepDisabled }]"
+                :disabled="nextStepDisabled"
                 @click="next()"
             >
               {{ activeStep === 'done' ? 'Anmeldung abschließen' : 'Weiter' }}
@@ -103,7 +103,22 @@
           {{ $t('weAreLookingForwardToWelcomeYou') }}
         </div>
       </div>
+<!--      <div-->
+<!--          v-if="errorMessage"-->
+<!--          class="form-item error-message"-->
+<!--      >-->
+<!--        <span />-->
+<!--        <div>-->
+<!--          <span>{{ errorMessage }}</span>-->
+<!--          <markdown-->
+<!--              v-if="errorDescription"-->
+<!--              class="policy"-->
+<!--              :value="errorDescription"-->
+<!--          />-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
+
   </div>
 </template>
 
@@ -114,12 +129,23 @@ export default {
   data () {
     return {
       loading: false,
-      steps: ['index', 'contact', 'image', 'done', 'confirmation'],
+      // errorMessage: null,
+      // errorDescription: '',
+      steps: ['index', 'userInformation', 'contact', 'image', 'done', 'confirmation'],
       onboardingData: {
         rulesAccepted: false,
         //image: null,
         image64: null,
         //imageUrl: null,
+        userInformation: {
+          firstName: null,
+          lastName: null,
+          gender: null,
+          email: null,
+          password: null,
+          registered: false,
+          emailOk: false
+        },
         profile: {
           address: null,
           address2: null,
@@ -138,11 +164,15 @@ export default {
     activeStep () {
       return this.$route.path.split('/')[3] || 'index'
     },
-    nextStepEnabled () {
+    nextStepDisabled () {
       const data = this.onboardingData
       switch (this.activeStep) {
         case 'index':
           return !(data.rulesAccepted)
+        case 'userInformation': {
+          const requiredKeys = ['firstName', 'lastName', 'gender', 'email', 'password']
+          return ((!!requiredKeys.filter(k => !data.userInformation[k]).length) || !data.userInformation.emailOk)
+        }
         case 'contact': {
           const requiredKeys = ['address', 'city', 'zip', 'phone', 'birthdate']
           return !!requiredKeys.filter(k => !data.profile[k]).length
@@ -168,22 +198,22 @@ export default {
     this.getData()
   },
   methods: {
-    loadUserData () {
-      this.loading = true
-      this.$store.dispatch('getUserMetadata')
-        .then((data) => {
-          this.invoiceContact = data.data.invoice_contact
-        })
-        .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
-          this.$toast.show('Ein Fehler ist aufgetreten', {
-            theme: 'bubble'
-          })
-        })
-        .finally(() => {
-          this.loading = false
-        })
-    },
+    // loadUserData () {
+    //   this.loading = true
+    //   this.$store.dispatch('getUserMetadata')
+    //     .then((data) => {
+    //       this.invoiceContact = data.data.invoice_contact
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response.status, error.response.data.msg)
+    //       this.$toast.show('Ein Fehler ist aufgetreten', {
+    //         theme: 'bubble'
+    //       })
+    //     })
+    //     .finally(() => {
+    //       this.loading = false
+    //     })
+    // },
     getData () {
       if (sessionStorage.getItem('onboardingData')) {
         this.onboardingData = JSON.parse(sessionStorage.getItem('onboardingData'))
@@ -210,23 +240,78 @@ export default {
       this.$router.push('/wizard/onboarding/' + path)
     },
     next () {
-      if (this.activeStep === 'done') {
-        this.send()
-        // sessionStorage.removeItem('onboarding')
+      if (this.activeStep === 'userInformation') {
+        console.log('check pwd')
+        this.submit()
       } else {
-        this.saveOnboardingData()
+        if (this.activeStep === 'done') {
+          this.send()
+          // sessionStorage.removeItem('onboarding')
+        } else {
+          this.saveOnboardingData()
+        }
+        const ni = this.index + 1 < 0 ? 0 : this.index + 1
+        const path = this.steps[ni]
+        if (path === 'payment') {
+          this.saveUserData()
+        }
+        this.$router.push('/wizard/onboarding/' + path)
       }
-      const ni = this.index + 1 < 0 ? 0 : this.index + 1
-      const path = this.steps[ni]
-      if (path === 'payment') {
-        this.saveUserData()
-      }
-      this.$router.push('/wizard/onboarding/' + path)
     },
+
     async send () {
       this.loading = true
       await this.$store.dispatch('startOnboarding', this.onboardingData)
       this.loading = false
+    },
+    // check mail
+    submit () {
+      this.loading = true
+      const data = {
+        email: this.onboardingData.userInformation.email,
+        password: this.onboardingData.userInformation.password,
+        user_metadata: {
+          firstName: this.onboardingData.userInformation.firstName,
+          lastName: this.onboardingData.userInformation.lastName
+          // address: this.address,
+          // city: this.city,
+          // zip: this.zip
+        }
+      }
+      this.$store.dispatch('registerUser', data).then((r) => {
+        this.loading = false
+        //this.$store.dispatch('setSidebar', 'register-success')
+      }).catch((e) => {
+        this.loading = false
+        if (e.error) {
+          this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.error + '"'
+          return
+        }
+        if (e.code) {
+          switch (e.code) {
+            case 'user_exists':
+              this.$toast.show('Ein User mit dieser Email Adresse existiert bereits', {
+                theme: 'bubble'
+              })
+              //this.errorMessage = 'Ein User mit dieser Email Adresse existiert bereits'
+              break
+            case 'invalid_password':
+              // this.errorMessage = 'Das Passwort ist zu schwach.'
+              // this.errorDescription = e.policy
+              console.log('show toast')
+              this.$toast.show('Das Passwort ist zu schwach: ' + e.policy, {
+                theme: 'bubble'
+              })
+              break
+            default:
+              this.$toast.show('Ein Fehler ist aufgetreten: ', e.code, {
+                theme: 'bubble'
+              })
+              //this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.code + '"'
+              break
+          }
+        }
+      })
     }
   }
 }
@@ -378,5 +463,27 @@ export default {
     border: 1px solid darkgrey;
   }
 
+}
+
+.error-message {
+  color: red;
+  .policy {
+    font-size: 0.8em;
+    color: #333;
+    > ul {
+      list-style-type: circle;
+      padding: 0 0 0 1em;
+      > li {
+        margin: .4em 0 0 0;
+        > ul {
+          padding: 0 0 0 1em;
+          list-style-type: circle;
+          > li {
+            margin: .4em 0 0 0;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
