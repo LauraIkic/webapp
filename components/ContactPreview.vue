@@ -19,6 +19,21 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <div class="preview-wrapper">
+      <div v-if="member" class="maker-preview">
+        <div class="story">
+          <div class="display-maker">
+            <div v-if="image" class="banner" :style="{ 'background-image': 'url(' + $resizeImage(member.image, '250x250') + ')' }"/>
+          </div>
+        </div>
+        <div class="name">
+          {{ member.title }}
+        </div>
+        <markdown class="info" :value="member.text" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -44,6 +59,12 @@ export default {
     },
     makerlink () {
       return '/de/team/' + this.story.slug
+    },
+    member () {
+      return this.id
+    },
+    image () {
+      return this.id.image
     }
   },
   created () {
@@ -53,11 +74,6 @@ export default {
       this.story = res.data.story
     }).catch((e) => {
     })
-  },
-  methods: {
-    open () {
-      this.$router.push({ path: this.story.full_slug })
-    }
   }
 }
 </script>

@@ -6,7 +6,7 @@
     >
       <div class="image">
         <img
-            :src="$resizeImage(content.image, '380x280')"
+            :src="$resizeImage(content.image, '400x280')"
             alt=""
         >
       </div>
@@ -153,6 +153,9 @@ export default {
 <style lang="scss" scoped>
 
 .workshop-list-item {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
   color: #000;
   display: flex;
   margin-bottom: 25px;
@@ -171,17 +174,20 @@ export default {
     flex-direction: column;
   }
   .image {
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     @include media-breakpoint-down(sm) {
       overflow: hidden;
     }
     img {
+      width:inherit;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
       @include media-breakpoint-down(xs) {
         width: 100%;
       }
       max-width: 100%;
-      padding: 1em;
     }
   }
   br {
@@ -201,7 +207,6 @@ export default {
       top: 0;
       right: 0;
       width: 120px;
-      padding: 10px;
       svg {
         fill: #EEE;
       }
@@ -279,6 +284,26 @@ export default {
           width: .3em;
           margin-top: -.5px;
         }
+      }
+    }
+  }
+  &:hover {
+    .image {
+      img {
+        transform: scale(1.03);
+        transition: transform 400ms cubic-bezier(0.4, 0, 0.25, 1) 0ms, opacity 1s cubic-bezier(0.4, 0, 0.25, 1) 0ms;
+        background-size: cover;
+        overflow: hidden;
+        width: 100%;
+        background-color: rgba(19, 17, 19, 0.41);
+        position: relative;
+        left: 0;
+        transition-duration: 0.4s, 0.5s;
+        transition-timing-function: ease, ease-out;
+        transition-delay: 0s, 0.4s;
+        box-shadow: 0px -40px 71px rgba(0, 0, 0, 0.44);
+        transition-property: all;
+        z-index: 100;
       }
     }
   }

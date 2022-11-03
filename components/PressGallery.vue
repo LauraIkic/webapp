@@ -5,9 +5,9 @@
       <li v-for="image in imageList" :key="image.uuid" class="relative">
         <div
             class="display-grid-item"
-            @click="showModal(image.image)">
-          <img :src="image.image" alt=""
-               class="grid-image" @click="showModal(image.image)"
+            @click="showModal(image.image.filename)">
+          <img :src="image.image.filename" alt=""
+               class="grid-image" @click="showModal(image.image.filename)"
           />
         </div>
       </li>
@@ -50,12 +50,8 @@ export default {
       const modalImg = document.getElementById('modal-img')
       modalImg.src = src
       this.imageList.forEach((item, index) => {
-        if (item.image === src) {
+        if (item.image.filename === src) {
           this.currentPosition = index
-          console.log(this.currentPosition)
-          if (this.currentPosition === this.imageList.length - 1) {
-            console.log('disable right')
-          }
         }
       })
       this.checkForEnd()
@@ -76,7 +72,7 @@ export default {
       this.checkForEnd()
       this.imageList.forEach((item, index) => {
         if (this.currentPosition === index) {
-          modalImg.src = item.image
+          modalImg.src = item.image.filename
         }
       })
     },
@@ -98,7 +94,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
 .grid-container {
   width: 100%;

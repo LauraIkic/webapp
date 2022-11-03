@@ -6,6 +6,7 @@
 
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+import { getMetaTagsForPage } from '@/services/MetaDataService'
 
 export default {
   data () {
@@ -18,6 +19,9 @@ export default {
     return context.store.dispatch('loadFullPage', context.route.fullPath).catch((e) => {
       context.error({ statusCode: e.response.status, message: e.response.statusText })
     })
+  },
+  head () {
+    return getMetaTagsForPage(this.story)
   }
 }
 </script>
