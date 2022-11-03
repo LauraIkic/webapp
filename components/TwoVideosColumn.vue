@@ -50,6 +50,12 @@ export default {
 .row {
   display: flex;
   flex-direction: row; //default
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+  }
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
   min-height: 100px;
 
   .content {
