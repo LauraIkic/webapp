@@ -29,13 +29,13 @@
         <div>
           <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>
         </div>
-        <noscript>
-          <div class="pretix-widget">
-            <div class="pretix-widget-info-message">
-              <p>JavaScript ist in Ihrem Browser deaktiviert. Um unseren Ticket-Shop ohne JavaScript aufzurufen, klicken Sie bitte</p> <a target="_blank" rel="noopener" :href="event">hier</a>.
-            </div>
-          </div>
-        </noscript>
+<!--        <noscript>-->
+<!--          <div class="pretix-widget">-->
+<!--            <div class="pretix-widget-info-message">-->
+<!--              <p>JavaScript ist in Ihrem Browser deaktiviert. Um unseren Ticket-Shop ohne JavaScript aufzurufen, klicken Sie bitte</p> <a target="_blank" rel="noopener" :href="event">hier</a>.-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </noscript>-->
       </div>
     </div>
   </section>
