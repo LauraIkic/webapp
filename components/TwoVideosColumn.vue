@@ -32,7 +32,7 @@
       </div>
       <div class='row'>
         <div class='column'>
-          <img  width="100%" :src="blok.image">
+          <img class="image" width="100%" :src="blok.image">
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .row {
   display: flex;
@@ -71,16 +71,14 @@ export default {
     flex-basis: 50%;
   }
 }
-
-.column {
-  padding: 0.2em;
-  flex: 1;
-}
-
-img {
+.image {
   margin: auto;
   display: block;
   max-width: 100%;
   max-height: 100%;
+}
+.column {
+  padding: 0.2em;
+  flex: 1;
 }
 </style>
