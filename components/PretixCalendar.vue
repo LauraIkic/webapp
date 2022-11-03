@@ -26,9 +26,9 @@
 <!--        </div>-->
 <!--      </div>-->
 <!--      <div class="pretix-content">-->
-<!--        <div>-->
-<!--          <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>-->
-<!--        </div>-->
+        <div>
+          <pretix-widget name="pretix" :event="pretixEvent"></pretix-widget>
+        </div>
 <!--        <noscript>-->
 <!--          <div class="pretix-widget">-->
 <!--            <div class="pretix-widget-info-message">-->
