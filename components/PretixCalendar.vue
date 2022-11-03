@@ -1,10 +1,10 @@
 <template>
   <section class="oceaneye-overview" v-if="calendar || (blok && blok.pretix_shortform)">
-<!--    <div-->
-<!--        class="pretix-oceaneye"-->
-<!--    >-->
-<!--      <link rel="stylesheet" type="text/css" href="https://buchung.grandgarage.eu/oceanEye/widget/v1.css">-->
-<!--      <script type="text/javascript" src="https://buchung.grandgarage.eu/widget/v1.de-informal.js" async></script>-->
+    <div
+        class="pretix-oceaneye"
+    >
+      <link rel="stylesheet" type="text/css" href="https://buchung.grandgarage.eu/oceanEye/widget/v1.css">
+      <script type="text/javascript" src="https://buchung.grandgarage.eu/widget/v1.de-informal.js" async></script>
 <!--      <div class="container">-->
 <!--        <div-->
 <!--            class="col-start"-->
@@ -37,7 +37,7 @@
 <!--          </div>-->
 <!--        </noscript>-->
 <!--      </div>-->
-<!--    </div>-->
+    </div>
   </section>
 </template>
 
