@@ -135,64 +135,64 @@ export default {
     }
   }
 }
-.pretix-content {
-  display: flex;
-  justify-content: center;
-  .pretix-widget-wrapper{
-    a {
-      color: $color-secondary;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    button {
-      background-color: $color-secondary;
-      border-color: $color-secondary;
-    }
-    button:hover {
-      background-color: black;
-      border-color: black;
-    }
-    .pretix-widget-event-week-table {
-      margin-top: 3%;
-    }
-    .pretix-widget-event-availability-green {
-      background-color: $color-primary !important;
-    }
-    .pretix-widget-event-availability-red {
-      background-color: $color-secondary !important;
-    }
-    .pretix-widget-event-availability-reserved {
-      background-color: $color-yellow !important;
-    }
-    width: 70vw;
-    max-width: 1000px;
-    background: white;
-    .pretix-widget {
-      border: none;
-      .pretix-widget-event-week-col:first-child {
-        @media screen and (min-width: 1145px) {
-          margin-left: 50px !important;
-        }
-      }
-    }
-    .pretix-widget-event-calendar-events {
-      margin: 3% 0;
-      @media screen and (min-width: 1145px) {
-        margin-top: 15%;
-      }
-    }
-    .pretix-widget-event-calendar-previous-month{
-      padding: 10px;
-    }
-    .pretix-widget-event-calendar-next-month{
-      padding: 10px;
-    }
-    .pretix-widget .pretix-widget-loading svg {
-      top: Min(40%);
-      position: center;
-    }
-  }
-}
+//.pretix-content {
+//  display: flex;
+//  justify-content: center;
+//  .pretix-widget-wrapper{
+//    a {
+//      color: $color-secondary;
+//      text-decoration: none;
+//    }
+//    a:hover {
+//      text-decoration: underline;
+//    }
+//    button {
+//      background-color: $color-secondary;
+//      border-color: $color-secondary;
+//    }
+//    button:hover {
+//      background-color: black;
+//      border-color: black;
+//    }
+//    .pretix-widget-event-week-table {
+//      margin-top: 3%;
+//    }
+//    .pretix-widget-event-availability-green {
+//      background-color: $color-primary !important;
+//    }
+//    .pretix-widget-event-availability-red {
+//      background-color: $color-secondary !important;
+//    }
+//    .pretix-widget-event-availability-reserved {
+//      background-color: $color-yellow !important;
+//    }
+//    width: 70vw;
+//    max-width: 1000px;
+//    background: white;
+//    .pretix-widget {
+//      border: none;
+//      .pretix-widget-event-week-col:first-child {
+//        @media screen and (min-width: 1145px) {
+//          margin-left: 50px !important;
+//        }
+//      }
+//    }
+//    .pretix-widget-event-calendar-events {
+//      margin: 3% 0;
+//      @media screen and (min-width: 1145px) {
+//        margin-top: 15%;
+//      }
+//    }
+//    .pretix-widget-event-calendar-previous-month{
+//      padding: 10px;
+//    }
+//    .pretix-widget-event-calendar-next-month{
+//      padding: 10px;
+//    }
+//    .pretix-widget .pretix-widget-loading svg {
+//      top: Min(40%);
+//      position: center;
+//    }
+//  }
+//}
 </style>
