@@ -42,7 +42,7 @@ export default {
         }
       }
     }
-    const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: this.search }).then((data) => {
+    const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: '' }).then((data) => {
       if (data) {
         return { workshops: data }
       }
