@@ -2,6 +2,7 @@
   <div
     v-editable="blok"
     class="two-videos-column"
+    style="margin: 50px 0;"
   >
     <div class='wrapper'>
       <div class='row'>
@@ -78,7 +79,7 @@ export default {
   max-height: 100%;
 }
 .column {
-  padding: 0.2em;
+  padding: 0.3em;
   flex: 1;
 }
 </style>
