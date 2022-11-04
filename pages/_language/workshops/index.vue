@@ -92,16 +92,16 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findWorkshops', this.filters).then((data) => {
+      this.$store.dispatch('findWorkshops', { filters: this.filters, search: this.search }).then((data) => {
         this.loading = false
         this.workshops = data
       })
       this.selectedEvents = this.selectedCategories()
       this.filteredWorkshops = []
-      console.log('SELECTED EVENTS')
-      console.log(this.selectedEvents)
+      // console.log('SELECTED EVENTS')
+      // console.log(this.selectedEvents)
       this.workshops = this.filterCategory()
-      console.log(this.workshops)
+      //console.log(this.workshops)
       this.filtered = true
     },
     toggleTags () {
@@ -135,8 +135,8 @@ export default {
           starttime: {
             'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
           }
-        },
-        search_term: this.search
+        }
+        // search_term: this.search
       }
     }
   },
