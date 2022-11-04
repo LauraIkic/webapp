@@ -707,7 +707,9 @@ const createStore = () => {
           return res.data
         })
       },
-      findWorkshops ({ state }, filters) {
+      findWorkshops ({ state }, data) {
+        const filters = data.filters
+        const search = data.search
         return this.$storyapi.get('cdn/stories', {
           ...filters,
           version: version,
@@ -728,7 +730,10 @@ const createStore = () => {
             }
             workshops[wid].dates.push(w)
           }
-          return Object.values(workshops).sort((a, b) => a.name.localeCompare(b.name))
+          const searchString = new RegExp(search, 'i')
+          return Object.values(workshops).filter((w) => {
+            return w.content.title.match(searchString)
+          }).sort((a, b) => a.name.localeCompare(b.name))
         }).catch((res) => {
           this.$sentry.captureException(res)
         })
