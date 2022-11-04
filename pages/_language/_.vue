@@ -16,7 +16,8 @@ const snowflakes = new Snowflakes({ color: '#fdfdfd', count: 200 })
 
 export default {
   created () {
-    snowflakes.start()
+    //TODO - start am ersten advent
+    //snowflakes.start()
   },
   mixins: [storyblokLivePreview],
   asyncData (context) {
