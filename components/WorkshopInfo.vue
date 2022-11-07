@@ -38,11 +38,8 @@
           class="info-text"
       />
     </div>
-    <div
-      v-if="blok.images && blok.images.length !== 0"
-      class="body"
-    >
-      <image-slideshow :blok="images" />
+    <div>
+      <component v-for="i in blok.contentBloks" :blok="i" :is="i.component" :key="i.uid" />
     </div>
   </div>
 </template>
