@@ -12,7 +12,7 @@
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 import Snowflakes from 'magic-snowflakes'
-const snowflakes = new Snowflakes({ color: '#fdfdfd', count: 200 })
+const snowflakes = new Snowflakes({ color: '#fdfdfd', count: 80, minOpacity: 0.4, maxOpacity: 0.9, maxSize: 15 })
 
 export default {
   created () {
