@@ -38,6 +38,7 @@ export default {
         { key: 'workshop', name: 'Workshop', value: false },
         { key: 'training', name: 'Unterweisungen', value: false },
         { key: 'meetup', name: 'Meetup', value: false },
+        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false },
         { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
