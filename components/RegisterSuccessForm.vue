@@ -25,6 +25,7 @@
     </h3>
     <div class="info">
       <p> {{ $t('sentConfirmationLink') }}</p>
+      <p> {{ $t('checkSpamFolder') }}</p>
       <p>{{ $t('onceAccountConfirmed') }}</p>
     </div>
     <button @click="close">

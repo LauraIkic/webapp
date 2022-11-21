@@ -102,7 +102,9 @@
   "beforeYouCanStart": "Bevor du in unseren Werkstätten loslegen kannst, brauchen wir noch weitere Infos von dir:",
 
   "sentConfirmationLink": "Wir haben dir eine Mail mit einem Bestätigungslink geschickt.",
+  "checkSpamFolder": "Bitte prüfen Sie auch Ihren SPAM-Ordner, falls Sie in den nächsten Minuten keine Bestätigung erhalten haben!",
   "onceAccountConfirmed": "Wenn du deinen Account bestätigt hast kannst du voll durchstarten.",
+
 
   "theFuture": "Die Zukunft",
   "belongs": "gehört",
@@ -116,7 +118,8 @@
   "instructions": "Einschulungen",
   "event": "Event",
   "meetup": "Meetup",
-  "makemas": "#makemas",
+  "frauenundtechnik": "#frauenundtechnik",
+  "makemas": "#makemas2022",
   "workshops": "Workshops",
   "soldOut": "ausgebucht",
 
