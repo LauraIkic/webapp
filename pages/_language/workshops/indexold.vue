@@ -6,19 +6,6 @@
         <div class="expander" @click="toggleTags()">
         </div>
         <div class="headline">
-          Ansicht
-        </div>
-        <div class="toggle-button">
-          <div class="switch">
-            <input type="checkbox" name="toggle" v-model="showCalendar">
-            <label for="toggle"><i></i></label>
-            <span></span>
-          </div>
-          <span class="toggle-to-text">
-            KALENDER
-          </span>
-        </div>
-        <div class="headline">
           {{ $t('area') }}
         </div>
         <div class="tag-list">
@@ -31,13 +18,12 @@
             </checkbox>
           </div>
         </div>
-        <br>
       </div>
       <div class="search">
         <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
     </div>
-    <div v-if="!showCalendar" class="workshop-list-wrapper" :key="this.filtered">
+    <div class="workshop-list-wrapper" :key="this.filtered">
       <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
         <transition-group name="list">
           <workshop-list-item
@@ -68,24 +54,6 @@
         </div>
       </div>
     </div>
-    <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
-    <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
-    <div  class="pretix-content">
-      <div v-if="selectedEvent !== ''">
-        <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" ></pretix-widget>
-      </div>
-      <div v-if="selectedEvent === ''">
-        <pretix-widget name="pretix" event="https://pretix.eu/grandgarage"></pretix-widget>
-      </div>
-      <noscript>
-        <div class="pretix-widget">
-          <div class="pretix-widget-info-message">
-            JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
-            please <a target="_blank" href="https://pretix.eu/ggTest">click here</a>.
-          </div>
-        </div>
-      </noscript>
-    </div>
   </section>
 </template>
 
@@ -98,7 +66,8 @@ export default {
       categories: [
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshop', value: false },
-        { key: 'training', name: 'Einschulungen', value: false }
+        { key: 'training', name: 'Einschulungen', value: false },
+        { key: 'makemas', name: '#makemas', value: false }
       ],
       loading: false,
       search: '',
@@ -107,8 +76,7 @@ export default {
       tagsCollapsed: false,
       selectedEvents: [],
       filteredWorkshops: [],
-      filtered: 0,
-      showCalendar: false
+      filtered: 0
     }
   },
   created () {
@@ -558,192 +526,4 @@ export default {
     }
   }
 }
-.pretix-content {
-  display: flex;
-  justify-content: center;
-  .pretix-widget-wrapper{
-    a {
-      color: $color-secondary;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    button {
-      background-color: $color-secondary;
-      border-color: $color-secondary;
-    }
-    button:hover {
-      background-color: black;
-      border-color: black;
-    }
-    .pretix-widget-event-week-table {
-      margin-top: 3%;
-    }
-    .pretix-widget-event-availability-green {
-      background-color: $color-primary !important;
-    }
-    .pretix-widget-event-availability-red {
-      background-color: $color-secondary !important;
-    }
-    .pretix-widget-event-availability-reserved {
-      background-color: $color-yellow !important;
-    }
-    width: 70vw;
-    max-width: 1000px;
-    background: white;
-    .pretix-widget {
-      border: none;
-      .pretix-widget-event-week-col:first-child {
-        @media screen and (min-width: 1145px) {
-          margin-left: 50px !important;
-        }
-      }
-    }
-    .pretix-widget-event-calendar-events {
-      margin: 3% 0;
-      @media screen and (min-width: 1145px) {
-        margin-top: 15%;
-      }
-    }
-    .pretix-widget-event-calendar-previous-month{
-      padding: 10px;
-    }
-    .pretix-widget-event-calendar-next-month{
-      padding: 10px;
-    }
-    .pretix-widget .pretix-widget-loading svg {
-      top: Min(40%);
-      position: center;
-    }
-  }
-}
-
-.toggle-button{
-  margin-left: 4%;
-  margin-right: 4%;
-  display: flex;
-  justify-content: start;
-  padding:10px;
-  padding-bottom:20px;
-  .toggle-to-text{
-    top: 5px;
-    position: relative;
-    padding-left: 10px;
-  }
-
-  .switch input {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    -moz-opacity: 0;
-    opacity: 0;
-    z-index: 100;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
-  .switch {
-    width: 100px;
-    height: 30px;
-    position: relative;
-  }
-
-  .switch label {
-    display: block;
-    width: 80%;
-    height: 100%;
-    position: relative;
-
-    border-radius: 30px 30px 30px 30px;
-    box-shadow:
-        inset 0 3px 8px 1px rgba(0, 0, 0, 0.22),
-        inset 0 1px 0 rgba(0, 0, 0, 0.13),
-        0 1px 0 rgba(255,255,255,0.2);
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-
-  }
-
-  .switch input ~ label i {
-    display: block;
-    height: 26px;
-    width: 26px;
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    z-index: 2;
-    border-radius: inherit;
-    background: #6aa1b0; /* Fallback */
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.2),
-        0 0 8px rgba(0, 0, 0, 0.15),
-        0 12px 12px rgba(0, 0, 0, 0.15);
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-  }
-
-  .switch label + span {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    right: 0px;
-    top:7px;
-    width: 15px;
-    height: 15px;
-    border-radius: 10px;
-    background: #283446;
-
-    box-shadow:
-        inset 0 1px 0 rgba(0,0,0,0.2),
-        0 1px 0 rgba(255,255,255,0.1),
-        0 0 10px rgba(185,231,253,0),
-        inset 0 0 8px rgba(0, 0, 0, 0.22),
-        inset 0 -2px 5px rgba(0, 0, 0, 0.24),
-        inset 0 -5px 5px rgba(0, 0, 0, 0.3);
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-    z-index: 2;
-  }
-  /* Toggle */
-  .switch input:checked ~ label + span  {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border-radius: 10px;
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-    z-index: 2;
-    background: #b9f3fe;
-    background: gradient-gradient(#ffffff, #77a1b9);
-    box-shadow:
-        inset 0 1px 0 rgba(0,0,0,0.1),
-        0 1px 0 rgba(255,255,255,0.1),
-        0 0 10px rgba(100,231,253,1),
-        inset 0 0 8px rgba( 61,157,247,0.8),
-        inset 0 -2px 5px rgba(185,231,253,0.3),
-        inset 0 -3px 8px rgba(185,231,253,0.5);
-  }
-
-  .switch input:checked ~ label i {
-    left: 64%;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.2),
-        0 0 8px rgba(0, 0, 0, 0.15),
-        0 8px 8px rgba(0, 0, 0, 0.14),
-        inset -1px 0 1px #b9f3fe;
-
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-  }
-
-}
-
 </style>
