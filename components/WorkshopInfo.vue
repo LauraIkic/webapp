@@ -22,16 +22,16 @@
         :value="blok.facts"
         class="info-text"
       />
-      <workshop-dates
-        :dates="dates"
-        :pretix="blok.pretix_shortform"
-        class="workshop-dates"
-      />
       <markdown
         v-if="blok.info"
         :value="blok.info"
         class="info-text"
       />
+      <workshop-dates
+        :dates="dates"
+        :pretix="blok.pretix_shortform"
+        class="workshop-dates"
+     />
       <markdown
           v-if="blok.requirements"
           :value="blok.requirements"
