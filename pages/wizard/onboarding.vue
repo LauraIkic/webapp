@@ -1,6 +1,5 @@
 <template>
   <div
-      v-if="user !== null"
       class="wizard"
   >
     <div class="header">
@@ -84,7 +83,7 @@
                 :disabled="nextStepDisabled"
                 @click="next()"
             >
-              {{ activeStep === 'done' ? 'Anmeldung abschließen' : 'Weiter' }}
+              {{ activeStep === 'payment' ? 'Anmeldung abschließen' : 'Weiter' }}
             </button>
           </div>
         </div>
@@ -125,13 +124,14 @@
 <script>
 
 export default {
-  middleware: 'authenticated',
+  //middleware: 'authenticated',
   data () {
     return {
       loading: false,
+      mailCheck: false,
       // errorMessage: null,
       // errorDescription: '',
-      steps: ['index', 'userInformation', 'contact', 'image', 'done', 'confirmation'],
+      steps: ['index', 'userInformation', 'contact', 'image', 'payment', 'confirmation'],
       onboardingData: {
         rulesAccepted: false,
         //image: null,
@@ -145,6 +145,36 @@ export default {
           password: null,
           registered: false,
           emailOk: false
+        },
+        contactInformation: {
+          birthdate: null,
+          birthdateValid: false,
+          name: null,
+          address: null,
+          zip: null,
+          city: null,
+          country: null,
+          phone: null,
+          companyCode: null,
+          companyCodeValid: false,
+          company: null,
+          useContactAsInvoiceInformation: true
+        },
+        invoiceContactInformation: {
+          firstName: null,
+          lastName: null,
+          address: null,
+          zip: null,
+          city: null,
+          country: null
+        },
+        payment: {
+          iban: null,
+          bookStorage: [],
+          membership: null,
+          sepaMandat: false,
+          agb: false,
+          privacyPolicy: false
         },
         profile: {
           address: null,
@@ -170,12 +200,28 @@ export default {
         case 'index':
           return !(data.rulesAccepted)
         case 'userInformation': {
+          return false
+          // eslint-disable-next-line no-unreachable
           const requiredKeys = ['firstName', 'lastName', 'gender', 'email', 'password']
           return ((!!requiredKeys.filter(k => !data.userInformation[k]).length) || !data.userInformation.emailOk)
         }
         case 'contact': {
-          const requiredKeys = ['address', 'city', 'zip', 'phone', 'birthdate']
-          return !!requiredKeys.filter(k => !data.profile[k]).length
+          return false
+          // eslint-disable-next-line no-unreachable
+          const data = this.onboardingData
+          console.log('data: ', data)
+          const requiredKeys = ['birthdate', 'address', 'zip', 'city', 'country', 'phone']
+          const requiredKeysInvoiceContact = ['firstName', 'lastName', 'address', 'zip', 'city', 'country']
+          const allInvoiceContactFieldsSet = (!requiredKeysInvoiceContact.filter(k => !data.invoiceContactInformation[k]).length)
+          // console.log('requiredKeysInvoiceContact.filter(k => !data.invoiceContactInformation[k]): ', requiredKeysInvoiceContact.filter(k => !data.invoiceContactInformation[k]).length)
+          // console.log('allInvoiceContactFieldsSet: ', allInvoiceContactFieldsSet)
+          // console.log('data.contactInformation.useContactAsInvoiceInformation : ', data.contactInformation.useContactAsInvoiceInformation)
+          // if another invoice contact (checkbox) is selected, then the additional fields are required to proceed
+
+          if (!data.contactInformation.useContactAsInvoiceInformation && !allInvoiceContactFieldsSet) {
+            return true
+          }
+          return ((!!requiredKeys.filter(k => !data.contactInformation[k]).length || !data.contactInformation.birthdateValid))
         }
         case 'image': {
           return false
@@ -195,7 +241,8 @@ export default {
     }
   },
   created () {
-    this.getData()
+    // todo check if needed
+    //this.getData()
   },
   methods: {
     // loadUserData () {
@@ -239,33 +286,61 @@ export default {
       }
       this.$router.push('/wizard/onboarding/' + path)
     },
-    next () {
-      if (this.activeStep === 'userInformation') {
-        console.log('check pwd')
-        this.submit()
-      } else {
-        if (this.activeStep === 'done') {
-          this.send()
-          // sessionStorage.removeItem('onboarding')
-        } else {
+    async next () {
+      switch (this.activeStep) {
+        case 'index':
+          this.loadNextPage()
           this.saveOnboardingData()
-        }
-        const ni = this.index + 1 < 0 ? 0 : this.index + 1
-        const path = this.steps[ni]
-        if (path === 'payment') {
-          this.saveUserData()
-        }
-        this.$router.push('/wizard/onboarding/' + path)
+          break
+        case 'userInformation':
+          await this.checkLoginData()
+          // only go to next step, if e-mail address is valid
+          if (this.mailCheck) {
+            this.loadNextPage()
+            this.saveOnboardingData()
+          }
+          break
+        case 'contact':
+          console.log('next')
+          this.loadNextPage()
+          this.saveOnboardingData()
+          //await this.checkLoginData()
+          // only go to next step, if e-mail address is valid
+          break
+        case 'payment':
+          console.log('submit')
+          // this.loadNextPage()
+          // this.saveOnboardingData()
+          //await this.checkLoginData()
+          // only go to next step, if e-mail address is valid
+          break
+        case 'done':
+          this.send()
+          break
+        default:
+          this.saveOnboardingData()
+          this.loadNextPage()
       }
     },
 
+    loadNextPage () {
+      const ni = this.index + 1 < 0 ? 0 : this.index + 1
+      const path = this.steps[ni]
+      if (path) {
+        console.log('loadNextPage: ', path)
+        this.$router.push('/wizard/onboarding/' + path)
+      }
+    },
     async send () {
       this.loading = true
       await this.$store.dispatch('startOnboarding', this.onboardingData)
       this.loading = false
     },
     // check mail
-    submit () {
+
+    // sets this.mailCheck to true, if e-mail address is valid for registration
+    async checkLoginData () {
+      console.log('checkLoginData')
       this.loading = true
       const data = {
         email: this.onboardingData.userInformation.email,
@@ -273,33 +348,21 @@ export default {
         user_metadata: {
           firstName: this.onboardingData.userInformation.firstName,
           lastName: this.onboardingData.userInformation.lastName
-          // address: this.address,
-          // city: this.city,
-          // zip: this.zip
         }
       }
-      this.$store.dispatch('registerUser', data).then((r) => {
+      return this.$store.dispatch('checkLoginData', data).then((r) => {
+        this.mailCheck = true
         this.loading = false
-        //this.$store.dispatch('setSidebar', 'register-success')
       }).catch((e) => {
         this.loading = false
+        const errorMsg = e?.response?.data?.msg
         if (e.error) {
           this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.error + '"'
-          return
         }
-        if (e.code) {
-          switch (e.code) {
+        if (errorMsg) {
+          switch (errorMsg) {
             case 'user_exists':
               this.$toast.show('Ein User mit dieser Email Adresse existiert bereits', {
-                theme: 'bubble'
-              })
-              //this.errorMessage = 'Ein User mit dieser Email Adresse existiert bereits'
-              break
-            case 'invalid_password':
-              // this.errorMessage = 'Das Passwort ist zu schwach.'
-              // this.errorDescription = e.policy
-              console.log('show toast')
-              this.$toast.show('Das Passwort ist zu schwach: ' + e.policy, {
                 theme: 'bubble'
               })
               break
@@ -307,11 +370,12 @@ export default {
               this.$toast.show('Ein Fehler ist aufgetreten: ', e.code, {
                 theme: 'bubble'
               })
-              //this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.code + '"'
               break
           }
+          this.mailCheck = false
         }
-      })
+      }
+      )
     }
   }
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="section">
-<!--      <h2>{{ $t('signupMakerSpace') }} <br><br>NOOO MEMBER YET BOIII #{{this.user.profile.memberNumber}}</h2>-->
       <p>{{ $t('beforeYouCanStart') }}</p>
     <form class="form">
       <div class="form-item">
@@ -54,9 +53,13 @@
         >
         <div class="password-error">
           <span
-              v-if="!passwordValid"
+              v-if="!passwordRepeatIsEqual"
               class="bad"
-          >{{ $t('passwordsDoNotMatch') }}</span>
+          >{{ $t('passwordsDoNotMatch') }} </span>
+          <span
+              v-if="passwordTooShort"
+              class="bad"
+          >{{$t('passwordTooShort') }} </span>
         </div>
       </div>
     </form>
@@ -68,7 +71,7 @@
 import validator from 'validator'
 
 export default {
-  middleware: 'authenticated',
+  //middleware: 'authenticated',
   props: {
     onboardingData: {
       type: Object,
@@ -95,7 +98,7 @@ export default {
   },
   computed: {
     passwordValid () {
-      if (this.password === this.passwordRepeat) {
+      if (this.passwordRepeatIsEqual && !this.passwordTooShort) {
         this.onboardingData.userInformation.password = this.password
         return true
       } else {
@@ -103,18 +106,23 @@ export default {
         return false
       }
     },
+    passwordRepeatIsEqual () {
+      if (this.password === this.passwordRepeat) {
+        return true
+      } else {
+        return false
+      }
+    },
+    passwordTooShort () {
+      if (this.password && this.password.length < 8) {
+        return true
+      } else {
+        return false
+      }
+    },
     emailValid () {
       return validator.isEmail(this.email)
     }
-    // user () {
-    //   if (this.$store.state.user) {
-    //     //this.loadUserData()
-    //   }
-    //   return this.$store.state.user
-    // },
-    // invoice () {
-    //   return this.invoiceContact
-    // }
   },
   methods: {
     checkMail () {
@@ -131,26 +139,6 @@ export default {
     checkPassword () {
       this.clearError()
     }
-    // loadUserData () {
-    //   this.loading = true
-    //   this.$store.dispatch('getUserMetadata')
-    //     .then((data) => {
-    //       this.invoiceContact = data.data.invoice_contact
-    //       this.onboardingData.profile.address = this.user.profile.address
-    //       this.onboardingData.profile.address2 = this.user.profile.address2
-    //       this.onboardingData.profile.zip = this.user.profile.zip
-    //       this.onboardingData.profile.city = this.user.profile.city
-    //     })
-    //     .catch((error) => {
-    //       console.log(error.response.status, error.response.data.msg)
-    //       this.$toast.show('Ein Fehler ist aufgetreten', {
-    //         theme: 'bubble'
-    //       })
-    //     })
-    //     .finally(() => {
-    //       this.loading = false
-    //     })
-    // }
   }
 }
 </script>

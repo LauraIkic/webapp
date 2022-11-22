@@ -501,6 +501,33 @@ const createStore = () => {
           })
         })
       },
+      async checkLoginData ({ commit }, data) {
+        // todo: make connector available without login
+        connector = axios.create({
+          baseURL: connectorBaseUrl,
+          headers: {}
+        })
+        const res = await connector.post('/v1/fabman/services/checkEmail/', data)
+        return res.data
+      },
+      async checkCompanyCode ({ commit }, data) {
+        // todo: make connector available without login
+        connector = axios.create({
+          baseURL: connectorBaseUrl,
+          headers: {}
+        })
+        const res = await connector.post('/v1/fabman/services/checkCompanyCode/', data)
+        return res.data
+      },
+      async getCountries ({ commit }) {
+        // todo: make connector available without login
+        connector = axios.create({
+          baseURL: connectorBaseUrl,
+          headers: {}
+        })
+        const res = await connector.get('/v1/fabman/countries/')
+        return res.data
+      },
       registerUser ({ commit }, context) {
         return new Promise((resolve, reject) => {
           webAuth.signup({

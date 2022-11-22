@@ -9,9 +9,9 @@
 </template>
 <script>
 export default {
-  middleware: 'authenticated',
+  //middleware: 'authenticated',
   mounted () {
-    this.$store.dispatch('getMemberCourses')
+    //this.$store.dispatch('getMemberCourses')
   }
 }
 </script>

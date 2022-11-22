@@ -36,7 +36,7 @@
 import MenuLink from '~/components/MenuLink'
 
 export default {
-  middleware: 'authenticated',
+  //middleware: 'authenticated',
   components: { MenuLink },
   data () {
     return {
