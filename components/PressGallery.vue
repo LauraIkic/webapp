@@ -3,13 +3,15 @@
     <ul
         class="grid-container">
       <li v-for="image in imageList" :key="image.uuid" class="relative">
-        <div
-            class="display-grid-item"
-            @click="showModal(image.image.filename)">
-          <img :src="image.image.filename" alt=""
-               class="grid-image" @click="showModal(image.image.filename)"
-          />
-        </div>
+        <a  :href="image.pdf.filename" target="_blank">
+          <div
+              class="display-grid-item"
+              @click="showModal(image.pdf.filename)" >
+            <img :src="image.image.filename" alt=""
+                 class="grid-image" @click="showModal(image.image.filename)"
+            />
+          </div>
+        </a>
       </li>
     </ul>
     <div id="modal" class="modal">
@@ -95,7 +97,10 @@ export default {
 </script>
 
 <style lang="scss" >
-
+.image-title{
+  color: black;
+  font-size: 1.2rem;
+}
 .grid-container {
   width: 100%;
   display: grid;
