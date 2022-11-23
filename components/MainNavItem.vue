@@ -50,9 +50,9 @@ export default {
     text-transform: uppercase;
     color: #000;
     padding-top: 35px;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom:25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom:20px;
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
