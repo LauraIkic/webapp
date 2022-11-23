@@ -1,4 +1,3 @@
-<!--<script src="../../../utils/helper.js"></script>-->
 <template>
   <div class="section">
     <h2>{{ $t('signupMakerSpace') }}</h2>
@@ -9,15 +8,14 @@
         <span class="label">{{storage.name}}</span>
         <div class="checkbox-wrapper">
           <input class="checkbox" type="checkbox"
-                 :id="storage" v-model="onboardingData.payment.bookStorage" :value="storage"
-                 @click="setStorage(storage, $event)">
+                 :id="storage" v-model="onboardingData.payment.bookStorage" :value="storage">
           <p class="text">für {{storage.recurringFee}}€ monatlich buchen</p>
         </div>
       </div>
       </div>
       <div class="form-item" v-if="!this.onboardingData.contactInformation.company">
         <span class="label">MITGLIEDSCHAFT<span class="red">*</span></span>
-        <select class="input-select" v-model="onboardingData.payment.membership" @change="setMembershipPrice()">
+        <select class="input-select" v-model="onboardingData.payment.membership">
           <option
               v-for="membership in availableMemberships" :value="membership" v-bind:key="membership.id">
             {{ membership.name }}
@@ -27,29 +25,22 @@
       <div class="form-item" v-if="!this.onboardingData.contactInformation.company && this.onboardingData.payment.bookStorage.length > 0">
         <span class="label">LAGER: PREIS<span class="red">*</span></span>
         <p class="text">{{ this.storagePrice }}</p>
-<!--        <p class="text">10€</p>-->
-<!--        <input class="input-text" type="text" v-model="onboardingData.contactInformation.address" name=""/>-->
       </div>
       <div class="form-item" v-if="this.onboardingData.payment.membership || this.onboardingData.contactInformation.company">
         <span class="label">MITGLIEDSCHAFT: PREIS<span class="red">*</span></span>
         <p class="text">{{ this.price }}</p>
-        <!--        <p class="text">10€</p>-->
-        <!--        <input class="input-text" type="text" v-model="onboardingData.contactInformation.address" name=""/>-->
       </div>
       <div class="form-item" v-if="this.onboardingData.contactInformation.company">
         <span class="label">FIRMENMITGLIEDSCHAFT<span class="red">*</span></span>
         <span class="text-content">{{ companyInformation }}</span>
-<!--        <p class="text">{{ this.companyInformation }}</p>-->
-        <!--        <p class="text">10€</p>-->
-        <!--        <input class="input-text" type="text" v-model="onboardingData.contactInformation.address" name=""/>-->
       </div>
       <div v-if="!this.hasAttendeesFreeCost">
         <div class="form-item">
           <span class="label">IBAN<span class="red">*</span></span>
-          <input class="input-text" type="text" v-model="onboardingData.payment.iban" name=""/>
+          <input class="input-text" type="text" v-model="onboardingData.payment.iban" name="" @input="validateIban()"/>
           <div class="date-error">
           <span
-              v-if="!this.isValidIban && this.onboardingData.payment.iban"
+              v-if="!this.onboardingData.payment.ibanIsValid && this.onboardingData.payment.iban"
               class="bad"
           >{{ 'IBAN ist üngültig' }} </span>
           </div>
@@ -70,12 +61,10 @@
           <input class="checkbox" type="checkbox"
                  :checked="onboardingData.payment.agb"
                  v-model="onboardingData.payment.agb" >
-<!--          <p class="text">Ich habe die </p>-->
-          <label >{{ $t('iHaveReadThe') }} <nuxt-link
+          <label class="text-content" >{{ $t('iHaveReadThe') }} <nuxt-link
               target="_blank"
               to="/de/agb"
           >{{ $t('conditionsOfParticipation') }} </nuxt-link> {{ $t('andAcceptTheTermsAndConditions') }}</label>
-<!--          <p class="text"> gelesen und bin damit einverstanden.</p>-->
         </div>
       </div>
       <div class="form-item">
@@ -84,7 +73,7 @@
           <input class="checkbox" type="checkbox"
                  :checked="onboardingData.payment.privacyPolicy"
                  v-model="onboardingData.payment.privacyPolicy" >
-          <label>{{ $t('iHaveReadThe') }} <nuxt-link
+          <label class="text-content">{{ $t('iHaveReadThe') }} <nuxt-link
               target="_blank"
               to="/de/datenschutzerklaerung"
           >{{ $t('dataPrivacyPolicy') }}</nuxt-link> {{ $t('andAcceptTheTermsAndConditions') }}</label>
@@ -98,12 +87,7 @@
 <script>
 import { helpers } from '../../../utils/helper'
 
-const FREQS = {
-  monthly: 1,
-  annually: 2
-}
 export default {
-  //middleware: 'authenticated',
   props: {
     onboardingData: {
       type: Object,
@@ -118,7 +102,6 @@ export default {
       availableStorage: [],
       availableMemberships: [],
       MembershipPrice: null,
-      FREQS,
       selected: null,
       mutableOnBoarding: this.onboardingData
     }
@@ -131,22 +114,11 @@ export default {
       this.packages = r
       // filter already booked storages
       this.availableStorage = this.packages.filter((p) => {
-        // for (const s of this.memberStorage) {
-        //   if (s.package === p.id) {
-        //     return false
-        //   }
-        // }
         //handle packages with no notes available for storage & visibility or malformed format
-        //const notes = null
         if (!p.notes) {
           console.error('no notes (storage, visible) for package: ', p)
           return false
         }
-        // try {
-        //   notes = JSON.parse(p.notes)
-        // } catch (err) {
-        //   console.error('malformed json format: ', p.notes)
-        // }
         if (!p.notes) {
           return false
         }
@@ -160,7 +132,6 @@ export default {
   },
   computed: {
     storagePrice () {
-      //console.log('bookStorage: ', this.onboardingData.payment.bookStorage.length)
       let storagePrice = 0.00
       let selectedStorages = []
       selectedStorages = JSON.parse(JSON.stringify(this.onboardingData.payment.bookStorage))
@@ -189,49 +160,19 @@ export default {
     },
     hasAttendeesFreeCost () {
       return this.onboardingData?.contactInformation?.company?.metadata?.attendees_free_cost
-    },
-    isValidIban () {
-      if (this.onboardingData?.payment?.iban) {
-        console.log('isValid: ', helpers.validateIban(this.onboardingData?.payment?.iban))
-        return helpers.validateIban(this.onboardingData?.payment?.iban)
-      }
-      return false
     }
   },
 
   methods: {
-
-    setStorage (storage, event) {
-      //console.log('price changes: ', storage.id)
-      // if (event.target.checked) {
-      //   console.log('event: ', event)
-      //   if (!this.onboardingData.payment.bookStorage.includes(storage.id)) {
-      //     this.onboardingData.payment.bookStorage.push(storage.id)
-      //   }
-      //   //this.onboardingData.payment.bookStorage.push(storage.id)
-      // } else {
-      //   this.onboardingData.payment.bookStorage.splice(this.onboardingData.payment.bookStorage.findIndex(function (i) {
-      //     return i.id === storage.id
-      //   }), 1)
-      // }
-      //console.log('storage: ', this.onboardingData.payment.bookStorage)
-      // console.log('membership: ', this.onboardingData.payment.membership)
-      // console.log('storage: ', this.onboardingData.payment.bookStorage)
-
-      // for (const storage in this.onboardingData.payment.bookStorage) {
-      //   console.log('storage: ', this.onboardingData.payment.bookStorage)
-      //   console.log('storage id: ', storage)
-      //   //console.log('get all storage objects: ', this.availableStorage.find(s => s.id === storage).name)
-      // }
-      // console.log('get storage obj: ', this.availableStorage.find(storage => storage.id === 4959).name)
-      // console.log('this.onboardingData.payment.bookStorage: ', this.onboardingData.payment.bookStorage)
-    },
-    setMembershipPrice () {
-      if (this.onboardingData.payment.membership) {
-        //console.log('membership: ', this.onboardingData.payment.membership)
+    validateIban () {
+      if (this.onboardingData?.payment?.iban) {
+        this.onboardingData.payment.ibanIsValid = true
+        if (helpers.validateIban(this.onboardingData?.payment?.iban)) {
+          return true
+        }
       }
-
-      this.membershipPrice = 0
+      this.onboardingData.payment.ibanIsValid = false
+      return false
     }
   }
 }
@@ -251,22 +192,6 @@ export default {
 }
 
 .form-item {
-  //min-width: 27em;
-  //@include media-breakpoint-down(md) {
-  //  min-width: auto;
-  //}
-  //padding: 0 0 5px;
-  //@include media-breakpoint-up(sm) {
-  //  padding: 0 0 18px;
-  //  display: grid;
-  //  grid-template-columns: 28% 72%;
-  //}
-  //align-items: center;
-  //.label {
-  //  font-weight: bold;
-  //  text-transform: uppercase;
-  //  font-size: .7em;
-  //}
   .text {
     margin: 0;
     margin-top: 4px;

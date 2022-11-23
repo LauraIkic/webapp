@@ -19,7 +19,6 @@
               class="step"
               :class="{ 'icon': index > i, 'color': index >= i}"
           >
-            <!--            <NuxtLink class="dot" v-if="i == 0" to="/wizard/onboarding/">-->
             <span
                 v-if="!i"
                 class="dot"
@@ -34,8 +33,6 @@
                   stroke="#FFF"
               /></svg>
             </span>
-            <!--            </NuxtLink>-->
-            <!--            <NuxtLink class="dot" v-else :to="'/wizard/onboarding/' + s">-->
             <span
                 v-else
                 class="dot"
@@ -50,7 +47,6 @@
                   stroke="#FFF"
               /></svg>
             </span>
-            <!--            </NuxtLink>-->
           </div>
         </div>
       </div>
@@ -102,20 +98,8 @@
           {{ $t('weAreLookingForwardToWelcomeYou') }}
         </div>
       </div>
-<!--      <div-->
-<!--          v-if="errorMessage"-->
-<!--          class="form-item error-message"-->
-<!--      >-->
-<!--        <span />-->
-<!--        <div>-->
-<!--          <span>{{ errorMessage }}</span>-->
-<!--          <markdown-->
-<!--              v-if="errorDescription"-->
-<!--              class="policy"-->
-<!--              :value="errorDescription"-->
-<!--          />-->
-<!--        </div>-->
-<!--      </div>-->
+      <p v-if="loadingEmail" >{{this.loadingCheckEmailStatus}}</p>
+      <loading-spinner v-if="this.loadingEmail" class="loading-spinner ml-05"/>
     </div>
 
   </div>
@@ -123,14 +107,19 @@
 
 <script>
 
+const MemberType = {
+  member: 1,
+  corporate: 2,
+  corporate_freeCost: 3
+}
 export default {
-  //middleware: 'authenticated',
   data () {
     return {
       loading: false,
+      loadingEmail: false,
+      loadingCheckEmailStatus: '',
       mailCheck: false,
-      // errorMessage: null,
-      // errorDescription: '',
+      MemberType,
       steps: ['index', 'userInformation', 'contact', 'image', 'payment', 'confirmation'],
       onboardingData: {
         rulesAccepted: false,
@@ -174,7 +163,8 @@ export default {
           membership: null,
           sepaMandat: false,
           agb: false,
-          privacyPolicy: false
+          privacyPolicy: false,
+          ibanIsValid: false
         },
         profile: {
           address: null,
@@ -200,24 +190,19 @@ export default {
         case 'index':
           return !(data.rulesAccepted)
         case 'userInformation': {
-          return false
+          //return false
           // eslint-disable-next-line no-unreachable
           const requiredKeys = ['firstName', 'lastName', 'gender', 'email', 'password']
           return ((!!requiredKeys.filter(k => !data.userInformation[k]).length) || !data.userInformation.emailOk)
         }
         case 'contact': {
-          return false
+          //return false
           // eslint-disable-next-line no-unreachable
           const data = this.onboardingData
-          console.log('data: ', data)
           const requiredKeys = ['birthdate', 'address', 'zip', 'city', 'country', 'phone']
           const requiredKeysInvoiceContact = ['firstName', 'lastName', 'address', 'zip', 'city', 'country']
           const allInvoiceContactFieldsSet = (!requiredKeysInvoiceContact.filter(k => !data.invoiceContactInformation[k]).length)
-          // console.log('requiredKeysInvoiceContact.filter(k => !data.invoiceContactInformation[k]): ', requiredKeysInvoiceContact.filter(k => !data.invoiceContactInformation[k]).length)
-          // console.log('allInvoiceContactFieldsSet: ', allInvoiceContactFieldsSet)
-          // console.log('data.contactInformation.useContactAsInvoiceInformation : ', data.contactInformation.useContactAsInvoiceInformation)
           // if another invoice contact (checkbox) is selected, then the additional fields are required to proceed
-
           if (!data.contactInformation.useContactAsInvoiceInformation && !allInvoiceContactFieldsSet) {
             return true
           }
@@ -225,6 +210,28 @@ export default {
         }
         case 'image': {
           return false
+        }
+        case 'payment': {
+          const membershipType = this.getMemberType()
+          // if company & free cost
+          if (membershipType === MemberType.corporate_freeCost) {
+            if (data.payment.agb && data.payment.privacyPolicy) {
+              return false
+            }
+          }
+          // if company & no free cost
+          if (membershipType === MemberType.corporate) {
+            if (data.payment.agb && data.payment.privacyPolicy && data.payment.sepaMandat && data.payment.ibanIsValid) {
+              return false
+            }
+          }
+          // if no company member
+          if (membershipType === MemberType.member) {
+            if (data.payment.agb && data.payment.privacyPolicy && data.payment.sepaMandat && data.payment.ibanIsValid && data.payment.membership) {
+              return false
+            }
+          }
+          return true
         }
         case 'done': {
           return data.referrer === ''
@@ -240,27 +247,7 @@ export default {
       return this.$store.state.user
     }
   },
-  created () {
-    // todo check if needed
-    //this.getData()
-  },
   methods: {
-    // loadUserData () {
-    //   this.loading = true
-    //   this.$store.dispatch('getUserMetadata')
-    //     .then((data) => {
-    //       this.invoiceContact = data.data.invoice_contact
-    //     })
-    //     .catch((error) => {
-    //       console.log(error.response.status, error.response.data.msg)
-    //       this.$toast.show('Ein Fehler ist aufgetreten', {
-    //         theme: 'bubble'
-    //       })
-    //     })
-    //     .finally(() => {
-    //       this.loading = false
-    //     })
-    // },
     getData () {
       if (sessionStorage.getItem('onboardingData')) {
         this.onboardingData = JSON.parse(sessionStorage.getItem('onboardingData'))
@@ -272,9 +259,9 @@ export default {
         }
       }
     },
-    saveUserData () {
-      this.$store.dispatch('updateUser', Object.assign({}, this.onboardingData.profile))
-    },
+    // saveUserData () {
+    //   this.$store.dispatch('updateUser', Object.assign({}, this.onboardingData.profile))
+    // },
     saveOnboardingData () {
       sessionStorage.setItem('onboardingData', JSON.stringify(this.onboardingData))
     },
@@ -293,29 +280,24 @@ export default {
           this.saveOnboardingData()
           break
         case 'userInformation':
-          await this.checkLoginData()
-          // only go to next step, if e-mail address is valid
-          if (this.mailCheck) {
-            this.loadNextPage()
-            this.saveOnboardingData()
-          }
+          this.mailCheck = false
+          // will go to next page if email is valid
+          await this.checkLoginDataAndProceed()
+          this.saveOnboardingData()
           break
         case 'contact':
           console.log('next')
           this.loadNextPage()
           this.saveOnboardingData()
-          //await this.checkLoginData()
           // only go to next step, if e-mail address is valid
           break
         case 'payment':
-          console.log('submit')
-          // this.loadNextPage()
-          // this.saveOnboardingData()
-          //await this.checkLoginData()
+          this.saveOnboardingData()
+          this.submit()
+          this.loadNextPage()
           // only go to next step, if e-mail address is valid
           break
         case 'done':
-          this.send()
           break
         default:
           this.saveOnboardingData()
@@ -327,21 +309,65 @@ export default {
       const ni = this.index + 1 < 0 ? 0 : this.index + 1
       const path = this.steps[ni]
       if (path) {
-        console.log('loadNextPage: ', path)
         this.$router.push('/wizard/onboarding/' + path)
       }
     },
-    async send () {
+    getMemberType () {
+      if (this.onboardingData.contactInformation?.company?.metadata?.attendees_free_cost) {
+        return MemberType.corporate_freeCost
+      }
+      if (this.onboardingData.contactInformation?.company && !this.onboardingData.contactInformation.company?.metadata?.attendees_free_cost) {
+        return MemberType.corporate
+      } else { return MemberType.member }
+    },
+    async submit () {
+      console.log('submit')
+      // basicData = data for the new fabman user, that is needed for any membership type
+      const basicData = {
+        // required
+        //emailAddress: this.onboardingData.userInformation.email,
+        address: this.onboardingData.contactInformation.address,
+        city: this.onboardingData.contactInformation.city,
+        zip: this.onboardingData.contactInformation.zip,
+        firstName: this.onboardingData.userInformation.firstName,
+        lastName: this.onboardingData.userInformation.lastName,
+        // optional
+        //region, language,requireUpfrontPayment, state,  not used
+        gender: this.onboardingData.userInformation.gender,
+        dateOfBirth: this.onboardingData.contactInformation.birthdate,
+        // TODO: must be a number?
+        phone: this.onboardingData.contactInformation.phone,
+        countryCode: this.onboardingData.contactInformation.country,
+        hasBillingAddress: this.onboardingData.contactInformation.useContactAsInvoiceInformation
+      }
+      let memberData = null
+      let finalData = null
+      switch (this.getMemberType()) {
+        case MemberType.corporate_freeCost:
+          console.log('MemberType: corporate_freeCost')
+          break
+        case MemberType.corporate:
+          console.log('MemberType: corporate')
+          break
+        case MemberType.member:
+          console.log('MemberType: member')
+          memberData = {
+            iban: this.onboardingData.payment.iban
+          }
+          finalData = { ...basicData, ...memberData }
+          break
+      }
       this.loading = true
-      await this.$store.dispatch('startOnboarding', this.onboardingData)
+      console.log('data: ', finalData)
+      await this.$store.dispatch('createMember', finalData)
       this.loading = false
     },
     // check mail
 
     // sets this.mailCheck to true, if e-mail address is valid for registration
-    async checkLoginData () {
-      console.log('checkLoginData')
-      this.loading = true
+    async checkLoginDataAndProceed () {
+      this.loadingEmail = true
+      this.loadingCheckEmailStatus = 'Prüfe E-Mail Adresse...'
       const data = {
         email: this.onboardingData.userInformation.email,
         password: this.onboardingData.userInformation.password,
@@ -350,32 +376,41 @@ export default {
           lastName: this.onboardingData.userInformation.lastName
         }
       }
-      return this.$store.dispatch('checkLoginData', data).then((r) => {
-        this.mailCheck = true
-        this.loading = false
-      }).catch((e) => {
-        this.loading = false
-        const errorMsg = e?.response?.data?.msg
-        if (e.error) {
-          this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.error + '"'
-        }
-        if (errorMsg) {
-          switch (errorMsg) {
-            case 'user_exists':
-              this.$toast.show('Ein User mit dieser Email Adresse existiert bereits', {
-                theme: 'bubble'
-              })
-              break
-            default:
-              this.$toast.show('Ein Fehler ist aufgetreten: ', e.code, {
-                theme: 'bubble'
-              })
-              break
-          }
+      this.$store.dispatch('checkLoginData', data).then((r) => {
+        this.loadingCheckEmailStatus = 'E-Mail Adresse ist verfügbar'
+        return new Promise(resolve => {
+          setTimeout(() => {
+            this.mailCheck = true
+            this.loadingEmail = false
+            this.loadNextPage()
+            this.saveOnboardingData()
+          }, 1000)
+        })
+      })
+        .catch((e) => {
+          this.loadingEmail = false
           this.mailCheck = false
+          const errorMsg = e?.response?.data?.msg
+          if (e.error) {
+            this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.error + '"'
+          }
+          if (errorMsg) {
+            switch (errorMsg) {
+              case 'user_exists':
+                this.$toast.show('Ein User mit dieser Email Adresse existiert bereits', {
+                  theme: 'bubble'
+                })
+                break
+              default:
+                this.$toast.show('Ein Fehler ist aufgetreten: ', e.code, {
+                  theme: 'bubble'
+                })
+                break
+            }
+            this.mailCheck = false
+          }
         }
-      }
-      )
+        )
     }
   }
 }

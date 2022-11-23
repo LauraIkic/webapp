@@ -159,7 +159,6 @@ export default {
     },
     companyInformation () {
       if (this.onboardingData.contactInformation.companyCodeValid && this.onboardingData.contactInformation.company) {
-        console.log('this.company: ', this.company)
         //todo add information
         const information = 'Firmenabo von: ' + this.onboardingData.contactInformation.company?.lastName + ' wird eingelöst.'
         return information
@@ -201,8 +200,6 @@ export default {
     },
 
     checkCompanyCode () {
-      console.log('countries: ', this.countries)
-      console.log('checkCompanyCode: ', this.onboardingData?.contactInformation?.companyCode)
       this.loading = true
       const data = {
         companyCode: this.onboardingData.contactInformation.companyCode
@@ -211,7 +208,6 @@ export default {
         // this.mailCheck = true
         this.onboardingData.contactInformation.companyCodeValid = true
         this.onboardingData.contactInformation.company = r
-        console.log('Company Found: ', this.company)
         this.loading = false
       }).catch((e) => {
         this.onboardingData.contactInformation.companyCodeValid = false

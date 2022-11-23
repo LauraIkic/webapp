@@ -4,13 +4,11 @@
     <form class="form">
       <div class="form-item">
         <span class="label">{{ $t('firstName') }}<span class="red">*</span></span>
-        <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.userInformation.firstName" name=""
-               id="onboarding_userInformation_firstName"/>
+        <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.userInformation.firstName"/>
       </div>
       <div class="form-item">
         <span class="label">{{ $t('lastName') }}<span class="red">*</span></span>
-        <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.userInformation.lastName" name=""
-               id="onboarding_userInformation_lastName"/>
+        <input class="input-text" type="text" v-model="onboardingData.userInformation.lastName"/>
       </div>
       <div class="form-item">
         <span class="label">{{ $t('gender') }}<span class="red">*</span></span>
@@ -23,9 +21,7 @@
       </div>
       <div class="form-item">
         <span class="label">{{ $t('email') }}<span class="red">*</span></span>
-        <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.userInformation.email" name=""
-               id="onboarding_userInformation_email"
-               @input="checkMail"/>
+        <input class="input-text" type="text" v-model="onboardingData.userInformation.email" @input="checkMail"/>
       </div>
 
       <div class="form-item">
@@ -71,7 +67,6 @@
 import validator from 'validator'
 
 export default {
-  //middleware: 'authenticated',
   props: {
     onboardingData: {
       type: Object,
@@ -90,7 +85,6 @@ export default {
       errorMessage: null,
       errorDescription: '',
       emailInvalid: false
-      //invoiceContact: {}
     }
   },
   mounted () {
@@ -157,22 +151,6 @@ export default {
 }
 
 .form-item {
-  //min-width: 27em;
-  //@include media-breakpoint-down(md) {
-  //  min-width: auto;
-  //}
-  //padding: 0 0 5px;
-  //@include media-breakpoint-up(sm) {
-  //  padding: 0 0 18px;
-  //  display: grid;
-  //  grid-template-columns: 28% 72%;
-  //}
-  //align-items: center;
-  //.label {
-  //  font-weight: bold;
-  //  text-transform: uppercase;
-  //  font-size: .7em;
-  //}
   input {
     outline: none;
     flex-grow: 1;
