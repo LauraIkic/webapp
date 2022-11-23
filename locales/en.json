@@ -102,7 +102,8 @@
   "signupMakerSpace": "Sign up for a membership",
   "beforeYouCanStart": "",
 
-  "sentConfirmationLink": "We have sent you an email with a confirmation link. Please also check your SPAM folder.",
+  "sentConfirmationLink": "We have sent you an email with a confirmation link. ",
+  "checkSpamFolder": "Please also check your SPAM folder!",
   "onceAccountConfirmed": "Once you have confirmed your account, you can get started.",
 
   "theFuture": "The future",
@@ -117,6 +118,7 @@
   "event": "Event",
   "meetup": "Meetup",
   "workshops": "Workshops",
+  "frauenundtechnik": "#frauenundtechnik",
   "makemas": "#makemas2022",
   "soldOut": "soldOut",
 

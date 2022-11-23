@@ -98,7 +98,7 @@ import ContactPreview from '../components/ContactPreview'
 import PretixOceaneye from '../components/PretixOceaneye'
 import PretixCalendar from '../components/PretixCalendar'
 import TwoVideosColumn from '@/components/TwoVideosColumn'
-//import DownloadCard from '../components/DownloadCard'
+import DownloadCard from '../components/DownloadCard'
 
 Vue.component('material-prices', MaterialPrices)
 Vue.component('page', Page)
@@ -202,4 +202,4 @@ Vue.component('contact-preview', ContactPreview)
 Vue.component('pretix-oceaneye', PretixOceaneye)
 Vue.component('pretix-calendar', PretixCalendar)
 Vue.component('two-videos-column', TwoVideosColumn)
-//Vue.component('download-card', DownloadCard)
+Vue.component('download-card', DownloadCard)

@@ -274,8 +274,8 @@ export default {
   font-size: 1.1em;
   @media screen and (min-width: 1500px) {
     letter-spacing: .1em;
-    max-width: 1264px;
-    margin: 0 auto;
+    max-width: min-content;
+    margin: auto;
   }
   .top-header-inner {
     display: flex;

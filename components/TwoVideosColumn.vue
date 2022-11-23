@@ -2,7 +2,20 @@
   <div
     v-editable="blok"
     class="two-videos-column"
+    style="margin: 50px 0;"
   >
+      <h2
+          v-if="blok.headline"
+          class="headline"
+      >
+        <markdown :value="blok.headline" />
+      </h2>
+      <p
+          v-if="blok.text"
+          class="text"
+      >
+        <markdown :value="blok.text" />
+      </p>
     <div class='wrapper'>
       <div class='row'>
         <div class='column column1'>
@@ -47,6 +60,41 @@ export default {
 
 <style lang="scss" scoped>
 
+.headline {
+  font-size: 1.6em;
+  @include media-breakpoint-up(lg) {
+    width: 700px;
+    font-size: 2.7em;
+  }
+  position: relative;
+  margin-left: 7%;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  font-weight: 600;
+  font-family: $font-secondary;
+
+  p {
+    margin: 0;
+  }
+}
+
+.text {
+  @include media-breakpoint-up(lg) {
+    width: 900px;
+    margin: 0 0 2% 12%;
+  }
+  @include media-breakpoint-down(md) {
+    margin: 3% 15% 10%;
+    font-size: 0.9em;
+    line-height: 1.6;
+  }
+  margin-top: 0;
+  font-weight: normal;
+  font-family: $font-primary;
+  line-height: 1.6;
+  font-size: 1.1em;
+  letter-spacing: .03em;
+}
 .row {
   display: flex;
   flex-direction: row; //default
@@ -78,7 +126,7 @@ export default {
   max-height: 100%;
 }
 .column {
-  padding: 0.2em;
+  padding: 0.3em;
   flex: 1;
 }
 </style>

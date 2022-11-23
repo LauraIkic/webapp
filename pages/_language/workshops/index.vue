@@ -67,7 +67,8 @@ export default {
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshop', value: false },
         { key: 'training', name: 'Einschulungen', value: false },
-        { key: 'makemas', name: '#makemas', value: false }
+        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false },
+        { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
       search: '',
@@ -152,7 +153,7 @@ export default {
         }
       }
     }
-    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
+    const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: '' }).then((data) => {
       if (data) {
         return { workshops: data }
       }
