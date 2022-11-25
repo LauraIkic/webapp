@@ -12,12 +12,11 @@
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 import Snowflakes from 'magic-snowflakes'
-const snowflakes = new Snowflakes({ color: '#fdfdfd', count: 80, minOpacity: 0.4, maxOpacity: 0.9, maxSize: 15 })
+const snowflakes = new Snowflakes({ color: '#fdfdfd', count: 200 })
 
 export default {
   created () {
-    //TODO - start am ersten advent
-    //snowflakes.start()
+    snowflakes.start()
   },
   mixins: [storyblokLivePreview],
   asyncData (context) {

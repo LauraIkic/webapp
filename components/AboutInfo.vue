@@ -15,6 +15,9 @@
       <div class="col-end">
         <div class="content">
           <markdown :value="blok.content" />
+          <a v-if="blok.contentLink" :href="blok.contentLink" target="_blank">
+            {{blok.contentLinkName}}
+          </a>
         </div>
         <div class="image-wrapper">
           <img

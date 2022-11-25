@@ -730,10 +730,13 @@ const createStore = () => {
             }
             workshops[wid].dates.push(w)
           }
+          if (search === '' || !search) {
+            return Object.values(workshops).sort((a, b) => a.content.title.localeCompare(b.content.title))
+          }
           const searchString = new RegExp(search, 'i')
           return Object.values(workshops).filter((w) => {
             return w.content.title.match(searchString)
-          }).sort((a, b) => a.name.localeCompare(b.name))
+          }).sort((a, b) => a.content.title.localeCompare(b.content.title))
         }).catch((res) => {
           this.$sentry.captureException(res)
         })
