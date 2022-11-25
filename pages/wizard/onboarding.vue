@@ -403,6 +403,7 @@ export default {
         case MemberType.corporate_freeCost:
           console.log('MemberType: corporate_freeCost')
           memberData = memberDataBasic
+          memberData = { ...memberData, paidForBy: this.onboardingData.contactInformation.company.id }
           break
         case MemberType.corporate:
         case MemberType.member:
@@ -433,12 +434,21 @@ export default {
         // eslint-disable-next-line camelcase
         const fabman_id = r.id
         // eslint-disable-next-line camelcase
-        const fabman_memberNumber = r.memberNumber
-        console.log('package: ', this.onboardingData.payment.membership.id)
-        const packageData = {
-          memberId: r.id,
-          id: this.onboardingData.payment.membership.id
+        //const fabman_memberNumber = r.memberNumber
+        let packageData = null
+        if (memberType === MemberType.member) {
+          packageData = {
+            memberId: r.id,
+            id: this.onboardingData.payment.membership.id
+          }
+        } else {
+          packageData = {
+            memberId: r.id,
+            id: this.onboardingData.contactInformation.company.metadata.attendees_package_id
+          }
         }
+        console.log('packageData: ', packageData)
+        // set membership package
         this.$store.dispatch('setPackageOnboarding', packageData).then((r) => {
           console.log('RESULT SET PACKAGE: ', r)
           if (this.onboardingData.payment.bookStorage && memberType === MemberType.member) {
@@ -449,6 +459,7 @@ export default {
                 memberId: fabman_id,
                 id: storage.id
               }
+              // set storage packages
               this.$store.dispatch('setPackageOnboarding', storagePackageData).then((r) => {
                 console.log('STORAGE FABMAN CREATE: ', r)
               })
@@ -458,8 +469,6 @@ export default {
             email: this.onboardingData.userInformation.email,
             password: this.onboardingData.userInformation.password,
             user_metadata: {
-              fabman_id: fabman_id,
-              fabman_memberNumber: fabman_memberNumber,
               firstName: this.onboardingData.userInformation.firstName,
               lastName: this.onboardingData.userInformation.lastName,
               address: this.onboardingData.contactInformation.address,
