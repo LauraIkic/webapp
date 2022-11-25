@@ -249,6 +249,7 @@ export default {
     }
   },
   methods: {
+    // TODO delete, clean up, unused & deprecated
     getData () {
       if (sessionStorage.getItem('onboardingData')) {
         this.onboardingData = JSON.parse(sessionStorage.getItem('onboardingData'))
@@ -477,6 +478,8 @@ export default {
             }
           }
           this.$store.dispatch('registerUser', registerAuth0Data).then((r) => {
+            // TODO remove or use loading madness
+            this.loadNextPage()
             this.loading = false
             this.$store.dispatch('setSidebar', 'register-success')
           }).catch((e) => {

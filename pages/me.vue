@@ -36,7 +36,7 @@
 import MenuLink from '~/components/MenuLink'
 
 export default {
-  //middleware: 'authenticated',
+  middleware: 'authenticated',
   components: { MenuLink },
   data () {
     return {
@@ -69,13 +69,14 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.state.user // TODO: remove lambda functions (Requests via Connector)
+      return this.$store.state.user // TODO: remove/edit lambda functions (Requests via Connector)
     },
     member () {
       return this.$store.state.member
     },
     isMember () {
-      return false //TODO: implement hasCompletedOnboarding function in connector
+      // TODO
+      return true //TODO: implement hasCompletedOnboarding function in connector?
       //return this.$store.state.user.packages.length > 0
     }
   }
