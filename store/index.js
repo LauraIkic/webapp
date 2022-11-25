@@ -51,7 +51,10 @@ const version = tmpVersion
 const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNECTOR_URL : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
 
-let connector
+let connector = axios.create({
+  baseURL: connectorBaseUrl,
+  headers: {}
+})
 
 const createStore = () => {
   return new Vuex.Store({
@@ -284,6 +287,12 @@ const createStore = () => {
         const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
         return res.data
       },
+      async setPackageOnboarding ({ state }, data) {
+        const id = data.memberId
+        //const req = data.req
+        const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
+        return res.data
+      },
       async cancelPackage ({ state }, memberPackageId, data) {
         const id = state.member.id
         const res = await connector.put(`v1/fabman/members/${id}/packages/${memberPackageId}`, data)
@@ -477,6 +486,7 @@ const createStore = () => {
           return result.data
         })
       },
+      // @deprecated
       async startOnboarding ({ commit }, data) {
         const res = await connector.post('/member/startOnboarding', data)
         return res.data
@@ -500,6 +510,30 @@ const createStore = () => {
             resolve(r)
           })
         })
+      },
+      async checkLoginData ({ commit }, data) {
+        const res = await connector.post('/v1/fabman/services/checkEmail/', data)
+        return res.data
+      },
+      async checkCompanyCode ({ commit }, data) {
+        // connector = axios.create({
+        //   baseURL: connectorBaseUrl,
+        //   headers: {}
+        // })
+        const res = await connector.post('/v1/fabman/services/checkCompanyCode/', data)
+        return res.data
+      },
+      async getCountries ({ commit }) {
+        // connector = axios.create({
+        //   baseURL: connectorBaseUrl,
+        //   headers: {}
+        // })
+        const res = await connector.get('/v1/fabman/countries/')
+        return res.data
+      },
+      async createMember ({ commit }, data) {
+        const res = await connector.post('/v1/fabman/members/', data)
+        return res.data
       },
       registerUser ({ commit }, context) {
         return new Promise((resolve, reject) => {

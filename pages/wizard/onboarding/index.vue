@@ -45,7 +45,7 @@
 //   reduced: 2
 // }
 export default {
-  middleware: 'authenticated',
+  //middleware: 'authenticated',
   props: {
     onboardingData: {
       type: Object,
@@ -63,7 +63,7 @@ export default {
   methods: {},
   computed: {
     user () {
-      return this.$store.state.user
+      return this.$store.state.user //TODO: remove lambda functions
     }
   }
 }

@@ -90,12 +90,15 @@ export default {
       this.$store.dispatch('setSidebar', null)
     },
     register () {
-      this.$store.dispatch('setSidebar', 'register')
+      this.close()
+      this.$router.push('/wizard/onboarding')
+      //this.$store.dispatch('setSidebar', 'register')
     },
     recover () {
       this.$store.dispatch('setSidebar', 'recover')
     },
     submit () {
+      //this.$router.push('/wizard/onboarding')
       const data = {
         email: this.email,
         password: this.password

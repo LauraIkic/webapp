@@ -37,7 +37,6 @@
 </template>
 <script>
 export default {
-  middleware: 'authenticated',
   props: {
     onboardingData: {
       type: Object,
