@@ -98,16 +98,16 @@ export default {
       this.$store.dispatch('setSidebar', 'recover')
     },
     submit () {
-      this.$router.push('/wizard/onboarding')
-      // const data = {
-      //   email: this.email,
-      //   password: this.password
-      // }
-      // localStorage.setItem('pathToLoadAfterLogin', this.$router.currentRoute.fullPath)
-      // this.$store.dispatch('loginUser', data).then((r) => {
-      // }).catch((e) => {
-      //   this.errorMessage = e.description || e.error || e.code
-      // })
+      //this.$router.push('/wizard/onboarding')
+      const data = {
+        email: this.email,
+        password: this.password
+      }
+      localStorage.setItem('pathToLoadAfterLogin', this.$router.currentRoute.fullPath)
+      this.$store.dispatch('loginUser', data).then((r) => {
+      }).catch((e) => {
+        this.errorMessage = e.description || e.error || e.code
+      })
     },
     clearErrorMessage () {
       this.errorMessage = null

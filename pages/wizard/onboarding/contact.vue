@@ -78,37 +78,37 @@
           <span class="label">Rechnungskontakt</span>
           <div class="checkbox-wrapper">
             <input id="checkbox" class="checkbox" type="checkbox"
-                   :checked="onboardingData.contactInformation.useContactAsInvoiceInformation"
-                   v-model="onboardingData.contactInformation.useContactAsInvoiceInformation" >
+                   :checked="!onboardingData.contactInformation.hasBillingAddress"
+                   v-model="onboardingData.contactInformation.hasBillingAddress" >
             <p class="text">kein eigener Rechnungskontakt</p>
           </div>
         </div>
-        <div v-if="!onboardingData.contactInformation.useContactAsInvoiceInformation">
+        <div v-if="onboardingData.contactInformation.hasBillingAddress">
           <div class="form-item">
             <span class="label">{{ $t('firstName') }}<span class="red">*</span></span>
-            <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.invoiceContactInformation.firstName" name=""
+            <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.billingInformation.firstName" name=""
                    id="onboarding_userInformation_firstName"/>
           </div>
           <div class="form-item">
             <span class="label">{{ $t('lastName') }}<span class="red">*</span></span>
-            <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.invoiceContactInformation.lastName" name=""
+            <input class="input-text"  ref="firstInput" type="text" v-model="onboardingData.billingInformation.lastName" name=""
                    id="onboarding_userInformation_lastName"/>
           </div>
           <div class="form-item">
             <span class="label">{{ $t('address') }}<span class="red">*</span></span>
-            <input class="input-text" type="text" v-model="onboardingData.invoiceContactInformation.address" name=""/>
+            <input class="input-text" type="text" v-model="onboardingData.billingInformation.address" name=""/>
           </div>
           <div class="form-item">
             <span class="label">{{ $t('zipCode') }}<span class="red">*</span></span>
-            <input class="input-text" type="text" v-model="onboardingData.invoiceContactInformation.zip" name=""/>
+            <input class="input-text" type="text" v-model="onboardingData.billingInformation.zip" name=""/>
           </div>
           <div class="form-item">
             <span class="label">{{ $t('city/location') }}<span class="red">*</span></span>
-            <input class="input-text" type="text" v-model="onboardingData.invoiceContactInformation.city" name=""/>
+            <input class="input-text" type="text" v-model="onboardingData.billingInformation.city" name=""/>
           </div>
           <div class="form-item">
             <span class="label">{{ $t('country') }}<span class="red">*</span></span>
-            <select class="input-select" v-model="onboardingData.invoiceContactInformation.country">
+            <select class="input-select" v-model="onboardingData.billingInformation.country">
               <option
                   v-for="country in countries" :value="country.id" v-bind:key="country.id">
                 {{ country.name }}

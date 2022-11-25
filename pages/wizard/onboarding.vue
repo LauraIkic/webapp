@@ -147,9 +147,9 @@ export default {
           companyCode: null,
           companyCodeValid: false,
           company: null,
-          useContactAsInvoiceInformation: true
+          hasBillingAddress: false
         },
-        invoiceContactInformation: {
+        billingInformation: {
           firstName: null,
           lastName: null,
           address: null,
@@ -192,6 +192,7 @@ export default {
         case 'userInformation': {
           //return false
           // eslint-disable-next-line no-unreachable
+          // gender may be null = keine Angabe , 'gender'
           const requiredKeys = ['firstName', 'lastName', 'gender', 'email', 'password']
           return ((!!requiredKeys.filter(k => !data.userInformation[k]).length) || !data.userInformation.emailOk)
         }
@@ -201,9 +202,9 @@ export default {
           const data = this.onboardingData
           const requiredKeys = ['birthdate', 'address', 'zip', 'city', 'country', 'phone']
           const requiredKeysInvoiceContact = ['firstName', 'lastName', 'address', 'zip', 'city', 'country']
-          const allInvoiceContactFieldsSet = (!requiredKeysInvoiceContact.filter(k => !data.invoiceContactInformation[k]).length)
+          const allInvoiceContactFieldsSet = (!requiredKeysInvoiceContact.filter(k => !data.billingInformation[k]).length)
           // if another invoice contact (checkbox) is selected, then the additional fields are required to proceed
-          if (!data.contactInformation.useContactAsInvoiceInformation && !allInvoiceContactFieldsSet) {
+          if (data.contactInformation.hasBillingAddress && !allInvoiceContactFieldsSet) {
             return true
           }
           return ((!!requiredKeys.filter(k => !data.contactInformation[k]).length || !data.contactInformation.birthdateValid))
@@ -294,7 +295,7 @@ export default {
         case 'payment':
           this.saveOnboardingData()
           this.submit()
-          this.loadNextPage()
+
           // only go to next step, if e-mail address is valid
           break
         case 'done':
@@ -320,49 +321,6 @@ export default {
         return MemberType.corporate
       } else { return MemberType.member }
     },
-    async submit () {
-      console.log('submit')
-      // basicData = data for the new fabman user, that is needed for any membership type
-      const basicData = {
-        // required
-        //emailAddress: this.onboardingData.userInformation.email,
-        address: this.onboardingData.contactInformation.address,
-        city: this.onboardingData.contactInformation.city,
-        zip: this.onboardingData.contactInformation.zip,
-        firstName: this.onboardingData.userInformation.firstName,
-        lastName: this.onboardingData.userInformation.lastName,
-        // optional
-        //region, language,requireUpfrontPayment, state,  not used
-        gender: this.onboardingData.userInformation.gender,
-        dateOfBirth: this.onboardingData.contactInformation.birthdate,
-        // TODO: must be a number?
-        phone: this.onboardingData.contactInformation.phone,
-        countryCode: this.onboardingData.contactInformation.country,
-        hasBillingAddress: this.onboardingData.contactInformation.useContactAsInvoiceInformation
-      }
-      let memberData = null
-      let finalData = null
-      switch (this.getMemberType()) {
-        case MemberType.corporate_freeCost:
-          console.log('MemberType: corporate_freeCost')
-          break
-        case MemberType.corporate:
-          console.log('MemberType: corporate')
-          break
-        case MemberType.member:
-          console.log('MemberType: member')
-          memberData = {
-            iban: this.onboardingData.payment.iban
-          }
-          finalData = { ...basicData, ...memberData }
-          break
-      }
-      this.loading = true
-      console.log('data: ', finalData)
-      await this.$store.dispatch('createMember', finalData)
-      this.loading = false
-    },
-    // check mail
 
     // sets this.mailCheck to true, if e-mail address is valid for registration
     async checkLoginDataAndProceed () {
@@ -411,6 +369,139 @@ export default {
           }
         }
         )
+    },
+    async submit () {
+      console.log('submit')
+      const memberType = this.getMemberType()
+      // STEP1: create FABMAN Member
+      let memberDataBasic = {
+        // basicData = data for the new fabman user, that is needed for any membership type
+        // TODO uncomment
+        emailAddress: this.onboardingData.userInformation.email,
+        address: this.onboardingData.contactInformation.address,
+        city: this.onboardingData.contactInformation.city,
+        zip: this.onboardingData.contactInformation.zip,
+        firstName: this.onboardingData.userInformation.firstName,
+        lastName: this.onboardingData.userInformation.lastName,
+        // optional
+        //region, language,requireUpfrontPayment, state,  not used
+        gender: null,
+        dateOfBirth: this.onboardingData.contactInformation.birthdate,
+        // TODO: must be a number?
+        phone: this.onboardingData.contactInformation.phone,
+        countryCode: this.onboardingData.contactInformation.country,
+        hasBillingAddress: this.onboardingData.contactInformation.hasBillingAddress
+      }
+      if (this.onboardingData.userInformation.gender !== 'empty') {
+        memberDataBasic = { ...memberDataBasic, gender: this.onboardingData.userInformation.gender }
+      }
+      //let memberData = null
+      let extendMemberDataIban = null
+      let extendMemberDataBillingAddress = null
+      let memberData = null
+      switch (memberType) {
+        case MemberType.corporate_freeCost:
+          console.log('MemberType: corporate_freeCost')
+          memberData = memberDataBasic
+          break
+        case MemberType.corporate:
+        case MemberType.member:
+          console.log('MemberType: member or corporate (no free cost)')
+          extendMemberDataIban = {
+            iban: this.onboardingData.payment.iban
+          }
+          if (this.onboardingData.contactInformation.hasBillingAddress) {
+            // 'billingCompany', 'billingAddress', 'billingAddress2', 'billingRegion', 'billingInvoiceText', 'billingEmailAddress' unused
+            extendMemberDataBillingAddress = {
+              billingFirstName: this.onboardingData.billingInformation.firstName,
+              billingLastName: this.onboardingData.billingInformation.lastName,
+              billingAddress: this.onboardingData.billingInformation.address,
+              billingCity: this.onboardingData.billingInformation.city,
+              billingZip: this.onboardingData.billingInformation.zip,
+              billingCountryCode: this.onboardingData.billingInformation.country
+            }
+          }
+          memberData = { ...memberDataBasic, ...extendMemberDataIban }
+          memberData = { ...memberData, ...extendMemberDataBillingAddress }
+          break
+      }
+      //this.loading = true
+      console.log('data: ', memberData)
+
+      this.$store.dispatch('createMember', memberData).then((r) => {
+        console.log('RESULT FABMAN CREATE: ', r)
+        // eslint-disable-next-line camelcase
+        const fabman_id = r.id
+        // eslint-disable-next-line camelcase
+        const fabman_memberNumber = r.memberNumber
+        console.log('package: ', this.onboardingData.payment.membership.id)
+        const packageData = {
+          memberId: r.id,
+          id: this.onboardingData.payment.membership.id
+        }
+        this.$store.dispatch('setPackageOnboarding', packageData).then((r) => {
+          console.log('RESULT SET PACKAGE: ', r)
+          if (this.onboardingData.payment.bookStorage && memberType === MemberType.member) {
+            const storage = JSON.parse(JSON.stringify(this.onboardingData.payment.bookStorage))
+            storage.forEach(storage => {
+              console.log('STORAGE: ', storage)
+              const storagePackageData = {
+                memberId: fabman_id,
+                id: storage.id
+              }
+              this.$store.dispatch('setPackageOnboarding', storagePackageData).then((r) => {
+                console.log('STORAGE FABMAN CREATE: ', r)
+              })
+            })
+          }
+          const registerAuth0Data = {
+            email: this.onboardingData.userInformation.email,
+            password: this.onboardingData.userInformation.password,
+            user_metadata: {
+              fabman_id: fabman_id,
+              fabman_memberNumber: fabman_memberNumber,
+              firstName: this.onboardingData.userInformation.firstName,
+              lastName: this.onboardingData.userInformation.lastName,
+              address: this.onboardingData.contactInformation.address,
+              city: this.onboardingData.contactInformation.city,
+              zip: this.onboardingData.contactInformation.zip
+            }
+          }
+          this.$store.dispatch('registerUser', registerAuth0Data).then((r) => {
+            this.loading = false
+            this.$store.dispatch('setSidebar', 'register-success')
+          }).catch((e) => {
+            this.loading = false
+            if (e.error) {
+              this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.error + '"'
+              return
+            }
+            if (e.code) {
+              switch (e.code) {
+                case 'user_exists':
+                  this.errorMessage = 'Ein User mit dieser Email Adresse existiert bereits'
+                  break
+                case 'invalid_password':
+                  this.errorMessage = 'Das Passwort ist zu schwach.'
+                  this.errorDescription = e.policy
+                  break
+                default:
+                  this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.code + '"'
+                  break
+              }
+            }
+          })
+        }).catch((e) => {
+          this.$toast.show('Ein Fehler beim Abschließen der Mitgliedschaft ist aufgetreten ', e.code, {
+            theme: 'bubble'
+          })
+        })
+      })
+        .catch((e) => {
+          this.$toast.show('Ein Fehler ist aufgetreten ', e.code, {
+            theme: 'bubble'
+          })
+        })
     }
   }
 }

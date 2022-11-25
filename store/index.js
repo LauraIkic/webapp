@@ -287,6 +287,12 @@ const createStore = () => {
         const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
         return res.data
       },
+      async setPackageOnboarding ({ state }, data) {
+        const id = data.memberId
+        //const req = data.req
+        const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
+        return res.data
+      },
       async cancelPackage ({ state }, memberPackageId, data) {
         const id = state.member.id
         const res = await connector.put(`v1/fabman/members/${id}/packages/${memberPackageId}`, data)

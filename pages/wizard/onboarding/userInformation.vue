@@ -13,10 +13,7 @@
       <div class="form-item">
         <span class="label">{{ $t('gender') }}<span class="red">*</span></span>
         <select class="input-select" v-model="onboardingData.userInformation.gender">
-          <option>Weiblich</option>
-          <option>Männlich</option>
-          <option>Andere</option>
-          <option>keine Angabe</option>
+          <option :key="gender.id" :value="gender.internalName" v-for="gender in genders">{{gender.displayName}}</option>
         </select>
       </div>
       <div class="form-item">
@@ -75,6 +72,12 @@ export default {
   },
   data () {
     return {
+      genders: [
+        { id: 1, displayName: 'männlich', internalName: 'male' },
+        { id: 2, displayName: 'weiblich', internalName: 'female' },
+        { id: 3, displayName: 'andere', internalName: 'other' },
+        { id: 4, displayName: 'keine Angabe', internalName: 'empty' }
+      ],
       loading: false,
       invalidFields: [],
       email: '',
