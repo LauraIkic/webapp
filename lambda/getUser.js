@@ -83,6 +83,10 @@ exports.handler = function (event, context, callback) {
 
   jwt.verify(token, getKey, function (err, decoded) {
     if (!err) {
+      console.log('***************************************************************************** ')
+      console.log('email: ', decoded[origin + '/email'])
+      const email = decoded[origin + '/email']
+      console.log('***************************************************************************** ')
       const fabmanId = decoded[origin + '/fabmanId']
       const instance = axios.create({
         baseURL,
@@ -90,42 +94,89 @@ exports.handler = function (event, context, callback) {
       })
 
       const payment = { iban: '' }
-      const profile = instance.get(`members/${fabmanId}`).then((r) => {
+      // const profile = instance.get(`members/${fabmanId}`).then((r) => {
+      //   return {
+      //     id: r.data.id,
+      //     firstName: r.data.firstName,
+      //     lastName: r.data.lastName,
+      //     memberNumber: r.data.memberNumber,
+      //     emailAddress: r.data.emailAddress,
+      //     address: r.data.address,
+      //     address2: r.data.address2,
+      //     city: r.data.city,
+      //     zip: r.data.zip,
+      //     lockVersion: r.data.lockVersion
+      //   }
+      // })
+      // TODO use connector instead? WIP
+      const profile = instance.get(`members?q=${email}`).then((r) => {
+        //console.log('REEEESPONSE: ', r)
+        console.log('FIRST: ', r.data[0])
+        console.log('ID: ', r.data[0].id)
         return {
-          id: r.data.id,
-          firstName: r.data.firstName,
-          lastName: r.data.lastName,
-          memberNumber: r.data.memberNumber,
-          emailAddress: r.data.emailAddress,
-          address: r.data.address,
-          address2: r.data.address2,
-          city: r.data.city,
-          zip: r.data.zip,
-          lockVersion: r.data.lockVersion
+          id: r.data[0].id,
+          firstName: r.data[0].firstName,
+          lastName: r.data[0].lastName,
+          memberNumber: r.data[0].memberNumber,
+          emailAddress: r.data[0].emailAddress,
+          address: r.data[0].address,
+          address2: r.data[0].address2,
+          city: r.data[0].city,
+          zip: r.data[0].zip,
+          lockVersion: r.data[0].lockVersion
         }
       })
-      const trainings = instance.get(`members/${fabmanId}/trainings`).then(r => r.data)
-      const packages = instance.get(`members/${fabmanId}/packages`).then(r => r.data)
 
-      Promise.all([profile, trainings, packages]).then(([profile, trainings, packages]) => {
-        const user = {
-          profile,
-          trainings,
-          packages,
-          payment
-        }
+      // const trainings = instance.get(`members/${fabmanId}/trainings`).then(r => r.data)
+      // const packages = instance.get(`members/${fabmanId}/packages`).then(r => r.data)
 
-        callback(null, {
-          statusCode: 200,
-          body: JSON.stringify(user)
-        })
-      }).catch((err) => {
-        console.log(err)
-        callback(null, {
-          statusCode: 500,
-          body: 'ERROR'
+      // Promise.all([profile, trainings, packages]).then(([profile, trainings, packages]) => {
+      //   const user = {
+      //     profile,
+      //     trainings,
+      //     packages,
+      //     payment
+      //   }
+      Promise.resolve(profile).then((profile) => {
+        console.log('profile:', profile)
+        const trainings = instance.get(`members/${profile.id}/trainings`).then(r => r.data)
+        const packages = instance.get(`members/${profile.id}/packages`).then(r => r.data)
+
+        Promise.all([trainings, packages]).then(([trainings, packages]) => {
+          const user = {
+            profile,
+            trainings,
+            packages,
+            payment
+          }
+          console.log('user:', user)
+          // const user = {
+          //   profile
+          // }
+          callback(null, {
+            statusCode: 200,
+            body: JSON.stringify(user)
+          })
         })
       })
+      // Promise.all([profile]).then(([profile]) => {
+      //   console.log('profile:', profile)
+      //   const user = {
+      //     profile,
+      //     payment
+      //   }
+      //   callback(null, {
+      //     statusCode: 200,
+      //     body: JSON.stringify(user)
+      //   })
+      // })
+        .catch((err) => {
+          console.log(err)
+          callback(null, {
+            statusCode: 500,
+            body: 'ERROR'
+          })
+        })
     } else {
       console.log(err)
       callback(null, {
