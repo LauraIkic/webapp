@@ -401,12 +401,28 @@ const createStore = () => {
       },
       getUser ({ state, commit, dispatch }) {
         return axios.get(`${origin}/.netlify/functions/getUser`).then((r) => {
-          commit('setUser', r.data)
-          dispatch('getMember', r.data.profile.id)
-          return dispatch('getFabman')
+          dispatch('getMemberByEmail', { email: r.data }).then((response) => {
+            const profile = response
+            console.log(response)
+            const user = {
+              profile
+              // trainings,
+              // packages,
+              // payment
+            }
+            console.log(user)
+            commit('setUser', user)
+            // TODO remove getMember again (use user)
+            dispatch('getMember', user.profile.id)
+            //return dispatch('getFabman')
+          })
         }).catch((err) => {
           this.$sentry.captureException(err)
         })
+      },
+      async getMemberByEmail ({ commit }, data) {
+        const res = await connector.post('/v1/fabman/members/getMemberByEmail/', data)
+        return res.data
       },
       getMember ({ state, commit }, id) {
         return connector.get('/v1/fabman/members/' + id).then((r) => {
