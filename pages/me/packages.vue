@@ -73,20 +73,11 @@ export default {
           }
         }
         //handle packages with no notes available for storage & visibility or malformed format
-        let notes = null
         if (!p.notes) {
           console.error('no notes (storage, visible) for package: ', p)
           return false
         }
-        try {
-          notes = JSON.parse(p.notes)
-        } catch (err) {
-          console.error('malformed json format: ', p.notes)
-        }
-        if (!notes) {
-          return false
-        }
-        return notes.is_storage_box && notes.shop_visible
+        return p.notes.is_storage_box && p.notes.shop_visible
       })
     }
   }
