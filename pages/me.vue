@@ -14,16 +14,16 @@
       <div class="tab-section-menu">
         <MenuLink to="/me/" icon="user">{{ $t('myProfile') }}</MenuLink>
         <MenuLink v-if="isMember" to="/me/packages" icon="cube">{{ $t('membership') }}</MenuLink>
-        <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
-            class="fat">{{ $t('joinNow') }}</span></MenuLink>
+<!--        <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span-->
+<!--            class="fat">{{ $t('joinNow') }}</span></MenuLink>-->
           <MenuLink to="/me/trainings" icon="graduation-cap" style="color: white !important;">
             <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> {{ $t('trainings') }}
           </MenuLink>
-        <MenuLink to="/me/workshopBookings" icon="hammer">{{ $t('myWorkshops') }}</MenuLink>
-        <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
+<!--        <MenuLink to="/me/workshopBookings" icon="hammer">{{ $t('myWorkshops') }}</MenuLink>-->
+<!--        <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>-->
         <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">{{ $t('invoices') }}
         </MenuLink>
-        <MenuLink to="/me/activities" icon="running">{{ $t('activities') }}</MenuLink>
+<!--        <MenuLink to="/me/activities" icon="running">{{ $t('activities') }}</MenuLink>-->
       </div>
       <div class="tab-section-content">
         <NuxtChild :key="$route.params.slug"></NuxtChild>
