@@ -130,6 +130,14 @@ export default {
       )
     })
   },
+  beforeRouteEnter (to, from, next) {
+    console.log('PAYMENT FROM: ', from.path)
+    if ((from.path === '/wizard/onboarding/image')) {
+      next()
+    } else {
+      next('/wizard/onboarding/')
+    }
+  },
   computed: {
     storagePrice () {
       let storagePrice = 0.00

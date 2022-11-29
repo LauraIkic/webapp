@@ -6,12 +6,12 @@
       <div class="form-item">
         <span class="label">{{ $t('dateOfBirth') }}<span class="red">*</span></span>
         <input class="input-text" ref="firstInput" type="date" min="1900-01-01"
-               v-model="birthdate"
+               v-model="onboardingData.contactInformation.birthdate"
                name=""
                @change="checkBirthdate"/>
         <div class="date-error">
           <span
-              v-if="!this.onboardingData.contactInformation.birthdateValid"
+              v-if="!onboardingData.contactInformation.birthdateValid"
               class="bad"
           >{{ $t('tooYoung') }} </span>
         </div>
@@ -148,6 +148,14 @@ export default {
     this.$refs.firstInput.focus()
     this.countries = await this.$store.dispatch('getCountries')
   },
+  beforeRouteEnter (to, from, next) {
+    console.log('CONTACT FROM: ', from.path)
+    if ((from.path === '/wizard/onboarding/userInformation') || (from.path === '/wizard/onboarding/image')) {
+      next()
+    } else {
+      next('/wizard/onboarding')
+    }
+  },
   computed: {
     companyCodeAvailable () {
       if (this.onboardingData?.contactInformation?.companyCode &&
@@ -181,13 +189,13 @@ export default {
   },
   methods: {
     checkBirthdate () {
-      this.onboardingData.contactInformation.birthdate = null
+      //this.onboardingData.contactInformation.birthdate = null
       this.onboardingData.contactInformation.birthdateValid = false
-      if (this.birthdate) {
-        const birthDate = new Date(this.birthdate)
+      if (this.onboardingData.contactInformation.birthdate) {
+        const birthDate = new Date(this.onboardingData.contactInformation.birthdate)
         const age = this.calculateAge(birthDate)
         if (age >= 14) {
-          this.onboardingData.contactInformation.birthdate = this.birthdate
+          //this.onboardingData.contactInformation.birthdate = this.birthdate
           this.onboardingData.contactInformation.birthdateValid = true
         }
       }
