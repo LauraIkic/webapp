@@ -291,13 +291,11 @@ export default {
           console.log('next')
           this.loadNextPage()
           this.saveOnboardingData()
-          // only go to next step, if e-mail address is valid
           break
         case 'payment':
           this.saveOnboardingData()
+          //this.loadNextPage()
           this.submit()
-
-          // only go to next step, if e-mail address is valid
           break
         case 'done':
           break
@@ -311,6 +309,7 @@ export default {
       const ni = this.index + 1 < 0 ? 0 : this.index + 1
       const path = this.steps[ni]
       if (path) {
+        console.log('GOTO: /wizard/onboarding/' + path)
         this.$router.push('/wizard/onboarding/' + path)
       }
     },
@@ -428,7 +427,6 @@ export default {
           break
       }
       //this.loading = true
-      console.log('data: ', memberData)
 
       this.$store.dispatch('createMember', memberData).then((r) => {
         console.log('RESULT FABMAN CREATE: ', r)

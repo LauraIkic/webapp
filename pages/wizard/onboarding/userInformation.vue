@@ -93,6 +93,16 @@ export default {
   mounted () {
     this.$refs.firstInput.focus()
   },
+  beforeRouteEnter (to, from, next) {
+    console.log('USER INFO FROM: ', from.path)
+    if ((from.path === '/wizard/onboarding') || (from.path === '/wizard/onboarding/') || (from.path === '/wizard/onboarding/contact')) {
+      console.log('passed')
+      next()
+    } else {
+      console.log('not passed')
+      next('/wizard/onboarding/')
+    }
+  },
   computed: {
     passwordValid () {
       if (this.passwordRepeatIsEqual && !this.passwordTooShort) {
