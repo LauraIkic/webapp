@@ -9,7 +9,8 @@
       <div
         v-if="activities"
       >
-        <div class="table">
+        <div v-if="activities.length === 0"><p>Keine Buchungen vorhanden.</p></div>
+        <div class="table" v-if="activities.length > 0">
           <div class="table-header">
             <div class="header-items">
               <div class="header-item activity-date">Datum</div>
@@ -46,7 +47,8 @@
       <div
           v-if="invoices"
       >
-        <div class="table">
+        <div v-if="invoices.length === 0"><p>Keine Rechnungen vorhanden.</p></div>
+        <div class="table" v-if="invoices.length > 0">
           <div class="table-header">
             <div class="header-items">
               <div class="header-item invoice-date">Datum</div>

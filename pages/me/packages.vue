@@ -1,4 +1,10 @@
 <template>
+  <div>
+    <div>  <loading-spinner
+        v-if="!(memberPackages && memberStorage && availableStorage)"
+        color="#333"
+    />
+  </div>
   <div class="section" v-if="memberPackages && memberStorage && availableStorage"  >
     <h2>{{ $t('membership') }}</h2>
     <div
@@ -30,6 +36,7 @@
     </div>
 
   </div>
+  </div>
 </template>
 
 <script>
@@ -53,13 +60,14 @@ export default {
 
       // membership of the current member
       this.membership = this.memberPackages.filter((p) => {
-        const notes = JSON.parse(p._embedded.package.notes)
+        console.log(p)
+        const notes = p._embedded.package.notes
         return !notes.is_storage_box
       })
 
       // storage of the current member
       this.memberStorage = this.memberPackages.filter((p) => {
-        const notes = JSON.parse(p._embedded.package.notes)
+        const notes = p._embedded.package.notes
         return notes.is_storage_box
       })
 

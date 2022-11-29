@@ -37,16 +37,16 @@
           name=""
         >
       </div>
-      <div class="form-item">
-        <span />
-        <input
-          id=""
-          v-model="member.address2"
-          class="input-text"
-          type="text"
-          name=""
-        >
-      </div>
+<!--      <div class="form-item">-->
+<!--        <span />-->
+<!--        <input-->
+<!--          id=""-->
+<!--          v-model="member.address2"-->
+<!--          class="input-text"-->
+<!--          type="text"-->
+<!--          name=""-->
+<!--        >-->
+<!--      </div>-->
       <div class="form-item">
         <span class="label">{{ $t('zipCode') }}</span>
         <input
@@ -65,6 +65,25 @@
           class="input-text"
           type="text"
           name=""
+        >
+      </div>
+      <div class="form-item">
+        <span class="label">{{ $t('country') }}</span>
+        <select class="input-select" v-model="member.countryCode">
+          <option
+              v-for="country in countries" :value="country.id" v-bind:key="country.id">
+            {{ country.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-item">
+        <span class="label">{{ $t('phone') }}</span>
+        <input
+            id=""
+            v-model="member.phone"
+            class="input-text"
+            type="text"
+            name=""
         >
       </div>
       <div class="button-row">
@@ -88,8 +107,12 @@ export default {
   middleware: 'authenticated',
   data () {
     return {
-      loading: false
+      loading: false,
+      countries: null
     }
+  },
+  async mounted () {
+    this.countries = await this.$store.dispatch('getCountries')
   },
   computed: {
     member () {
