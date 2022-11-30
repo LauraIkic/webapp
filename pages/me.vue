@@ -76,8 +76,7 @@ export default {
     },
     isMember () {
       // TODO
-      return true //TODO: implement hasCompletedOnboarding function in connector?
-      //return this.$store.state.user.packages.length > 0
+      return this.$store.state.user.profile.state === 'active'
     }
   }
 }

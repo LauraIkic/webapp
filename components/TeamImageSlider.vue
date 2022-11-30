@@ -14,7 +14,7 @@
       </div>
       <div class="swiper-button-next" />
       <div class="swiper-button-prev" />
-     </div>
+    </div>
     <markdown
         :value="footer.reference"
         class="reference"
@@ -24,10 +24,10 @@
 
 <script>
 export default {
-  props: ['story'],
+  props: ['blok'],
   computed: {
     footer () {
-      return this.story[0]
+      return this.blok
     },
     swiperOption () {
       return {

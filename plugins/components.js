@@ -41,6 +41,8 @@ import Machine from '~/components/Machine.vue'
 import JobTeaser from '~/components/JobTeaser.vue'
 import JobList from '~/components/JobList.vue'
 import JobOpening from '~/components/JobOpening.vue'
+import PageList from '~/components/PageList.vue'
+import PageCard from '~/components/PageCard.vue'
 
 import ImageGallery from '~/components/ImageGallery.vue'
 import ImageSlideshow from '~/components/ImageSlideshow.vue'
@@ -93,6 +95,10 @@ import MaterialPrices from '../components/MaterialPrices'
 import PressGallery from '../components/PressGallery'
 import ContactPerson from '../components/ContactPerson'
 import ContactPreview from '../components/ContactPreview'
+import PretixOceaneye from '../components/PretixOceaneye'
+import PretixCalendar from '../components/PretixCalendar'
+import TwoVideosColumn from '@/components/TwoVideosColumn'
+import DownloadCard from '../components/DownloadCard'
 
 Vue.component('material-prices', MaterialPrices)
 Vue.component('page', Page)
@@ -137,6 +143,8 @@ Vue.component('machine', Machine)
 Vue.component('job-teaser', JobTeaser)
 Vue.component('job-list', JobList)
 Vue.component('job-opening', JobOpening)
+Vue.component('page-list', PageList)
+Vue.component('page-card', PageCard)
 
 Vue.component('login-form', LoginForm)
 Vue.component('register-form', RegisterForm)
@@ -191,3 +199,7 @@ Vue.component('team-image-slider', TeamImageSlider)
 Vue.component('press-gallery', PressGallery)
 Vue.component('contact-person', ContactPerson)
 Vue.component('contact-preview', ContactPreview)
+Vue.component('pretix-oceaneye', PretixOceaneye)
+Vue.component('pretix-calendar', PretixCalendar)
+Vue.component('two-videos-column', TwoVideosColumn)
+Vue.component('download-card', DownloadCard)

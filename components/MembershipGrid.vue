@@ -96,7 +96,7 @@ export default {
       return !!this.$store.state.user
     },
     isMember () {
-      return this.$store.state.user.packages.length > 0
+      return this.$store.state.user.profile.state === 'active'
     }
   },
   methods: {

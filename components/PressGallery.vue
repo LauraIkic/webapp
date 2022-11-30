@@ -3,16 +3,18 @@
     <ul
         class="grid-container">
       <li v-for="image in imageList" :key="image.uuid" class="relative">
-        <div
-            class="display-grid-item"
-            @click="showModal(image.image)">
-          <img :src="image.image" alt=""
-               class="grid-image" @click="showModal(image.image)"
-          />
-        </div>
+        <a  :href="image.pdf.filename" target="_blank">
+          <div
+              class="display-grid-item"
+            >
+            <img :src="image.image.filename" alt=""
+                 class="grid-image"
+            />
+          </div>
+        </a>
       </li>
     </ul>
-    <div id="modal" class="modal">
+<!--    <div id="modal" class="modal">
       <div class="modal-display">
         <a class="xButton" href="javascript:void(0)"
            @click="closeModal()">&times;</a>
@@ -24,7 +26,7 @@
              @click="changeImage(1)">></a>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -42,20 +44,16 @@ export default {
     imageList () {
       return this.images
     }
-  },
-  methods: {
+  }
+/*  methods: {
     showModal (src) {
       const modal = document.getElementById('modal')
       modal.style.setProperty('display', 'flex')
       const modalImg = document.getElementById('modal-img')
       modalImg.src = src
       this.imageList.forEach((item, index) => {
-        if (item.image === src) {
+        if (item.image.filename === src) {
           this.currentPosition = index
-          console.log(this.currentPosition)
-          if (this.currentPosition === this.imageList.length - 1) {
-            console.log('disable right')
-          }
         }
       })
       this.checkForEnd()
@@ -76,7 +74,7 @@ export default {
       this.checkForEnd()
       this.imageList.forEach((item, index) => {
         if (this.currentPosition === index) {
-          modalImg.src = item.image
+          modalImg.src = item.image.filename
         }
       })
     },
@@ -94,12 +92,15 @@ export default {
         leftArrow.style.setProperty('opacity', '1')
       }
     }
-  }
+  }*/
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss" >
+.image-title{
+  color: black;
+  font-size: 1.2rem;
+}
 .grid-container {
   width: 100%;
   display: grid;

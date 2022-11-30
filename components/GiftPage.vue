@@ -20,41 +20,41 @@
         <loading-spinner v-if="loading" class="loading-spinner ml-05"/>
       </h2>
       <template v-if="!action">
-          <div class="description-gift-card">
-            <markdown :value="blok.Title" />
-          </div>
-          <div class="items">
-            <section class="display-item">
-              <div class="top">
-                <div class="top-image"></div>
+        <div class="description-gift-card">
+          <markdown :value="blok.Title" />
+        </div>
+        <div class="items">
+          <section class="display-item">
+            <div class="top">
+              <div class="top-image" :style="{ 'background-image': 'url(' + $resizeImage(blok.imageBuy, '1500x1500') + ')' }"></div>
+            </div>
+            <div class="bottom">
+              <div class="bottom-text">
+                {{ $t('buyGiftCard') }}
               </div>
-              <div class="bottom">
-                <div class="bottom-text">
-                  {{ $t('buyGiftCard') }}
-                </div>
-                <a href="https://grandgarage.firstvoucher.com/" target="_blank" class="buy-redeem-button">
-                  {{ $t('buy') }}
-                </a>
+              <a href="https://grandgarage.firstvoucher.com/wertgutschein-fuer-die-grand-garage-m73245" target="_blank" class="buy-redeem-button">
+                {{ $t('buy') }}
+              </a>
+            </div>
+          </section>
+          <div class="spacer"></div>
+          <br>
+          <section class="display-item">
+            <div class="top">
+              <div class="top-image" :style="{ 'background-image': 'url(' + $resizeImage(blok.imageRedeem, '1500x1500') + ')' }"></div>
+            </div>
+            <div class="bottom">
+              <div class="bottom-text">
+                {{ $t('redeemGiftCard') }}
               </div>
-            </section>
-            <div class="spacer"></div>
-            <br>
-            <section class="display-item">
-              <div class="top">
-                <div class="top-image"></div>
+              <div class="buy-redeem-button"
+                   @click="$router.push('gutscheine?action=redeem')">
+                {{ $t('redeem') }}
               </div>
-              <div class="bottom">
-                <div class="bottom-text">
-                  {{ $t('redeemGiftCard') }}
-                </div>
-                <div class="buy-redeem-button"
-                     @click="$router.push('gift?action=redeem')">
-                  {{ $t('redeem') }}
-                </div>
-              </div>
-            </section>
-            <br>
-          </div>
+            </div>
+          </section>
+          <br>
+        </div>
       </template>
 
       <transition name="fade">
@@ -62,7 +62,7 @@
 
           <template v-if="action === 'redeem'">
             <div v-if="step === 0" class="giftcardForm">
-              <div v-if="user == null">
+              <div v-if="!isAuthenticated">
                 <div class="card">
                   <div class="input-redeem-card">
                 <span class="span">
@@ -89,15 +89,15 @@
                   </div>
                   <div class="buttons">
                     <button
-                      class="input-button-primary"
-                      @click="$router.push('gift')"
+                        class="input-button-primary"
+                        @click="$router.push('gutscheine')"
                     >
                       {{ $t('back') }}
                     </button>
                   </div>
                 </div>
               </div>
-              <div v-if="user !== null">
+              <div v-if="isAuthenticated">
                 <div class="card">
                   <div class="input-redeem-card">
                 <span class="span">
@@ -106,8 +106,8 @@
                       <div class=" code">
                         <span class="code-span"> Code: </span>
                         <input
-                          v-model="giftcardCode"
-                          class="form-item"
+                            v-model="giftcardCode"
+                            class="form-item"
                         >
                       </div>
                       <div class="image">
@@ -117,15 +117,15 @@
                   </div>
                   <div class="buttons">
                     <button
-                      class="input-button-payment"
-                      @click="$router.push('gift')"
+                        class="input-button-payment"
+                        @click="$router.push('gutscheine')"
                     >
                       {{ $t('back') }}
                     </button>
                     <button
-                      class="input-button-payment"
-                      :disabled="!giftcardCode"
-                      @click="redeem"
+                        class="input-button-payment"
+                        :disabled="!giftcardCode"
+                        @click="redeem"
                     >
                       Einlösen
                     </button>
@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import { helpers } from '~/utils/helper'
+// import { helpers } from '~/utils/helper'
 
 export default {
   props: ['blok'],
@@ -160,43 +160,46 @@ export default {
     return {
       step: 0,
       action: null,
-      origin: null,
-      selectedProductId: null,
+      //origin: null,
+      //selectedProductId: null,
       giftcardCode: null,
-      paymentMethod: 0,
+      //paymentMethod: 0,
       error: '',
-      shippingstreetEnabled: 0,
-      invoiceContact: {},
-      connectorInvoiceContact: null,
-      sepa_active: false,
-      shippingstreet: [],
-      loading: false,
-      sepaActive: false
+      //shippingstreetEnabled: 0,
+      //invoiceContact: {},
+      //connectorInvoiceContact: null,
+      //sepa_active: false,
+      //shippingstreet: [],
+      loading: false
+      //sepaActive: false
     }
   },
   computed: {
     user () {
-      if (this.$store.state.user) {
-        this.loadUserData()
-      }
+      // if (this.$store.state.user) {
+      //   this.loadUserData()
+      // }
       return this.$store.state.user
     },
-    validInvoiceContact () {
-      if (!this.invoiceContact) {
-        return false
-      }
-      if (this.user === null) {
-        return (this.invoiceContact.firstname && this.invoiceContact.lastname && helpers.validateEmail(this.invoiceContact.email) && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
-      } else {
-        return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
-      }
+    isAuthenticated () {
+      return !!this.$store.state.auth
     },
-    validPayment () {
-      return this.paymentMethod !== 0
-    },
-    ibanIsValid () {
-      return helpers.validateIban(this.invoiceContact.iban)
-    },
+    // validInvoiceContact () {
+    //   if (!this.invoiceContact) {
+    //     return false
+    //   }
+    //   if (this.user === null) {
+    //     return (this.invoiceContact.firstname && this.invoiceContact.lastname && helpers.validateEmail(this.invoiceContact.email) && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
+    //   } else {
+    //     return (this.invoiceContact.firstname && this.invoiceContact.lastname && this.invoiceContact.street && this.invoiceContact.city && this.invoiceContact.zip)
+    //   }
+    // },
+    // validPayment () {
+    //   return this.paymentMethod !== 0
+    // },
+    // ibanIsValid () {
+    //   return helpers.validateIban(this.invoiceContact.iban)
+    // },
     images () {
       return this.blok.Images
     }
@@ -210,31 +213,31 @@ export default {
     this.getQuery(this.$route.query)
   },
   methods: {
-    loadUserData () {
-      this.loading = true
-      this.$store.dispatch('getUserMetadata')
-        .then((data) => {
-          this.invoiceContact = data.data.invoice_contact
-          this.sepaActive = data.data.sepa_active
-        })
-        .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
-          this.$toast.show('Ein Fehler ist aufgetreten', {
-            theme: 'bubble'
-          })
-        })
-        .finally(() => {
-          this.loading = false
-        })
-    },
-    capitalize (str) {
-      return helpers.capitalize(str)
-    },
-    isValidEmailAdress (email) {
-      if (this.user === null) {
-        return helpers.validateEmail(email)
-      } else return true
-    },
+    // loadUserData () {
+    //   this.loading = true
+    //   this.$store.dispatch('getUserMetadata')
+    //     .then((data) => {
+    //       this.invoiceContact = data.data.invoice_contact
+    //       this.sepaActive = data.data.sepa_active
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response.status, error.response.data.msg)
+    //       this.$toast.show('Ein Fehler ist aufgetreten', {
+    //         theme: 'bubble'
+    //       })
+    //     })
+    //     .finally(() => {
+    //       this.loading = false
+    //     })
+    // },
+    // capitalize (str) {
+    //   return helpers.capitalize(str)
+    // },
+    // isValidEmailAdress (email) {
+    //   if (this.user === null) {
+    //     return helpers.validateEmail(email)
+    //   } else return true
+    // },
     getQuery (to) {
       // eslint-disable-next-line no-prototype-builtins
       if (to.hasOwnProperty('origin')) {
@@ -256,9 +259,9 @@ export default {
           this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
             className: 'goodToast'
           })
-          if (this.origin) {
-            this.$router.push(`buyWorkshop?uuid=${this.origin}`)
-          }
+          // if (this.origin) {
+          //   this.$router.push(`buyWorkshop?uuid=${this.origin}`)
+          // }
           this.$router.push('/me/credits')
         })
         .catch((error) => {
@@ -285,87 +288,87 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-    redirectToPayrexxCheckout () {
-      this.loading = true
-      const data = {
-        payment_method: parseInt(this.paymentMethod),
-        product_id: this.selectedProductId,
-        count: 1,
-        invoice_contact: this.invoiceContact
-      }
-      if (this.user === null) {
-        this.$store.dispatch('startTransaction', data)
-          .then((response) => {
-            if (response.data.redirect_link) {
-              if (response.data.invoice_contact) {
-                this.connectorInvoiceContact = response.data.invoice_contact
-              }
-              // Redirect to payrexx screen
-              window.location.href = response.data.redirect_link
-            } else {
-              console.log('response', response.data)
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
-            })
-          })
-          .finally(() => {
-            this.loading = false
-          })
-      } else {
-        this.$store.dispatch('checkout', data)
-          .then((response) => {
-            switch (parseInt(this.paymentMethod)) {
-              case 1: // PAYMENT PROVIDER
-                if (response.data.redirect_link) {
-                  if (response.data.invoice_contact) {
-                    this.connectorInvoiceContact = response.data.invoice_contact
-                  }
-                  // Redirect to payrexx screen
-                  window.location.href = response.data.redirect_link
-                } else {
-                  console.log('Error: No payrexx redirect_link returned!', response.data)
-                  throw new Error('No payrexx redirect_link returned!')
-                }
-                break
-              case 2: // SEPA
-                this.step++
-                break
-            }
-          })
-          .catch((error) => {
-            console.log('error', error)
-            this.$sentry.captureException(new Error(error))
-            this.$toast.show('Ein Fehler ist aufgetreten', {
-              theme: 'bubble'
-            })
-          })
-          .finally(() => {
-            this.loading = false
-          })
-      }
-    },
-    getGiftCardValue (id) {
-      switch (id) {
-        case '719':
-          return 10
-        case '720':
-          return 25
-        case '721':
-          return 50
-        case '722':
-          return 100
-        case '923':
-          return 150
-        case '924':
-          return 400
-      }
     }
+    // redirectToPayrexxCheckout () {
+    //   this.loading = true
+    //   const data = {
+    //     payment_method: parseInt(this.paymentMethod),
+    //     product_id: this.selectedProductId,
+    //     count: 1,
+    //     invoice_contact: this.invoiceContact
+    //   }
+    //   if (this.user === null) {
+    //     this.$store.dispatch('startTransaction', data)
+    //       .then((response) => {
+    //         if (response.data.redirect_link) {
+    //           if (response.data.invoice_contact) {
+    //             this.connectorInvoiceContact = response.data.invoice_contact
+    //           }
+    //           // Redirect to payrexx screen
+    //           window.location.href = response.data.redirect_link
+    //         } else {
+    //           console.log('response', response.data)
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log('error', error)
+    //         this.$sentry.captureException(new Error(error))
+    //         this.$toast.show('Ein Fehler ist aufgetreten', {
+    //           theme: 'bubble'
+    //         })
+    //       })
+    //       .finally(() => {
+    //         this.loading = false
+    //       })
+    //   } else {
+    //     this.$store.dispatch('checkout', data)
+    //       .then((response) => {
+    //         switch (parseInt(this.paymentMethod)) {
+    //           case 1: // PAYMENT PROVIDER
+    //             if (response.data.redirect_link) {
+    //               if (response.data.invoice_contact) {
+    //                 this.connectorInvoiceContact = response.data.invoice_contact
+    //               }
+    //               // Redirect to payrexx screen
+    //               window.location.href = response.data.redirect_link
+    //             } else {
+    //               console.log('Error: No payrexx redirect_link returned!', response.data)
+    //               throw new Error('No payrexx redirect_link returned!')
+    //             }
+    //             break
+    //           case 2: // SEPA
+    //             this.step++
+    //             break
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log('error', error)
+    //         this.$sentry.captureException(new Error(error))
+    //         this.$toast.show('Ein Fehler ist aufgetreten', {
+    //           theme: 'bubble'
+    //         })
+    //       })
+    //       .finally(() => {
+    //         this.loading = false
+    //       })
+    //   }
+    // },
+    // getGiftCardValue (id) {
+    //   switch (id) {
+    //     case '719':
+    //       return 10
+    //     case '720':
+    //       return 25
+    //     case '721':
+    //       return 50
+    //     case '722':
+    //       return 100
+    //     case '923':
+    //       return 150
+    //     case '924':
+    //       return 400
+    //   }
+    // }
   }
 }
 </script>
@@ -415,29 +418,29 @@ h2 {
   display: inline-grid;
 }
 
-.paypal-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
-}
-
-.mastercard-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
-}
-
-.visa-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
-}
-
-.apple-pay-icon {
-  background-color: grey; /* defines the background color of the image */
-  mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
-  -webkit-mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
-}
+//.paypal-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-paypal.svg') no-repeat center / contain;
+//}
+//
+//.mastercard-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-mastercard.svg') no-repeat center / contain;
+//}
+//
+//.visa-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-visa.svg') no-repeat center / contain;
+//}
+//
+//.apple-pay-icon {
+//  background-color: grey; /* defines the background color of the image */
+//  mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+//  -webkit-mask: url('~/assets/img/icons/cc-apple-pay.svg') no-repeat center / contain;
+//}
 
 .silent-link, .silent-info {
   font-size: 0.6em;
@@ -498,8 +501,7 @@ h2 {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 10vh;
-  margin-top: 2em;
+  margin-top: 4em;
 
   .display-item {
     border-radius: 15px;
@@ -509,8 +511,9 @@ h2 {
     width: 370px;
     box-shadow: 10px 5px 5px #00000024;
     flex-flow: column;
+    overflow: hidden;
     @include media-breakpoint-down(sm) {
-      height: 200px;
+      height: 220px;
       width: 300px;
     }
 
@@ -519,19 +522,16 @@ h2 {
       color: white;
 
       .top-image {
-        background-image: url(../assets/img/icons/gg-logo-icon.svg);
-        background-size: contain;
+        background-size: cover;
         background-position: 50%;
         background-repeat: no-repeat;
-        height: 3.5vh;
-        filter: invert(1);
-        margin-top: 15%;
-        @include media-breakpoint-down(sm) {
-          margin-top: 19%;
-        }
-
-        &:hover {
-          background-image: url(../assets/img/icons/gg-logo.svg);
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        height: 160px;
+        transition: transform 0.4s ease;
+        transform-origin: 50% 50%;
+        @include media-breakpoint-down(md) {
+          height: 160px;
         }
       }
 
@@ -576,6 +576,9 @@ h2 {
         @include media-breakpoint-down(sm) {
           margin-left: 35%;
         }
+        &:hover {
+          background: black;
+        }
       }
 
       & * {
@@ -586,8 +589,8 @@ h2 {
     &:hover {
       .top {
         .top-image {
-          background-image: url(../assets/img/icons/gg-logo.svg);
-          height: 5vh;
+          transform: scale(1.02);
+          width: 100%;
         }
       }
     }
@@ -786,10 +789,6 @@ h2 {
   flex-flow: column;
 }
 
-.display-item:hover .buy-redeem-button {
-  background: black !important;
-}
-
 .headline {
   padding-left: 21vw;
   text-decoration: underline;
@@ -862,9 +861,15 @@ h2 {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  align-self: center;
+  font-weight: 400;
+  font-family: $font-primary;
+  line-height: 1.6;
+  font-size: 0.9em;
+  letter-spacing: .03em;
   @include media-breakpoint-up(md) {
-    width: 92%;
+    width: 70%;
+    font-size: 1em;
   }
   @include media-breakpoint-down(sm) {
     padding: 0 11vw;

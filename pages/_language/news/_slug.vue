@@ -28,7 +28,7 @@
             <div> {{ $t('materialsUsed') }}</div>
             <vue-markdown>{{ item.content.materials }}</vue-markdown>
           </div>
-          <div class="spacer"></div>
+<!--          <div class="spacer"></div>-->
           <div class="video" v-if="item.content.video">
             <iframe :src="item.content.video" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -78,7 +78,7 @@
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
 import VotingButton from '../../../components/VotingButton'
 import VueMarkdown from 'vue-markdown'
-import { getMetaTagsForBlog } from '@/services/MetaDataService'
+import { getMetaTagsForPage } from '@/services/MetaDataService'
 
 export default {
   components: { VotingButton, VueMarkdown },
@@ -145,7 +145,7 @@ export default {
     }
   },
   head () {
-    return getMetaTagsForBlog(this.item)
+    return getMetaTagsForPage(this.item)
   }
 }
 </script>
@@ -236,7 +236,6 @@ export default {
   line-height: normal;
   background: #f2f3ee;;
   font-size: 1.5rem;
-  margin-bottom: 7%;
   @include media-breakpoint-down(md) {
     flex-flow: column;
     margin-left: 5%;

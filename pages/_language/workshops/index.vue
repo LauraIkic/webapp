@@ -26,25 +26,25 @@
     <div class="workshop-list-wrapper" :key="this.filtered">
       <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
         <transition-group name="list">
-        <workshop-list-item
-            v-for="item in filteredWorkshops"
-            :blok="item"
-            :key="item.id"
-            class="list-item"
-            :slim="false"
-        ></workshop-list-item>
-        </transition-group>
-      </div>
-      <div v-else>
-        <div v-if="workshops && workshops.length > 0" class="workshop-list">
-          <transition-group name="list">
           <workshop-list-item
-              v-for="item in workshops"
+              v-for="item in filteredWorkshops"
               :blok="item"
               :key="item.id"
               class="list-item"
               :slim="false"
           ></workshop-list-item>
+        </transition-group>
+      </div>
+      <div v-else>
+        <div v-if="workshops && workshops.length > 0" class="workshop-list">
+          <transition-group name="list">
+            <workshop-list-item
+                v-for="item in workshops"
+                :blok="item"
+                :key="item.id"
+                class="list-item"
+                :slim="false"
+            ></workshop-list-item>
           </transition-group>
         </div>
         <div v-else>
@@ -66,7 +66,9 @@ export default {
       categories: [
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshop', value: false },
-        { key: 'training', name: 'Unterweisungen', value: false }
+        { key: 'training', name: 'Einschulungen', value: false },
+        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false },
+        { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
       search: '',
@@ -80,6 +82,7 @@ export default {
   },
   created () {
     this.$watch('categories', (newVal, oldVal) => {
+      console.log('update')
       this.update()
     }, { deep: true })
   },
@@ -91,16 +94,17 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findWorkshops', this.filters).then((data) => {
+      this.$store.dispatch('findWorkshops', { filters: this.filters, search: this.search }).then((data) => {
         this.loading = false
         this.workshops = data
+        console.log('this.workshops: ', this.workshops)
       })
       this.selectedEvents = this.selectedCategories()
       this.filteredWorkshops = []
-      console.log('SELECTED EVENTS')
-      console.log(this.selectedEvents)
+      // console.log('SELECTED EVENTS')
+      // console.log(this.selectedEvents)
       this.workshops = this.filterCategory()
-      console.log(this.workshops)
+      //console.log(this.workshops)
       this.filtered = true
     },
     toggleTags () {
@@ -134,8 +138,8 @@ export default {
           starttime: {
             'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
           }
-        },
-        search_term: this.search
+        }
+        // search_term: this.search
       }
     }
   },
@@ -151,7 +155,7 @@ export default {
         }
       }
     }
-    const workshops = await context.store.dispatch('findWorkshops', filters).then((data) => {
+    const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: '' }).then((data) => {
       if (data) {
         return { workshops: data }
       }
@@ -347,6 +351,8 @@ export default {
 .workshop-list-wrapper {
   display: flex;
   .workshop-list {
+    padding-right: 10px;
+    padding-left: 10px;
     > span {
       display: grid;
       @include media-breakpoint-up(sm) {
@@ -358,6 +364,7 @@ export default {
 
       @include media-breakpoint-up(xl) {
         grid-template-columns: 1fr 1fr 1fr;
+        padding: 0px;
       }
       grid-column-gap: 2vw;
       grid-row-gap: 2vw;
@@ -365,7 +372,7 @@ export default {
     flex: 3;
     .list-item {
       min-width: 150px;
-      padding: 0 5px;
+      border-radius: 10px;
       @include media-breakpoint-up(lg) {
         min-width: 200px;
       }

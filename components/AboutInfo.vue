@@ -3,7 +3,7 @@
     v-editable="blok"
     class="about-info"
   >
-    <div class="headline">
+    <div v-if="blok.headline" class="headline">
       {{ blok.headline }}
     </div>
     <div class="col">
@@ -15,6 +15,9 @@
       <div class="col-end">
         <div class="content">
           <markdown :value="blok.content" />
+          <a v-if="blok.contentLink" :href="blok.contentLink" target="_blank">
+            {{blok.contentLinkName}}
+          </a>
         </div>
         <div class="image-wrapper">
           <img
