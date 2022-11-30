@@ -42,7 +42,7 @@
         </select>
       </div>
       <div class="form-item">
-        <span class="label">{{ $t('phone') }}<span class="red">*</span></span>
+        <span class="label">{{ $t('phone') }}</span>
         <input class="input-text" type="text" v-model="onboardingData.contactInformation.phone" name=""/>
       </div>
       <div class="form-item">

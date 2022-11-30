@@ -200,7 +200,7 @@ export default {
           //return false
           // eslint-disable-next-line no-unreachable
           const data = this.onboardingData
-          const requiredKeys = ['birthdate', 'address', 'zip', 'city', 'country', 'phone']
+          const requiredKeys = ['birthdate', 'address', 'zip', 'city', 'country']
           const requiredKeysInvoiceContact = ['firstName', 'lastName', 'address', 'zip', 'city', 'country']
           const allInvoiceContactFieldsSet = (!requiredKeysInvoiceContact.filter(k => !data.billingInformation[k]).length)
           // if another invoice contact (checkbox) is selected, then the additional fields are required to proceed
@@ -406,9 +406,36 @@ export default {
         case MemberType.corporate_freeCost:
           console.log('MemberType: corporate_freeCost')
           memberData = memberDataBasic
-          memberData = { ...memberData, paidForBy: this.onboardingData.contactInformation.company.id }
+          memberData = {
+            ...memberData,
+            paidForBy: this.onboardingData.contactInformation.company.id,
+            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id
+          }
           break
         case MemberType.corporate:
+          console.log('MemberType: corporate')
+          memberData = memberDataBasic
+          memberData = {
+            ...memberData,
+            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id
+          }
+          extendMemberDataIban = {
+            iban: this.onboardingData.payment.iban
+          }
+          if (this.onboardingData.contactInformation.hasBillingAddress) {
+            // 'billingCompany', 'billingAddress', 'billingAddress2', 'billingRegion', 'billingInvoiceText', 'billingEmailAddress' unused
+            extendMemberDataBillingAddress = {
+              billingFirstName: this.onboardingData.billingInformation.firstName,
+              billingLastName: this.onboardingData.billingInformation.lastName,
+              billingAddress: this.onboardingData.billingInformation.address,
+              billingCity: this.onboardingData.billingInformation.city,
+              billingZip: this.onboardingData.billingInformation.zip,
+              billingCountryCode: this.onboardingData.billingInformation.country
+            }
+          }
+          memberData = { ...memberData, ...extendMemberDataIban }
+          memberData = { ...memberData, ...extendMemberDataBillingAddress }
+          break
         case MemberType.member:
           console.log('MemberType: member or corporate (no free cost)')
           extendMemberDataIban = {
@@ -429,9 +456,10 @@ export default {
           memberData = { ...memberData, ...extendMemberDataBillingAddress }
           break
       }
-      //this.loading = true
+      console.log('memberData: ', memberData)
+      this.loading = true
 
-      // 1) create Fabman member
+      //1) create Fabman member
       this.$store.dispatch('createMember', memberData).then((r) => {
         console.log('RESULT FABMAN CREATE: ', r)
         // eslint-disable-next-line camelcase
@@ -476,7 +504,7 @@ export default {
             }
             this.$store.dispatch('uploadImage', uploadImageRequest).then((r) => {})
           }
-
+          // 5) register Auth0
           const registerAuth0Data = {
             email: this.onboardingData.userInformation.email,
             password: this.onboardingData.userInformation.password,
