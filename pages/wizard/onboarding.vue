@@ -288,7 +288,10 @@ export default {
           this.saveOnboardingData()
           break
         case 'contact':
-          console.log('next')
+          this.loadNextPage()
+          this.saveOnboardingData()
+          break
+        case 'image':
           this.loadNextPage()
           this.saveOnboardingData()
           break
@@ -428,6 +431,7 @@ export default {
       }
       //this.loading = true
 
+      // 1) create Fabman member
       this.$store.dispatch('createMember', memberData).then((r) => {
         console.log('RESULT FABMAN CREATE: ', r)
         // eslint-disable-next-line camelcase
@@ -447,7 +451,7 @@ export default {
           }
         }
         console.log('packageData: ', packageData)
-        // set membership package
+        // 2) set membership
         this.$store.dispatch('setPackageOnboarding', packageData).then((r) => {
           console.log('RESULT SET PACKAGE: ', r)
           if (this.onboardingData.payment.bookStorage && memberType === MemberType.member) {
@@ -458,12 +462,21 @@ export default {
                 memberId: fabman_id,
                 id: storage.id
               }
-              // set storage packages
+              // 3) set storage packages
               this.$store.dispatch('setPackageOnboarding', storagePackageData).then((r) => {
                 console.log('STORAGE FABMAN CREATE: ', r)
               })
             })
           }
+          // 4) upload Image
+          if (this.onboardingData.image64) {
+            const uploadImageRequest = {
+              memberId: fabman_id.toString(),
+              dataUrl: this.onboardingData.image64
+            }
+            this.$store.dispatch('uploadImage', uploadImageRequest).then((r) => {})
+          }
+
           const registerAuth0Data = {
             email: this.onboardingData.userInformation.email,
             password: this.onboardingData.userInformation.password,
