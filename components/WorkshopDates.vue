@@ -163,9 +163,8 @@ export default {
     content () {
       return this.date.content
     },
-    //TODO is Member
     isMember () {
-      return this.$store.state.user.packages.length > 0
+      return this.$store.state.user.profile.state === 'active'
     }
   },
   mounted () {
