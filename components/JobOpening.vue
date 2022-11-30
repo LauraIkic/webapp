@@ -38,7 +38,7 @@
           <img
             v-if="blok.image"
             class="image"
-            :src="$resizeImage(blok.image, '1600x400')"
+            :src="$resizeImage(blok.image, '1700x550')"
             alt=""
           >
           <div class="header">
@@ -50,11 +50,10 @@
                 {{ blok.subtitle }}
               </div>
             </div>
-            <div class="col-button">
-              <a
-                href="mailto:office@grandgarage.eu"
-                class="apply-button"
-              >{{ $t('apply') }}</a>
+            <div class="col-button" >
+              <a v-bind:href="contact" v-if="!this.hideContact" target="_blank"
+                 class="apply-button">
+              {{ $t('apply') }}</a>
             </div>
           </div>
           <markdown :value="blok.description" />
@@ -75,6 +74,23 @@ export default {
   methods: {
     updateStatus (e) {
       this.active = e.status
+    }
+  },
+  computed: {
+    hideContact () {
+      return this.blok.hide_contact
+    },
+
+    contact () {
+      if (this.blok.contact.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
+        return `mailto:${this.blok.contact}`
+      } else {
+        if (this.blok.contact !== '') {
+          return this.blok.contact
+        } else {
+          return 'mailto:office@grandgarage.eu'
+        }
+      }
     }
   }
 }
@@ -125,7 +141,8 @@ export default {
           margin-bottom: 5px;
         }
         .subtitle {
-          font-size: 1rem;
+          font-size: 1.2rem;
+          font-weight: bold;
         }
       }
       .col-button {
@@ -155,7 +172,7 @@ export default {
     }
     &.v-collapse-content-end {
       transition:max-height .3s ease-in;
-      max-height: 500vh;
+      max-height: max-content;
     }
     .inner-content {
       padding: 0 20px 20px 20px;

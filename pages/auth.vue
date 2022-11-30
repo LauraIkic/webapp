@@ -3,6 +3,7 @@
     <div v-if="error">
       <div v-if="error.errorDescription == 'verify-mail'">
         <p>{{ $t('youHaveToConfirmYourEmailForRegistration') }} {{ $t('anotherVerificationEmailHasBeenSentTo') }}</p>
+        <p>{{ $t('checkSpamFolder') }}</p>
       </div>
       <div v-else>
         <p>{{ $t('anErrorHasOccurred') }}<code>{{ error }}</code></p>

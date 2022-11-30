@@ -106,7 +106,8 @@
   "signupMakerSpace": "Sign up for a membership",
   "beforeYouCanStart": "",
 
-  "sentConfirmationLink": "We have sent you an email with a confirmation link.",
+  "sentConfirmationLink": "We have sent you an email with a confirmation link. ",
+  "checkSpamFolder": "Please also check your SPAM folder!",
   "onceAccountConfirmed": "Once you have confirmed your account, you can get started.",
 
   "theFuture": "The future",
@@ -121,6 +122,8 @@
   "event": "Event",
   "meetup": "Meetup",
   "workshops": "Workshops",
+  "frauenundtechnik": "#frauenundtechnik",
+  "makemas": "#makemas2022",
   "soldOut": "soldOut",
 
   "area": "Area",
@@ -319,5 +322,9 @@
   "allPressReleases": "All press releases",
   "yourContact": "Your Contact",
   "pressImages": "PRESS IMAGES",
-  "download": "Download"
+  "download": "Download",
+
+  "workshop": "Workshop",
+  "general": "General"
+
 }

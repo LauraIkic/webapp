@@ -31,24 +31,26 @@
         :value="blok.info"
         class="info-text"
       />
+      <workshop-dates
+        :dates="dates"
+        :pretix="blok.pretix_shortform"
+        class="workshop-dates"
+     />
       <markdown
           v-if="blok.requirements"
           :value="blok.requirements"
           class="info-text"
       />
     </div>
-    <div
-      v-if="blok.images"
-      class="body"
-    >
-      <image-slideshow :blok="images" />
+    <div>
+      <component v-for="i in blok.contentBloks" :blok="i" :is="i.component" :key="i.uid" />
     </div>
   </div>
 </template>
 
 <script>
 
-import { getMetaTagsForWorkshop } from '../services/MetaDataService'
+import { getMetaTagsForPage } from '../services/MetaDataService'
 
 export default {
   props: ['blok', 'dates'],
@@ -67,7 +69,7 @@ export default {
     }
   },
   head () {
-    return getMetaTagsForWorkshop(this.blok)
+    return getMetaTagsForPage(this.blok)
   }
 }
 </script>

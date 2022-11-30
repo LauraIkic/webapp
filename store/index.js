@@ -197,7 +197,7 @@ const createStore = () => {
         const c = axios.create({
           baseURL: connectorBaseUrl
         })
-        return c.post('/blog/votes/vote', data).then((r) => {
+        return c.post('v1/blog/votes/vote', data).then((r) => {
           if (r.data.success) {
             return r.data
           }
@@ -207,7 +207,7 @@ const createStore = () => {
         const c = axios.create({
           baseURL: connectorBaseUrl
         })
-        return c.post('/blog/votes', data).then((r) => {
+        return c.post('v1/blog/votes', data).then((r) => {
           return r.data
         })
       },
@@ -811,7 +811,9 @@ const createStore = () => {
           return res.data
         })
       },
-      findWorkshops ({ state }, filters) {
+      findWorkshops ({ state }, data) {
+        const filters = data.filters
+        const search = data.search
         return this.$storyapi.get('cdn/stories', {
           ...filters,
           version: version,
@@ -832,7 +834,13 @@ const createStore = () => {
             }
             workshops[wid].dates.push(w)
           }
-          return Object.values(workshops).sort((a, b) => a.name.localeCompare(b.name))
+          if (search === '' || !search) {
+            return Object.values(workshops).sort((a, b) => a.content.title.localeCompare(b.content.title))
+          }
+          const searchString = new RegExp(search, 'i')
+          return Object.values(workshops).filter((w) => {
+            return w.content.title.match(searchString)
+          }).sort((a, b) => a.content.title.localeCompare(b.content.title))
         }).catch((res) => {
           this.$sentry.captureException(res)
         })

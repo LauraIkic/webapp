@@ -1,6 +1,9 @@
 <template>
   <div class="workshop-dates">
-    <div
+    <div v-if="dates.length > 0 ">
+      <pretix-calendar :calendar="$props.pretix"/>
+    </div>
+<!--    <div
       v-for="d in dates"
       :key="d.id"
       class="workshop-date"
@@ -57,9 +60,9 @@
           </div>
         </div>
         <div class="info-block">
-          <!--<div class="col soldOut" v-if="d.content.sold_out">
+          &lt;!&ndash;<div class="col soldOut" v-if="d.content.sold_out">
             <span>ausgebucht</span>
-          </div>-->
+          </div>&ndash;&gt;
 
           <div
             v-if="metadata != null && !(d.content.link && d.content.link.cached_url && d.content.link.cached_url != '') && !d.content.without_registration"
@@ -80,7 +83,7 @@
           >
             {{ $t('inOrderToBookAWorkshopYouHaveToBeLoggedIn') }} {{ $t('thankYou') }}
           </div>
-<!--          <div class="spacer"/>-->
+&lt;!&ndash;          <div class="spacer"/>&ndash;&gt;
 
           <div
             v-if="metadata != null &&metadata[d.uuid].occupancy >= 100 || d.content.sold_out && !d.content.without_registration"
@@ -117,11 +120,11 @@
               {{ metadata != null && metadata[d.uuid].already_booked === true ? 'Bereits gebucht' : 'Zur Anmeldung' }}
             </NuxtLink>
           </div>
-          <!--
+          &lt;!&ndash;
           <span v-else class="link" @click="$store.dispatch('setSidebar', 'login')">
               {{ $t('toRegistration') }}
           </span>
-          -->
+          &ndash;&gt;
           <div
             v-if="hideRegister != true && d.content.link && d.content.link.cached_url && d.content.link.cached_url != '' && !d.content.sold_out"
             class="col register workshop-button"
@@ -134,7 +137,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -147,7 +150,8 @@ export default {
     dates: Array,
     date: Array,
     hideRegister: Boolean,
-    noMetadata: Boolean
+    noMetadata: Boolean,
+    pretix: String
   },
   data () {
     return {
@@ -159,6 +163,7 @@ export default {
     content () {
       return this.date.content
     },
+    //TODO is Member
     isMember () {
       return this.$store.state.user.packages.length > 0
     }

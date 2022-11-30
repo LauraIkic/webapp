@@ -32,6 +32,11 @@
                 :id="p"
                 :key="p"
             />
+            <contact-preview
+                v-for="p in member"
+                :id="p"
+                :key="p._uid"
+            />
           </div>
         </div>
       </div>
@@ -44,6 +49,12 @@ export default {
   computed: {
     person () {
       return this.blok.contact
+    },
+    member () {
+      if (this.blok.member != null) {
+        return this.blok.member
+      }
+      return null
     }
   }
 }
