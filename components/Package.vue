@@ -27,14 +27,42 @@
             {{ $t('interval') }}{{ $t('yearly') }}
           </div>
           {{ $t('price') }} {{userPackage.recurringFee}}  {{ $t('euro') }}
-          <div v-if="storage && booked && !untilDate" class="button" @click="cancelStorage(userPackage.id)">
+          <div v-if="storage && booked && !untilDate && !cancelPackageDialog" class="button" @click="showCancelPackageDialog()">
               <div class="button-text">
               {{ 'kündigen' }}
               </div>
           </div>
-          <div v-if="storage && !booked" class="button" @click="setPackage(userPackage.id)">
+          <div class="button-row">
+            <div v-if="storage && booked && !untilDate && cancelPackageDialog">
+              <div class="button-dialog-no" @click="closeCancelPackageDialog()">
+                <div>
+                  {{ 'abbrechen' }}
+                </div>
+              </div>
+              <div class="button-dialog-yes" @click="cancelStorage(userPackage.id)">
+                <div>
+                  {{ 'bestätigen' }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="storage && !booked && !setPackageDialog" class="button" @click="showSetPackageDialog()">
             <div class="button-text">
               {{ 'buchen' }}
+            </div>
+          </div>
+          <div class="button-row">
+            <div v-if="storage && !booked && setPackageDialog">
+              <div class="button-dialog-no" @click="closeSetPackageDialog()">
+                <div>
+                  {{ 'abbrechen' }}
+                </div>
+              </div>
+              <div class="button-dialog-yes" @click=setPackage(userPackage.id)>
+                  <div>
+                    {{ 'bestätigen' }}
+                  </div>
+              </div>
             </div>
           </div>
         </div>
@@ -47,6 +75,12 @@
 
 <script>
 export default {
+  data () {
+    return {
+      setPackageDialog: false,
+      cancelPackageDialog: false
+    }
+  },
   props: ['userPackage', 'storage', 'booked'],
   computed: {
     fromDate () {
@@ -66,6 +100,7 @@ export default {
   },
   methods: {
     async setPackage (id) {
+      this.setPackageDialog = true
       await this.$store.dispatch('setPackage', { id: id })
         .then((response) => {
           this.$toast.show('Buchung wurde erfolgreich durchgeführt', {
@@ -88,6 +123,19 @@ export default {
           }
         })
     },
+    showSetPackageDialog () {
+      this.setPackageDialog = true
+    },
+    closeSetPackageDialog () {
+      this.setPackageDialog = false
+    },
+    showCancelPackageDialog () {
+      this.cancelPackageDialog = true
+    },
+    closeCancelPackageDialog () {
+      this.cancelPackageDialog = false
+    },
+
     async cancelStorage (memberPackageId) {
       await this.$store.dispatch('cancelPackage', memberPackageId, { id: memberPackageId })
         .then((response) => {
@@ -162,8 +210,34 @@ export default {
         & * {
           text-transform: uppercase;
         }
+      .button-row {
+        text-align: center;
+        //background-color: red;
+        //color: red;
+      }
+      .button-dialog-yes {
+        cursor: pointer;
+        margin-top: 7%;
+        background: $color-success-border;
+        border-radius: 15px;
+        color: white;
+        padding: 7px;
+        font-size: 16px;
+        width: 110px;
+        display: inline-block;
+      }
+      .button-dialog-no {
+        cursor: pointer;
+        margin-top: 7%;
+        background: $color-red;
+        border-radius: 15px;
+        color: white;
+        padding: 7px;
+        font-size: 16px;
+        width: 110px;
+        display: inline-block;
+      }
     }
   }
-
 }
 </style>
