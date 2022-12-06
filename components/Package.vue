@@ -193,27 +193,20 @@ export default {
           margin-top: 7%;
           background: $color-secondary;
           border-radius: 15px;
-          display: flex;
           color: white;
           padding: 7px;
           font-size: 16px;
           width: 110px;
-
-          //margin-left: 35%;
-          //@include media-breakpoint-down(sm) {
-          //  margin-left: 35%;
-          //}
+          text-align: center;
         }.button-text {
+                 display: inline-block;
                  text-align: center;
-                 width: 8vw;
                }
         & * {
           text-transform: uppercase;
         }
       .button-row {
         text-align: center;
-        //background-color: red;
-        //color: red;
       }
       .button-dialog-yes {
         cursor: pointer;
