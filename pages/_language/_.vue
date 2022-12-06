@@ -31,7 +31,7 @@ export default {
     return {
       story: null,
       snowConf: {
-        windPower: 1,
+        windPower: 0,
         speed: 1,
         count: 10,
         size: 8,
