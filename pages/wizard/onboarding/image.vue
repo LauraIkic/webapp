@@ -1,8 +1,9 @@
 <template>
   <div class="section">
     <h2>Foto</h2>
-    <p>Damit wir Dir Deine persönliche Memberkarte erstellen können, brauchen wir auch ein Foto von Dir.</p>
-    <p>Wenn Du grad keines hast ist das kein Problem, wir machen bei Deinem ersten Besuch in der GG eins von Dir.</p>
+<!--    <p>Damit wir Dir Deine persönliche Memberkarte erstellen können, brauchen wir auch ein Foto von Dir.</p>-->
+    <p>Für Deine persönliche Memberkarte lade bitte hier Dein Bild hoch.</p>
+<!--    <p>Wenn Du grad keines hast ist das kein Problem, wir machen bei Deinem ersten Besuch in der GG eins von Dir.</p>-->
     <form class="form">
       <div v-if="image != null" class="form-item">
         <span class="label">{{ $t('Image-Preview') }}</span>

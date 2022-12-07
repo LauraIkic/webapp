@@ -33,7 +33,7 @@
     <div>
       <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
       <label for="checkbox">{{ $t('iHaveReadThe') }} <a
-          href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
+          href="https://a.storyblok.com/f/47294/x/ab97a83e24/gg_hausordnung.pdf"
           target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>
     </div>
   </div>

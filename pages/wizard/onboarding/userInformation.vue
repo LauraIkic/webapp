@@ -39,20 +39,24 @@
       </div>
       <div class="form-item">
         <span class="label">{{ $t('reenterPassword') }}</span>
+        <div class="password-wrapper">
         <input
             v-model="passwordRepeat"
             type="password"
             placeholder=""
         >
+
         <div class="password-error">
           <span
               v-if="!passwordRepeatIsEqual"
               class="bad"
           >{{ $t('passwordsDoNotMatch') }} </span>
+          <br>
           <span
               v-if="passwordTooShort"
               class="bad"
           >{{$t('passwordTooShort') }} </span>
+        </div>
         </div>
       </div>
     </form>

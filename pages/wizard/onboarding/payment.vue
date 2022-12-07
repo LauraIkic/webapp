@@ -1,19 +1,8 @@
 <template>
   <div class="section">
-    <h2>{{ $t('signupMakerSpace') }}</h2>
     <p>{{ $t('beforeYouCanStart') }}</p>
     <form class="form">
-      <div v-if="!this.onboardingData.contactInformation.company">
-      <div class="form-item" v-for="storage in this.availableStorage" :key="storage.id">
-        <span class="label">{{storage.name}}</span>
-        <div class="checkbox-wrapper">
-          <input class="checkbox" type="checkbox"
-                 :id="storage" v-model="onboardingData.payment.bookStorage" :value="storage">
-          <p class="text">für {{storage.recurringFee}}€ monatlich buchen</p>
-        </div>
-      </div>
-      </div>
-      <div class="form-item" v-if="!this.onboardingData.contactInformation.company">
+      <div class="form-item" v-if="!this.onboardingData.contactInformation.company" style="margin-top: 40px">
         <span class="label">MITGLIEDSCHAFT<span class="red">*</span></span>
         <select class="input-select" v-model="onboardingData.payment.membership">
           <option
@@ -21,6 +10,20 @@
             {{ membership.name }}
           </option>
         </select>
+      </div>
+      <div v-if="!this.onboardingData.contactInformation.company" style="margin-top: 40px; margin-bottom: 40px">
+        <div class="form-item" >
+          <label ></label>
+          <h5 style="margin: 0">Zusätzlich kannst Du deine Projekte in einer unserer Lagerboxen aufbewahren.</h5>
+        </div>
+      <div class="form-item" v-for="storage in this.availableStorage" :key="storage.id" style="margin: 0">
+        <span class="label">{{storage.name}}</span>
+        <div class="checkbox-wrapper">
+          <input class="checkbox" type="checkbox"
+                 :id="storage" v-model="onboardingData.payment.bookStorage" :value="storage">
+          <p class="text">für {{storage.recurringFee}}€ monatlich buchen</p>
+        </div>
+      </div>
       </div>
       <div class="form-item" v-if="!this.onboardingData.contactInformation.company && this.onboardingData.payment.bookStorage.length > 0">
         <span class="label">LAGER: PREIS<span class="red">*</span></span>
@@ -37,16 +40,18 @@
       <div v-if="!this.hasAttendeesFreeCost">
         <div class="form-item">
           <span class="label">IBAN<span class="red">*</span></span>
-          <input class="input-text" type="text" v-model="onboardingData.payment.iban" name="" @input="validateIban()"/>
-          <div class="date-error">
-          <span
-              v-if="!this.onboardingData.payment.ibanIsValid && this.onboardingData.payment.iban"
-              class="bad"
-          >{{ 'IBAN ist üngültig' }} </span>
+            <div>
+            <input class="input-text" style="margin-bottom: 3px" type="text" v-model="onboardingData.payment.iban" name="" @input="validateIban()"/>
+            <div class="date-error">
+            <span
+                v-if="!this.onboardingData.payment.ibanIsValid && this.onboardingData.payment.iban"
+                class="bad"
+            >{{ 'IBAN ist üngültig' }} </span>
+            </div>
           </div>
         </div>
         <div class="form-item">
-          <span class="label">SEPA MANDAT</span>
+          <span class="label" >SEPA MANDAT</span>
           <div class="checkbox-wrapper">
             <input class="checkbox" type="checkbox"
                    :checked="onboardingData.payment.sepaMandat"
@@ -210,25 +215,28 @@ export default {
   }
   .checkbox-wrapper {
     padding-right: 20px;
-
-    margin-top: 4px;
     margin-right: 0;
+    //margin-bottom: 0;
     display: flex;
     .checkbox {
-      max-width: 30px;
-      width: 30px;
-      min-width: 30px;
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
+      //vertical-align: middle;
+      //line-height: normal;
+      max-width: 15px;
       max-height: 15px;
-      height: 15px;
-      min-height: 15px;
+      margin-right: 5px;
     }
     .text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 0;
-      margin-top: 4px;
-      //max-width: 100px;
       font-weight: lighter;
       text-transform: none;
       font-size: .7em;
+
     }
   }
   input {
@@ -249,6 +257,9 @@ export default {
     font-weight: bold;
     text-transform: uppercase;
     font-size: .7em;
+    //display: flex;
+    justify-content: end;
+    //align-self: flex-end;
   }
   .text-content {
     align-self: flex-end;

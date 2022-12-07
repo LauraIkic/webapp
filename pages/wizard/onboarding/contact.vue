@@ -1,10 +1,11 @@
 <template>
   <div class="section">
-      <h2>{{ $t('signupMakerSpace') }}</h2>
+<!--      <h2>{{ $t('signupMakerSpace') }}</h2>-->
       <p>{{ $t('beforeYouCanStart') }}</p>
     <form class="form">
-      <div class="form-item">
+      <div class="form-item" style="margin-top: 20px">
         <span class="label">{{ $t('dateOfBirth') }}<span class="red">*</span></span>
+        <div>
         <input class="input-text" ref="firstInput" type="date" min="1900-01-01"
                v-model="onboardingData.contactInformation.birthdate"
                name=""
@@ -14,6 +15,7 @@
               v-if="!onboardingData.contactInformation.birthdateValid"
               class="bad"
           >{{ $t('tooYoung') }} </span>
+        </div>
         </div>
       </div>
       <div class="form-item">
@@ -48,7 +50,7 @@
       <div class="form-item">
         <span class="label">{{ $t('companyCode') }}</span>
         <input class="input-text" type="text" v-model="onboardingData.contactInformation.companyCode" name=""/>
-        <div class="button-row">
+        <div class="button-row" v-if="onboardingData.contactInformation.companyCode">
         <button type="button"
             :class="['input-button-primary', { disabled: !companyCodeAvailable }]"
             :disabled="!companyCodeAvailable"
@@ -76,11 +78,11 @@
       <div v-if="!hasAttendeesFreeCost">
         <div class="form-item">
           <span class="label">Rechnungskontakt</span>
-          <div class="checkbox-wrapper">
+          <div class="checkbox-wrapper" >
             <input id="checkbox" class="checkbox" type="checkbox"
-                   :checked="!onboardingData.contactInformation.hasBillingAddress"
+                   :checked="onboardingData.contactInformation.hasBillingAddress"
                    v-model="onboardingData.contactInformation.hasBillingAddress" >
-            <p class="text">kein eigener Rechnungskontakt</p>
+            <p class="text">abweichende Rechnungsadresse</p>
           </div>
         </div>
         <div v-if="onboardingData.contactInformation.hasBillingAddress">
@@ -285,17 +287,22 @@ export default {
   //}
   .checkbox-wrapper {
     padding-right: 20px;
-
-    margin-top: 4px;
     margin-right: 0;
+    //margin-bottom: 0;
     display: flex;
     .checkbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      vertical-align: middle;
+      line-height: normal;
       max-width: 30px;
     }
     .text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 0;
-      margin-top: 4px;
-      //max-width: 100px;
       font-weight: lighter;
       text-transform: none;
       font-size: .7em;
