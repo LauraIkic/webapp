@@ -52,9 +52,8 @@
         </div>
         <div class="workshop-dates">
           <div
-              v-for="(d) in dates" :key="d.id"
+              v-for="(d) in eventDates" :key="d.id"
               class="workshop-date"
-              :class="{ soldOut: d.content.sold_out }"
           >
             <div
                 v-if="!slim || i === 0"
@@ -63,8 +62,12 @@
               <div class="info-block">
                 <div class="col info">
                   <icon name="calendar" />
-                  {{ d.content.starttime | date }}
-                  <div v-if="d.content.starttime2">
+                  {{ d.date }}
+                  {{ d.startTime }}
+                  bis
+                  {{ d.endTime }}
+                  Uhr
+<!--                  <div v-if="d.content.starttime2">
                     <br>
                     <font-awesome-icon class="grey" icon="plus"/>
                     {{ d.content.starttime2 | date }}
@@ -78,9 +81,9 @@
                     <br>
                     <font-awesome-icon class="grey" icon="plus"/>
                     {{ d.content.starttime4 | date }}
-                  </div>
+                  </div>-->
                 </div>
-                <div class="col info">
+<!--                <div class="col info">
                   <icon name="clock" />
                   <span>{{ d.content.starttime | time }}</span>
                   <span v-if="d.content.endtime"> bis {{ d.content.endtime | time }}</span>
@@ -106,16 +109,16 @@
                     <span v-if="d.content.endtime4"> bis {{ d.content.endtime4 | time }}</span>
                     <span>Uhr</span>
                   </div>
-                </div>
+                </div>-->
               </div>
-              <div class="info-block">
+<!--              <div class="info-block">
                 <div
                     v-if="d.content.sold_out"
                     class="col soldOut"
                 >
                   <span>{{ $t('soldOut') }}</span>
                 </div>
-              </div>
+              </div>-->
               <!-- <div class="info-block">
                 <div class="col" v-if="content.pax">
                   <icon name="user" />
@@ -134,8 +137,15 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: ['blok', 'slim'],
+  data () {
+    return {
+      events: null,
+      eventDates: []
+    }
+  },
   computed: {
     dates () {
       return this.blok.dates
@@ -147,8 +157,34 @@ export default {
       return 'Mehr Infos'
     }
   },
+  methods: {
+    async getPretixData () {
+      const events = await this.$store.dispatch('getPretixEvents', this.content.pretix_shortform)
+      this.events = events
+      this.formatEventDates()
+    },
+    /**
+     * TODO: change time format to eg 17:00
+     * manage events that are longer than one day
+     */
+    formatEventDates () {
+      this.events.forEach((item) => {
+        const startDate = moment(item.date_from)
+        const endDate = moment(item.date_to)
+        if (this.eventDates.length > 2) {
+          return
+        }
+        this.eventDates.push({
+          date: startDate.format('MM-DD-YYYY'),
+          startTime: startDate.format('hh:mm'),
+          endTime: endDate.format('hh:mm')
+        })
+      })
+    }
+
+  },
   mounted () {
-    // console.log(this.blok.uuid);
+    this.getPretixData()
   }
 }
 </script>

@@ -49,8 +49,10 @@ const version = tmpVersion
 
 const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNECTOR_URL : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
+const pretixBaseUrl = 'https://staging.connector.grandgarage.eu/api/pretix/events'
 
 let connector
+let pretix
 
 const createStore = () => {
   return new Vuex.Store({
@@ -284,6 +286,12 @@ const createStore = () => {
             })
           }).then((r) => {
           })
+        }
+      },
+      async getPretixEvents ({ state }, subEvent) {
+        const r = await axios.get(`${pretixBaseUrl}/${subEvent}`)
+        if (r.status === 200) {
+          return r.data
         }
       },
       saveQuiz ({ state }, data) {

@@ -17,6 +17,8 @@
             >{{c.name}}</checkbox>
           </div>
         </div>
+        <br>
+        <br>
         <div class="headline">
           Ansicht
         </div>
@@ -30,7 +32,7 @@
       </div>
     </div>
     <div v-if="!isCalendar">
-      <div class="workshop-list-wrapper" :key="this.filtered">
+      <div class="workshop-list-wrapper" :key="this.filter">
         <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
           <transition-group name="list">
             <workshop-list-item
@@ -62,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div v-if="isCalendar" :key="this.selectedEvent">
+    <div v-if="isCalendar" :key="this.filter">
       <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
       <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
       <div  class="pretix-content">
@@ -106,7 +108,6 @@ export default {
       selectedEvent: '',
       filteredWorkshops: [],
       filter: '',
-      filtered: 0,
       isCalendar: false // false = grid , true = calender
     }
   },
@@ -123,17 +124,17 @@ export default {
   methods: {
     update () {
       this.loading = true
-      if (this.selectedEvent !== '') {
-        this.checkExistingSelection()
-      } else {
-        this.selectedEvent = this.filterCategories()
+      this.selectedEvent = this.selectedCategories()
+      if (this.selectedEvent.length > 1) {
+        this.deselectOldest()
+        this.selectedEvent = this.selectedCategories()
       }
-      if (this.isCalendar) {
+      if (this.selectedEvent.length === 0) {
+        this.filteredWorkshops = []
+      }
+      if (this.selectedEvent.length === 1) {
         this.filter = this.selectedEvent[0].name
-        window.PretixWidget.buildWidgets()
-      } else {
-        this.filter = this.selectedEvent[0].key
-        this.filteredWorkshops = this.filterWorkshops()
+        this.filterWorkshops()
       }
       this.loading = false
     },
@@ -149,27 +150,14 @@ export default {
       })
       return this.filteredWorkshops
     },
-    checkExistingSelection () {
-      this.selectedEvent.forEach((item) => {
-        this.categories.forEach((newItem) => {
-          if (item.name !== newItem.name) {
-            this.eventToToggle = item
-            this.selectedEvent = this.filterCategories()
-          }
-        })
+    deselectOldest () {
+      this.categories.forEach((item) => {
+        if (item.name === this.filter) {
+          item.value = false
+        }
       })
-      let i = 0
-      while (i < this.selectedEvent.length - 1) {
-        this.categories.forEach((o) => {
-          if (o.name === this.eventToToggle.name) {
-            o.value = false
-            console.log(o)
-          }
-        })
-        i++
-      }
     },
-    filterCategories () {
+    selectedCategories () {
       return this.categories.filter((c) => {
         return (c.value) ? c.name : ''
       }).map((c) => {
