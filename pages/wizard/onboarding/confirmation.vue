@@ -11,6 +11,7 @@
 export default {
   //middleware: 'authenticated',
   mounted () {
+    window.scrollTo(0, 0)
     //this.$store.dispatch('getMemberCourses')
   }
 }
