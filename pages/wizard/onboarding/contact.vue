@@ -147,6 +147,7 @@ export default {
     }
   },
   async mounted () {
+    //window.scrollTo(0, 0)
     this.$refs.firstInput.focus()
     this.countries = await this.$store.dispatch('getCountries')
   },

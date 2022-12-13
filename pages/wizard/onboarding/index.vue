@@ -58,12 +58,15 @@ export default {
       loading: false
     }
   },
+  async mounted () {
+    window.scrollTo(0, 0)
+  },
   created () {
   },
   methods: {},
   computed: {
     user () {
-      return this.$store.state.user //TODO: remove lambda functions
+      return this.$store.state.user
     }
   }
 }

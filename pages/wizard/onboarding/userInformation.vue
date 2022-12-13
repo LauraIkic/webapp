@@ -95,6 +95,7 @@ export default {
     }
   },
   mounted () {
+    //window.scrollTo(0, 0)
     this.$refs.firstInput.focus()
   },
   beforeRouteEnter (to, from, next) {

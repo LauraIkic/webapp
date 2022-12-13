@@ -113,6 +113,7 @@ export default {
   },
   mounted () {
     // this.$refs.firstInput.focus()
+    window.scrollTo(0, 0)
     this.$store.dispatch('getCountries').then((r) => (this.countries = r))
     //all packages available for booking
     this.$store.dispatch('getPackages').then((r) => {
