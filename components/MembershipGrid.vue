@@ -61,11 +61,13 @@
         v-if="!hasUser"
         class="login-register-info"
       >
-        <p>{{ $t( "alreadyRegistered" ) }}<span @click="login"> LOGIN </span>{{ $t( "startMembership" ) }}</p>
-        <p>{{ $t( "firstTime" ) }}</p>
+<!--        <p>{{ $t( "alreadyRegistered" ) }}<span @click="login"> LOGIN </span>{{ $t( "startMembership" ) }}</p>-->
+<!--        <p>{{ $t( "firstTime" ) }}</p>-->
+        <p>Registriere dich jetzt und werde Mitglied</p>
         <div class="register-button">
           <button @click="register">
-            {{ $t( "registerNow" ) }}
+            Jetzt Mitglied werden
+<!--            {{ $t( "registerNow" ) }}-->
           </button>
         </div>
       </div>
@@ -104,7 +106,8 @@ export default {
       this.priceView = v
     },
     register () {
-      this.$store.dispatch('setSidebar', 'register')
+      this.$router.push('/wizard/onboarding')
+      //this.$store.dispatch('setSidebar', 'register')
     },
     login () {
       this.$store.dispatch('setSidebar', 'login')

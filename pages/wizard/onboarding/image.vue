@@ -29,6 +29,9 @@ export default {
       required: false
     }
   },
+  async mounted () {
+    window.scrollTo(0, 0)
+  },
   data () {
     return {
       image: null,
