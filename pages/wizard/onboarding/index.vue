@@ -27,15 +27,15 @@
     <div class="membership-information">
       {{ $t('additionalInformationPayment') }}
     </div>
-    <div> {{ $t('inOrderToWorkSafely') }}</div>
-    <br>
-    <br>
-    <div>
-      <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
-      <label for="checkbox">{{ $t('iHaveReadThe') }} <a
-          href="https://a.storyblok.com/f/47294/x/ab97a83e24/gg_hausordnung.pdf"
-          target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>
-    </div>
+<!--    <div> {{ $t('inOrderToWorkSafely') }}</div>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <div>-->
+<!--      <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">-->
+<!--      <label for="checkbox">{{ $t('iHaveReadThe') }} <a-->
+<!--          href="https://a.storyblok.com/f/47294/x/ab97a83e24/gg_hausordnung.pdf"-->
+<!--          target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>-->
+<!--    </div>-->
   </div>
 </template>
 

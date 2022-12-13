@@ -122,7 +122,6 @@ export default {
       MemberType,
       steps: ['index', 'userInformation', 'contact', 'image', 'payment', 'confirmation'],
       onboardingData: {
-        rulesAccepted: false,
         //image: null,
         image64: null,
         //imageUrl: null,
@@ -188,7 +187,7 @@ export default {
       const data = this.onboardingData
       switch (this.activeStep) {
         case 'index':
-          return !(data.rulesAccepted)
+          return false
         case 'userInformation': {
           //return false
           // eslint-disable-next-line no-unreachable
@@ -210,7 +209,7 @@ export default {
           return ((!!requiredKeys.filter(k => !data.contactInformation[k]).length || !data.contactInformation.birthdateValid))
         }
         case 'image': {
-          return false
+          return this.onboardingData.image64 === null
         }
         case 'payment': {
           const membershipType = this.getMemberType()

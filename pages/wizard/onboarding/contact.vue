@@ -16,7 +16,18 @@
               class="bad"
           >{{ $t('tooYoung') }} </span>
         </div>
-        </div>
+      </div>
+      </div>
+      <div class="form-item" style="margin-top: 0px" >
+        <label ></label>
+        <h5 style="margin: 0px">Für Personen bis zum vollendeten 18. Lebensjahr gelten besondere Konditionen nach unseren
+<!--          <a href="https://a.storyblok.com/f/47294/x/ab97a83e24/gg_hausordnung.pdf"-->
+<!--            target="new">AGB.</a>-->
+          <nuxt-link
+              target="_blank"
+              to="/de/agb"
+          >AGB.</nuxt-link>
+        </h5>
       </div>
       <div class="form-item">
         <span class="label">{{ $t('address') }}<span class="red">*</span></span>
@@ -82,7 +93,7 @@
             <input id="checkbox" class="checkbox" type="checkbox"
                    :checked="onboardingData.contactInformation.hasBillingAddress"
                    v-model="onboardingData.contactInformation.hasBillingAddress" >
-            <p class="text">abweichende Rechnungsadresse</p>
+            <p class="text">weicht von Kontaktaddresse ab</p>
           </div>
         </div>
         <div v-if="onboardingData.contactInformation.hasBillingAddress">
