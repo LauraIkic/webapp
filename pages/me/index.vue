@@ -8,7 +8,6 @@
       <div class="form-item">
         <span class="label">{{ $t('firstName') }}</span>
         <input
-          id=""
           v-model="member.firstName"
           class="input-text"
           disabled
@@ -19,7 +18,6 @@
       <div class="form-item">
         <span class="label">{{ $t('lastName') }}</span>
         <input
-          id=""
           v-model="member.lastName"
           class="input-text"
           disabled
@@ -30,7 +28,6 @@
       <div class="form-item">
         <span class="label">{{ $t('address') }}</span>
         <input
-          id=""
           v-model="member.address"
           class="input-text"
           type="text"
@@ -50,7 +47,6 @@
       <div class="form-item">
         <span class="label">{{ $t('zipCode') }}</span>
         <input
-          id=""
           v-model="member.zip"
           class="input-text"
           type="text"
@@ -60,7 +56,6 @@
       <div class="form-item">
         <span class="label">{{ $t('city') }}</span>
         <input
-          id=""
           v-model="member.city"
           class="input-text"
           type="text"
