@@ -7,7 +7,7 @@
     <form class="form">
       <div v-if="image != null" class="form-item">
         <span class="label">{{ $t('Image-Preview') }}</span>
-        <img class="profilePic" v-if="image" :src="imageUrl">
+        <img id="imgId" class="profilePic" v-if="image" :src="imageUrl">
       </div>
       <div class="form-item">
         <span class="label">{{ $t('Upload-Image') }}</span>
@@ -52,14 +52,20 @@ export default {
   methods: {
     onChange (e) {
       const file = e.target.files[0]
-      if (file.size > 20000000) {
-        alert('Es sind nur Bilddateien unter 20MB erlaubt')
+      if (file.size > 2000000) {
+        alert('Es sind nur Bilddateien unter 2MB erlaubt')
         return false
       }
       this.image = file
       this.imageUrl = URL.createObjectURL(file)
+      //.console.log(this.imageUrl)
       const reader = new FileReader()
       reader.onloadend = () => {
+        // TODO: ratio check
+        //const img = document.getElementById('imgId')
+        // const width = img.offsetWidth
+        // const height = img.offsetHeight
+        // console.log('image data: ', img.getBoundingClientRect())
         this.onboardingData.image64 = reader.result
       }
       this.onboardingData.image64 = reader.readAsDataURL(file)
