@@ -516,8 +516,8 @@ const createStore = () => {
         const res = await connector.get('/member/hasCompletedOnboarding')
         return res.data
       },
-      async hasCompletedRequiredCourses () {
-        const res = await connector.get('/member/hasCompletedRequiredCourses')
+      async hasCompletedRequiredCourses ({ state, commit }, id) {
+        const res = await connector.get(`/v1/fabman/members/${id}/hasCompletedRequiredCourses`)
         return res.data
       },
       loginUser ({ commit }, context) {
