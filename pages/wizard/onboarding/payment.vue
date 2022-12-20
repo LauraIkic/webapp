@@ -27,11 +27,11 @@
       </div>
       <div class="form-item" v-if="!this.onboardingData.contactInformation.company && this.onboardingData.payment.bookStorage.length > 0">
         <span class="label">LAGER: PREIS<span class="red">*</span></span>
-        <p class="text">{{ this.storagePrice }}</p>
+        <p class="text">{{ this.storagePrice }} (inkl. MwSt)</p>
       </div>
       <div class="form-item" v-if="this.onboardingData.payment.membership || this.onboardingData.contactInformation.company">
         <span class="label">MITGLIEDSCHAFT: PREIS<span class="red">*</span></span>
-        <p class="text">{{ this.price }}</p>
+        <p class="text">{{ this.price }} (inkl. MwSt)</p>
       </div>
       <div class="form-item" v-if="this.onboardingData.contactInformation.company">
         <span class="label">FIRMENMITGLIEDSCHAFT<span class="red">*</span></span>
@@ -56,7 +56,7 @@
             <input class="checkbox" type="checkbox"
                    :checked="onboardingData.payment.sepaMandat"
                    v-model="onboardingData.payment.sepaMandat" >
-            <p class="text" style="max-width: 600px">Ich ermächtige die CAP.Future GMBH (Adresse, Kontko), Zahlungen von meinem Konto mittels SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der CAP.Future GMBH auf mein Konto gezogenen SEPA-Lastschriften einzulösen. Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p>
+            <p class="text" style="max-width: 600px">Ich ermächtige die CAP.Future GMBH, Zahlungen von meinem Konto mittels SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der CAP.Future GMBH auf mein Konto gezogenen SEPA-Lastschriften einzulösen. Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p>
           </div>
         </div>
       </div>
