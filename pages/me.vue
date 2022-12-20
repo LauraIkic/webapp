@@ -49,8 +49,8 @@ export default {
   created () {
   },
   async mounted () {
-    //this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
-    //this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses')
+    //this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding'
+    this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses', this.$store.state.member.id)
   },
   methods: {
     getPackage (p) {
