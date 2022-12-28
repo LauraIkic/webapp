@@ -1,6 +1,5 @@
 <template>
   <div
-      v-if="user !== null"
       class="wizard"
   >
     <div class="header">
@@ -20,7 +19,6 @@
               class="step"
               :class="{ 'icon': index > i, 'color': index >= i}"
           >
-            <!--            <NuxtLink class="dot" v-if="i == 0" to="/wizard/onboarding/">-->
             <span
                 v-if="!i"
                 class="dot"
@@ -35,8 +33,6 @@
                   stroke="#FFF"
               /></svg>
             </span>
-            <!--            </NuxtLink>-->
-            <!--            <NuxtLink class="dot" v-else :to="'/wizard/onboarding/' + s">-->
             <span
                 v-else
                 class="dot"
@@ -51,7 +47,6 @@
                   stroke="#FFF"
               /></svg>
             </span>
-            <!--            </NuxtLink>-->
           </div>
         </div>
       </div>
@@ -80,11 +75,11 @@
             </button>
             <button
                 v-if="activeStep !== 'confirmation'"
-                :class="['input-button-primary', { disabled: !nextStepEnabled }]"
-                :disabled="nextStepEnabled"
+                :class="['input-button-primary', { disabled: !nextStepDisabled }]"
+                :disabled="nextStepDisabled"
                 @click="next()"
             >
-              {{ activeStep === 'done' ? 'Anmeldung abschließen' : 'Weiter' }}
+              {{ activeStep === 'payment' ? 'Anmeldung abschließen' : 'Weiter' }}
             </button>
           </div>
         </div>
@@ -103,23 +98,73 @@
           {{ $t('weAreLookingForwardToWelcomeYou') }}
         </div>
       </div>
+      <p v-if="loadingEmail" >{{this.loadingCheckEmailStatus}}</p>
+      <loading-spinner v-if="this.loadingEmail" class="loading-spinner ml-05"/>
     </div>
+
   </div>
 </template>
 
 <script>
 
+const MemberType = {
+  member: 1,
+  corporate: 2,
+  corporate_freeCost: 3
+}
 export default {
-  middleware: 'authenticated',
   data () {
     return {
       loading: false,
-      steps: ['index', 'contact', 'image', 'done', 'confirmation'],
+      loadingEmail: false,
+      loadingCheckEmailStatus: '',
+      mailCheck: false,
+      MemberType,
+      steps: ['index', 'userInformation', 'contact', 'image', 'payment', 'confirmation'],
       onboardingData: {
-        rulesAccepted: false,
         //image: null,
         image64: null,
         //imageUrl: null,
+        userInformation: {
+          firstName: null,
+          lastName: null,
+          gender: null,
+          email: null,
+          password: null,
+          registered: false,
+          emailOk: false
+        },
+        contactInformation: {
+          birthdate: null,
+          birthdateValid: false,
+          name: null,
+          address: null,
+          zip: null,
+          city: null,
+          country: null,
+          phone: null,
+          companyCode: null,
+          companyCodeValid: false,
+          company: null,
+          hasBillingAddress: false
+        },
+        billingInformation: {
+          firstName: null,
+          lastName: null,
+          address: null,
+          zip: null,
+          city: null,
+          country: null
+        },
+        payment: {
+          iban: null,
+          bookStorage: [],
+          membership: null,
+          sepaMandat: false,
+          agb: false,
+          privacyPolicy: false,
+          ibanIsValid: false
+        },
         profile: {
           address: null,
           address2: null,
@@ -138,17 +183,55 @@ export default {
     activeStep () {
       return this.$route.path.split('/')[3] || 'index'
     },
-    nextStepEnabled () {
+    nextStepDisabled () {
       const data = this.onboardingData
       switch (this.activeStep) {
         case 'index':
-          return !(data.rulesAccepted)
+          return false
+        case 'userInformation': {
+          //return false
+          // eslint-disable-next-line no-unreachable
+          // gender may be null = keine Angabe , 'gender'
+          const requiredKeys = ['firstName', 'lastName', 'gender', 'email', 'password']
+          return ((!!requiredKeys.filter(k => !data.userInformation[k]).length) || !data.userInformation.emailOk)
+        }
         case 'contact': {
-          const requiredKeys = ['address', 'city', 'zip', 'phone', 'birthdate']
-          return !!requiredKeys.filter(k => !data.profile[k]).length
+          //return false
+          // eslint-disable-next-line no-unreachable
+          const data = this.onboardingData
+          const requiredKeys = ['birthdate', 'address', 'zip', 'city', 'country']
+          const requiredKeysInvoiceContact = ['firstName', 'lastName', 'address', 'zip', 'city', 'country']
+          const allInvoiceContactFieldsSet = (!requiredKeysInvoiceContact.filter(k => !data.billingInformation[k]).length)
+          // if another invoice contact (checkbox) is selected, then the additional fields are required to proceed
+          if (data.contactInformation.hasBillingAddress && !allInvoiceContactFieldsSet) {
+            return true
+          }
+          return ((!!requiredKeys.filter(k => !data.contactInformation[k]).length || !data.contactInformation.birthdateValid))
         }
         case 'image': {
-          return false
+          return this.onboardingData.image64 === null
+        }
+        case 'payment': {
+          const membershipType = this.getMemberType()
+          // if company & free cost
+          if (membershipType === MemberType.corporate_freeCost) {
+            if (data.payment.agb && data.payment.privacyPolicy) {
+              return false
+            }
+          }
+          // if company & no free cost
+          if (membershipType === MemberType.corporate) {
+            if (data.payment.agb && data.payment.privacyPolicy && data.payment.sepaMandat && data.payment.ibanIsValid) {
+              return false
+            }
+          }
+          // if no company member
+          if (membershipType === MemberType.member) {
+            if (data.payment.agb && data.payment.privacyPolicy && data.payment.sepaMandat && data.payment.ibanIsValid && data.payment.membership) {
+              return false
+            }
+          }
+          return true
         }
         case 'done': {
           return data.referrer === ''
@@ -164,26 +247,8 @@ export default {
       return this.$store.state.user
     }
   },
-  created () {
-    this.getData()
-  },
   methods: {
-    loadUserData () {
-      this.loading = true
-      this.$store.dispatch('getUserMetadata')
-        .then((data) => {
-          this.invoiceContact = data.data.invoice_contact
-        })
-        .catch((error) => {
-          console.log(error.response.status, error.response.data.msg)
-          this.$toast.show('Ein Fehler ist aufgetreten', {
-            theme: 'bubble'
-          })
-        })
-        .finally(() => {
-          this.loading = false
-        })
-    },
+    // TODO delete, clean up, unused & deprecated
     getData () {
       if (sessionStorage.getItem('onboardingData')) {
         this.onboardingData = JSON.parse(sessionStorage.getItem('onboardingData'))
@@ -195,9 +260,9 @@ export default {
         }
       }
     },
-    saveUserData () {
-      this.$store.dispatch('updateUser', Object.assign({}, this.onboardingData.profile))
-    },
+    // saveUserData () {
+    //   this.$store.dispatch('updateUser', Object.assign({}, this.onboardingData.profile))
+    // },
     saveOnboardingData () {
       sessionStorage.setItem('onboardingData', JSON.stringify(this.onboardingData))
     },
@@ -209,24 +274,284 @@ export default {
       }
       this.$router.push('/wizard/onboarding/' + path)
     },
-    next () {
-      if (this.activeStep === 'done') {
-        this.send()
-        // sessionStorage.removeItem('onboarding')
-      } else {
-        this.saveOnboardingData()
+    async next () {
+      switch (this.activeStep) {
+        case 'index':
+          this.loadNextPage()
+          this.saveOnboardingData()
+          break
+        case 'userInformation':
+          this.mailCheck = false
+          // will go to next page if email is valid
+          await this.checkLoginDataAndProceed()
+          this.saveOnboardingData()
+          break
+        case 'contact':
+          this.loadNextPage()
+          this.saveOnboardingData()
+          break
+        case 'image':
+          this.loadNextPage()
+          this.saveOnboardingData()
+          break
+        case 'payment':
+          this.saveOnboardingData()
+          //this.loadNextPage()
+          this.submit()
+          break
+        case 'done':
+          break
+        default:
+          this.saveOnboardingData()
+          this.loadNextPage()
       }
+    },
+
+    loadNextPage () {
       const ni = this.index + 1 < 0 ? 0 : this.index + 1
       const path = this.steps[ni]
-      if (path === 'payment') {
-        this.saveUserData()
+      if (path) {
+        console.log('GOTO: /wizard/onboarding/' + path)
+        this.$router.push('/wizard/onboarding/' + path)
       }
-      this.$router.push('/wizard/onboarding/' + path)
     },
-    async send () {
+    getMemberType () {
+      if (this.onboardingData.contactInformation?.company?.metadata?.attendees_free_cost) {
+        return MemberType.corporate_freeCost
+      }
+      if (this.onboardingData.contactInformation?.company && !this.onboardingData.contactInformation.company?.metadata?.attendees_free_cost) {
+        return MemberType.corporate
+      } else { return MemberType.member }
+    },
+
+    // sets this.mailCheck to true, if e-mail address is valid for registration
+    async checkLoginDataAndProceed () {
+      this.loadingEmail = true
+      this.loadingCheckEmailStatus = 'Prüfe E-Mail Adresse...'
+      const data = {
+        email: this.onboardingData.userInformation.email,
+        password: this.onboardingData.userInformation.password,
+        user_metadata: {
+          firstName: this.onboardingData.userInformation.firstName,
+          lastName: this.onboardingData.userInformation.lastName
+        }
+      }
+      this.$store.dispatch('checkLoginData', data).then((r) => {
+        this.loadingCheckEmailStatus = 'E-Mail Adresse ist verfügbar'
+        return new Promise(resolve => {
+          setTimeout(() => {
+            this.mailCheck = true
+            this.loadingEmail = false
+            this.loadNextPage()
+            this.saveOnboardingData()
+          }, 1000)
+        })
+      })
+        .catch((e) => {
+          this.loadingEmail = false
+          this.mailCheck = false
+          const errorMsg = e?.response?.data?.msg
+          if (e.error) {
+            this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.error + '"'
+          }
+          if (errorMsg) {
+            switch (errorMsg) {
+              case 'user_exists':
+                this.$toast.show('Ein User mit dieser Email Adresse existiert bereits', {
+                  theme: 'bubble'
+                })
+                break
+              default:
+                this.$toast.show('Ein Fehler ist aufgetreten: ', e.code, {
+                  theme: 'bubble'
+                })
+                break
+            }
+            this.mailCheck = false
+          }
+        }
+        )
+    },
+    async submit () {
+      console.log('submit')
+      const memberType = this.getMemberType()
+      // STEP1: create FABMAN Member
+      let memberDataBasic = {
+        // basicData = data for the new fabman user, that is needed for any membership type
+        // TODO uncomment
+        emailAddress: this.onboardingData.userInformation.email,
+        address: this.onboardingData.contactInformation.address,
+        city: this.onboardingData.contactInformation.city,
+        zip: this.onboardingData.contactInformation.zip,
+        firstName: this.onboardingData.userInformation.firstName,
+        lastName: this.onboardingData.userInformation.lastName,
+        // optional
+        //region, language,requireUpfrontPayment, state,  not used
+        gender: null,
+        dateOfBirth: this.onboardingData.contactInformation.birthdate,
+        // TODO: must be a number?
+        phone: this.onboardingData.contactInformation.phone,
+        countryCode: this.onboardingData.contactInformation.country,
+        hasBillingAddress: this.onboardingData.contactInformation.hasBillingAddress
+      }
+      if (this.onboardingData.userInformation.gender !== 'empty') {
+        memberDataBasic = { ...memberDataBasic, gender: this.onboardingData.userInformation.gender }
+      }
+      //let memberData = null
+      let extendMemberDataIban = null
+      let extendMemberDataBillingAddress = null
+      let memberData = null
+      switch (memberType) {
+        case MemberType.corporate_freeCost:
+          console.log('MemberType: corporate_freeCost')
+          memberData = memberDataBasic
+          memberData = {
+            ...memberData,
+            paidForBy: this.onboardingData.contactInformation.company.id,
+            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id
+          }
+          break
+        case MemberType.corporate:
+          console.log('MemberType: corporate')
+          memberData = memberDataBasic
+          memberData = {
+            ...memberData,
+            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id
+          }
+          extendMemberDataIban = {
+            iban: this.onboardingData.payment.iban
+          }
+          if (this.onboardingData.contactInformation.hasBillingAddress) {
+            // 'billingCompany', 'billingAddress', 'billingAddress2', 'billingRegion', 'billingInvoiceText', 'billingEmailAddress' unused
+            extendMemberDataBillingAddress = {
+              billingFirstName: this.onboardingData.billingInformation.firstName,
+              billingLastName: this.onboardingData.billingInformation.lastName,
+              billingAddress: this.onboardingData.billingInformation.address,
+              billingCity: this.onboardingData.billingInformation.city,
+              billingZip: this.onboardingData.billingInformation.zip,
+              billingCountryCode: this.onboardingData.billingInformation.country
+            }
+          }
+          memberData = { ...memberData, ...extendMemberDataIban }
+          memberData = { ...memberData, ...extendMemberDataBillingAddress }
+          break
+        case MemberType.member:
+          console.log('MemberType: member or corporate (no free cost)')
+          extendMemberDataIban = {
+            iban: this.onboardingData.payment.iban
+          }
+          if (this.onboardingData.contactInformation.hasBillingAddress) {
+            // 'billingCompany', 'billingAddress', 'billingAddress2', 'billingRegion', 'billingInvoiceText', 'billingEmailAddress' unused
+            extendMemberDataBillingAddress = {
+              billingFirstName: this.onboardingData.billingInformation.firstName,
+              billingLastName: this.onboardingData.billingInformation.lastName,
+              billingAddress: this.onboardingData.billingInformation.address,
+              billingCity: this.onboardingData.billingInformation.city,
+              billingZip: this.onboardingData.billingInformation.zip,
+              billingCountryCode: this.onboardingData.billingInformation.country
+            }
+          }
+          memberData = { ...memberDataBasic, ...extendMemberDataIban }
+          memberData = { ...memberData, ...extendMemberDataBillingAddress }
+          break
+      }
+      console.log('memberData: ', memberData)
       this.loading = true
-      await this.$store.dispatch('startOnboarding', this.onboardingData)
-      this.loading = false
+
+      //1) create Fabman member
+      this.$store.dispatch('createMember', memberData).then((r) => {
+        console.log('RESULT FABMAN CREATE: ', r)
+        // eslint-disable-next-line camelcase
+        const fabman_id = r.id
+        // eslint-disable-next-line camelcase
+        //const fabman_memberNumber = r.memberNumber
+        let packageData = null
+        if (memberType === MemberType.member) {
+          packageData = {
+            memberId: r.id,
+            id: this.onboardingData.payment.membership.id
+          }
+        } else {
+          packageData = {
+            memberId: r.id,
+            id: this.onboardingData.contactInformation.company.metadata.attendees_package_id
+          }
+        }
+        console.log('packageData: ', packageData)
+        // 2) set membership
+        this.$store.dispatch('setPackageOnboarding', packageData).then((r) => {
+          console.log('RESULT SET PACKAGE: ', r)
+          if (this.onboardingData.payment.bookStorage && memberType === MemberType.member) {
+            const storage = JSON.parse(JSON.stringify(this.onboardingData.payment.bookStorage))
+            storage.forEach(storage => {
+              console.log('STORAGE: ', storage)
+              const storagePackageData = {
+                memberId: fabman_id,
+                id: storage.id
+              }
+              // 3) set storage packages
+              this.$store.dispatch('setPackageOnboarding', storagePackageData).then((r) => {
+                console.log('STORAGE FABMAN CREATE: ', r)
+              })
+            })
+          }
+          // 4) upload Image
+          if (this.onboardingData.image64) {
+            const uploadImageRequest = {
+              memberId: fabman_id.toString(),
+              dataUrl: this.onboardingData.image64
+            }
+            this.$store.dispatch('uploadImage', uploadImageRequest).then((r) => {})
+          }
+          // 5) register Auth0
+          const registerAuth0Data = {
+            email: this.onboardingData.userInformation.email,
+            password: this.onboardingData.userInformation.password,
+            user_metadata: {
+              firstName: this.onboardingData.userInformation.firstName,
+              lastName: this.onboardingData.userInformation.lastName,
+              address: this.onboardingData.contactInformation.address,
+              city: this.onboardingData.contactInformation.city,
+              zip: this.onboardingData.contactInformation.zip
+            }
+          }
+          this.$store.dispatch('registerUser', registerAuth0Data).then((r) => {
+            // TODO remove or use loading madness
+            this.loadNextPage()
+            this.loading = false
+            this.$store.dispatch('setSidebar', 'register-success')
+          }).catch((e) => {
+            this.loading = false
+            if (e.error) {
+              this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.error + '"'
+              return
+            }
+            if (e.code) {
+              switch (e.code) {
+                case 'user_exists':
+                  this.errorMessage = 'Ein User mit dieser Email Adresse existiert bereits'
+                  break
+                case 'invalid_password':
+                  this.errorMessage = 'Das Passwort ist zu schwach.'
+                  this.errorDescription = e.policy
+                  break
+                default:
+                  this.errorMessage = 'Ein Fehler ist aufgetreten: "' + e.code + '"'
+                  break
+              }
+            }
+          })
+        }).catch((e) => {
+          this.$toast.show('Ein Fehler beim Abschließen der Mitgliedschaft ist aufgetreten ', e.code, {
+            theme: 'bubble'
+          })
+        })
+      })
+        .catch((e) => {
+          this.$toast.show('Ein Fehler ist aufgetreten ', e.code, {
+            theme: 'bubble'
+          })
+        })
     }
   }
 }
@@ -378,5 +703,27 @@ export default {
     border: 1px solid darkgrey;
   }
 
+}
+
+.error-message {
+  color: red;
+  .policy {
+    font-size: 0.8em;
+    color: #333;
+    > ul {
+      list-style-type: circle;
+      padding: 0 0 0 1em;
+      > li {
+        margin: .4em 0 0 0;
+        > ul {
+          padding: 0 0 0 1em;
+          list-style-type: circle;
+          > li {
+            margin: .4em 0 0 0;
+          }
+        }
+      }
+    }
+  }
 }
 </style>

@@ -1,9 +1,5 @@
 <template>
   <section class="util__container">
-    <let-it-snow
-      v-bind="snowConf"
-      :show="showSnow"
-    ></let-it-snow>
     <component
       :is="story.content.component"
       v-if="story && story.content && story.content.component"
@@ -15,10 +11,12 @@
 
 <script>
 import storyblokLivePreview from '@/mixins/storyblokLivePreview'
+//import Snowflakes from 'magic-snowflakes'
+//const snowflakes = new Snowflakes({ color: '#fdfdfd', count: 50 })
 
 export default {
-  mounted () {
-    this.showSnow = true
+  created () {
+    // snowflakes.start()
   },
   mixins: [storyblokLivePreview],
   asyncData (context) {
@@ -29,18 +27,7 @@ export default {
   },
   data () {
     return {
-      story: null,
-      snowConf: {
-        windPower: 0,
-        speed: 1,
-        count: 10,
-        size: 8,
-        opacity: 0.50,
-        images: ['https://raw.githubusercontent.com/bob-chen/let_it_snow/master/demo/snow.png',
-          'https://raw.githubusercontent.com/bob-chen/let_it_snow/master/demo/sock.png',
-          'https://raw.githubusercontent.com/bob-chen/let_it_snow/master/demo/tree.png']
-      },
-      showSnow: false
+      story: null
     }
   }
 }

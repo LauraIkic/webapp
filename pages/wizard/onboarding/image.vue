@@ -1,12 +1,13 @@
 <template>
   <div class="section">
     <h2>Foto</h2>
-    <p>Damit wir Dir Deine persönliche Memberkarte erstellen können, brauchen wir auch ein Foto von Dir.</p>
-    <p>Wenn Du grad keines hast ist das kein Problem, wir machen bei Deinem ersten Besuch in der GG eins von Dir.</p>
+<!--    <p>Damit wir Dir Deine persönliche Memberkarte erstellen können, brauchen wir auch ein Foto von Dir.</p>-->
+    <p>Für Deine persönliche Memberkarte lade bitte hier Dein Bild hoch.</p>
+<!--    <p>Wenn Du grad keines hast ist das kein Problem, wir machen bei Deinem ersten Besuch in der GG eins von Dir.</p>-->
     <form class="form">
       <div v-if="image != null" class="form-item">
         <span class="label">{{ $t('Image-Preview') }}</span>
-        <img class="profilePic" v-if="image" :src="imageUrl">
+        <img id="imgId" class="profilePic" v-if="image" :src="imageUrl">
       </div>
       <div class="form-item">
         <span class="label">{{ $t('Upload-Image') }}</span>
@@ -22,12 +23,14 @@
 
 <script>
 export default {
-  middleware: 'authenticated',
   props: {
     onboardingData: {
       type: Object,
       required: false
     }
+  },
+  async mounted () {
+    window.scrollTo(0, 0)
   },
   data () {
     return {
@@ -36,19 +39,33 @@ export default {
       loading: false
     }
   },
+  beforeRouteEnter (to, from, next) {
+    console.log('INAGE FROM: ', from.path)
+    if ((from.path === '/wizard/onboarding/contact') || (from.path === '/wizard/onboarding/payment')) {
+      next()
+    } else {
+      next('/wizard/onboarding/')
+    }
+  },
   computed: {
   },
   methods: {
     onChange (e) {
       const file = e.target.files[0]
-      if (file.size > 20000000) {
-        alert('Es sind nur Bilddateien unter 20MB erlaubt')
+      if (file.size > 2000000) {
+        alert('Es sind nur Bilddateien unter 2MB erlaubt')
         return false
       }
       this.image = file
       this.imageUrl = URL.createObjectURL(file)
+      //.console.log(this.imageUrl)
       const reader = new FileReader()
       reader.onloadend = () => {
+        // TODO: ratio check
+        //const img = document.getElementById('imgId')
+        // const width = img.offsetWidth
+        // const height = img.offsetHeight
+        // console.log('image data: ', img.getBoundingClientRect())
         this.onboardingData.image64 = reader.result
       }
       this.onboardingData.image64 = reader.readAsDataURL(file)

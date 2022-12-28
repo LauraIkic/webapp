@@ -27,15 +27,15 @@
     <div class="membership-information">
       {{ $t('additionalInformationPayment') }}
     </div>
-    <div> {{ $t('inOrderToWorkSafely') }}</div>
-    <br>
-    <br>
-    <div>
-      <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">
-      <label for="checkbox">{{ $t('iHaveReadThe') }} <a
-          href="https://grandgarage.sharepoint.com/:b:/s/GRANDGARAGE/EQpdYazohn5DtE60FEPxfy4BpQ_1NMXNtoG7rHj3zQnGeQ?e=ewUyWh"
-          target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>
-    </div>
+<!--    <div> {{ $t('inOrderToWorkSafely') }}</div>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <div>-->
+<!--      <input id="checkbox" type="checkbox" name="checkbox" v-model="onboardingData.rulesAccepted">-->
+<!--      <label for="checkbox">{{ $t('iHaveReadThe') }} <a-->
+<!--          href="https://a.storyblok.com/f/47294/x/ab97a83e24/gg_hausordnung.pdf"-->
+<!--          target="new">{{ $t('factoryRules') }}</a> {{ $t('andAcceptTheTermsAndConditions') }}</label>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -45,7 +45,7 @@
 //   reduced: 2
 // }
 export default {
-  middleware: 'authenticated',
+  //middleware: 'authenticated',
   props: {
     onboardingData: {
       type: Object,
@@ -57,6 +57,9 @@ export default {
       /*      TYPES, */
       loading: false
     }
+  },
+  async mounted () {
+    window.scrollTo(0, 0)
   },
   created () {
   },

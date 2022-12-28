@@ -9,9 +9,10 @@
 </template>
 <script>
 export default {
-  middleware: 'authenticated',
+  //middleware: 'authenticated',
   mounted () {
-    this.$store.dispatch('getMemberCourses')
+    window.scrollTo(0, 0)
+    //this.$store.dispatch('getMemberCourses')
   }
 }
 </script>

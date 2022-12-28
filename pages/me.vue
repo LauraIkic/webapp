@@ -1,9 +1,10 @@
 <template>
-  <div class="profile" v-if="user !== null">
+  <div class="profile" v-if="user !== null && member !== null">
     <div class="header">
-      <h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1>
+      <h1 class="name">{{member.firstName }} {{member.lastName}}</h1>
+      <!--<h1 class="name">{{ user.profile.firstName }} {{ user.profile.lastName }}</h1> -->
       <h2 style="display: none;">STAGING</h2>
-      <code class="number">#{{ user.profile.memberNumber }}</code>
+      <code class="number">#{{ member.memberNumber }}</code>
     </div>
     <div v-if="!hasCompletedRequiredCourses" class="alert alert-secondary" role="alert">
       <font-awesome-icon icon="info-circle"/>
@@ -13,16 +14,16 @@
       <div class="tab-section-menu">
         <MenuLink to="/me/" icon="user">{{ $t('myProfile') }}</MenuLink>
         <MenuLink v-if="isMember" to="/me/packages" icon="cube">{{ $t('membership') }}</MenuLink>
-        <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span
-            class="fat">{{ $t('joinNow') }}</span></MenuLink>
+<!--        <MenuLink v-if="!isMember && !hasCompletedOnboarding" to="/wizard/onboarding" icon="user-friends"><span-->
+<!--            class="fat">{{ $t('joinNow') }}</span></MenuLink>-->
           <MenuLink to="/me/trainings" icon="graduation-cap" style="color: white !important;">
             <font-awesome-icon :style="{ color: '#E69140' }" v-if="!hasCompletedRequiredCourses" icon="info-circle"/> {{ $t('trainings') }}
           </MenuLink>
-        <MenuLink to="/me/workshopBookings" icon="hammer">{{ $t('myWorkshops') }}</MenuLink>
+<!--        <MenuLink to="/me/workshopBookings" icon="hammer">{{ $t('myWorkshops') }}</MenuLink>-->
         <MenuLink to="/me/credits" icon="coins">Credits</MenuLink>
         <MenuLink :isActive="$route.name.includes('invoices')" to="/me/invoices" icon="file-invoice">{{ $t('invoices') }}
         </MenuLink>
-        <MenuLink to="/me/activities" icon="running">{{ $t('activities') }}</MenuLink>
+<!--        <MenuLink to="/me/activities" icon="running">{{ $t('activities') }}</MenuLink>-->
       </div>
       <div class="tab-section-content">
         <NuxtChild :key="$route.params.slug"></NuxtChild>
@@ -39,15 +40,17 @@ export default {
   components: { MenuLink },
   data () {
     return {
-      hasCompletedOnboarding: true,
-      hasCompletedRequiredCourses: true
+      hasCompletedOnboarding: false, // TODO: implement hasCompletedOnboarding function in connector
+      hasCompletedRequiredCourses: true,
+      test: null,
+      lastName: ''
     }
   },
   created () {
   },
   async mounted () {
-    this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding')
-    this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses')
+    //this.hasCompletedOnboarding = await this.$store.dispatch('hasCompletedOnboarding'
+    this.hasCompletedRequiredCourses = await this.$store.dispatch('hasCompletedRequiredCourses', this.$store.state.member.id)
   },
   methods: {
     getPackage (p) {
@@ -66,21 +69,14 @@ export default {
   },
   computed: {
     user () {
-      return this.$store.state.user
+      return this.$store.state.user // TODO: remove/edit lambda functions (Requests via Connector)
+    },
+    member () {
+      return this.$store.state.member
     },
     isMember () {
-      let hasActivePackage = false
-      let packageDate = null
-      const today = new Date()
-      if (this.$store.state.user.packages.length > 0) {
-        this.$store.state.user.packages.forEach(element => {
-          packageDate = new Date(element.chargedUntilDate)
-          if (packageDate > today) {
-            hasActivePackage = true
-          }
-        })
-      }
-      return hasActivePackage
+      // TODO
+      return this.$store.state.user.profile.state === 'active'
     }
   }
 }
