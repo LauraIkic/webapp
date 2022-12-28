@@ -137,7 +137,7 @@ export default {
     })
   },
   beforeRouteEnter (to, from, next) {
-    console.log('PAYMENT FROM: ', from.path)
+    //console.log('PAYMENT FROM: ', from.path)
     if ((from.path === '/wizard/onboarding/image')) {
       next()
     } else {
@@ -168,7 +168,7 @@ export default {
       return 0
     },
     companyInformation () {
-      console.log('Kosten werden übernommen: ', this.onboardingData.contactInformation.company?.metadata?.attendees_free_cost)
+      //console.log('Kosten werden übernommen: ', this.onboardingData.contactInformation.company?.metadata?.attendees_free_cost)
       const information = 'Firmenabo von: ' + this.onboardingData.contactInformation.company?.lastName + ' wird eingelöst.'
       return information
     },

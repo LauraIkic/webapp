@@ -99,7 +99,7 @@ export default {
     this.$refs.firstInput.focus()
   },
   beforeRouteEnter (to, from, next) {
-    console.log('USER INFO FROM: ', from.path)
+    //console.log('USER INFO FROM: ', from.path)
     if ((from.path === '/wizard/onboarding') || (from.path === '/wizard/onboarding/') || (from.path === '/wizard/onboarding/contact')) {
       console.log('passed')
       next()

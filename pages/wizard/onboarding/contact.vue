@@ -163,7 +163,7 @@ export default {
     this.countries = await this.$store.dispatch('getCountries')
   },
   beforeRouteEnter (to, from, next) {
-    console.log('CONTACT FROM: ', from.path)
+    //console.log('CONTACT FROM: ', from.path)
     if ((from.path === '/wizard/onboarding/userInformation') || (from.path === '/wizard/onboarding/image')) {
       next()
     } else {
