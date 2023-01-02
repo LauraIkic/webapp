@@ -40,7 +40,6 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    console.log('INAGE FROM: ', from.path)
     if ((from.path === '/wizard/onboarding/contact') || (from.path === '/wizard/onboarding/payment')) {
       next()
     } else {

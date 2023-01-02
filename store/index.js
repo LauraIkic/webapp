@@ -295,7 +295,7 @@ const createStore = () => {
       },
       async uploadImage ({ state }, data) {
         const res = await connector.post('v1/files/image', data)
-        console.log(res)
+        //console.log(res)
         return res.data
       },
       async cancelPackage ({ state }, memberPackageId, data) {
@@ -408,14 +408,14 @@ const createStore = () => {
         return axios.get(`${origin}/.netlify/functions/getUser`).then((r) => {
           dispatch('getMemberByEmail', { email: r.data }).then((response) => {
             const profile = response
-            console.log(response)
+            //console.log(response)
             const user = {
               profile
               // trainings,
               // packages,
               // payment
             }
-            console.log(user)
+            //console.log(user)
             commit('setUser', user)
             // TODO remove getMember again (use user)
             dispatch('getMember', user.profile.id)

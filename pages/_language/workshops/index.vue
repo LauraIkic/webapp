@@ -82,7 +82,7 @@ export default {
   },
   created () {
     this.$watch('categories', (newVal, oldVal) => {
-      console.log('update')
+      //console.log('update')
       this.update()
     }, { deep: true })
   },
@@ -97,7 +97,7 @@ export default {
       this.$store.dispatch('findWorkshops', { filters: this.filters, search: this.search }).then((data) => {
         this.loading = false
         this.workshops = data
-        console.log('this.workshops: ', this.workshops)
+        //console.log('this.workshops: ', this.workshops)
       })
       this.selectedEvents = this.selectedCategories()
       this.filteredWorkshops = []
