@@ -1,19 +1,10 @@
 <template>
   <div>
     <h2>Credits</h2>
-    <loading-spinner
-      v-if="isLoading"
-      color="#333"
-    />
     <div
-      v-else
       class="credits"
     >
       <div class="myCredits">
-        <span>
-          <font-awesome-icon icon="coins" />
-          {{ $t('myCredits') }} {{ credits }}EUR
-        </span>
         <button
           class="input-button-primary creditsButton"
           @click="$router.push('/de/gutscheine?action=redeem')"
@@ -22,91 +13,21 @@
         </button>
       </div>
       <div class="logs">
-        <div
-          v-for="log of logs"
-          :key="log.id"
-          :class="['entry', { pointer: log.refType=== REF_TYPES.invoice }]"
-          @click="showInvoices(log)"
-        >
-          <div class="date">
-            {{ new Date(log.date).toLocaleString('de-AT') }}
-          </div>
-          <div :class="['type', log.value > 0 ? 'green' : 'red']">
-            {{ log.value > 0 ? 'Aufladung' : 'Abbuchung' }}
-          </div>
-          <div class="value">
-            {{ Math.abs(log.value) }}EUR
-          </div>
-          <div class="info">
-            <template v-if="log.refType === REF_TYPES.invoice">
-              <span class="link">{{ $t('invoice') }}#{{ log.invoiceId }}</span>
-              <div class="icon">
-                <font-awesome-icon icon="link" />
-              </div>
-            </template>
-            <template v-else-if="log.refType === REF_TYPES.giftCard">
-              {{ $t('giftCard') }}
-            </template>
-            <span v-else>{{ $t('credit') }}</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import saveAs from "save-as";
-
-const REF_TYPES = {
-  invoice: 0,
-  giftCard: 1,
-  manual: 2
-}
 
 export default {
   name: 'Credits',
   middleware: 'authenticated',
   data: () => ({
-    credits: 0,
-    isLoading: true,
-    logs: null,
-    REF_TYPES
   }),
   async mounted () {
-    const logs = await this.$store.dispatch('getCreditsLog')
-    this.credits = await this.$store.dispatch('getCredits')
-    const invoices = await this.$store.dispatch('getInvoices')
-    const logsToPrint = []
-    for (const entry of logs) {
-      const invoice = invoices.find(i => i.id === entry.creditable_id)
-      const log = {
-        date: entry.created_at,
-        id: entry.id,
-        value: entry.value,
-        invoiceId: invoice ? invoice.human_readable_id : null,
-        invoiceUuid: invoice ? invoice.uuid : null
-      }
-      if (entry.creditable_type) {
-        if (entry.creditable_type.endsWith('Invoice')) {
-          log.refType = REF_TYPES.invoice
-        } else {
-          log.refType = REF_TYPES.giftCard
-        }
-      } else {
-        log.refType = REF_TYPES.manual
-      }
-      logsToPrint.push(log)
-    }
-    this.logs = logsToPrint.sort((a, b) => a.id < b.id)
-    this.isLoading = false
   },
   methods: {
-    showInvoices (log) {
-      if (log.refType === REF_TYPES.invoice) {
-        this.$router.push(`invoices?id=${log.invoiceUuid}`)
-      }
-    }
   }
 }
 </script>

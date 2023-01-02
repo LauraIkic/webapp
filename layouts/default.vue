@@ -175,6 +175,22 @@ h3 {
       line-height: 1.8;
       resize: vertical;
     }
+    .input-select {
+      outline: none;
+      border: 1px solid #fff;
+      flex-grow: 1;
+      padding: 5px 10px;
+      width: 100%;
+      max-width: 100%;
+      font-size: .8em;
+      background-color: #FFF;
+      @include media-breakpoint-down(xs) {
+        margin: 1vh 0;
+      }
+      &:focus {
+        border-color: $color-orange;
+      }
+    }
   }
   .button-row {
     text-align: right;
