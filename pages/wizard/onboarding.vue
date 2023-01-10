@@ -407,7 +407,11 @@ export default {
           memberData = {
             ...memberData,
             paidForBy: this.onboardingData.contactInformation.company.id,
-            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id
+            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id,
+            metadata: {
+              corporateMemberId: this.onboardingData.contactInformation.company.id
+            }
+
           }
           break
         case MemberType.corporate:
@@ -415,7 +419,10 @@ export default {
           memberData = memberDataBasic
           memberData = {
             ...memberData,
-            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id
+            space: this.onboardingData.contactInformation.company.metadata.attendees_space_id,
+            metadata: {
+              corporateMemberId: this.onboardingData.contactInformation.company.id
+            }
           }
           extendMemberDataIban = {
             iban: this.onboardingData.payment.iban
