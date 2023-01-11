@@ -60,7 +60,7 @@ export default {
 
       // membership of the current member
       this.membership = this.memberPackages.filter((p) => {
-        console.log(p)
+        //console.log(p)
         const notes = p._embedded.package.notes
         return !notes.is_storage_box
       })

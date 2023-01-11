@@ -255,7 +255,7 @@ export default {
       this.loading = true
       await this.$store.dispatch('redeemGiftCard', { secret: this.giftcardCode })
         .then((response) => {
-          console.log('success', response)
+          //console.log('success', response)
           this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
             className: 'goodToast'
           })
