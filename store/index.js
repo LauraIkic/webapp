@@ -306,7 +306,6 @@ const createStore = () => {
       async getPaymentMethod ({ state }) {
         const id = state.member.id
         const res = await connector.get(`v1/fabman/members/${id}/payment-method`)
-        console.log('PAYMENT: ', res.data)
         return res.data
       },
       getInvoiceDocument ({ commit, dispatch, state }, id) {
