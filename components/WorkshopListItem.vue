@@ -52,7 +52,7 @@
         </div>
         <div class="workshop-dates">
           <div
-              v-for="(d) in eventDates" :key="d.id"
+              v-for="event in eventDates" :key="event.id"
               class="workshop-date"
           >
             <div
@@ -60,71 +60,22 @@
                 class="info-row"
             >
               <div class="info-block">
-                <div class="col info">
-                  <icon name="calendar" />
-                  {{ d.date }}
-                  {{ d.startTime }}
-                  bis
-                  {{ d.endTime }}
-                  Uhr
-<!--                  <div v-if="d.content.starttime2">
-                    <br>
-                    <font-awesome-icon class="grey" icon="plus"/>
-                    {{ d.content.starttime2 | date }}
+                <div v-for="d in event.dates" :key="d.id">
+                  <div class="col info">
+                    <icon name="calendar" />
+                    {{ d.date }}
+                    <icon name="clock" />
+                    {{d.startTime }}
+                    bis
+                    {{ d.endTime }}
+                    Uhr
+<!--                    <div >
+                      <br>
+                      <font-awesome-icon class="grey" icon="plus"/>
+                    </div>-->
                   </div>
-                  <div v-if="d.content.starttime3">
-                    <br>
-                    <font-awesome-icon class="grey" icon="plus"/>
-                    {{ d.content.starttime3 | date }}
-                  </div>
-                  <div v-if="d.content.starttime4">
-                    <br>
-                    <font-awesome-icon class="grey" icon="plus"/>
-                    {{ d.content.starttime4 | date }}
-                  </div>-->
                 </div>
-<!--                <div class="col info">
-                  <icon name="clock" />
-                  <span>{{ d.content.starttime | time }}</span>
-                  <span v-if="d.content.endtime"> bis {{ d.content.endtime | time }}</span>
-                  <span>Uhr</span>
-                  <div v-if="d.content.starttime2">
-                    <br>
-                    <icon name="clock" />
-                    <span>{{ d.content.starttime2 | time }}</span>
-                    <span v-if="d.content.endtime2"> bis {{ d.content.endtime2 | time }}</span>
-                    <span>Uhr</span>
-                  </div>
-                  <div v-if="d.content.starttime3">
-                    <br>
-                    <icon name="clock" />
-                    <span>{{ d.content.starttime3 | time }}</span>
-                    <span v-if="d.content.endtime3"> bis {{ d.content.endtime3 | time }}</span>
-                    <span>Uhr</span>
-                  </div>
-                  <div v-if="d.content.starttime4">
-                    <br>
-                    <icon name="clock" />
-                    <span>{{ d.content.starttime4 | time }}</span>
-                    <span v-if="d.content.endtime4"> bis {{ d.content.endtime4 | time }}</span>
-                    <span>Uhr</span>
-                  </div>
-                </div>-->
               </div>
-<!--              <div class="info-block">
-                <div
-                    v-if="d.content.sold_out"
-                    class="col soldOut"
-                >
-                  <span>{{ $t('soldOut') }}</span>
-                </div>
-              </div>-->
-              <!-- <div class="info-block">
-                <div class="col" v-if="content.pax">
-                  <icon name="user" />
-                  <span>{{content.pax}}</span>
-                </div>
-              </div>-->
             </div>
           </div>
         </div>
@@ -159,26 +110,54 @@ export default {
   },
   methods: {
     async getPretixData () {
-      const events = await this.$store.dispatch('getPretixEvents', this.content.pretix_shortform)
-      this.events = events
-      this.formatEventDates()
+      if (this.content.pretix_shortform) {
+        const events = await this.$store.dispatch('getPretixEvents', this.content.pretix_shortform)
+        this.events = events
+        console.log(this.content.pretix_shortform)
+        console.log('this event')
+        console.log(this.events)
+        this.formatEventDates()
+      }
     },
     /**
-     * TODO: change time format to eg 17:00
+     * TODO:
      * manage events that are longer than one day
      */
     formatEventDates () {
       this.events.forEach((item) => {
-        const startDate = moment(item.date_from)
-        const endDate = moment(item.date_to)
-        if (this.eventDates.length > 2) {
-          return
+        if (item.date_from !== null && moment(item.date_from).isAfter(moment())) {
+          const startDate = moment(item.date_from)
+          const endDate = moment(item.date_to)
+          const eventList = []
+          //check if event is longer than a day
+          if (startDate.isSame(endDate, 'day')) {
+            eventList.push({
+              date: startDate.lang('de').format('L'),
+              startTime: startDate.format('hh:mm'),
+              endTime: endDate.format('hh:mm')
+            })
+          } else {
+            //first date
+            eventList.push({
+              date: startDate.lang('de').format('L'),
+              startTime: startDate.format('hh:mm'),
+              endTime: endDate.format('hh:mm')
+            })
+            //second date
+            eventList.push({
+              date: startDate.lang('de').format('L'),
+              startTime: startDate.format('hh:mm'),
+              endTime: endDate.format('hh:mm')
+            })
+          }
+          this.eventDates.push({
+            dates: eventList
+          })
+     /*     if (this.eventDates.length > 2) {
+            return
+          }*/
+
         }
-        this.eventDates.push({
-          date: startDate.format('MM-DD-YYYY'),
-          startTime: startDate.format('hh:mm'),
-          endTime: endDate.format('hh:mm')
-        })
       })
     }
 

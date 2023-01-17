@@ -173,7 +173,7 @@ export default {
             in: 'workshop-date'
           },
           starttime: {
-            'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+            'gt-date': moment().subtract(24, 'hours').format('DD.MM.YYYYY HH:mm')
           }
         }
         // search_term: this.search
@@ -194,6 +194,8 @@ export default {
     }
     const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: '' }).then((data) => {
       if (data) {
+        console.log('WORKSHOP-LIST')
+        console.log(data)
         return { workshops: data }
       }
       return { workshops: [] }
@@ -211,9 +213,9 @@ export default {
   margin-top: 20px;
   border-radius: 30px;
   overflow: hidden;
-  width: 240px;
+  width: 162px;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 1px;
   color: black;
   position: relative;
@@ -226,7 +228,7 @@ export default {
     top: 0;
     bottom: 0;
     right: 0;
-    width: 120px;
+    width: 82px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -246,22 +248,23 @@ export default {
     z-index: 2;
 
     &:checked + .switch-button-label:before {
-      transform: translateX(120px);
+      transform: translateX(80px);
       transition: transform 300ms linear;
     }
 
     & + .switch-button-label {
       position: relative;
-      padding: 15px 0;
+      padding: 10px 0;
       display: block;
       user-select: none;
       pointer-events: none;
+      width: 60px;
 
       &:before {
         content: "";
         background: #fff;
         height: 100%;
-        width: 100%;
+        width: 135%;
         position: absolute;
         left: 0;
         top: 0;
