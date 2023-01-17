@@ -189,15 +189,10 @@ export default {
         case 'index':
           return false
         case 'userInformation': {
-          //return false
-          // eslint-disable-next-line no-unreachable
-          // gender may be null = keine Angabe , 'gender'
           const requiredKeys = ['firstName', 'lastName', 'gender', 'email', 'password']
           return ((!!requiredKeys.filter(k => !data.userInformation[k]).length) || !data.userInformation.emailOk)
         }
         case 'contact': {
-          //return false
-          // eslint-disable-next-line no-unreachable
           const data = this.onboardingData
           const requiredKeys = ['birthdate', 'address', 'zip', 'city', 'country']
           const requiredKeysInvoiceContact = ['firstName', 'lastName', 'address', 'zip', 'city', 'country']
@@ -296,7 +291,6 @@ export default {
           break
         case 'payment':
           this.saveOnboardingData()
-          //this.loadNextPage()
           this.submit()
           break
         case 'done':
@@ -311,7 +305,6 @@ export default {
       const ni = this.index + 1 < 0 ? 0 : this.index + 1
       const path = this.steps[ni]
       if (path) {
-        //console.log('GOTO: /wizard/onboarding/' + path)
         this.$router.push('/wizard/onboarding/' + path)
       }
     },
@@ -377,7 +370,6 @@ export default {
       // STEP1: create FABMAN Member
       let memberDataBasic = {
         // basicData = data for the new fabman user, that is needed for any membership type
-        // TODO uncomment
         emailAddress: this.onboardingData.userInformation.email,
         address: this.onboardingData.contactInformation.address,
         city: this.onboardingData.contactInformation.city,
@@ -388,7 +380,6 @@ export default {
         //region, language,requireUpfrontPayment, state,  not used
         gender: null,
         dateOfBirth: this.onboardingData.contactInformation.birthdate,
-        // TODO: must be a number?
         phone: this.onboardingData.contactInformation.phone,
         countryCode: this.onboardingData.contactInformation.country,
         hasBillingAddress: this.onboardingData.contactInformation.hasBillingAddress
