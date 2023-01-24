@@ -50,6 +50,7 @@ const version = tmpVersion
 
 const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNECTOR_URL : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
+const pretixBaseUrl = 'https://connector.grandgarage.eu/api/pretix/events'
 
 let connector = axios.create({
   baseURL: connectorBaseUrl,
@@ -335,6 +336,12 @@ const createStore = () => {
             })
           }).then((r) => {
           })
+        }
+      },
+      async getPretixEvents ({ state }, subEvent) {
+        const r = await axios.get(`${baseUrl + '/api/pretix/events'}/${subEvent}`)
+        if (r.status === 200) {
+          return r.data
         }
       },
       saveQuiz ({ state }, data) {

@@ -12,19 +12,19 @@
       </div>
       <div class="body">
         <div class="category">
-          <div v-if="content.category === 'training'">
+          <div v-if="content.category === 'Einschulungen'">
             <span>{{ $t('instructions') }}</span>
           </div>
-          <div v-if="content.category === 'event'">
+          <div v-if="content.category === 'Event'">
             <span>{{ $t('event') }}</span>
           </div>
           <div v-if="content.category === 'meetup'">
             <span>{{ $t('meetup') }}</span>
           </div>
-          <div v-if="content.category === 'workshop'">
+          <div v-if="content.category === 'Workshops'">
             <span>{{ $t('workshops') }}</span>
           </div>
-          <div v-if="content.category === 'frauenundtechnik'">
+          <div v-if="content.category === '#frauenundtechnik'">
             <span>{{ $t('frauenundtechnik') }}</span>
           </div>
 <!--          <div v-if="content.category === 'makemas'">-->
@@ -52,76 +52,30 @@
         </div>
         <div class="workshop-dates">
           <div
-              v-for="(d) in dates" :key="d.id"
+              v-for="event in eventDates" :key="event.id"
               class="workshop-date"
-              :class="{ soldOut: d.content.sold_out }"
           >
             <div
                 v-if="!slim || i === 0"
                 class="info-row"
             >
               <div class="info-block">
-                <div class="col info">
-                  <icon name="calendar" />
-                  {{ d.content.starttime | date }}
-                  <div v-if="d.content.starttime2">
-                    <br>
-                    <font-awesome-icon class="grey" icon="plus"/>
-                    {{ d.content.starttime2 | date }}
-                  </div>
-                  <div v-if="d.content.starttime3">
-                    <br>
-                    <font-awesome-icon class="grey" icon="plus"/>
-                    {{ d.content.starttime3 | date }}
-                  </div>
-                  <div v-if="d.content.starttime4">
-                    <br>
-                    <font-awesome-icon class="grey" icon="plus"/>
-                    {{ d.content.starttime4 | date }}
-                  </div>
-                </div>
-                <div class="col info">
-                  <icon name="clock" />
-                  <span>{{ d.content.starttime | time }}</span>
-                  <span v-if="d.content.endtime"> bis {{ d.content.endtime | time }}</span>
-                  <span>Uhr</span>
-                  <div v-if="d.content.starttime2">
-                    <br>
+                <div v-for="d in event.dates" :key="d.id">
+                  <div class="col info">
+                    <icon name="calendar" />
+                    {{ d.date }}
                     <icon name="clock" />
-                    <span>{{ d.content.starttime2 | time }}</span>
-                    <span v-if="d.content.endtime2"> bis {{ d.content.endtime2 | time }}</span>
-                    <span>Uhr</span>
-                  </div>
-                  <div v-if="d.content.starttime3">
-                    <br>
-                    <icon name="clock" />
-                    <span>{{ d.content.starttime3 | time }}</span>
-                    <span v-if="d.content.endtime3"> bis {{ d.content.endtime3 | time }}</span>
-                    <span>Uhr</span>
-                  </div>
-                  <div v-if="d.content.starttime4">
-                    <br>
-                    <icon name="clock" />
-                    <span>{{ d.content.starttime4 | time }}</span>
-                    <span v-if="d.content.endtime4"> bis {{ d.content.endtime4 | time }}</span>
-                    <span>Uhr</span>
+                    {{d.startTime }}
+                    bis
+                    {{ d.endTime }}
+                    Uhr
+<!--                    <div >
+                      <br>
+                      <font-awesome-icon class="grey" icon="plus"/>
+                    </div>-->
                   </div>
                 </div>
               </div>
-              <div class="info-block">
-                <div
-                    v-if="d.content.sold_out"
-                    class="col soldOut"
-                >
-                  <span>{{ $t('soldOut') }}</span>
-                </div>
-              </div>
-              <!-- <div class="info-block">
-                <div class="col" v-if="content.pax">
-                  <icon name="user" />
-                  <span>{{content.pax}}</span>
-                </div>
-              </div>-->
             </div>
           </div>
         </div>
@@ -134,8 +88,15 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: ['blok', 'slim'],
+  data () {
+    return {
+      events: null,
+      eventDates: []
+    }
+  },
   computed: {
     dates () {
       return this.blok.dates
@@ -147,8 +108,59 @@ export default {
       return 'Mehr Infos'
     }
   },
+  methods: {
+    async getPretixData () {
+      if (this.content.pretix_shortform) {
+        const events = await this.$store.dispatch('getPretixEvents', this.content.pretix_shortform)
+        this.events = events
+        this.formatEventDates()
+      }
+    },
+    /**
+     * TODO:
+     * manage events that are longer than one day
+     */
+    formatEventDates () {
+      this.events.forEach((item) => {
+        if (item.date_from !== null && moment(item.date_from).isAfter(moment())) {
+          const startDate = moment(item.date_from)
+          const endDate = moment(item.date_to)
+          const eventList = []
+          //check if event is longer than a day
+          if (startDate.isSame(endDate, 'day')) {
+            eventList.push({
+              date: startDate.lang('de').format('L'),
+              startTime: startDate.format('hh:mm'),
+              endTime: endDate.format('hh:mm')
+            })
+          } else {
+            //first date
+            eventList.push({
+              date: startDate.lang('de').format('L'),
+              startTime: startDate.format('hh:mm'),
+              endTime: endDate.format('hh:mm')
+            })
+            //second date
+            eventList.push({
+              date: startDate.lang('de').format('L'),
+              startTime: startDate.format('hh:mm'),
+              endTime: endDate.format('hh:mm')
+            })
+          }
+          this.eventDates.push({
+            dates: eventList
+          })
+     /*     if (this.eventDates.length > 2) {
+            return
+          }*/
+
+        }
+      })
+    }
+
+  },
   mounted () {
-    // console.log(this.blok.uuid);
+    this.getPretixData()
   }
 }
 </script>

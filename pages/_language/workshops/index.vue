@@ -8,38 +8,35 @@
         <div class="headline">
           {{ $t('area') }}
         </div>
-        <div class="tag-list">
-          <div v-for="t in categories" :key="t.key" class="tag">
+        <div class="tag-list" :key="this.filter">
+          <div v-for="c in categories" :key="c.key" class="tag">
             <checkbox
-                v-model="t.value"
+                v-model="c.value"
                 class="tag"
                 theme="white"
-            >{{ t.name }}
-            </checkbox>
+            >{{c.name}}</checkbox>
           </div>
+        </div>
+        <br>
+        <br>
+        <div class="headline">
+          Ansicht
+        </div>
+        <div class="switch-button">
+          <input class="switch-button-checkbox" type="checkbox" v-model="isCalendar">
+          <label class="switch-button-label" for=""><span class="switch-button-label-span">Grid</span></label>
         </div>
       </div>
       <div class="search">
         <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
     </div>
-    <div class="workshop-list-wrapper" :key="this.filtered">
-      <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
-        <transition-group name="list">
-          <workshop-list-item
-              v-for="item in filteredWorkshops"
-              :blok="item"
-              :key="item.id"
-              class="list-item"
-              :slim="false"
-          ></workshop-list-item>
-        </transition-group>
-      </div>
-      <div v-else>
-        <div v-if="workshops && workshops.length > 0" class="workshop-list">
+    <div v-if="!isCalendar">
+      <div class="workshop-list-wrapper" :key="this.filter">
+        <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
           <transition-group name="list">
             <workshop-list-item
-                v-for="item in workshops"
+                v-for="item in filteredWorkshops"
                 :blok="item"
                 :key="item.id"
                 class="list-item"
@@ -48,10 +45,43 @@
           </transition-group>
         </div>
         <div v-else>
-          <div class="workshop-list-none">
-            <code> {{ $t('noSearchResults') }}</code>
+          <div v-if="workshops && workshops.length > 0" class="workshop-list">
+            <transition-group name="list">
+              <workshop-list-item
+                  v-for="item in workshops"
+                  :blok="item"
+                  :key="item.id"
+                  class="list-item"
+                  :slim="false"
+              ></workshop-list-item>
+            </transition-group>
+          </div>
+          <div v-else>
+            <div class="workshop-list-none">
+              <code> {{ $t('noSearchResults') }}</code>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div v-if="isCalendar" :key="this.filter">
+      <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
+      <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
+      <div  class="pretix-content">
+        <div v-if="selectedEvent !== ''">
+          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" :filter="`attr[Kategorie]=${this.filter}`"></pretix-widget>
+        </div>
+        <div v-if="selectedEvent === ''">
+          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" ></pretix-widget>
+        </div>
+        <noscript>
+          <div class="pretix-widget">
+            <div class="pretix-widget-info-message">
+              JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
+              please <a target="_blank" href="https://pretix.eu/ggTest">click here</a>.
+            </div>
+          </div>
+        </noscript>
       </div>
     </div>
   </section>
@@ -65,7 +95,7 @@ export default {
     return {
       categories: [
         { key: 'event', name: 'Event', value: false },
-        { key: 'workshop', name: 'Workshop', value: false },
+        { key: 'workshop', name: 'Workshops', value: false },
         { key: 'training', name: 'Einschulungen', value: false },
         { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false },
         // { key: 'makemas', name: '#makemas2022', value: false }
@@ -75,14 +105,14 @@ export default {
       workshops: [],
       tags: [],
       tagsCollapsed: false,
-      selectedEvents: [],
+      selectedEvent: '',
       filteredWorkshops: [],
-      filtered: 0
+      filter: '',
+      isCalendar: false // false = grid , true = calender
     }
   },
   created () {
     this.$watch('categories', (newVal, oldVal) => {
-      //console.log('update')
       this.update()
     }, { deep: true })
   },
@@ -94,37 +124,44 @@ export default {
   methods: {
     update () {
       this.loading = true
-      this.$store.dispatch('findWorkshops', { filters: this.filters, search: this.search }).then((data) => {
-        this.loading = false
-        this.workshops = data
-        //console.log('this.workshops: ', this.workshops)
-      })
-      this.selectedEvents = this.selectedCategories()
-      this.filteredWorkshops = []
-      // console.log('SELECTED EVENTS')
-      // console.log(this.selectedEvents)
-      this.workshops = this.filterCategory()
-      //console.log(this.workshops)
-      this.filtered = true
+      this.selectedEvent = this.selectedCategories()
+      if (this.selectedEvent.length > 1) {
+        this.deselectOldest()
+        this.selectedEvent = this.selectedCategories()
+      }
+      if (this.selectedEvent.length === 0) {
+        this.filteredWorkshops = []
+      }
+      if (this.selectedEvent.length === 1) {
+        this.filter = this.selectedEvent[0].name
+        this.filterWorkshops()
+      }
+      this.loading = false
     },
     toggleTags () {
       this.tagsCollapsed = !this.tagsCollapsed
     },
-    filterCategory () {
+    filterWorkshops () {
+      this.filteredWorkshops = []
       this.workshops.forEach((item) => {
-        this.selectedEvents.forEach((selectedItem) => {
-          if (item.content.category === selectedItem) {
-            this.filteredWorkshops.push(item)
-          }
-        })
+        if (item.content.category === this.filter) {
+          this.filteredWorkshops.push(item)
+        }
       })
       return this.filteredWorkshops
     },
+    deselectOldest () {
+      this.categories.forEach((item) => {
+        if (item.name === this.filter) {
+          item.value = false
+        }
+      })
+    },
     selectedCategories () {
       return this.categories.filter((c) => {
-        return (c.value) ? c.key : ''
-      }).map((v) => {
-        return v.key
+        return (c.value) ? c.name : ''
+      }).map((c) => {
+        return { name: c.name, value: c.value, key: c.key }
       })
     }
   },
@@ -136,7 +173,7 @@ export default {
             in: 'workshop-date'
           },
           starttime: {
-            'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+            'gt-date': moment().subtract(24, 'hours').format('DD.MM.YYYYY HH:mm')
           }
         }
         // search_term: this.search
@@ -167,6 +204,79 @@ export default {
 </script>
 
 <style lang="scss">
+
+.switch-button {
+  background: rgba(255, 255, 255, 0.56);
+  margin-left: 50px;
+  margin-top: 20px;
+  border-radius: 30px;
+  overflow: hidden;
+  width: 162px;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: black;
+  position: relative;
+  padding-right: 120px;
+  position: relative;
+
+  &:before {
+    content: "Kalender";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  &-checkbox {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+
+    &:checked + .switch-button-label:before {
+      transform: translateX(80px);
+      transition: transform 300ms linear;
+    }
+
+    & + .switch-button-label {
+      position: relative;
+      padding: 10px 0;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+      width: 60px;
+
+      &:before {
+        content: "";
+        background: #fff;
+        height: 100%;
+        width: 135%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 30px;
+        transform: translateX(0);
+        transition: transform 300ms;
+      }
+
+      .switch-button-label-span {
+        position: relative;
+      }
+    }
+  }
+}
 
 .workshop-overview {
   .loading {
@@ -350,9 +460,11 @@ export default {
 
 .workshop-list-wrapper {
   display: flex;
+
   .workshop-list {
     padding-right: 10px;
     padding-left: 10px;
+
     > span {
       display: grid;
       @include media-breakpoint-up(sm) {
@@ -369,7 +481,9 @@ export default {
       grid-column-gap: 2vw;
       grid-row-gap: 2vw;
     }
+
     flex: 3;
+
     .list-item {
       min-width: 150px;
       border-radius: 10px;
@@ -377,14 +491,18 @@ export default {
         min-width: 200px;
       }
     }
+
     .list-enter-active, .list-leave-active {
       transition: all 0.5s;
     }
-    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+
+    .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
+    {
       opacity: 0;
       transform: translateX(30px);
     }
   }
+
   .workshop-list-none {
     flex: 1;
     text-align: center;
@@ -506,6 +624,7 @@ export default {
     @include margin-page-wide();
     margin-top: 1vh;
     margin-bottom: 2vh;
+
     input[type=text] {
       flex: 1;
       display: block;
