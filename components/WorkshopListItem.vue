@@ -12,22 +12,22 @@
       </div>
       <div class="body">
         <div class="category">
-          <div v-if="content.category === 'training'">
+          <div v-if="content.category === 'Einschulungen'">
             <span>{{ $t('instructions') }}</span>
           </div>
-          <div v-if="content.category === 'event'">
+          <div v-if="content.category === 'Event'">
             <span>{{ $t('event') }}</span>
           </div>
           <div v-if="content.category === 'meetup'">
             <span>{{ $t('meetup') }}</span>
           </div>
-          <div v-if="content.category === 'workshop'">
+          <div v-if="content.category === 'Workshops'">
             <span>{{ $t('workshops') }}</span>
           </div>
-          <div v-if="content.category === 'frauenundtechnik'">
+          <div v-if="content.category === '#frauenundtechnik'">
             <span>{{ $t('frauenundtechnik') }}</span>
           </div>
-          <div v-if="content.category === 'makemas'">
+          <div v-if="content.category === '#makemas2022'">
             <span>{{ $t('makemas') }}</span>
           </div>
         </div>
@@ -113,9 +113,6 @@ export default {
       if (this.content.pretix_shortform) {
         const events = await this.$store.dispatch('getPretixEvents', this.content.pretix_shortform)
         this.events = events
-        console.log(this.content.pretix_shortform)
-        console.log('this event')
-        console.log(this.events)
         this.formatEventDates()
       }
     },

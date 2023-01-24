@@ -194,8 +194,6 @@ export default {
     }
     const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: '' }).then((data) => {
       if (data) {
-        console.log('WORKSHOP-LIST')
-        console.log(data)
         return { workshops: data }
       }
       return { workshops: [] }

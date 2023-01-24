@@ -67,10 +67,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .oceaneye-overview {
   background-color: white;
   margin-bottom: 5%;
+  .pretix-widget-event-description{
+    display: none;
+  }
 }
 .container {
   max-width: 1255px;

@@ -49,7 +49,7 @@ const version = tmpVersion
 
 const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNECTOR_URL : 'https://connector.grandgarage.eu'
 const connectorBaseUrl = baseUrl + '/api'
-const pretixBaseUrl = 'https://staging.connector.grandgarage.eu/api/pretix/events'
+const pretixBaseUrl = 'https://connector.grandgarage.eu/api/pretix/events'
 
 let connector
 let pretix
@@ -289,7 +289,7 @@ const createStore = () => {
         }
       },
       async getPretixEvents ({ state }, subEvent) {
-        const r = await axios.get(`${pretixBaseUrl}/${subEvent}`)
+        const r = await axios.get(`${baseUrl + '/api/pretix/events'}/${subEvent}`)
         if (r.status === 200) {
           return r.data
         }
