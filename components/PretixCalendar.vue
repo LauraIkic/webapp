@@ -68,6 +68,9 @@ export default {
 </script>
 
 <style lang="scss" >
+.pretix-widget-event-list-entry pretix-widget-event-availability-red pretix-widget-event-availability-over{
+  color: white;
+}
 .oceaneye-overview {
   background-color: white;
   margin-bottom: 5%;

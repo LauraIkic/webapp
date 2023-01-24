@@ -27,6 +27,9 @@
           <div v-if="content.category === '#frauenundtechnik'">
             <span>{{ $t('frauenundtechnik') }}</span>
           </div>
+          <div v-if="content.category === 'for_kids'">
+            <span>{{ $t('kidsWorkshop') }}</span>
+          </div>
 <!--          <div v-if="content.category === 'makemas'">-->
 <!--            <span>{{ $t('makemas') }}</span>-->
 <!--          </div>-->
@@ -98,9 +101,6 @@ export default {
     }
   },
   computed: {
-    dates () {
-      return this.blok.dates
-    },
     content () {
       return this.blok.content
     },
@@ -114,33 +114,21 @@ export default {
         const events = await this.$store.dispatch('getPretixEvents', this.content.pretix_shortform)
         this.events = events
         this.formatEventDates()
+        this.getWorkshopInformation()
       }
     },
-    /**
-     * TODO:
-     * manage events that are longer than one day
-     */
+    getWorkshopInformation () {
+      const lastEvent = this.events.pop().frontpage_text
+      const workshopInformation = lastEvent['de-informal']
+    },
     formatEventDates () {
       this.events.forEach((item) => {
         if (item.date_from !== null && moment(item.date_from).isAfter(moment())) {
           const startDate = moment(item.date_from)
           const endDate = moment(item.date_to)
           const eventList = []
-          //check if event is longer than a day
+
           if (startDate.isSame(endDate, 'day')) {
-            eventList.push({
-              date: startDate.lang('de').format('L'),
-              startTime: startDate.format('hh:mm'),
-              endTime: endDate.format('hh:mm')
-            })
-          } else {
-            //first date
-            eventList.push({
-              date: startDate.lang('de').format('L'),
-              startTime: startDate.format('hh:mm'),
-              endTime: endDate.format('hh:mm')
-            })
-            //second date
             eventList.push({
               date: startDate.lang('de').format('L'),
               startTime: startDate.format('hh:mm'),
@@ -150,10 +138,6 @@ export default {
           this.eventDates.push({
             dates: eventList
           })
-     /*     if (this.eventDates.length > 2) {
-            return
-          }*/
-
         }
       })
     }
