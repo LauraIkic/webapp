@@ -3,6 +3,7 @@ import auth0 from 'auth0-js'
 import { getUserFromLocalStorage, setToken, unsetToken } from '~/utils/auth'
 import axios from 'axios'
 import moment from 'moment'
+import Vue from 'vue'
 
 const origin = process.client ? window.location.origin : process.env.ORIGIN
 
@@ -51,8 +52,10 @@ const baseUrl = process.env.NUXT_ENV_CONNECTOR_URL ? process.env.NUXT_ENV_CONNEC
 const connectorBaseUrl = baseUrl + '/api'
 const pretixBaseUrl = 'https://connector.grandgarage.eu/api/pretix/events'
 
-let connector
-let pretix
+let connector = axios.create({
+  baseURL: connectorBaseUrl,
+  headers: {}
+})
 
 const createStore = () => {
   return new Vuex.Store({
@@ -67,6 +70,7 @@ const createStore = () => {
       fabman: null,
       courses: null,
       memberCourses: null,
+      member: null,
       workshops: null,
       necessaryCookie: false,
       analyticsCookie: false
@@ -129,6 +133,9 @@ const createStore = () => {
       setCourses (state, data) {
         state.courses = data
       },
+      setMember (state, data) {
+        state.member = data
+      },
       setMemberCourses (state, data) {
         state.memberCourses = data
       },
@@ -172,8 +179,9 @@ const createStore = () => {
           this.$sentry.captureException(err)
         })
       },
-      getUserMetadata () {
-        return connector.get('member/metadata').then((r) => {
+      getUserMetadata ({ state }) {
+        const id = state.member.id
+        return connector.get(`v1/fabman/members/${id}/metadata`).then((r) => {
           return r
         }).catch((err) => {
           this.$sentry.captureException(err)
@@ -190,7 +198,7 @@ const createStore = () => {
         const c = axios.create({
           baseURL: connectorBaseUrl
         })
-        return c.post('/blog/votes/vote', data).then((r) => {
+        return c.post('v1/blog/votes/vote', data).then((r) => {
           if (r.data.success) {
             return r.data
           }
@@ -200,13 +208,13 @@ const createStore = () => {
         const c = axios.create({
           baseURL: connectorBaseUrl
         })
-        return c.post('/blog/votes', data).then((r) => {
+        return c.post('v1/blog/votes', data).then((r) => {
           return r.data
         })
       },
       getWorkshopDateMetadata ({ state }, data) {
         if (connector) {
-          return connector.post('/member/getWorkshopDateMetadata', data).then((r) => {
+          return connector.post('/v1/workshops/getWorkshopDateMetadata', data).then((r) => {
             if (r.data) {
               return r.data
             }
@@ -218,7 +226,7 @@ const createStore = () => {
         }
       },
       bookWorkshop ({ state }, data) {
-        return connector.post('/member/checkoutWorkshop', data)
+        return connector.post('/v1/workshops/checkoutWorkshop', data)
       },
       checkout ({ state }, data) {
         return connector.post('/member/checkoutTransaction', data)
@@ -227,37 +235,79 @@ const createStore = () => {
         return connector.post('/member/workshopStorno', data)
       },
       async getCredits ({ state }) {
-        const res = await connector.get('/member/getCredits')
+        const res = await connector.get('/v1/members/getCredits')
         return res.data
       },
       async getCreditsLog ({ state }) {
-        const res = await connector.get('/member/getCreditsLog')
+        const res = await connector.get('/v1/members/getCreditsLog')
         return res.data
       },
       startTransaction ({ state }, data) {
         // Returns payrexx checkout link
         return axios.post(connectorBaseUrl + '/payrexx/checkout', data)
       },
+      // old version
+      // async redeemGiftCard ({ state }, data) {
+      //   const res = await connector.post('/gift-cards/redeem', data)
+      //   return res.data
+      // },
+      // new version with pretix
       async redeemGiftCard ({ state }, data) {
-        const res = await connector.post('/pretix/redeemGiftCard/', data)
+        const id = state.member.id
+        const res = await connector.post(`v1/pretix/${id}/`, data)
         return res.data
       },
       async getInvoices ({ state }) {
-        const res = await connector.get('/member/invoices')
+        const params = {
+          member: state.member.id
+        }
+        const res = await connector.get('/v1/fabman/invoices', { params })
         return res.data
       },
       async getActivities ({ state }) {
-        const res = await connector.get('/member/activities')
+        const params = {
+          member: state.member.id
+        }
+        const res = await connector.get('/v1/fabman/charges', { params })
         return res.data
       },
       async getPDF ({ state }, id) {
-        return await connector.get('/member/invoice/' + id, {
-          responseType: 'arraybuffer'
-        }, {
-          headers: {
-            'Content-Type': 'application/pdf'
-          }
-        })
+        const res = await connector.get(`/v1/fabman/invoices/${id}/pdf`)
+        return res.data
+      },
+      async getMemberPackages ({ state }, id) {
+        const res = await connector.get(`/v1/fabman/members/${id}/packages`)
+        return res.data
+      },
+      async getPackages ({ state }) {
+        const res = await connector.get('/v1/fabman/packages')
+        return res.data
+      },
+      async setPackage ({ state }, data) {
+        const id = state.member.id
+        const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
+        return res.data
+      },
+      async setPackageOnboarding ({ state }, data) {
+        const id = data.memberId
+        //const req = data.req
+        const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
+        return res.data
+      },
+      async uploadImage ({ state }, data) {
+        const res = await connector.post('v1/files/image', data)
+        //console.log(res)
+        return res.data
+      },
+      async cancelPackage ({ state }, memberPackageId, data) {
+        const id = state.member.id
+        const res = await connector.put(`v1/fabman/members/${id}/packages/${memberPackageId}`, data)
+        return res.data
+      },
+      async getPaymentMethod ({ state }) {
+        const id = state.member.id
+        const res = await connector.get(`v1/fabman/members/${id}/payment-method`)
+        return res.data
       },
       getInvoiceDocument ({ commit, dispatch, state }, id) {
         if (state.auth || getUserFromLocalStorage()) {
@@ -295,20 +345,20 @@ const createStore = () => {
         }
       },
       saveQuiz ({ state }, data) {
-        return connector.post('/courses/save-quiz', data).then((r) => {
+        return connector.post('/v1/courses/save-quiz', data).then((r) => {
           if (r.data.success) {
             return r.data.data
           }
         })
       },
       async savePublicQuiz ({ state }, data) {
-        const r = await axios.post(connectorBaseUrl + '/save-public-quiz', data)
+        const r = await axios.post(connectorBaseUrl + '/v1/save-public-quiz', data)
         if (r.data.success) {
           return r.data.data
         }
       },
       async getAsu () {
-        const r = await axios.get(connectorBaseUrl + '/get-asu')
+        const r = await axios.get(connectorBaseUrl + '/v1/get-asu')
         if (r.data.success) {
           return r.data.data
         }
@@ -320,7 +370,7 @@ const createStore = () => {
         const params = {
           course_id: id
         }
-        return connector.get('/courses/get-quiz', { params }).then((r) => {
+        return connector.get('/v1/courses/get-quiz', { params }).then((r) => {
           if (r.data.success) {
             return r.data.data
           }
@@ -356,14 +406,56 @@ const createStore = () => {
           this.$sentry.captureException(err)
         })
       },
-      getUser ({ state, commit, dispatch }) {
-        return axios.get(`${origin}/.netlify/functions/getUser`).then((r) => {
-          commit('setUser', r.data)
-          return dispatch('getFabman')
+      updateMember ({ state, commit, dispatch }, data) {
+        Vue.delete(data, 'lockVersion')
+        const req = JSON.parse(JSON.stringify((data)))
+        return connector.put('/v1/fabman/members/' + data.id, req).then((r) => {
+          const member = Object.assign(state.member, r.data)
+          commit('setMember', member)
         }).catch((err) => {
           this.$sentry.captureException(err)
         })
       },
+      updatePaymentMethod ({ state, commit, dispatch }, data) {
+        //Vue.delete(data, 'lockVersion')
+        const req = JSON.parse(JSON.stringify((data)))
+        const id = state.member.id
+        return connector.put(`v1/fabman/members/${id}/payment-method`, req).then((r) => {
+        }).catch((err) => {
+          this.$sentry.captureException(err)
+        })
+      },
+      getUser ({ state, commit, dispatch }) {
+        return axios.get(`${origin}/.netlify/functions/getUser`).then((r) => {
+          dispatch('getMemberByEmail', { email: r.data }).then((response) => {
+            const profile = response
+            //console.log(response)
+            const user = {
+              profile
+              // trainings,
+              // packages,
+              // payment
+            }
+            //console.log(user)
+            commit('setUser', user)
+            // TODO remove getMember again (use user)
+            dispatch('getMember', user.profile.id)
+            //return dispatch('getFabman')
+          })
+        }).catch((err) => {
+          this.$sentry.captureException(err)
+        })
+      },
+      async getMemberByEmail ({ commit }, data) {
+        const res = await connector.post('/v1/fabman/members/getMemberByEmail/', data)
+        return res.data
+      },
+      getMember ({ state, commit }, id) {
+        return connector.get('/v1/fabman/members/' + id).then((r) => {
+          commit('setMember', r.data)
+        })
+      },
+
       checkAuth ({ commit, dispatch, state }) {
         if (state.auth || getUserFromLocalStorage()) {
           // renew Token
@@ -425,7 +517,7 @@ const createStore = () => {
         unsetToken()
       },
       startCourse ({ commit }, context) {
-        return connector.post('/courses/start-course', context).then((r) => {
+        return connector.post('/v1/courses/start-course', context).then((r) => {
           if (r.data.success) {
             return r.data.data
           }
@@ -436,6 +528,7 @@ const createStore = () => {
           return result.data
         })
       },
+      // @deprecated
       async startOnboarding ({ commit }, data) {
         const res = await connector.post('/member/startOnboarding', data)
         return res.data
@@ -444,8 +537,8 @@ const createStore = () => {
         const res = await connector.get('/member/hasCompletedOnboarding')
         return res.data
       },
-      async hasCompletedRequiredCourses () {
-        const res = await connector.get('/member/hasCompletedRequiredCourses')
+      async hasCompletedRequiredCourses ({ state, commit }, id) {
+        const res = await connector.get(`/v1/fabman/members/${id}/hasCompletedRequiredCourses`)
         return res.data
       },
       loginUser ({ commit }, context) {
@@ -459,6 +552,30 @@ const createStore = () => {
             resolve(r)
           })
         })
+      },
+      async checkLoginData ({ commit }, data) {
+        const res = await connector.post('/v1/fabman/services/checkEmail/', data)
+        return res.data
+      },
+      async checkCompanyCode ({ commit }, data) {
+        // connector = axios.create({
+        //   baseURL: connectorBaseUrl,
+        //   headers: {}
+        // })
+        const res = await connector.post('/v1/fabman/services/checkCompanyCode/', data)
+        return res.data
+      },
+      async getCountries ({ commit }) {
+        // connector = axios.create({
+        //   baseURL: connectorBaseUrl,
+        //   headers: {}
+        // })
+        const res = await connector.get('/v1/fabman/countries/')
+        return res.data
+      },
+      async createMember ({ commit }, data) {
+        const res = await connector.post('/v1/fabman/members/', data)
+        return res.data
       },
       registerUser ({ commit }, context) {
         return new Promise((resolve, reject) => {
@@ -490,7 +607,7 @@ const createStore = () => {
       getMemberCourses ({ state, commit }, id) {
         if (!state.auth) return null
 
-        return connector.get('/courses/get-member-courses').then((r) => {
+        return connector.get('/v1/courses/get-member-courses').then((r) => {
           if (r.data.success) {
             commit('setMemberCourses', r.data.data)
           }
@@ -499,7 +616,7 @@ const createStore = () => {
       getCourses ({ state, commit }, id) {
         if (!state.auth) return null
 
-        return connector.get('/courses/get-courses').then((r) => {
+        return connector.get('/v1/courses/get-courses').then((r) => {
           if (r.data.success) {
             commit('setCourses', r.data.data)
           }
@@ -779,6 +896,7 @@ const createStore = () => {
           version: version,
           cv: state.cacheVersion,
           starts_with: `${state.language}/news`,
+          per_page: 100,
           sort_by: 'content.datetime:desc'
         }).then((res) => {
           return res.data

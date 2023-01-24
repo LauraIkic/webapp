@@ -164,7 +164,7 @@ export default {
       return this.date.content
     },
     isMember () {
-      return this.$store.state.user.packages.length > 0
+      return this.$store.state.user.profile.state === 'active'
     }
   },
   mounted () {

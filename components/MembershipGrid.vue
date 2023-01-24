@@ -61,11 +61,13 @@
         v-if="!hasUser"
         class="login-register-info"
       >
-        <p>{{ $t( "alreadyRegistered" ) }}<span @click="login"> LOGIN </span>{{ $t( "startMembership" ) }}</p>
-        <p>{{ $t( "firstTime" ) }}</p>
+<!--        <p>{{ $t( "alreadyRegistered" ) }}<span @click="login"> LOGIN </span>{{ $t( "startMembership" ) }}</p>-->
+<!--        <p>{{ $t( "firstTime" ) }}</p>-->
+        <p>Registriere dich jetzt und werde Mitglied</p>
         <div class="register-button">
           <button @click="register">
-            {{ $t( "registerNow" ) }}
+            Jetzt Mitglied werden
+<!--            {{ $t( "registerNow" ) }}-->
           </button>
         </div>
       </div>
@@ -96,18 +98,7 @@ export default {
       return !!this.$store.state.user
     },
     isMember () {
-      let hasActivePackage = false
-      let packageDate = null
-      const today = new Date()
-      if (this.$store.state.user.packages.length > 0) {
-        this.$store.state.user.packages.forEach(element => {
-          packageDate = new Date(element.chargedUntilDate)
-          if (packageDate > today) {
-            hasActivePackage = true
-          }
-        })
-      }
-      return hasActivePackage
+      return this.$store.state.user.profile.state === 'active'
     }
   },
   methods: {
@@ -115,7 +106,8 @@ export default {
       this.priceView = v
     },
     register () {
-      this.$store.dispatch('setSidebar', 'register')
+      this.$router.push('/wizard/onboarding')
+      //this.$store.dispatch('setSidebar', 'register')
     },
     login () {
       this.$store.dispatch('setSidebar', 'login')

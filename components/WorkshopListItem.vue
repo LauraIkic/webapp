@@ -27,9 +27,9 @@
           <div v-if="content.category === '#frauenundtechnik'">
             <span>{{ $t('frauenundtechnik') }}</span>
           </div>
-          <div v-if="content.category === '#makemas2022'">
-            <span>{{ $t('makemas') }}</span>
-          </div>
+<!--          <div v-if="content.category === 'makemas'">-->
+<!--            <span>{{ $t('makemas') }}</span>-->
+<!--          </div>-->
         </div>
         <div class="title">
           {{ content.title }}

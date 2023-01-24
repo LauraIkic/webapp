@@ -255,14 +255,14 @@ export default {
       this.loading = true
       await this.$store.dispatch('redeemGiftCard', { secret: this.giftcardCode })
         .then((response) => {
-          console.log('success', response)
+          //console.log('success', response)
           this.$toast.show('Der Gutschein wurde erfolgreich eingelöst!', {
             className: 'goodToast'
           })
           // if (this.origin) {
           //   this.$router.push(`buyWorkshop?uuid=${this.origin}`)
           // }
-          this.$router.push('/me/credits')
+          this.$router.push('/me/invoices')
         })
         .catch((error) => {
           console.log('error', error.response)
@@ -289,86 +289,6 @@ export default {
           this.loading = false
         })
     }
-    // redirectToPayrexxCheckout () {
-    //   this.loading = true
-    //   const data = {
-    //     payment_method: parseInt(this.paymentMethod),
-    //     product_id: this.selectedProductId,
-    //     count: 1,
-    //     invoice_contact: this.invoiceContact
-    //   }
-    //   if (this.user === null) {
-    //     this.$store.dispatch('startTransaction', data)
-    //       .then((response) => {
-    //         if (response.data.redirect_link) {
-    //           if (response.data.invoice_contact) {
-    //             this.connectorInvoiceContact = response.data.invoice_contact
-    //           }
-    //           // Redirect to payrexx screen
-    //           window.location.href = response.data.redirect_link
-    //         } else {
-    //           console.log('response', response.data)
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         console.log('error', error)
-    //         this.$sentry.captureException(new Error(error))
-    //         this.$toast.show('Ein Fehler ist aufgetreten', {
-    //           theme: 'bubble'
-    //         })
-    //       })
-    //       .finally(() => {
-    //         this.loading = false
-    //       })
-    //   } else {
-    //     this.$store.dispatch('checkout', data)
-    //       .then((response) => {
-    //         switch (parseInt(this.paymentMethod)) {
-    //           case 1: // PAYMENT PROVIDER
-    //             if (response.data.redirect_link) {
-    //               if (response.data.invoice_contact) {
-    //                 this.connectorInvoiceContact = response.data.invoice_contact
-    //               }
-    //               // Redirect to payrexx screen
-    //               window.location.href = response.data.redirect_link
-    //             } else {
-    //               console.log('Error: No payrexx redirect_link returned!', response.data)
-    //               throw new Error('No payrexx redirect_link returned!')
-    //             }
-    //             break
-    //           case 2: // SEPA
-    //             this.step++
-    //             break
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         console.log('error', error)
-    //         this.$sentry.captureException(new Error(error))
-    //         this.$toast.show('Ein Fehler ist aufgetreten', {
-    //           theme: 'bubble'
-    //         })
-    //       })
-    //       .finally(() => {
-    //         this.loading = false
-    //       })
-    //   }
-    // },
-    // getGiftCardValue (id) {
-    //   switch (id) {
-    //     case '719':
-    //       return 10
-    //     case '720':
-    //       return 25
-    //     case '721':
-    //       return 50
-    //     case '722':
-    //       return 100
-    //     case '923':
-    //       return 150
-    //     case '924':
-    //       return 400
-    //   }
-    // }
   }
 }
 </script>
