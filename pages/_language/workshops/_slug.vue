@@ -14,26 +14,15 @@ export default {
       uid: null
     }
   },
-  methods: {
-    bookWorkshop () {
-      const data = {
-        // eslint-disable-next-line no-undef
-        uuid: workshop_date_id, npm
-      }
-      this.$store.dispatch('bookWorkshop', data).then((result) => {
-      })
-      // this.$store.dispatch("updateUser", bookedWorkshop) => {
-    }
-  },
   mixins: [storyblokLivePreview],
   asyncData (context) {
     return context.store.dispatch('loadWorkshopItem', context.params.slug)
-  },
-  computed: {
+  }
+/*  computed: {
     memberWorkshops () {
       return this.$store.getters.getMemberWorkshopById(Number(this.uid))
     }
-  }
+  }*/
 }
 </script>
 

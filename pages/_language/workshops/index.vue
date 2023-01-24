@@ -97,7 +97,8 @@ export default {
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshops', value: false },
         { key: 'training', name: 'Einschulungen', value: false },
-        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false },
+        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false }
+        //{ key: 'kids', name: 'Workshops für Kinder', value: false }
         // { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
@@ -204,7 +205,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+.pretix-content .pretix-widget-wrapper .pretix-widget-event-availability-red {
+  color: white !important;
+}
 .switch-button {
   background: rgba(255, 255, 255, 0.56);
   margin-left: 50px;
