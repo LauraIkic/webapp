@@ -163,13 +163,13 @@ export default {
     .pretix-widget-event-week-table {
       margin-top: 3%;
     }
-    .pretix-widget-event-availability-green {
+    .pretix-widget-event-availability-green, .pretix-widget.pretix-widget-mobile td.pretix-widget-has-events.pretix-widget-day-availability-green {
       background-color: $color-primary !important;
     }
-    .pretix-widget-event-availability-red {
+    .pretix-widget-event-availability-red, .pretix-widget.pretix-widget-mobile td.pretix-widget-has-events.pretix-widget-day-availability-red {
       background-color: $color-secondary !important;
     }
-    .pretix-widget-event-availability-reserved {
+    .pretix-widget-event-availability-reserved, .pretix-widget.pretix-widget-mobile td.pretix-widget-has-events.pretix-widget-day-availability-reserved {
       background-color: $color-yellow !important;
     }
     width: 70vw;
@@ -195,9 +195,13 @@ export default {
     .pretix-widget-event-calendar-next-month{
       padding: 10px;
     }
+
     .pretix-widget .pretix-widget-loading svg {
       top: Min(40%);
       position: center;
+    }
+    .pretix-widget-primary-color {
+      fill: black;
     }
   }
 }
