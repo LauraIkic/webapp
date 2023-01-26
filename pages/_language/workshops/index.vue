@@ -25,7 +25,7 @@
         </div>
         <div class="switch-button">
           <input class="switch-button-checkbox" type="checkbox" v-model="isCalendar">
-          <label class="switch-button-label" for=""><span class="switch-button-label-span">Grid</span></label>
+          <label class="switch-button-label" for=""><span class="switch-button-label-span">Details</span></label>
         </div>
       </div>
       <div class="search">
@@ -98,8 +98,8 @@ export default {
         { key: 'event', name: 'Event', value: false },
         { key: 'workshop', name: 'Workshops', value: false },
         { key: 'training', name: 'Einschulungen', value: false },
-        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false },
-        { key: 'kids', name: 'Workshops für Kinder', value: false }
+        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false }
+        // { key: 'for_kids', name: 'Workshops für Kinder', value: false }
         // { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
@@ -126,6 +126,7 @@ export default {
   methods: {
     update () {
       this.loading = true
+      //console.log('category: ', this.selectedCategories())
       this.selectedEvent = this.selectedCategories()
       if (this.selectedEvent.length > 1) {
         this.deselectOldest()
