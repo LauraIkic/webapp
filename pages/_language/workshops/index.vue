@@ -126,7 +126,7 @@ export default {
   methods: {
     update () {
       this.loading = true
-      console.log('category: ', this.selectedCategories())
+      //console.log('category: ', this.selectedCategories())
       this.selectedEvent = this.selectedCategories()
       if (this.selectedEvent.length > 1) {
         this.deselectOldest()
