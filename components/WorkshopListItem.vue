@@ -127,12 +127,11 @@ export default {
           const startDate = moment(item.date_from)
           const endDate = moment(item.date_to)
           const eventList = []
-
           if (startDate.isSame(endDate, 'day')) {
             eventList.push({
               date: startDate.lang('de').format('L'),
-              startTime: startDate.format('hh:mm'),
-              endTime: endDate.format('hh:mm')
+              startTime: startDate.format('HH:mm'),
+              endTime: endDate.format('HH:mm')
             })
           }
           this.eventDates.push({
