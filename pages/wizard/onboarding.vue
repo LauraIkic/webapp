@@ -62,7 +62,7 @@
             <button
                 v-if="activeStep === 'confirmation'"
                 class="input-button-primary"
-                @click="$router.push('/me/trainings')"
+                @click="gotoASUorOpenLogin()"
             >
               <font-awesome-icon icon="arrow-circle-right"/> {{ $t('startSafetyTraining') }}
             </button>
@@ -86,16 +86,11 @@
         <div v-if="activeStep === 'confirmation'" class="confirmation-footer">
           {{ $t('nextStepsAfterASU') }}
           <br>
-          <p style="font-weight: bold">{{ $t('ourOpeningHours') }}
-            <br>
-            Do und Fr, 14:00 - 20:00 Uhr
-            <br>
-            Sa, 10:00 - 20:00 Uhr
-            <br>
-            Feiertags geschlossen
-            <br>
-          </p>
-          {{ $t('weAreLookingForwardToWelcomeYou') }}
+          <p style="margin-bottom: 7px">{{ $t('ourOpeningHours') }} </p>
+            <a href="https://grandgarage.eu/de/kontakt" target="_blank">
+              {{ 'https://grandgarage.eu/de/kontakt' }}
+            </a>
+          <p style="margin-top: 20px">{{ $t('weAreLookingForwardToWelcomeYou') }}</p>
         </div>
       </div>
       <p v-if="loadingEmail" >{{this.loadingCheckEmailStatus}}</p>
@@ -120,7 +115,7 @@ export default {
       loadingCheckEmailStatus: '',
       mailCheck: false,
       MemberType,
-      steps: ['index', 'userInformation', 'contact', 'image', 'payment', 'confirmation'],
+      steps: ['userInformation', 'contact', 'image', 'payment', 'confirmation'],
       onboardingData: {
         //image: null,
         image64: null,
@@ -265,7 +260,7 @@ export default {
       const ni = this.index - 1 < 0 ? 0 : this.index - 1
       let path = this.steps[ni]
       if (ni === 0) {
-        path = ''
+        path = 'userInformation'
       }
       this.$router.push('/wizard/onboarding/' + path)
     },
@@ -306,6 +301,13 @@ export default {
       const path = this.steps[ni]
       if (path) {
         this.$router.push('/wizard/onboarding/' + path)
+      }
+    },
+    gotoASUorOpenLogin () {
+      if (this.$store.state.auth) {
+        this.$router.push('/me/trainings')
+      } else {
+        this.$store.dispatch('setSidebar', 'login')
       }
     },
     getMemberType () {

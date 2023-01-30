@@ -73,12 +73,12 @@
         >
       </div>
       <div class="form-item" v-if="!member.paidForBy">
-        <span class="label">Rechnungskontakt</span>
+        <span class="label">Rechnungsadresse</span>
         <div class="checkbox-wrapper" >
           <input id="checkbox" class="checkbox" type="checkbox"
                  :checked="member.hasBillingAddress"
                  v-model="member.hasBillingAddress" >
-          <p class="text">weicht von Kontaktaddresse ab</p>
+          <p class="text">weicht von Kontaktadresse ab</p>
         </div>
       </div>
       <div v-if="member.hasBillingAddress">
