@@ -155,9 +155,6 @@ export default {
     &:hover {
       color: $color-orange;
     }
-    .joinNow {
-      color: $color-orange;
-    }
   }
 
   .form-item {
