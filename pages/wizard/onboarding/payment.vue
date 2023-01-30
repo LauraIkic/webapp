@@ -1,6 +1,5 @@
 <template>
   <div class="section">
-    <p>{{ $t('beforeYouCanStart') }}</p>
     <form class="form">
       <div class="form-item" v-if="!this.onboardingData.contactInformation.company" style="margin-top: 40px">
         <span class="label">MITGLIEDSCHAFT<span class="red">*</span></span>
@@ -50,6 +49,15 @@
             </div>
           </div>
         </div>
+<!--        <div class="form-item">-->
+<!--          <span class="label" >Volljähtig Kontoinhaber</span>-->
+<!--          <div class="checkbox-wrapper">-->
+<!--            <input class="checkbox" type="checkbox"-->
+<!--                   :checked="onboardingData.payment.sepaMandat"-->
+<!--                   v-model="onboardingData.payment.sepaMandat" >-->
+<!--            <p class="text" style="max-width: 600px">Ich ermächtige die CAP.future GMBH, Zahlungen von meinem Konto mittels SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der CAP.Future GMBH auf mein Konto gezogenen SEPA-Lastschriften einzulösen. Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="form-item">
           <span class="label" >SEPA MANDAT</span>
           <div class="checkbox-wrapper">
@@ -141,7 +149,7 @@ export default {
     if ((from.path === '/wizard/onboarding/image')) {
       next()
     } else {
-      next('/wizard/onboarding/')
+      next('/wizard/onboarding/userInformation')
     }
   },
   computed: {
