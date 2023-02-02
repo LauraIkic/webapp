@@ -13,7 +13,7 @@
       <div v-if="!this.onboardingData.contactInformation.company" style="margin-top: 40px; margin-bottom: 40px">
         <div class="form-item" >
           <label ></label>
-          <h5 style="margin: 0">Zusätzlich kannst Du deine Projekte in einer unserer Lagerboxen aufbewahren.</h5>
+          <h5 style="margin: 0">Zusätzlich kannst du deine Projekte in einer unserer Lagerboxen aufbewahren.</h5>
         </div>
       <div class="form-item" v-for="storage in this.availableStorage" :key="storage.id" style="margin: 0">
         <span class="label">{{storage.name}}</span>
