@@ -66,14 +66,14 @@
       </div>
     </div>
     <div v-if="isCalendar" :key="this.filter">
+      <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js"></script>
       <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
-      <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js" async></script>
-      <div  class="pretix-content">
-        <div v-if="selectedEvent !== ''">
-          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" :filter="`attr[Kategorie]=${this.filter}`"></pretix-widget>
+      <div id="pretix-container" class="pretix-content">
+        <div v-show="selectedEvent.length !== 0" >
+          <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage" :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
         </div>
-        <div v-if="selectedEvent === ''">
-          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" ></pretix-widget>
+        <div v-show="selectedEvent.length === 0" >
+          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage"></pretix-widget>
         </div>
         <noscript>
           <div class="pretix-widget">
@@ -166,6 +166,9 @@ export default {
       }).map((c) => {
         return { name: c.name, value: c.value, key: c.key }
       })
+    },
+    formatPretixCategoryRequest ($category) {
+      return 'attr[Kategorie]=' + escape($category)
     }
   },
   computed: {
