@@ -326,6 +326,7 @@
 
   "workshop": "Workshop",
   "general": "General",
-  "kidsWorkshop": "Workshops for kids"
-
+  "kidsWorkshop": "Workshops for kids",
+  "view": "View",
+  "details": "Details"
 }

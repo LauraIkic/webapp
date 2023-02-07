@@ -21,18 +21,19 @@
         <br>
         <br>
         <div class="headline">
-          Ansicht
+          {{ $t('view') }}
         </div>
         <div class="switch-button">
           <input class="switch-button-checkbox" type="checkbox" v-model="isCalendar">
-          <label class="switch-button-label" for=""><span class="switch-button-label-span">Details</span></label>
+          <label class="switch-button-label" for=""><span class="switch-button-label-span"> {{ $t('details') }}
+</span></label>
         </div>
-      </div>
-      <div class="search">
-        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
     </div>
     <div v-if="!isCalendar">
+      <div class="search">
+        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
+      </div>
       <div class="workshop-list-wrapper" :key="this.filter">
         <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
           <transition-group name="list">
@@ -126,7 +127,6 @@ export default {
   methods: {
     update () {
       this.loading = true
-      //console.log('category: ', this.selectedCategories())
       this.selectedEvent = this.selectedCategories()
       if (this.selectedEvent.length > 1) {
         this.deselectOldest()
@@ -210,6 +210,9 @@ export default {
 </script>
 
 <style lang="scss">
+.pretix-content{
+  margin-top: 50px;
+}
 .pretix-content .pretix-widget-wrapper .pretix-widget-event-availability-red {
   color: white !important;
 }
