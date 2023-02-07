@@ -344,5 +344,7 @@
   "gender": "Geschlecht",
   "workshop": "Workshop",
   "general": "Allgemein",
-  "kidsWorkshop": "Workshops für Kinder"
+  "kidsWorkshop": "Workshops für Kinder",
+  "view": "Ansicht",
+  "details": "Details"
 }
