@@ -116,16 +116,22 @@ export default {
   },
   created () {
     this.$watch('categories', (newVal, oldVal) => {
-      this.update()
+      this.updateFilter()
     }, { deep: true })
   },
   watch: {
     search () {
-      this.update()
+      this.updateSearch()
     }
   },
   methods: {
-    update () {
+    updateSearch () {
+      if (this.search !== '' || !this.search) {
+        console.log('search')
+        console.log(this.search)
+      }
+    },
+    updateFilter () {
       this.loading = true
       this.selectedEvent = this.selectedCategories()
       if (this.selectedEvent.length > 1) {

@@ -41,7 +41,10 @@
             v-if="!slim"
             class="teaser"
         >
-          {{ content.teaser }}
+          <markdown
+              :value="teaserText"
+              class="info-text"
+          />
         </div>
         <div class="trainer">
           {{ content.trainer }}
@@ -70,12 +73,7 @@
                     <icon name="clock" />
                     {{d.startTime }}
                     bis
-                    {{ d.endTime }}
-                    Uhr
-<!--                    <div >
-                      <br>
-                      <font-awesome-icon class="grey" icon="plus"/>
-                    </div>-->
+                    {{ d.endTime }}Uhr
                   </div>
                 </div>
               </div>
@@ -97,10 +95,14 @@ export default {
   data () {
     return {
       events: null,
-      eventDates: []
+      eventDates: [],
+      teaser: ''
     }
   },
   computed: {
+    teaserText () {
+      return this.teaser.split('\n').splice(1).join('\n')
+    },
     content () {
       return this.blok.content
     },
@@ -119,7 +121,8 @@ export default {
     },
     getWorkshopInformation () {
       const lastEvent = this.events.pop().frontpage_text
-      const workshopInformation = lastEvent['de-informal']
+      this.teaser = lastEvent['de-informal']
+      console.log(this.teaser)
     },
     formatEventDates () {
       this.events.forEach((item) => {
