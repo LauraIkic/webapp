@@ -104,7 +104,7 @@ export default {
         // { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
-      search: null,
+      search: '',
       workshops: [],
       tags: [],
       tagsCollapsed: false,
@@ -116,8 +116,6 @@ export default {
     }
   },
   created () {
-    console.log('start')
-    console.log(this.search)
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
@@ -143,11 +141,14 @@ export default {
       if (this.selectedEvent.length === 0) {
         this.filteredWorkshops = []
         this.search = ''
+        this.filter = ''
       }
       if (this.selectedEvent.length === 1) {
         this.filter = this.selectedEvent[0].name
         this.filterWorkshopsBySearch()
       }
+      console.log('FILTER')
+      console.log(this.filter)
       this.loading = false
     },
     toggleTags () {

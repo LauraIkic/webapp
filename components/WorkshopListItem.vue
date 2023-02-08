@@ -70,8 +70,7 @@
                   <div class="col info">
                     <icon name="calendar" />
                     {{ d.date }}
-                    <icon name="clock" />
-                    {{d.startTime }}
+                    <icon name="clock" />{{d.startTime }}
                     bis
                     {{ d.endTime }}Uhr
                   </div>
