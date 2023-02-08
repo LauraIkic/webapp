@@ -27,9 +27,9 @@
           <div v-if="content.category === '#frauenundtechnik'">
             <span>{{ $t('frauenundtechnik') }}</span>
           </div>
-<!--          <div v-if="content.category === 'for_kids'">-->
-<!--            <span>{{ $t('kidsWorkshop') }}</span>-->
-<!--          </div>-->
+          <div v-if="content.category === 'for_kids'">
+            <span>{{ $t('kidsWorkshop') }}</span>
+          </div>
 <!--          <div v-if="content.category === 'makemas'">-->
 <!--            <span>{{ $t('makemas') }}</span>-->
 <!--          </div>-->
@@ -122,7 +122,7 @@ export default {
     getWorkshopInformation () {
       const lastEvent = this.events.pop().frontpage_text
       this.teaser = lastEvent['de-informal']
-      console.log(this.teaser)
+      // console.log(this.teaser)
     },
     formatEventDates () {
       this.events.forEach((item) => {

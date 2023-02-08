@@ -15,7 +15,7 @@
                 v-model="c.value"
                 class="tag"
                 theme="white"
-            >{{c.name}}</checkbox>
+            >{{c.nameToDisplay}}</checkbox>
           </div>
         </div>
         <br>
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!isCalendar">
+    <div v-show="!isCalendar">
       <div class="search">
         <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
@@ -47,7 +47,7 @@
           </transition-group>
         </div>
         <div v-else>
-          <div v-if="workshops && workshops.length > 0" class="workshop-list">
+          <div v-if="workshops && workshops.length > 0 && !noResults" class="workshop-list">
             <transition-group name="list">
               <workshop-list-item
                   v-for="item in workshops"
@@ -96,43 +96,45 @@ export default {
   data () {
     return {
       categories: [
-        { key: 'event', name: 'Event', value: false },
-        { key: 'workshop', name: 'Workshops', value: false },
-        { key: 'training', name: 'Einschulungen', value: false },
-        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false }
-        // { key: 'for_kids', name: 'Workshops für Kinder', value: false }
+        { key: 'event', name: 'Event', value: false, nameToDisplay: 'Event' },
+        { key: 'workshop', name: 'Workshops', value: false, nameToDisplay: 'Workshops' },
+        { key: 'training', name: 'Einschulungen', value: false, nameToDisplay: 'Einschulungen' },
+        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false, nameToDisplay: 'Frauen und Technik' },
+        { key: 'for_kids', name: 'for_kids', value: false, nameToDisplay: 'Workshops für Kinder' }
         // { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
-      search: '',
+      search: null,
       workshops: [],
       tags: [],
       tagsCollapsed: false,
       selectedEvent: '',
       filteredWorkshops: [],
       filter: '',
+      noResults: false,
       isCalendar: false // false = grid , true = calender
     }
   },
   created () {
+    console.log('start')
+    console.log(this.search)
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
   },
   watch: {
     search () {
+      this.noResults = false
       this.updateSearch()
     }
   },
   methods: {
     updateSearch () {
-      if (this.search !== '' || !this.search) {
-        console.log('search')
-        console.log(this.search)
-      }
+      this.filterWorkshopsBySearch()
     },
     updateFilter () {
       this.loading = true
+      this.noResults = false
       this.selectedEvent = this.selectedCategories()
       if (this.selectedEvent.length > 1) {
         this.deselectOldest()
@@ -140,21 +142,30 @@ export default {
       }
       if (this.selectedEvent.length === 0) {
         this.filteredWorkshops = []
+        this.search = ''
       }
       if (this.selectedEvent.length === 1) {
         this.filter = this.selectedEvent[0].name
-        this.filterWorkshops()
+        this.filterWorkshopsBySearch()
       }
       this.loading = false
     },
     toggleTags () {
       this.tagsCollapsed = !this.tagsCollapsed
     },
-    filterWorkshops () {
+    filterWorkshopsBySearch () {
       this.filteredWorkshops = []
       this.workshops.forEach((item) => {
-        if (item.content.category === this.filter) {
-          this.filteredWorkshops.push(item)
+        if (item.content.title.includes(this.search)) {
+          if (this.filter !== '') {
+            if (item.content.category === this.filter) {
+              this.filteredWorkshops.push(item)
+            } else {
+              this.noResults = true
+            }
+          } else {
+            this.filteredWorkshops.push(item)
+          }
         }
       })
       return this.filteredWorkshops
