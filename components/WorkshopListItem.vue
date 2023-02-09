@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="'/' + blok.full_slug">
+  <nuxt-link :to="'/' + blok.full_slug" v-show="eventDates.length >0 || isCatalog ">
     <div
         class="workshop-list-item"
         :class="{ slim: slim }"
@@ -99,8 +99,17 @@ export default {
     }
   },
   computed: {
+    isCatalog () {
+      if (this.$route.path === '/de/workshops/catalog') {
+        return true
+      }
+      return false
+    },
     teaserText () {
-      return this.teaser.split('\n').splice(1).join('\n')
+      if (this.teaser) {
+        return this.teaser.split('\n').splice(1).join('\n')
+      }
+      return ''
     },
     content () {
       return this.blok.content
@@ -119,9 +128,10 @@ export default {
       }
     },
     getWorkshopInformation () {
-      const lastEvent = this.events.pop().frontpage_text
-      this.teaser = lastEvent['de-informal']
-      // console.log(this.teaser)
+      if (this.events && this.events.length > 0) {
+        const lastEvent = this.events.pop().frontpage_text
+        this.teaser = lastEvent['de-informal']
+      }
     },
     formatEventDates () {
       this.events.forEach((item) => {

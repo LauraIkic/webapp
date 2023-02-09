@@ -36,21 +36,17 @@ export default {
   data () {
     return {
       story: null,
-      workshopInformation: ''
+      info: '',
+      subtitle: '',
+      teaser: ''
     }
   },
   computed: {
     workshop () {
       return this.story.content
-    },
-    subtitle () {
-      return this.workshopInformation.split('\n')[0].slice(4)
-    },
-    teaser () {
-      return this.workshopInformation.split('\n').splice(1).join('\n')
     }
   },
-  created () {
+  mounted () {
     this.$store.app.$storyapi.get(`cdn/stories/${this.id}`, {
       find_by: 'uuid'
     }).then((res) => {
@@ -58,19 +54,21 @@ export default {
     }).catch((e) => {
     })
   },
+  updated () {
+    this.getPretixData()
+  },
   methods: {
     async getPretixData () {
       if (this.story.content.pretix_shortform) {
         const events = await this.$store.dispatch('getPretixEvents', this.story.content.pretix_shortform)
-        this.workshopInformation = events.pop().frontpage_text['de-informal']
+        const info = events.pop().frontpage_text['de-informal']
+        this.subtitle = info.split('\n')[0].slice(4)
+        this.teaser = info.split('\n').splice(1).join('\n')
       }
     },
     open () {
       this.$router.push({ path: this.story.full_slug })
     }
-  },
-  updated () {
-    this.getPretixData()
   }
 }
 </script>

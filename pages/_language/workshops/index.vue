@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div v-if="isCalendar" :key="this.filter">
+    <div v-show="isCalendar" :key="this.filter">
       <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js"></script>
       <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
       <div id="pretix-container" class="pretix-content">
@@ -147,8 +147,7 @@ export default {
         this.filter = this.selectedEvent[0].name
         this.filterWorkshopsBySearch()
       }
-      console.log('FILTER')
-      console.log(this.filter)
+
       this.loading = false
     },
     toggleTags () {
@@ -169,7 +168,6 @@ export default {
           }
         }
       })
-      return this.filteredWorkshops
     },
     deselectOldest () {
       this.categories.forEach((item) => {
@@ -194,31 +192,23 @@ export default {
       return {
         filter_query: {
           component: {
-            in: 'workshop-date'
-          },
-          starttime: {
-            'gt-date': moment().subtract(24, 'hours').format('DD.MM.YYYYY HH:mm')
+            in: 'workshop'
           }
         }
-        // search_term: this.search
       }
     }
   },
-  async asyncData (context) {
-    // let tags = await context.store.dispatch("loadTags");
+  async asyncData  (context) {
     const filters = {
       filter_query: {
         component: {
-          in: 'workshop-date'
-        },
-        starttime: {
-          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+          in: 'workshop'
         }
       }
     }
-    const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: '' }).then((data) => {
-      if (data) {
-        return { workshops: data }
+    const workshops = await context.store.dispatch('loadWorkshops', filters).then((data) => {
+      if (data.stories) {
+        return { workshops: data.stories }
       }
       return { workshops: [] }
     })
