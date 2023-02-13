@@ -82,7 +82,7 @@
                 {{ $t('giftCard') }} </span>
                     <div class="redeem-card-bottom">
                       <div class=" code">
-                        <span class="code-span"> Code: </span>
+                        <span class="code-span"> Gutscheincode: </span>
                         <input v-model="giftCardCode" class="form-item" disabled>
                         <font-awesome-icon icon="info-circle"/>
                       </div>
