@@ -131,34 +131,33 @@
     </form>
 
     <form
+        v-if="!member.paidForBy"
         class="form"
         @submit.prevent="updatePaymentMethod"
     >
       <h2>Zahlungsmethode</h2>
-            <div v-if=" paymentMethod && !member.paidForBy">
-              <div class="form-item">
-                <span class="label">IBAN</span>
-                <div>
-                  <input class="input-text" style="margin-bottom: 3px" type="text" v-model="iban" name="" @input="validateIban()" @focus="clearIban()"/>
-                  <div class="date-error">
-                  <span
-                      v-if="!ibanIsValid && paymentMethod.iban"
-                      class="bad"
-                  >{{ 'IBAN ist üngültig' }} </span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-item">
-                <span class="label" >SEPA MANDAT</span>
-                <div class="checkbox-wrapper">
-                  <input class="checkbox" type="checkbox"
-                         :checked="sepaMandat"
-                         v-model="sepaMandat" >
-                  <p class="text" style="max-width: 600px">Ich ermächtige die CAP.future GMBH, Zahlungen von meinem Konto mittels SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der CAP.Future GMBH auf mein Konto gezogenen SEPA-Lastschriften einzulösen. Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p>
-                </div>
-              </div>
-            </div>
-
+      <div class="form-item">
+        <span class="label">IBAN</span>
+        <div>
+          <input class="input-text" style="margin-bottom: 3px" type="text" v-model="iban" name="" @input="validateIban()" @focus="clearIban()"/>
+          <div class="date-error">
+            <span
+                v-if="!ibanIsValid && paymentMethod.iban"
+                class="bad"
+            >{{ 'IBAN ist üngültig' }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-item">
+        <span class="label" >SEPA MANDAT</span>
+        <div class="checkbox-wrapper">
+          <input class="checkbox" type="checkbox"
+                 :checked="sepaMandat"
+                 v-model="sepaMandat" >
+          <p class="text" style="max-width: 600px">Ich ermächtige die CAP.future GMBH, Zahlungen von meinem Konto mittels SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der CAP.Future GMBH auf mein Konto gezogenen SEPA-Lastschriften einzulösen. Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.</p>
+        </div>
+      </div>
       <div class="button-row">
         <div v-if="loadingPayment">
           Saving…
@@ -195,19 +194,27 @@ export default {
       loading: false,
       loadingPayment: false,
       countries: null,
-      paymentMethod: null,
+      paymentMethod: {
+        iban: ''
+      },
       // WIP
       // iban: '',
       sepaMandat: false,
       ibanIsValid: true,
       ibanFieldFocus: false,
-      currentIban: 'default'
+      currentIban: ''
     }
   },
   async mounted () {
     this.countries = await this.$store.dispatch('getCountries')
-    this.paymentMethod = await this.$store.dispatch('getPaymentMethod')
-    this.currentIban = this.paymentMethod.iban
+    this.paymentMethod = {
+      iban: ''
+    }
+    const paymentMethod = await this.$store.dispatch('getPaymentMethod')
+    if (paymentMethod && paymentMethod.iban) {
+      this.paymentMethod = paymentMethod
+      this.currentIban = this.paymentMethod.iban
+    }
   },
   computed: {
     member () {
