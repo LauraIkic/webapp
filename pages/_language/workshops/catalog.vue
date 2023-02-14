@@ -9,11 +9,11 @@
       </div>
       <loading class="loading" v-if="loading"></loading>
     </div>
-    <div class="workshop-list-wrapper">
-      <div v-if="workshops && workshops.length > 0" class="workshop-list">
+    <div class="workshop-list-wrapper" >
+      <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
         <transition-group name="list">
           <workshop-list-item
-              v-for="item in workshops"
+              v-for="item in filteredWorkshops"
               :blok="item"
               :key="item.id"
               class="list-item"
@@ -21,8 +21,18 @@
           ></workshop-list-item>
         </transition-group>
       </div>
-      <div v-else class="workshop-list-none">
-        <code> {{ $t('noSearchResults') }}</code>
+      <div v-else>
+        <div v-if="workshops && workshops.length > 0 && !noResults" class="workshop-list">
+          <transition-group name="list">
+            <workshop-list-item
+                v-for="item in workshops"
+                :blok="item"
+                :key="item.id"
+                class="list-item"
+                :slim="false"
+            ></workshop-list-item>
+          </transition-group>
+        </div>
       </div>
     </div>
   </section>
@@ -33,21 +43,12 @@
 export default {
   data () {
     return {
-      categories: [
-        { key: 'event', name: 'Event', value: false },
-        { key: 'workshop', name: 'Workshop', value: false },
-        { key: 'training', name: 'Unterweisungen', value: false },
-        { key: 'meetup', name: 'Meetup', value: false },
-        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false },
-        { key: 'kids', name: 'Workshops für Kinder', value: false }
-        // { key: 'makemas', name: '#makemas2022', value: false }
-      ],
       loading: false,
       search: '',
-      workshops: []
+      workshops: [],
+      filteredWorkshops: [],
+      noResults: false
     }
-  },
-  created () {
   },
   watch: {
     search () {
@@ -56,21 +57,16 @@ export default {
   },
   methods: {
     update () {
-      this.loading = true
-      this.$store.dispatch('findItems', this.filters).then((data) => {
-        this.loading = false
-        this.workshops = data.stories
+      this.noResults = false
+      this.filteredWorkshops = []
+      this.workshops.forEach((item) => {
+        if (item.content.title.includes(this.search)) {
+          this.filteredWorkshops.push(item)
+        }
       })
     }
   },
   computed: {
-    selectedCategories () {
-      return this.categories.filter((c) => {
-        return c.value
-      }).map((v) => {
-        return v.key
-      })
-    },
     filters () {
       return {
         filter_query: {

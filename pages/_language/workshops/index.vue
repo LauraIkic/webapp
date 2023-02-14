@@ -15,7 +15,7 @@
                 v-model="c.value"
                 class="tag"
                 theme="white"
-            >{{c.name}}</checkbox>
+            >{{c.nameToDisplay}}</checkbox>
           </div>
         </div>
         <br>
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!isCalendar">
+    <div v-show="!isCalendar">
       <div class="search">
         <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
       </div>
@@ -47,7 +47,7 @@
           </transition-group>
         </div>
         <div v-else>
-          <div v-if="workshops && workshops.length > 0" class="workshop-list">
+          <div v-if="workshops && workshops.length > 0 && !noResults" class="workshop-list">
             <transition-group name="list">
               <workshop-list-item
                   v-for="item in workshops"
@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div v-if="isCalendar" :key="this.filter">
+    <div v-show="isCalendar" :key="this.filter">
       <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js"></script>
       <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
       <div id="pretix-container" class="pretix-content">
@@ -96,11 +96,11 @@ export default {
   data () {
     return {
       categories: [
-        { key: 'event', name: 'Event', value: false },
-        { key: 'workshop', name: 'Workshops', value: false },
-        { key: 'training', name: 'Einschulungen', value: false },
-        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false }
-        // { key: 'for_kids', name: 'Workshops für Kinder', value: false }
+        { key: 'event', name: 'Event', value: false, nameToDisplay: 'Event' },
+        { key: 'workshop', name: 'Workshops', value: false, nameToDisplay: 'Workshops' },
+        { key: 'training', name: 'Einschulungen', value: false, nameToDisplay: 'Einschulungen' },
+        { key: 'frauenundtechnik', name: '#frauenundtechnik', value: false, nameToDisplay: 'Frauen und Technik' },
+        { key: 'for_kids', name: 'for_kids', value: false, nameToDisplay: 'Workshops für Kinder' }
         // { key: 'makemas', name: '#makemas2022', value: false }
       ],
       loading: false,
@@ -111,22 +111,28 @@ export default {
       selectedEvent: '',
       filteredWorkshops: [],
       filter: '',
+      noResults: false,
       isCalendar: false // false = grid , true = calender
     }
   },
   created () {
     this.$watch('categories', (newVal, oldVal) => {
-      this.update()
+      this.updateFilter()
     }, { deep: true })
   },
   watch: {
     search () {
-      this.update()
+      this.noResults = false
+      this.updateSearch()
     }
   },
   methods: {
-    update () {
+    updateSearch () {
+      this.filterWorkshopsBySearch()
+    },
+    updateFilter () {
       this.loading = true
+      this.noResults = false
       this.selectedEvent = this.selectedCategories()
       if (this.selectedEvent.length > 1) {
         this.deselectOldest()
@@ -134,24 +140,34 @@ export default {
       }
       if (this.selectedEvent.length === 0) {
         this.filteredWorkshops = []
+        this.search = ''
+        this.filter = ''
       }
       if (this.selectedEvent.length === 1) {
         this.filter = this.selectedEvent[0].name
-        this.filterWorkshops()
+        this.filterWorkshopsBySearch()
       }
+
       this.loading = false
     },
     toggleTags () {
       this.tagsCollapsed = !this.tagsCollapsed
     },
-    filterWorkshops () {
+    filterWorkshopsBySearch () {
       this.filteredWorkshops = []
       this.workshops.forEach((item) => {
-        if (item.content.category === this.filter) {
-          this.filteredWorkshops.push(item)
+        if (item.content.title.includes(this.search)) {
+          if (this.filter !== '') {
+            if (item.content.category === this.filter) {
+              this.filteredWorkshops.push(item)
+            } else {
+              this.noResults = true
+            }
+          } else {
+            this.filteredWorkshops.push(item)
+          }
         }
       })
-      return this.filteredWorkshops
     },
     deselectOldest () {
       this.categories.forEach((item) => {
@@ -176,31 +192,23 @@ export default {
       return {
         filter_query: {
           component: {
-            in: 'workshop-date'
-          },
-          starttime: {
-            'gt-date': moment().subtract(24, 'hours').format('DD.MM.YYYYY HH:mm')
+            in: 'workshop'
           }
         }
-        // search_term: this.search
       }
     }
   },
-  async asyncData (context) {
-    // let tags = await context.store.dispatch("loadTags");
+  async asyncData  (context) {
     const filters = {
       filter_query: {
         component: {
-          in: 'workshop-date'
-        },
-        starttime: {
-          'gt-date': moment().subtract(24, 'hours').format('YYYY-MM-DD HH:mm')
+          in: 'workshop'
         }
       }
     }
-    const workshops = await context.store.dispatch('findWorkshops', { filters: filters, search: '' }).then((data) => {
-      if (data) {
-        return { workshops: data }
+    const workshops = await context.store.dispatch('loadWorkshops', filters).then((data) => {
+      if (data.stories) {
+        return { workshops: data.stories }
       }
       return { workshops: [] }
     })

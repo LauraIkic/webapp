@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="'/' + blok.full_slug">
+  <nuxt-link :to="'/' + blok.full_slug" v-show="eventDates.length >0 || isCatalog ">
     <div
         class="workshop-list-item"
         :class="{ slim: slim }"
@@ -27,9 +27,9 @@
           <div v-if="content.category === '#frauenundtechnik'">
             <span>{{ $t('frauenundtechnik') }}</span>
           </div>
-<!--          <div v-if="content.category === 'for_kids'">-->
-<!--            <span>{{ $t('kidsWorkshop') }}</span>-->
-<!--          </div>-->
+          <div v-if="content.category === 'for_kids'">
+            <span>{{ $t('kidsWorkshop') }}</span>
+          </div>
 <!--          <div v-if="content.category === 'makemas'">-->
 <!--            <span>{{ $t('makemas') }}</span>-->
 <!--          </div>-->
@@ -41,7 +41,10 @@
             v-if="!slim"
             class="teaser"
         >
-          {{ content.teaser }}
+          <markdown
+              :value="teaserText"
+              class="info-text"
+          />
         </div>
         <div class="trainer">
           {{ content.trainer }}
@@ -67,15 +70,9 @@
                   <div class="col info">
                     <icon name="calendar" />
                     {{ d.date }}
-                    <icon name="clock" />
-                    {{d.startTime }}
+                    <icon name="clock" />{{d.startTime }}
                     bis
-                    {{ d.endTime }}
-                    Uhr
-<!--                    <div >
-                      <br>
-                      <font-awesome-icon class="grey" icon="plus"/>
-                    </div>-->
+                    {{ d.endTime }}Uhr
                   </div>
                 </div>
               </div>
@@ -97,10 +94,23 @@ export default {
   data () {
     return {
       events: null,
-      eventDates: []
+      eventDates: [],
+      teaser: ''
     }
   },
   computed: {
+    isCatalog () {
+      if (this.$route.path === '/de/workshops/catalog') {
+        return true
+      }
+      return false
+    },
+    teaserText () {
+      if (this.teaser) {
+        return this.teaser.split('\n').splice(1).join('\n')
+      }
+      return ''
+    },
     content () {
       return this.blok.content
     },
@@ -118,8 +128,10 @@ export default {
       }
     },
     getWorkshopInformation () {
-      const lastEvent = this.events.pop().frontpage_text
-      const workshopInformation = lastEvent['de-informal']
+      if (this.events && this.events.length > 0) {
+        const lastEvent = this.events.pop().frontpage_text
+        this.teaser = lastEvent['de-informal']
+      }
     },
     formatEventDates () {
       this.events.forEach((item) => {
