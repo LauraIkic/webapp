@@ -65,7 +65,7 @@
               <br>
               <h3>Du hast zwei Optionen zur Auswahl, um deinen Wertgutschein einzulösen.</h3>
               <br>
-              <p style="text-align: justify"><b>Option 1: Mitgliedskonto</b></p> <p style="text-align: justify"> Du kannst deinen Wertgutschein in voller Höhe auf dein Mitgliedskonto aufladen und davon deine Mitgliedschaft, Maschinennutzung, verwendete Materialien aber auch Getränke und Merchandise bezahlen. Klingt gut? Dann einfach ins Feld „Gutschein einlösen“ den Gutscheincode eintragen und rechts „Einlösen“ klicken. Dein Guthaben kannst du in deinem
+              <p style="text-align: justify"><b>Option 1: Mitgliedskonto</b></p> <p style="text-align: justify"> Du kannst deinen Wertgutschein in voller Höhe auf dein Mitgliedskonto aufladen und davon deine Mitgliedschaft, Maschinennutzung, verwendete Materialien aber auch Getränke und Merchandise bezahlen. Klingt gut? Dann einfach ins Feld „Gutschein einlösen“ den Gutscheincode eintragen und auf „Einlösen“ klicken. Dein Guthaben kannst du in deinem
                 <router-link v-if="isAuthenticated" to="/me">Mitgliedskonto</router-link>
                 <a v-if="!isAuthenticated" @click="login()" target="_self" href="javascript:;">Mitgliedskonto</a> unter
                 <router-link v-if="isAuthenticated" to="/me/invoices">„Rechnungen“ </router-link>
@@ -79,7 +79,7 @@
                 <div class="card">
                   <div class="input-redeem-card" @click="login()">
                 <span class="span">
-                {{ $t('giftCard') }} </span>
+                {{ $t('giftCard') + ' einlösen' }} </span>
                     <div class="redeem-card-bottom">
                       <div class=" code">
                         <span class="code-span"> Gutscheincode: </span>
