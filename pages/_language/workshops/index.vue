@@ -2,7 +2,7 @@
   <section class="workshop-overview">
     <!--TODO set scss class to "workshop-filters" and fix style -->
     <div class="machine-filters">
-      <code class="loading" v-if="loading">{{ $t('Loading') }}</code>
+      <code class="loading" v-show="loading">{{ $t('Loading') }}</code>
       <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
         <div class="expander" @click="toggleTags()">
         </div>
