@@ -2,7 +2,6 @@
   <div
       v-editable="blok"
       class="single-image"
-      style="margin: 50px 0;"
   >
     <div class='wrapper'>
       <div class='row'>
@@ -21,7 +20,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.single-image{
+  @include media-breakpoint-up(lg) {
+    margin: 50px 0;
+  }
+}
 .row {
   display: flex;
   flex-direction: row; //default
