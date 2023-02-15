@@ -71,16 +71,16 @@
       <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
       <div id="pretix-container" class="pretix-content">
         <div v-show="selectedEvent.length !== 0" >
-          <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage" :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
+          <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage"  style="'week'" :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
         </div>
         <div v-show="selectedEvent.length === 0" >
-          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage"></pretix-widget>
+          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" style="'week'"></pretix-widget>
         </div>
         <noscript>
           <div class="pretix-widget">
             <div class="pretix-widget-info-message">
               JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
-              please <a target="_blank" href="https://pretix.eu/ggTest">click here</a>.
+              please <a target="_blank" href="https://pretix.eu/grandgarage">click here</a>.
             </div>
           </div>
         </noscript>
