@@ -111,7 +111,7 @@
                 <div class="card">
                   <div class="input-redeem-card">
                 <span class="span">
-                Gutschein</span>
+                Gutschein einlösen</span>
                     <div class="redeem-card-bottom">
                       <div class=" code">
                         <span class="code-span"> Gutscheincode: </span>
