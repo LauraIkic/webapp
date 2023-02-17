@@ -39,7 +39,7 @@ export default {
       return this.workshopInformation.split('\n')[0].slice(4)
     },
     workShopInfo () {
-      return this.workshopInformation.split('\n').splice(1).join('\n')
+      return this.workshopInformation
     },
     linktitle () {
       return this.blok.linktitle

@@ -1,8 +1,7 @@
 <template>
   <section class="workshop-overview">
-    <!--TODO set scss class to "workshop-filters" and fix style -->
     <div class="machine-filters">
-      <code class="loading" v-show="loading">{{ $t('Loading') }}</code>
+      <code class="loading" v-if="loading">{{ $t('Loading') }}</code>
       <div class="tags" :class="(tagsCollapsed ? 'collapsed' : '')">
         <div class="expander" @click="toggleTags()">
         </div>
@@ -30,39 +29,41 @@
         </div>
       </div>
     </div>
-    <div v-show="!isCalendar">
-      <div class="search">
+    <div v-show="!isCalendar" >
+<!--      <div class="search">
         <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
-      </div>
+      </div>-->
       <div class="workshop-list-wrapper" :key="this.filter">
         <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
           <transition-group name="list">
             <workshop-list-item
                 v-for="item in filteredWorkshops"
-                :blok="item"
-                :key="item.id"
+                :blok="item.blok"
+                :pretix="item.pretix"
+                :key="item.blok.id"
                 class="list-item"
                 :slim="false"
             ></workshop-list-item>
           </transition-group>
         </div>
-        <div v-else>
-          <div v-if="workshops && workshops.length > 0 && !noResults" class="workshop-list">
+        <div >
+          <div v-if="fullWorkshops && fullWorkshops.length > 0 && !noResults" class="workshop-list">
             <transition-group name="list">
               <workshop-list-item
-                  v-for="item in workshops"
-                  :blok="item"
-                  :key="item.id"
+                  v-for="item in fullWorkshops"
+                  :blok="item.blok"
+                  :pretix="item.pretix"
+                  :key="item.blok.id"
                   class="list-item"
                   :slim="false"
               ></workshop-list-item>
             </transition-group>
           </div>
-          <div v-else>
+<!--          <div >
             <div class="workshop-list-none">
               <code> {{ $t('noSearchResults') }}</code>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -71,10 +72,14 @@
       <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
       <div id="pretix-container" class="pretix-content">
         <div v-show="selectedEvent.length !== 0" >
-          <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage"  style="'week'" :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
+          <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage"
+                         data-style="week"
+                         :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
         </div>
         <div v-show="selectedEvent.length === 0" >
-          <pretix-widget name="pretix" event="https://pretix.eu/grandgarage" style="'week'"></pretix-widget>
+          <pretix-widget name="pretix"
+                         event="https://pretix.eu/grandgarage"
+          ></pretix-widget>
         </div>
         <noscript>
           <div class="pretix-widget">
@@ -108,9 +113,11 @@ export default {
       workshops: [],
       tags: [],
       tagsCollapsed: false,
+      fullWorkshops: [],
       selectedEvent: '',
       filteredWorkshops: [],
       filter: '',
+      events: [],
       noResults: false,
       isCalendar: false // false = grid , true = calender
     }
@@ -127,6 +134,35 @@ export default {
     }
   },
   methods: {
+    async getPretixData () {
+      const events = await this.$store.dispatch('getPretixEvents')
+      this.events = events
+      this.addPretixToStoryblok()
+    //  this.mergeEventsByType()
+      // this.filterByDate()
+    //  this.addPretixToStoryblok()
+    },
+    filterByDate () {
+      this.events.forEach((item) => {
+      })
+    },
+
+    addPretixToStoryblok () {
+      this.workshops.forEach((item) => {
+        this.events.forEach((pretixItem) => {
+          if (item.content.pretix_shortform && item.content.pretix_shortform === pretixItem[0].slug) {
+            const lastItem = pretixItem[pretixItem.length - 1]
+            const startDate = moment(lastItem.date_from)
+            if (startDate != null && startDate.isAfter(moment())) {
+              this.fullWorkshops.push({
+                blok: item,
+                pretix: pretixItem
+              })
+            }
+          }
+        })
+      })
+    },
     updateSearch () {
       this.filterWorkshopsBySearch()
     },
@@ -155,10 +191,10 @@ export default {
     },
     filterWorkshopsBySearch () {
       this.filteredWorkshops = []
-      this.workshops.forEach((item) => {
-        if (item.content.title.includes(this.search)) {
+      this.fullWorkshops.forEach((item) => {
+        if (item.blok.content.title.includes(this.search)) {
           if (this.filter !== '') {
-            if (item.content.category === this.filter) {
+            if (item.blok.content.category === this.filter) {
               this.filteredWorkshops.push(item)
             } else {
               this.noResults = true
@@ -213,6 +249,9 @@ export default {
       return { workshops: [] }
     })
     return { ...workshops }
+  },
+  mounted () {
+    this.getPretixData()
   }
 }
 </script>
@@ -307,6 +346,7 @@ export default {
 }
 
 .workshop-list-wrapper {
+  margin-top: 30px;
   display: flex;
 
   .workshop-list {

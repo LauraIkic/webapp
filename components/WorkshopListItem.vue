@@ -1,12 +1,12 @@
 <template>
-  <nuxt-link :to="'/' + blok.full_slug" v-show="eventDates.length >0 || isCatalog ">
+  <nuxt-link :to="'/' + blok.full_slug">
     <div
         class="workshop-list-item"
         :class="{ slim: slim }"
     >
       <div class="image">
         <img
-            :src="$resizeImage(content.image, '400x280')"
+            :src="$resizeImage(blok.content.image, '400x280')"
             alt=""
         >
       </div>
@@ -30,9 +30,9 @@
           <div v-if="content.category === 'for_kids'">
             <span>{{ $t('kidsWorkshop') }}</span>
           </div>
-<!--          <div v-if="content.category === 'makemas'">-->
-<!--            <span>{{ $t('makemas') }}</span>-->
-<!--          </div>-->
+          <div v-if="content.category === 'makemas'">
+            <span>{{ $t('makemas') }}</span>
+          </div>
         </div>
         <div class="title">
           {{ content.title }}
@@ -41,10 +41,11 @@
             v-if="!slim"
             class="teaser"
         >
-          <markdown
+          {{content.teaser}}
+<!--          <markdown
               :value="teaserText"
               class="info-text"
-          />
+          />-->
         </div>
         <div class="trainer">
           {{ content.trainer }}
@@ -53,7 +54,7 @@
             v-if="content.members_only"
             class="member"
         >
-          <icon name="user" />
+          <icon name="user"/>
           <span>{{ $t('membersOnly') }}</span>
         </div>
         <div class="workshop-dates">
@@ -69,18 +70,46 @@
                 <div v-for="d in event.dates" :key="d.id">
                   <div class="col info">
                     <icon name="calendar" />
-                    {{ d.date }}
-                    <icon name="clock" />{{d.startTime }}
+                    {{ d.data }}
+                    <icon name="clock" />
+                    {{d.startTime }}
                     bis
-                    {{ d.endTime }}Uhr
+                    {{ d.endTime }}
+                    Uhr
+                    <!--                    <div >
+                                          <br>
+                                          <font-awesome-icon class="grey" icon="plus"/>
+                                        </div>-->
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+<!--
+        <div class="workshop-dates">
+          <div class="workshop-date"
+          >
+            <div
+                v-if="!slim || i === 0"
+                class="info-row"
+            >
+              <div class="info-block">
+                <div class="col info">
+                  <icon name="calendar"/>
+                  {{ this.nextEvent.data }}
+                  <icon name="clock"/>
+                  {{ this.nextEvent.startTime }}
+                  bis
+                  {{ this.nextEvent.endTime }} Uhr
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+-->
         <div class="icon">
-          <icon :name="content.category" />
+          <icon :name="blok.content.category"/>
         </div>
       </div>
     </div>
@@ -89,13 +118,15 @@
 
 <script>
 import moment from 'moment'
+
 export default {
-  props: ['blok', 'slim'],
+  props: ['blok', 'slim', 'pretix'],
   data () {
     return {
       events: null,
       eventDates: [],
-      teaser: ''
+      teaser: '',
+      nextEvent: {}
     }
   },
   computed: {
@@ -106,8 +137,10 @@ export default {
       return false
     },
     teaserText () {
-      if (this.teaser) {
-        return this.teaser.split('\n').splice(1).join('\n')
+      if (this.pretix) {
+        return this.pretix
+        // return this.pretix['de-informal']
+        //.split('\n').splice(1).join('\n')
       }
       return ''
     },
@@ -119,10 +152,12 @@ export default {
     }
   },
   methods: {
-    async getPretixData () {
+    /*   async getPretixData () {
       if (this.content.pretix_shortform) {
         const events = await this.$store.dispatch('getPretixEvents', this.content.pretix_shortform)
         this.events = events
+        console.log(this.events
+        )
         this.formatEventDates()
         this.getWorkshopInformation()
       }
@@ -132,16 +167,16 @@ export default {
         const lastEvent = this.events.pop().frontpage_text
         this.teaser = lastEvent['de-informal']
       }
-    },
+    },*/
     formatEventDates () {
-      this.events.forEach((item) => {
+      this.pretix.forEach((item) => {
         if (item.date_from !== null && moment(item.date_from).isAfter(moment())) {
           const startDate = moment(item.date_from)
           const endDate = moment(item.date_to)
           const eventList = []
           if (startDate.isSame(endDate, 'day')) {
             eventList.push({
-              date: startDate.lang('de').format('L'),
+              data: startDate.locale('de').format('L'),
               startTime: startDate.format('HH:mm'),
               endTime: endDate.format('HH:mm')
             })
@@ -155,7 +190,7 @@ export default {
 
   },
   mounted () {
-    this.getPretixData()
+    this.formatEventDates()
   }
 }
 </script>
@@ -171,18 +206,23 @@ export default {
   margin-bottom: 25px;
   justify-content: center;
   flex-flow: column;
+
   &.slim {
     margin-bottom: 0;
+
     .image {
       max-width: 10%;
     }
+
     .body {
       padding: 0.9em;
     }
   }
+
   @include media-breakpoint-down(md) {
     flex-direction: column;
   }
+
   .image {
     width: 100%;
     border-top-left-radius: 10px;
@@ -190,8 +230,9 @@ export default {
     @include media-breakpoint-down(sm) {
       overflow: hidden;
     }
+
     img {
-      width:inherit;
+      width: inherit;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       @include media-breakpoint-down(xs) {
@@ -200,6 +241,7 @@ export default {
       max-width: 100%;
     }
   }
+
   br {
     display: block;
     margin: 4px;
@@ -212,15 +254,18 @@ export default {
     flex-direction: column;
     background-color: #FFF;
     padding: 1.8rem;
+
     .icon {
       position: absolute;
       top: 0;
       right: 0;
       width: 120px;
+
       svg {
         fill: #EEE;
       }
     }
+
     .title {
       position: relative;
       z-index: 1;
@@ -230,9 +275,10 @@ export default {
       @include media-breakpoint-down(md) {
         font-size: 1.1em;
         font-weight: bold;
-        margin-top:4px;
+        margin-top: 4px;
       }
     }
+
     .category {
       position: relative;
       z-index: 1;
@@ -242,12 +288,14 @@ export default {
       margin-bottom: .3rem;
       text-transform: uppercase;
       color: $color-orange;
+
       svg {
         fill: $color-orange;
         height: 1em;
         width: 1em;
       }
     }
+
     .teaser {
       position: relative;
       z-index: 1;
@@ -264,6 +312,7 @@ export default {
         width: 100%;
       }
     }
+
     .trainer, .member {
       line-height: 1.6;
       font-family: $font-mono;
@@ -271,17 +320,20 @@ export default {
       font-weight: bold;
       margin: .4em 0;
     }
+
     .linktext {
       text-transform: uppercase;
       color: $color-blue;
       margin: 1em 0 .5em;
       display: flex;
       align-items: center;
+
       .link-arrow {
         border-top: $color-blue 1px solid;
         width: 1em;
         position: relative;
         margin-right: .3em;
+
         &:before {
           position: absolute;
           right: 0;
@@ -297,6 +349,7 @@ export default {
       }
     }
   }
+
   &:hover {
     .image {
       img {
@@ -318,19 +371,24 @@ export default {
     }
   }
 }
+
 .workshop-dates {
   margin-top: 20px;
+
   .workshop-date {
     &:nth-child(odd) {
-      background-color: rgba(242, 243, 238,0.9);
+      background-color: rgba(242, 243, 238, 0.9);
     }
+
     @include media-breakpoint-down(xs) {
       border: .11em solid #f2f3ee;
-      padding:7px;
+      padding: 7px;
     }
+
     &.soldOut {
       color: #666;
       fill: #666;
+
       .col {
         &.info {
           text-decoration: line-through;
@@ -348,14 +406,17 @@ export default {
       font-weight: bold;
       margin: -8px;
       display: flex;
+
       .info-block {
         flex: 1;
         flex-direction: row;
         display: flex;
       }
+
       .col {
         padding: 5px;
         width: max-content;
+
         &.soldOut {
           color: $color-orange;
           text-transform: uppercase;
