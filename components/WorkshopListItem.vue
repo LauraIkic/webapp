@@ -190,7 +190,7 @@ export default {
 
   },
   mounted () {
-    this.formatEventDates()
+    //this.formatEventDates()
   }
 }
 </script>
