@@ -123,6 +123,7 @@ export default {
     }
   },
   created () {
+    this.getPretixData()
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
@@ -249,9 +250,6 @@ export default {
       return { workshops: [] }
     })
     return { ...workshops }
-  },
-  mounted () {
-    this.getPretixData()
   }
 }
 </script>
