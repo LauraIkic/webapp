@@ -66,21 +66,24 @@
                 v-if="!slim || i === 0"
                 class="info-row"
             >
-              <div class="info-block">
-                <div v-for="d in event.dates" :key="d.id">
-                  <div class="col info">
-                    <icon name="calendar" />
-                    {{ d.data }}
-                    <icon name="clock" />
-                    {{d.startTime }}
-                    bis
-                    {{ d.endTime }}
-                    Uhr
+              <div>
+                <div v-for="d in event.dates" :key="d.id" class="info-block">
+                    <div class="col info">
+                      <icon name="calendar" />
+                      {{ d.data }}
+                    </div>
+                    <div class="col info">
+                      <icon name="clock" />
+                      {{d.startTime }}
+                      bis
+                      {{ d.endTime }}
+                      Uhr
+                    </div>
+
                     <!--                    <div >
                                           <br>
                                           <font-awesome-icon class="grey" icon="plus"/>
                                         </div>-->
-                  </div>
                 </div>
               </div>
             </div>
@@ -404,18 +407,16 @@ export default {
       font-family: $font-mono;
       font-size: 0.9rem;
       font-weight: bold;
-      margin: -8px;
-      display: flex;
 
       .info-block {
-        flex: 1;
         flex-direction: row;
         display: flex;
+        flex-wrap: wrap;
       }
 
       .col {
-        padding: 5px;
-        width: max-content;
+        margin: 5px;
+        flex-grow: 1;
 
         &.soldOut {
           color: $color-orange;
