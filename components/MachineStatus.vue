@@ -24,9 +24,13 @@
           {{ $t( "available" ) }}
         </div>
       </div>
-      <div
-        v-else-if="resource.state === 'locked'"
-        :title="resource.maintenanceNotes"
+<!--      TODO Wartungsnotiz wieder einblenden-->
+<!--      <div-->
+<!--        v-else-if="resource.state === 'locked'"-->
+<!--        :title="resource.maintenanceNotes"-->
+<!--      >-->
+        <div
+          v-else-if="resource.state === 'locked'"
       >
         {{ $t( "outOfOrder" ) }}
       </div>
