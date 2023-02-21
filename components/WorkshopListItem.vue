@@ -415,7 +415,7 @@ export default {
       }
 
       .col {
-        margin: 5px;
+        margin: 4px;
         flex-grow: 1;
 
         &.soldOut {
