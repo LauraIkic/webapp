@@ -286,6 +286,15 @@ export default {
             }
           }
         }
+        .image {
+          width: 300px;
+
+          &:focus {
+            .image-alt {
+              display: none;
+            }
+          }
+        }
       }
     }
   }
