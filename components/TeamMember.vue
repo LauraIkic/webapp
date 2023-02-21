@@ -250,7 +250,7 @@ export default {
         align-self: center;
         margin-bottom: 2em;
 
-        &:focus {
+        &:hover {
           .image-alt {
             display: inline;
           }
@@ -286,13 +286,13 @@ export default {
             }
           }
         }
-        .image {
-          width: 300px;
+      }
+      .image {
+        width: 300px;
 
-          &:focus {
-            .image-alt {
-              display: none;
-            }
+        &:hover {
+          .image-alt {
+            display: none !important;
           }
         }
       }
