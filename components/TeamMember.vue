@@ -250,7 +250,7 @@ export default {
         align-self: center;
         margin-bottom: 2em;
 
-        &:focus {
+        &:hover {
           .image-alt {
             display: inline;
           }
@@ -284,6 +284,15 @@ export default {
                 font-size: 2em;
               }
             }
+          }
+        }
+      }
+      .image {
+        width: 300px;
+
+        &:hover {
+          .image-alt {
+            display: none !important;
           }
         }
       }
