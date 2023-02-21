@@ -288,12 +288,14 @@ export default {
         }
       }
       .image {
-        width: 300px;
 
         &:hover {
           .image-alt {
             display: none !important;
           }
+        }
+        .picture {
+          max-width: 60% !important;
         }
       }
     }
