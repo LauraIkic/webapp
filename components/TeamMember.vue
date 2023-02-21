@@ -288,6 +288,7 @@ export default {
         }
       }
       .image {
+        align-items: flex-start !important;
 
         &:hover {
           .image-alt {
@@ -296,6 +297,7 @@ export default {
         }
         .picture {
           max-width: 60% !important;
+          height: auto !important;
         }
       }
     }
