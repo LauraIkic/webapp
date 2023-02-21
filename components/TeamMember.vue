@@ -250,7 +250,7 @@ export default {
         align-self: center;
         margin-bottom: 2em;
 
-        &:hover {
+        &:focus {
           .image-alt {
             display: inline;
           }
