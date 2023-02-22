@@ -111,19 +111,19 @@ export default {
       loading: false,
       search: '',
       workshops: [],
+      pretixWorkshops: [],
       tags: [],
       tagsCollapsed: false,
       fullWorkshops: [],
       selectedEvent: '',
       filteredWorkshops: [],
       filter: '',
-      events: [],
       noResults: false,
       isCalendar: false // false = grid , true = calender
     }
   },
   created () {
-    this.getPretixData()
+    this.addPretixToStoryblok()
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
@@ -135,22 +135,14 @@ export default {
     }
   },
   methods: {
-    async getPretixData () {
-      const events = await this.$store.dispatch('getPretixEvents')
-      this.events = events
-      this.addPretixToStoryblok()
-    //  this.mergeEventsByType()
-      // this.filterByDate()
-    //  this.addPretixToStoryblok()
-    },
     filterByDate () {
-      this.events.forEach((item) => {
+      this.pretixWorkshops.forEach((item) => {
       })
     },
 
     addPretixToStoryblok () {
       this.workshops.forEach((item) => {
-        this.events.forEach((pretixItem) => {
+        this.pretixWorkshops.forEach((pretixItem) => {
           if (item.content.pretix_shortform && item.content.pretix_shortform === pretixItem[0].slug) {
             const lastItem = pretixItem[pretixItem.length - 1]
             const startDate = moment(lastItem.date_from)
@@ -249,7 +241,14 @@ export default {
       }
       return { workshops: [] }
     })
-    return { ...workshops }
+    const pretixWorkshops = await context.store.dispatch('getPretixEvents').then((data) => {
+      if (data) {
+        return { pretixWorkshops: data }
+      } else {
+        return { pretixWorkshops: [] }
+      }
+    })
+    return { ...workshops, ...pretixWorkshops }
   }
 }
 </script>
