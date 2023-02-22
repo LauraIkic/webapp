@@ -67,28 +67,31 @@
         </div>
       </div>
     </div>
-    <div v-show="isCalendar" :key="this.filter">
-      <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
-      <div id="pretix-container" class="pretix-content">
-        <div v-show="selectedEvent.length !== 0" >
-          <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage"
-                         data-style="week"
-                         :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
-        </div>
-        <div v-show="selectedEvent.length === 0" >
-          <pretix-widget name="pretix"
-                         event="https://pretix.eu/grandgarage"
-          ></pretix-widget>
-        </div>
-        <noscript>
-          <div class="pretix-widget">
-            <div class="pretix-widget-info-message">
-              JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
-              please <a target="_blank" href="https://pretix.eu/grandgarage">click here</a>.
-            </div>
+    <div v-if="isCalendar"  :key="this.display" >
+      <div :key="this.filter" >
+        <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
+        <div id="pretix-container" class="pretix-content">
+          <div v-show="selectedEvent.length !== 0" >
+            <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage"
+                           :list-type="this.calenderDisplayOnChange(this.display)"
+                           :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
           </div>
-        </noscript>
+          <div v-show="selectedEvent.length === 0" >
+            <pretix-widget name="pretix"
+                           :list-type="this.calenderDisplayOnChange(this.display)"
+                           event="https://pretix.eu/grandgarage"
+            ></pretix-widget>
+          </div>
+          <noscript>
+            <div class="pretix-widget">
+              <div class="pretix-widget-info-message">
+                JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
+                please <a target="_blank" href="https://pretix.eu/grandgarage">click here</a>.
+              </div>
+            </div>
+          </noscript>
+        </div>
       </div>
     </div>
   </section>
@@ -119,14 +122,25 @@ export default {
       filteredWorkshops: [],
       filter: '',
       noResults: false,
-      isCalendar: false // false = grid , true = calender
+      isCalendar: false, // false = grid , true = calender,
+      windowWidth: Infinity,
+      display: 'calendar'
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize)
+    })
+    this.onResize()
   },
   created () {
     this.addPretixToStoryblok()
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onResize)
   },
   watch: {
     search () {
@@ -135,6 +149,14 @@ export default {
     }
   },
   methods: {
+    onResize () {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth <= 1200) {
+        this.display = 'week'
+      } else {
+        this.display = 'calendar'
+      }
+    },
     filterByDate () {
       this.pretixWorkshops.forEach((item) => {
       })
@@ -214,6 +236,9 @@ export default {
     },
     formatPretixCategoryRequest ($category) {
       return 'attr[Kategorie]=' + escape($category)
+    },
+    calenderDisplayOnChange ($displayType) {
+      return $displayType
     }
   },
   computed: {

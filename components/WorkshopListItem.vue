@@ -57,7 +57,8 @@
           <icon name="user"/>
           <span>{{ $t('membersOnly') }}</span>
         </div>
-        <div class="workshop-dates">
+        <div class="workshop-dates"
+             :key="this.eventDates.length">
           <div
               v-for="event in eventDates" :key="event.id"
               class="workshop-date"
@@ -190,7 +191,6 @@ export default {
         }
       })
     }
-
   },
   mounted () {
     this.formatEventDates()
