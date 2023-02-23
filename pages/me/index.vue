@@ -241,7 +241,7 @@ export default {
     dataValid () {
       //check contact fields
       if (this.member) {
-        if (this.member.address && this.member.zip && this.member.city && this.member.countryCode) {
+        if (this.member.address && this.member.zip && this.member.city && this.member.countryCode && this.member.countryCode !== 'XX') {
           // check optional invoice contact fields
           if (!this.member.hasBillingAddress) {
             return true
