@@ -1,24 +1,10 @@
 <template>
   <section class="workshop-overview">
-
-    <div >
+    <div v-show="!isCalendar" >
       <!--      <div class="search">
               <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
             </div>-->
       <div class="workshop-list-wrapper" :key="this.filter">
-        <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
-          <transition-group name="list">
-            <workshop-list-item
-                v-for="item in filteredWorkshops"
-                :blok="item.blok"
-                :pretix="item.pretix"
-                :key="item.blok.id"
-                class="list-item"
-                :slim="false"
-            ></workshop-list-item>
-          </transition-group>
-        </div>
-        <div >
           <div v-if="fullWorkshops && fullWorkshops.length > 0 && !noResults" class="workshop-list">
             <transition-group name="list">
               <workshop-list-item
@@ -30,7 +16,6 @@
                   :slim="false"
               ></workshop-list-item>
             </transition-group>
-          </div>
           <!--          <div >
                       <div class="workshop-list-none">
                         <code> {{ $t('noSearchResults') }}</code>
@@ -59,21 +44,33 @@ export default {
       loading: false,
       search: '',
       workshops: [],
+      pretixWorkshops: [],
       tags: [],
       tagsCollapsed: false,
       fullWorkshops: [],
       selectedEvent: '',
       filteredWorkshops: [],
       filter: '',
-      events: [],
       noResults: false,
-      isCalendar: false // false = grid , true = calender
+      isCalendar: false, // false = grid , true = calender,
+      windowWidth: Infinity,
+      display: 'calendar'
     }
   },
+  mounted () {
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize)
+    })
+    this.onResize()
+  },
   created () {
+    this.addPretixToStoryblok()
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onResize)
   },
   watch: {
     search () {
@@ -82,44 +79,22 @@ export default {
     }
   },
   methods: {
-    async getPretixData () {
-      const events = await this.$store.dispatch('getPretixEvents')
-      this.events = events
-      this.addPretixToStoryblok()
-      //  this.mergeEventsByType()
-      // this.filterByDate()
-      //  this.addPretixToStoryblok()
+    onResize () {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth <= 1200) {
+        this.display = 'week'
+      } else {
+        this.display = 'calendar'
+      }
     },
     filterByDate () {
-      this.events.forEach((item) => {
+      this.pretixWorkshops.forEach((item) => {
       })
     },
-    mergeEventsByType () {
-      const workshopList = []
-      const slug = ''
-      this.events.forEach((item) => {
-        if (slug !== item.slug) {
-          workshopList.push(this.findAllByType(item.slug))
-        }
-      })
-      console.log(workshopList)
-    },
-    findAllByType (slug) {
-      const subEvents = []
-      this.events.forEach((item) => {
-        if (slug === item.slug) {
-          subEvents.push(item)
-        } else {
-          if (subEvents.length > 0) {
-            return subEvents
-          }
-        }
-      })
-      return subEvents
-    },
+
     addPretixToStoryblok () {
       this.workshops.forEach((item) => {
-        this.events.forEach((pretixItem) => {
+        this.pretixWorkshops.forEach((pretixItem) => {
           if (item.content.pretix_shortform && item.content.pretix_shortform === pretixItem[0].slug) {
             this.fullWorkshops.push({
               blok: item,
@@ -187,6 +162,9 @@ export default {
     },
     formatPretixCategoryRequest ($category) {
       return 'attr[Kategorie]=' + escape($category)
+    },
+    calenderDisplayOnChange ($displayType) {
+      return $displayType
     }
   },
   computed: {
@@ -214,10 +192,14 @@ export default {
       }
       return { workshops: [] }
     })
-    return { ...workshops }
-  },
-  mounted () {
-    this.getPretixData()
+    const pretixWorkshops = await context.store.dispatch('getPretixEvents').then((data) => {
+      if (data) {
+        return { pretixWorkshops: data }
+      } else {
+        return { pretixWorkshops: [] }
+      }
+    })
+    return { ...workshops, ...pretixWorkshops }
   }
 }
 </script>
