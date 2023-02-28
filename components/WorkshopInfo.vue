@@ -1,20 +1,18 @@
 <template>
   <div
-    v-editable="blok"
-    v-if="workshopInformation"
-    class="workshop-info"
+    v-editable="blok" class="workshop-info"
   >
     <div class="left-content">
       <h2
-        v-if="subtitle"
+        v-if="blok.subtitle"
         class="headline"
       >
-        {{ subtitle }}
+        {{ blok.subtitle }}
       </h2>
     </div>
     <div class="right-content">
       <markdown
-          :value="this.workShopInfo"
+          :value="blok.info"
           class="info-text"
       />
       <pretix-calendar :calendar="blok.pretix_shortform"/>

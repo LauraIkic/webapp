@@ -30,68 +30,65 @@
       </div>
     </div>
     <div v-show="!isCalendar" >
-<!--      <div class="search">
-        <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
-      </div>-->
+      <!--      <div class="search">
+              <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
+            </div>-->
       <div class="workshop-list-wrapper" :key="this.filter">
         <div v-if="filteredWorkshops && filteredWorkshops.length > 0" class="workshop-list">
           <transition-group name="list">
             <workshop-list-item
                 v-for="item in filteredWorkshops"
-                :blok="item.blok"
-                :pretix="item.pretix"
-                :key="item.blok.id"
+                :blok="item"
+                :pretix="null"
+                :key="item.id"
                 class="list-item"
                 :slim="false"
             ></workshop-list-item>
           </transition-group>
         </div>
         <div >
-          <div v-if="fullWorkshops && fullWorkshops.length > 0 && !noResults" class="workshop-list">
+          <div v-if="workshopData && workshopData.length > 0 && !noResults" class="workshop-list">
             <transition-group name="list">
               <workshop-list-item
-                  v-for="item in fullWorkshops"
-                  :blok="item.blok"
-                  :pretix="item.pretix"
-                  :key="item.blok.id"
+                  v-for="item in workshopData"
+                  :blok="item"
+                  :pretix="null"
+                  :key="item.id"
                   class="list-item"
                   :slim="false"
               ></workshop-list-item>
             </transition-group>
           </div>
-<!--          <div >
-            <div class="workshop-list-none">
-              <code> {{ $t('noSearchResults') }}</code>
-            </div>
-          </div>-->
+          <!--          <div >
+                      <div class="workshop-list-none">
+                        <code> {{ $t('noSearchResults') }}</code>
+                      </div>
+                    </div>-->
         </div>
       </div>
     </div>
-    <div v-if="isCalendar"  :key="this.display" >
-      <div :key="this.filter" >
-        <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
-        <div id="pretix-container" class="pretix-content">
-          <div v-show="selectedEvent.length !== 0" >
-            <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage"
-                           :list-type="this.calenderDisplayOnChange(this.display)"
-                           :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
-          </div>
-          <div v-show="selectedEvent.length === 0" >
-            <pretix-widget name="pretix"
-                           :list-type="this.calenderDisplayOnChange(this.display)"
-                           event="https://pretix.eu/grandgarage"
-            ></pretix-widget>
-          </div>
-          <noscript>
-            <div class="pretix-widget">
-              <div class="pretix-widget-info-message">
-                JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
-                please <a target="_blank" href="https://pretix.eu/grandgarage">click here</a>.
-              </div>
-            </div>
-          </noscript>
+    <div v-show="isCalendar" :key="this.filter">
+      <script type="text/javascript" src="https://pretix.eu/widget/v1.de.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://pretix.eu/demo/democon/widget/v1.css">
+      <div id="pretix-container" class="pretix-content">
+        <div v-show="selectedEvent.length !== 0" >
+          <pretix-widget id="pretix" name="pretix" event="https://pretix.eu/grandgarage"
+                         data-style="week"
+                         :filter=this.formatPretixCategoryRequest(this.filter)></pretix-widget>
         </div>
+        <div v-show="selectedEvent.length === 0" >
+          <pretix-widget name="pretix"
+                         event="https://pretix.eu/grandgarage"
+          ></pretix-widget>
+        </div>
+        <noscript>
+          <div class="pretix-widget">
+            <div class="pretix-widget-info-message">
+              JavaScript is disabled in your browser. To access our ticket shop without JavaScript,
+              please <a target="_blank" href="https://pretix.eu/grandgarage">click here</a>.
+            </div>
+          </div>
+        </noscript>
       </div>
     </div>
   </section>
@@ -114,33 +111,24 @@ export default {
       loading: false,
       search: '',
       workshops: [],
-      pretixWorkshops: [],
+      tmpWorkshop: [],
       tags: [],
       tagsCollapsed: false,
       fullWorkshops: [],
       selectedEvent: '',
       filteredWorkshops: [],
       filter: '',
+      events: [],
       noResults: false,
-      isCalendar: false, // false = grid , true = calender,
-      windowWidth: Infinity,
-      display: 'calendar'
+      isCalendar: false // false = grid , true = calender
     }
   },
-  mounted () {
-    this.$nextTick(() => {
-      window.addEventListener('resize', this.onResize)
-    })
-    this.onResize()
-  },
   created () {
-    this.addPretixToStoryblok()
+    // this.getPretixData()
+
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.onResize)
   },
   watch: {
     search () {
@@ -149,22 +137,25 @@ export default {
     }
   },
   methods: {
-    onResize () {
-      this.windowWidth = window.innerWidth
-      if (this.windowWidth <= 1200) {
-        this.display = 'week'
-      } else {
-        this.display = 'calendar'
-      }
+    filterByDates () {
+      const newWorkshop = []
+      this.workshops.forEach((item) => {
+            if (item.content.pretix_shortform && item.content.category !== 'makemas') {
+              newWorkshop.push(item)
+            }
+          }
+      )
+      this.workshops = newWorkshop
+      return newWorkshop
     },
     filterByDate () {
-      this.pretixWorkshops.forEach((item) => {
+      this.events.forEach((item) => {
       })
     },
 
     addPretixToStoryblok () {
       this.workshops.forEach((item) => {
-        this.pretixWorkshops.forEach((pretixItem) => {
+        this.events.forEach((pretixItem) => {
           if (item.content.pretix_shortform && item.content.pretix_shortform === pretixItem[0].slug) {
             const lastItem = pretixItem[pretixItem.length - 1]
             const startDate = moment(lastItem.date_from)
@@ -206,10 +197,10 @@ export default {
     },
     filterWorkshopsBySearch () {
       this.filteredWorkshops = []
-      this.fullWorkshops.forEach((item) => {
-        if (item.blok.content.title.includes(this.search)) {
+      this.workshops.forEach((item) => {
+        if (item.content.title.includes(this.search)) {
           if (this.filter !== '') {
-            if (item.blok.content.category === this.filter) {
+            if (item.content.category === this.filter) {
               this.filteredWorkshops.push(item)
             } else {
               this.noResults = true
@@ -236,9 +227,6 @@ export default {
     },
     formatPretixCategoryRequest ($category) {
       return 'attr[Kategorie]=' + escape($category)
-    },
-    calenderDisplayOnChange ($displayType) {
-      return $displayType
     }
   },
   computed: {
@@ -250,6 +238,9 @@ export default {
           }
         }
       }
+    },
+    workshopData () {
+      return this.filterByDates()
     }
   },
   async asyncData  (context) {
@@ -266,14 +257,7 @@ export default {
       }
       return { workshops: [] }
     })
-    const pretixWorkshops = await context.store.dispatch('getPretixEvents').then((data) => {
-      if (data) {
-        return { pretixWorkshops: data }
-      } else {
-        return { pretixWorkshops: [] }
-      }
-    })
-    return { ...workshops, ...pretixWorkshops }
+    return { ...workshops }
   }
 }
 </script>

@@ -1,7 +1,6 @@
 <template>
   <section class="workshop-overview">
-
-    <div >
+    <div  >
       <!--      <div class="search">
               <input type="text" :placeholder="[[ $t('searchForWorkshopsAndEvents') ]]" v-model="search">
             </div>-->
@@ -10,22 +9,22 @@
           <transition-group name="list">
             <workshop-list-item
                 v-for="item in filteredWorkshops"
-                :blok="item.blok"
-                :pretix="item.pretix"
-                :key="item.blok.id"
+                :blok="item"
+                :pretix="null"
+                :key="item.id"
                 class="list-item"
                 :slim="false"
             ></workshop-list-item>
           </transition-group>
         </div>
         <div >
-          <div v-if="fullWorkshops && fullWorkshops.length > 0 && !noResults" class="workshop-list">
+          <div v-if="workshops && workshops.length > 0 && !noResults" class="workshop-list">
             <transition-group name="list">
               <workshop-list-item
-                  v-for="item in fullWorkshops"
-                  :blok="item.blok"
-                  :pretix="item.pretix"
-                  :key="item.blok.id"
+                  v-for="item in workshops"
+                  :blok="item"
+                  :pretix="null"
+                  :key="item.id"
                   class="list-item"
                   :slim="false"
               ></workshop-list-item>
@@ -59,6 +58,7 @@ export default {
       loading: false,
       search: '',
       workshops: [],
+      tmpWorkshop: [],
       tags: [],
       tagsCollapsed: false,
       fullWorkshops: [],
@@ -71,6 +71,8 @@ export default {
     }
   },
   created () {
+    // this.getPretixData()
+
     this.$watch('categories', (newVal, oldVal) => {
       this.updateFilter()
     }, { deep: true })
@@ -82,49 +84,23 @@ export default {
     }
   },
   methods: {
-    async getPretixData () {
-      const events = await this.$store.dispatch('getPretixEvents')
-      this.events = events
-      this.addPretixToStoryblok()
-      //  this.mergeEventsByType()
-      // this.filterByDate()
-      //  this.addPretixToStoryblok()
-    },
     filterByDate () {
       this.events.forEach((item) => {
       })
     },
-    mergeEventsByType () {
-      const workshopList = []
-      const slug = ''
-      this.events.forEach((item) => {
-        if (slug !== item.slug) {
-          workshopList.push(this.findAllByType(item.slug))
-        }
-      })
-      console.log(workshopList)
-    },
-    findAllByType (slug) {
-      const subEvents = []
-      this.events.forEach((item) => {
-        if (slug === item.slug) {
-          subEvents.push(item)
-        } else {
-          if (subEvents.length > 0) {
-            return subEvents
-          }
-        }
-      })
-      return subEvents
-    },
+
     addPretixToStoryblok () {
       this.workshops.forEach((item) => {
         this.events.forEach((pretixItem) => {
           if (item.content.pretix_shortform && item.content.pretix_shortform === pretixItem[0].slug) {
-            this.fullWorkshops.push({
-              blok: item,
-              pretix: pretixItem
-            })
+            const lastItem = pretixItem[pretixItem.length - 1]
+            const startDate = moment(lastItem.date_from)
+            if (startDate != null && startDate.isAfter(moment())) {
+              this.fullWorkshops.push({
+                blok: item,
+                pretix: pretixItem
+              })
+            }
           }
         })
       })
@@ -157,10 +133,10 @@ export default {
     },
     filterWorkshopsBySearch () {
       this.filteredWorkshops = []
-      this.fullWorkshops.forEach((item) => {
-        if (item.blok.content.title.includes(this.search)) {
+      this.workshops.forEach((item) => {
+        if (item.content.title.includes(this.search)) {
           if (this.filter !== '') {
-            if (item.blok.content.category === this.filter) {
+            if (item.content.category === this.filter) {
               this.filteredWorkshops.push(item)
             } else {
               this.noResults = true
@@ -198,6 +174,9 @@ export default {
           }
         }
       }
+    },
+    workshopData () {
+      return this.filterByDates()
     }
   },
   async asyncData  (context) {
@@ -215,9 +194,6 @@ export default {
       return { workshops: [] }
     })
     return { ...workshops }
-  },
-  mounted () {
-    this.getPretixData()
   }
 }
 </script>
