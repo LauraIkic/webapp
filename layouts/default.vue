@@ -32,7 +32,6 @@ import Sidebar from '~/components/Sidebar.vue'
 import CookieManager from '../components/CookieManager'
 
 export default {
-  name: 'default',
   data: () => ({
     modalVisible: false
   }),
