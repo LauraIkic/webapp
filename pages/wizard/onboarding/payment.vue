@@ -79,10 +79,10 @@
           <input class="checkbox" type="checkbox"
                  :checked="onboardingData.payment.agb"
                  v-model="onboardingData.payment.agb" >
-          <label class="text-content" >{{ $t('iHaveReadThe') }} <nuxt-link
+          <p class="text" style="max-width: 600px"> {{ $t('iHaveReadThe') }}&nbsp;<nuxt-link
               target="_blank"
               to="/de/agb"
-          >{{ $t('conditionsOfParticipation') }} </nuxt-link> {{ $t('andAcceptTheTermsAndConditions') }}</label>
+          > {{ $t('conditionsOfParticipation') }} </nuxt-link>&nbsp;{{ $t('andAcceptTheTermsAndConditions') }}</p>
         </div>
       </div>
       <div class="form-item">
@@ -91,10 +91,10 @@
           <input class="checkbox" type="checkbox"
                  :checked="onboardingData.payment.privacyPolicy"
                  v-model="onboardingData.payment.privacyPolicy" >
-          <label class="text-content">{{ $t('iHaveReadThe') }} <nuxt-link
+          <p class="text" style="max-width: 600px">{{ $t('iHaveReadThe') }}&nbsp; <nuxt-link
               target="_blank"
               to="/de/datenschutzerklaerung"
-          >{{ $t('dataPrivacyPolicy') }}</nuxt-link> {{ $t('andAcceptTheTermsAndConditions') }}</label>
+          >{{ $t('dataPrivacyPolicy') }}</nuxt-link>&nbsp; {{ $t('andAcceptTheTermsAndConditions') }}</p>
         </div>
       </div>
     </form>
@@ -220,16 +220,21 @@ export default {
 
 .form-item {
   .text {
-    margin: 0;
-    margin-top: 4px;
+    //margin: 0;
+    margin-top: 3px;
+    margin-bottom: 10px;
     //max-width: 100px;
     font-weight: lighter;
     text-transform: none;
     font-size: 1.0em;
+    display: flex;
+    align-items: flex-start;
+
   }
   .checkbox-wrapper {
     padding-right: 20px;
     margin-right: 0;
+    padding: 3px;
     //margin-bottom: 0;
     display: flex;
     .checkbox {
@@ -238,18 +243,23 @@ export default {
       //align-items: center;
       //vertical-align: middle;
       //line-height: normal;
-      max-width: 15px;
-      max-height: 15px;
+      max-width: 13px;
+      max-height: 13px;
       margin-right: 5px;
+      margin-top: 3px;
     }
     .text {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
+      //justify-content: center;
+      //align-items: center;
+      //margin: 0;
       font-weight: lighter;
       text-transform: none;
       font-size: .7em;
+      margin-top: 3px;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
 
     }
   }
@@ -274,6 +284,8 @@ export default {
     //display: flex;
     justify-content: end;
     //align-self: flex-end;
+    margin: 6px 10px 4px 0px;
+    //margin-left: 0px;
   }
   .text-content {
     align-self: flex-end;
@@ -287,9 +299,9 @@ export default {
     outline: none;
     flex-grow: 1;
     padding: 5px 10px;
-    @include media-breakpoint-down(xs) {
-      margin: 1vh 0;
-    }
+    //@include media-breakpoint-down(xs) {
+    //  margin: 1vh 0;
+    //}
     background: #fff;
     border: 1px solid #fff;
     width: 100%;
