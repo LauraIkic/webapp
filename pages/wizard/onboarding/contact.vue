@@ -298,24 +298,24 @@ export default {
   .checkbox-wrapper {
     padding-right: 20px;
     margin-right: 0;
+    padding: 3px;
     //margin-bottom: 0;
     display: flex;
     .checkbox {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      vertical-align: middle;
-      line-height: normal;
-      max-width: 30px;
+      max-width: 13px;
+      max-height: 13px;
+      margin-right: 5px;
+      margin-top: 3px;
     }
     .text {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
       font-weight: lighter;
       text-transform: none;
       font-size: .7em;
+      margin-top: 3px;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
   }
   input {
