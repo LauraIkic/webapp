@@ -4,7 +4,7 @@
       <div class="form-item" style="margin-top: 20px">
         <span class="label">{{ $t('dateOfBirth') }}<span class="red">*</span></span>
         <div>
-        <input class="input-text" ref="firstInput" type="date" min="1900-01-01"
+        <input class="input-text" ref="firstInput" type="date" min="1900-01-01" max='2023-01-01'
                v-model="onboardingData.contactInformation.birthdate"
                name=""
                @change="checkBirthdate"/>
