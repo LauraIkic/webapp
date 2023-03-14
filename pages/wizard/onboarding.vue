@@ -160,7 +160,8 @@ export default {
           accountOwner: null,
           accountOwnerLegalAge: false,
           privacyPolicy: false,
-          ibanIsValid: false
+          ibanIsValid: false,
+          startDate: new Date().toISOString().split('T')[0]
         },
         profile: {
           address: null,
@@ -220,7 +221,7 @@ export default {
           }
           // if no company member
           if (membershipType === MemberType.member) {
-            if (data.payment.agb && data.payment.privacyPolicy && data.payment.sepaMandat && data.payment.ibanIsValid && data.payment.accountOwnerLegalAge && data.payment.accountOwner && data.payment.membership) {
+            if (data.payment.agb && data.payment.privacyPolicy && data.payment.sepaMandat && data.payment.ibanIsValid && data.payment.accountOwnerLegalAge && data.payment.accountOwner && data.payment.membership && data.payment.startDate) {
               return false
             }
           }
@@ -477,12 +478,15 @@ export default {
         // eslint-disable-next-line camelcase
         //const fabman_memberNumber = r.memberNumber
         let packageData = null
+        // private member
         if (memberType === MemberType.member) {
           packageData = {
             memberId: r.id,
-            id: this.onboardingData.payment.membership.id
+            id: this.onboardingData.payment.membership.id,
+            startDate: this.onboardingData.payment.startDate
           }
         } else {
+          // company member
           packageData = {
             memberId: r.id,
             id: this.onboardingData.contactInformation.company.metadata.attendees_package_id
