@@ -64,7 +64,6 @@ export default {
 }
 
 .extra-item {
-  background-color: #eee;
   display: inline-block;
   margin: 0 0 2em;
   width: 100%;

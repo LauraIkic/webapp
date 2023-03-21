@@ -179,14 +179,15 @@ const createStore = () => {
           this.$sentry.captureException(err)
         })
       },
-      getUserMetadata ({ state }) {
-        const id = state.member.id
-        return connector.get(`v1/fabman/members/${id}/metadata`).then((r) => {
-          return r
-        }).catch((err) => {
-          this.$sentry.captureException(err)
-        })
-      },
+      //@deprecated
+      // getUserMetadata ({ state }) {
+      //   const id = state.member.id
+      //   return connector.get(`v1/fabman/members/${id}/metadata`).then((r) => {
+      //     return r
+      //   }).catch((err) => {
+      //     this.$sentry.captureException(err)
+      //   })
+      // },
       getBookedWorkshops () {
         return connector.post('member/bookedWorkshops').then((r) => {
           return r.data
@@ -234,14 +235,15 @@ const createStore = () => {
       workshopStorno ({ state }, data) {
         return connector.post('/member/workshopStorno', data)
       },
-      async getCredits ({ state }) {
-        const res = await connector.get('/v1/members/getCredits')
-        return res.data
-      },
-      async getCreditsLog ({ state }) {
-        const res = await connector.get('/v1/members/getCreditsLog')
-        return res.data
-      },
+      //@deprecated
+      // async getCredits ({ state }) {
+      //   const res = await connector.get('/v1/members/getCredits')
+      //   return res.data
+      // },
+      // async getCreditsLog ({ state }) {
+      //   const res = await connector.get('/v1/members/getCreditsLog')
+      //   return res.data
+      // },
       startTransaction ({ state }, data) {
         // Returns payrexx checkout link
         return axios.post(connectorBaseUrl + '/payrexx/checkout', data)
@@ -288,12 +290,13 @@ const createStore = () => {
         const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
         return res.data
       },
-      async setPackageOnboarding ({ state }, data) {
-        const id = data.memberId
-        //const req = data.req
-        const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
-        return res.data
-      },
+      // TODO delete (package set in create member, security fix)
+      // async setPackageOnboarding ({ state }, data) {
+      //   const id = data.memberId
+      //   //const req = data.req
+      //   const res = await connector.post(`v1/fabman/members/${id}/packages`, data)
+      //   return res.data
+      // },
       async uploadImage ({ state }, data) {
         const res = await connector.post('v1/files/image', data)
         //console.log(res)
